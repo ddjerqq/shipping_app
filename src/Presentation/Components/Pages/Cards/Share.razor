@@ -1,0 +1,84 @@
+﻿@using Application.Common
+@using Domain.Aggregates
+@using Domain.Common
+
+<Card>
+    <Header>
+        <Title>Share this document</Title>
+        <Description>Anyone with the link can view this document.</Description>
+    </Header>
+    <Content>
+        <div class="flex space-x-2">
+            <FormInput Value="https://example.com/link/to/document" readonly/>
+            <CopyButton Variant="secondary" Class="shrink-0" Content="https://example.com/link/to/document">
+                Copy Link
+            </CopyButton>
+        </div>
+        <Separator class="my-4"/>
+        <div class="space-y-4">
+            <h4 class="text-sm font-medium">People with access</h4>
+            <div class="grid gap-6">
+                @foreach (var user in Users)
+                {
+                    <div class="flex items-center justify-between space-x-4">
+                        <div class="flex items-center space-x-4">
+                            <Avatar>
+                                <AvatarImage Src="@ClaimsPrincipalExt.GetDefaultAvatar(user.UserName)" Alt="@($"{user.UserName}'s avatar")"/>
+                                <AvatarFallback>@user.UserName!.Initials()</AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <p class="text-sm font-medium leading-none">
+                                    @user.UserName
+                                </p>
+                                <p class="text-muted-foreground text-sm">
+                                    @user.Email
+                                </p>
+                            </div>
+                        </div>
+                        <select id="permissions" class="@(Button.GetButtonClass(Tw, "outline", @class: "outline-none appearance-none"))">
+                            @foreach (var permission in Permissions)
+                            {
+                                <option value="@permission.Key">
+                                    @permission.Value
+                                </option>
+                            }
+                        </select>
+                    </div>
+                }
+            </div>
+        </div>
+    </Content>
+</Card>
+
+@code {
+    private static readonly Dictionary<string, string> Permissions = new()
+    {
+        ["view"] = "Can view",
+        ["edit"] = "Can edit",
+    };
+
+    private static readonly User[] Users =
+    [
+        new()
+        {
+            Id = UserId.New(),
+            UserName = "Olivia Martin",
+            Email = "m@example.com",
+            PersonalId = "01001000001",
+        },
+        new()
+        {
+            Id = UserId.New(),
+            UserName = "Isabella Nguyen",
+            Email = "b@example.com",
+            PersonalId = "01001000001",
+        },
+        new()
+        {
+            Id = UserId.New(),
+            UserName = "Sofia Davis",
+            Email = "p@example.com",
+            PersonalId = "01001000001",
+        },
+    ];
+}

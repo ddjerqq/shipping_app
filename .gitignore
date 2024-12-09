@@ -33,6 +33,7 @@ msbuild.wrn
 .idea
 .vs
 
+.aspnet/dp/*.xml
 .aspnet/https/*.pem
 .aspnet/https/*.key
 .aspnet/https/*.crt
