@@ -3,19 +3,20 @@ using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
 using Generated;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Interceptors;
-using Persistence.ValueConverters;
 
 namespace Persistence;
 
 public sealed class AppDbContext(
     DbContextOptions<AppDbContext> options,
     ConvertDomainEventsToOutboxMessagesInterceptor convertDomainEventsToOutboxMessagesInterceptor)
-    : DbContext(options), IAppDbContext
+    : IdentityDbContext<User, IdentityRole<UserId>, UserId>(options), IAppDbContext
 {
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
-    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -34,13 +35,18 @@ public sealed class AppDbContext(
     {
         builder.ConfigureGeneratedConverters();
 
-        builder
-            .Properties<DateTime>()
-            .HaveConversion<DateTimeUtcValueConverter>();
+        var types =
+            from Type type in Assembly.GetAssembly(typeof(AppDbContext))!.GetTypes()
+            let baseType = type.BaseType
+            where baseType?.IsGenericType ?? false
+            where baseType?.GetGenericTypeDefinition() == typeof(ValueConverter<,>)
+            let propertyType = baseType.GetGenericArguments().First()
+            select (propertyType, type);
 
-        builder
-            .Properties<Ulid>()
-            .HaveConversion<UlidToStringConverter>();
+        foreach (var (propertyType, converterType) in types)
+            builder
+                .Properties(propertyType)
+                .HaveConversion(converterType);
 
         base.ConfigureConventions(builder);
     }
@@ -49,10 +55,9 @@ public sealed class AppDbContext(
     {
         foreach (var entity in builder.Model.GetEntityTypes())
         {
-            var entityTableName = entity.GetTableName()!
-                .Replace("AspNet", string.Empty)
-                .TrimEnd('s')
-                .ToSnakeCase();
+            var entityTableName = entity.GetTableName()!;
+            entityTableName = entityTableName.Contains("AspNet") ? entityTableName.Replace("AspNet", string.Empty).TrimEnd('s') : entityTableName;
+            entityTableName = entityTableName.ToSnakeCase();
 
             entity.SetTableName(entityTableName);
 

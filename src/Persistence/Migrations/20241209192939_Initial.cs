@@ -1,0 +1,380 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Persistence.Migrations
+{
+    /// <inheritdoc />
+    public partial class Initial : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "outbox_messages",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    type = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    content = table.Column<string>(type: "TEXT", maxLength: 2048, nullable: false),
+                    occured_on = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    processed_on = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    error = table.Column<string>(type: "TEXT", maxLength: 1024, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_outbox_messages", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "race",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    origin = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    destination = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    start = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    arrival = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    created = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    created_by = table.Column<string>(type: "TEXT", nullable: true),
+                    last_modified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    last_modified_by = table.Column<string>(type: "TEXT", nullable: true),
+                    deleted = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    deleted_by = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_race", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "role",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    normalized_name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_role", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    personal_id = table.Column<string>(type: "TEXT", maxLength: 11, nullable: false),
+                    user_name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    normalized_user_name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    normalized_email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    email_confirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    password_hash = table.Column<string>(type: "TEXT", nullable: true),
+                    security_stamp = table.Column<string>(type: "TEXT", nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "TEXT", nullable: true),
+                    phone_number = table.Column<string>(type: "TEXT", nullable: true),
+                    phone_number_confirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    two_factor_enabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    lockout_end = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    lockout_enabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    access_failed_count = table.Column<int>(type: "INTEGER", nullable: false),
+                    created = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    created_by = table.Column<string>(type: "TEXT", nullable: true),
+                    last_modified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    last_modified_by = table.Column<string>(type: "TEXT", nullable: true),
+                    deleted = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    deleted_by = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_user", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "role_claim",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    role_id = table.Column<string>(type: "TEXT", nullable: false),
+                    claim_type = table.Column<string>(type: "TEXT", nullable: true),
+                    claim_value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_role_claim", x => x.id);
+                    table.ForeignKey(
+                        name: "f_k_role_claim_role_role_id",
+                        column: x => x.role_id,
+                        principalTable: "role",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "package",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    origin = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    destination = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    tracking_code = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    category = table.Column<int>(type: "INTEGER", nullable: false),
+                    description = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
+                    website_address = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    retail_price = table.Column<string>(type: "TEXT", nullable: false),
+                    house_delivery = table.Column<bool>(type: "INTEGER", nullable: false),
+                    owner_id = table.Column<string>(type: "TEXT", nullable: false),
+                    dimensions = table.Column<string>(type: "TEXT", nullable: true),
+                    weight_grams = table.Column<double>(type: "REAL", nullable: true),
+                    is_paid = table.Column<bool>(type: "INTEGER", nullable: false),
+                    race_id = table.Column<string>(type: "TEXT", nullable: true),
+                    created = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    created_by = table.Column<string>(type: "TEXT", nullable: true),
+                    last_modified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    last_modified_by = table.Column<string>(type: "TEXT", nullable: true),
+                    deleted = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    deleted_by = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_package", x => x.id);
+                    table.ForeignKey(
+                        name: "f_k_package__asp_net_users_owner_id",
+                        column: x => x.owner_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "f_k_package__race_race_id",
+                        column: x => x.race_id,
+                        principalTable: "race",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_claim",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    user_id = table.Column<string>(type: "TEXT", nullable: false),
+                    claim_type = table.Column<string>(type: "TEXT", nullable: true),
+                    claim_value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_user_claim", x => x.id);
+                    table.ForeignKey(
+                        name: "f_k_user_claim_user_user_id",
+                        column: x => x.user_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_login",
+                columns: table => new
+                {
+                    login_provider = table.Column<string>(type: "TEXT", nullable: false),
+                    provider_key = table.Column<string>(type: "TEXT", nullable: false),
+                    provider_display_name = table.Column<string>(type: "TEXT", nullable: true),
+                    user_id = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_user_login", x => new { x.login_provider, x.provider_key });
+                    table.ForeignKey(
+                        name: "f_k_user_login_user_user_id",
+                        column: x => x.user_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_role",
+                columns: table => new
+                {
+                    user_id = table.Column<string>(type: "TEXT", nullable: false),
+                    role_id = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_user_role", x => new { x.user_id, x.role_id });
+                    table.ForeignKey(
+                        name: "f_k_user_role_role_role_id",
+                        column: x => x.role_id,
+                        principalTable: "role",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "f_k_user_role_user_user_id",
+                        column: x => x.user_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_token",
+                columns: table => new
+                {
+                    user_id = table.Column<string>(type: "TEXT", nullable: false),
+                    login_provider = table.Column<string>(type: "TEXT", nullable: false),
+                    name = table.Column<string>(type: "TEXT", nullable: false),
+                    value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_user_token", x => new { x.user_id, x.login_provider, x.name });
+                    table.ForeignKey(
+                        name: "f_k_user_token_user_user_id",
+                        column: x => x.user_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "package_reception_status",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "TEXT", nullable: false),
+                    status = table.Column<int>(type: "INTEGER", nullable: false),
+                    date = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    package_id = table.Column<string>(type: "TEXT", nullable: false),
+                    user_id = table.Column<string>(type: "TEXT", nullable: true),
+                    created = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    created_by = table.Column<string>(type: "TEXT", nullable: true),
+                    last_modified = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    last_modified_by = table.Column<string>(type: "TEXT", nullable: true),
+                    deleted = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    deleted_by = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("p_k_package_reception_status", x => x.id);
+                    table.ForeignKey(
+                        name: "f_k_package_reception_status_package_package_id",
+                        column: x => x.package_id,
+                        principalTable: "package",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "f_k_package_reception_status_user_user_id",
+                        column: x => x.user_id,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_package_owner_id",
+                table: "package",
+                column: "owner_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_package_race_id",
+                table: "package",
+                column: "race_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_package_reception_status_package_id",
+                table: "package_reception_status",
+                column: "package_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_package_reception_status_user_id",
+                table: "package_reception_status",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "role_name_index",
+                table: "role",
+                column: "normalized_name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_role_claim_role_id",
+                table: "role_claim",
+                column: "role_id");
+
+            migrationBuilder.CreateIndex(
+                name: "email_index",
+                table: "user",
+                column: "normalized_email");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_user_personal_id",
+                table: "user",
+                column: "personal_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "user_name_index",
+                table: "user",
+                column: "normalized_user_name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_user_claim_user_id",
+                table: "user_claim",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_user_login_user_id",
+                table: "user_login",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_user_role_role_id",
+                table: "user_role",
+                column: "role_id");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "outbox_messages");
+
+            migrationBuilder.DropTable(
+                name: "package_reception_status");
+
+            migrationBuilder.DropTable(
+                name: "role_claim");
+
+            migrationBuilder.DropTable(
+                name: "user_claim");
+
+            migrationBuilder.DropTable(
+                name: "user_login");
+
+            migrationBuilder.DropTable(
+                name: "user_role");
+
+            migrationBuilder.DropTable(
+                name: "user_token");
+
+            migrationBuilder.DropTable(
+                name: "package");
+
+            migrationBuilder.DropTable(
+                name: "role");
+
+            migrationBuilder.DropTable(
+                name: "user");
+
+            migrationBuilder.DropTable(
+                name: "race");
+        }
+    }
+}

@@ -1,12 +1,11 @@
 using System.Numerics;
 using System.Text.Json;
-using Application.Common;
 using Application.JsonConverters;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
 
-namespace UnitTests.Entities;
+namespace UnitTests.Packages;
 
 public sealed class PackageTests
 {
@@ -19,7 +18,6 @@ public sealed class PackageTests
             UserName = "staff origin",
             Email = "staff@origin.com",
             PersonalId = "01001000000",
-            AvatarUrl = ClaimsPrincipalExt.GetDefaultAvatar("staff-origin"),
         };
 
         var staffDestination = new User
@@ -28,7 +26,6 @@ public sealed class PackageTests
             UserName = "staff destination",
             Email = "staff@destination.com",
             PersonalId = "01001000000",
-            AvatarUrl = ClaimsPrincipalExt.GetDefaultAvatar("staff-destination"),
         };
 
         var sender = new User
@@ -37,7 +34,6 @@ public sealed class PackageTests
             UserName = "sender",
             Email = "sender@gmail.com",
             PersonalId = "01001000000",
-            AvatarUrl = ClaimsPrincipalExt.GetDefaultAvatar("sender"),
         };
 
         var originTime = new DateTimeOffset(2024, 11, 11, 0, 0, 0, TimeSpan.FromHours(-5));

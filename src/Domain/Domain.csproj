@@ -21,10 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Aggregates\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\..\source_generators\StrongIdGenerator\StrongIdGenerator.csproj"
                           OutputItemType="Analyzer"
                           ReferenceOutputAssembly="false"/>

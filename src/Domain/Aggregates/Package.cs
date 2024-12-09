@@ -1,11 +1,11 @@
 using System.Numerics;
 using Domain.Abstractions;
-using Domain.Aggregates;
+using Domain.Entities;
 using Domain.Events;
 using Domain.ValueObjects;
 using Generated;
 
-namespace Domain.Entities;
+namespace Domain.Aggregates;
 
 [StrongId]
 public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
@@ -105,6 +105,9 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
         RaceId = race.Id;
         Race = race;
+
+        race.Packages.Add(this);
+
         UpdateStatus(PackageReceptionStatus.InTransit(this, sentBy, date));
         AddDomainEvent(new PackageSentToDestination(Id, sentBy.Id, race.Id, date));
     }
