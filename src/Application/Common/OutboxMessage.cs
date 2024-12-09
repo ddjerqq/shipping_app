@@ -1,0 +1,39 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
+using Application.JsonConverters;
+using Destructurama.Attributed;
+using Domain.Abstractions;
+
+namespace Application.Common;
+
+public sealed class OutboxMessage
+{
+    public Ulid Id { get; init; } = Ulid.NewUlid();
+
+    [StringLength(128)]
+    public string Type { get; init; } = default!;
+
+    [LogMasked]
+    [StringLength(2048)]
+    public string Content { get; init; } = string.Empty;
+
+    public DateTimeOffset OccuredOn { get; init; }
+
+    public DateTimeOffset? ProcessedOn { get; set; }
+
+    [StringLength(1024)]
+    public string? Error { get; set; }
+
+    public static OutboxMessage FromDomainEvent(IDomainEvent domainEvent)
+    {
+        return new OutboxMessage
+        {
+            Id = Ulid.NewUlid(),
+            Type = domainEvent.GetType().Name,
+            Content = JsonSerializer.Serialize(domainEvent, ApplicationJsonConstants.Options.Value),
+            OccuredOn = DateTimeOffset.Now,
+            ProcessedOn = null,
+            Error = null,
+        };
+    }
+}
