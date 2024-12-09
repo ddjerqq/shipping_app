@@ -1,0 +1,95 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <NoWarn>CS1591,VSTHRD200</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>bin\Debug\net8.0\Presentation.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="dotenv.net" Version="3.2.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0"/>
+        <PackageReference Include="SerilogTracing.Instrumentation.AspNetCore" Version="2.3.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0"/>
+        <PackageReference Include="ZymLabs.NSwag.FluentValidation.AspNetCore" Version="0.7.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.0"/>
+        <PackageReference Include="Blazicons.Lucide" Version="1.1.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.0" />
+        <PackageReference Include="TailwindMerge.NET" Version="0.3.0"/>
+        <PackageReference Include="Blazored.Modal" Version="7.3.1"/>
+        <PackageReference Include="Blazored.Toast" Version="4.2.1"/>
+        <PackageReference Include="Blazored.FluentValidation" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <Using Include="BCrypt.Net.BCrypt" Alias="BC"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Layout\AppHeader.razor" />
+      <_ContentIncludedByDefault Remove="Layout\AuthStatus.razor" />
+      <_ContentIncludedByDefault Remove="Layout\MainLayout.razor" />
+      <_ContentIncludedByDefault Remove="Layout\Routes.razor" />
+      <_ContentIncludedByDefault Remove="Pages\404.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Auth\AuthLayout.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Auth\Login.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Auth\Register.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\CookieSettings.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\CreateAccount.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\DemoContainer.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\Github.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\Index.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\Notifications.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\PaymentMethod.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\ReportIssue.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\Share.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Cards\TeamMembers.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Dashboard\Index.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Dashboard\Overview.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Dashboard\RecentSales.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Index.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Layout\AppHeader.razor" />
+      <AdditionalFiles Include="Components\Layout\AuthStatus.razor" />
+      <AdditionalFiles Include="Components\Layout\MainLayout.razor" />
+      <AdditionalFiles Include="Components\Layout\Routes.razor" />
+      <AdditionalFiles Include="Components\Pages\404.razor" />
+      <AdditionalFiles Include="Components\Pages\Auth\AuthLayout.razor" />
+      <AdditionalFiles Include="Components\Pages\Auth\Login.razor" />
+      <AdditionalFiles Include="Components\Pages\Auth\Register.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\CookieSettings.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\CreateAccount.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\DemoContainer.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\Github.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\Index.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\Notifications.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\PaymentMethod.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\ReportIssue.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\Share.razor" />
+      <AdditionalFiles Include="Components\Pages\Cards\TeamMembers.razor" />
+      <AdditionalFiles Include="Components\Pages\Dashboard\Index.razor" />
+      <AdditionalFiles Include="Components\Pages\Dashboard\Overview.razor" />
+      <AdditionalFiles Include="Components\Pages\Dashboard\RecentSales.razor" />
+      <AdditionalFiles Include="Components\Pages\Index.razor" />
+    </ItemGroup>
+</Project>

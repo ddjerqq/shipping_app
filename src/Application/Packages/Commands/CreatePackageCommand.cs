@@ -1,6 +1,5 @@
 using Application.Services;
 using Domain.Aggregates;
-using Domain.Entities;
 using Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
