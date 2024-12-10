@@ -39,9 +39,8 @@
 
 
 @code {
-    private async Task SignOut()
+    private void SignOut()
     {
-        // await AuthenticationStateProvider.Logout();
-        Nav.NavigateTo("login", true);
+        Nav.NavigateTo("logout", true);
     }
 }

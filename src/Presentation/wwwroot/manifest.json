@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/web-manifest.json",
+  "theme_color": "#29db4d",
+  "background_color": "#31dd45",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "short_name": "home",
+      "description": "view home page",
+      "url": "/home"
+    },
+    {
+      "name": "Tomorrow's agenda",
+      "url": "/tomorrow"
+    }
+  ],
+  "categories": ["utilities", "online shopping", "shipping"],
+  "orientation": "portrait",
+  "display_override": ["fullscreen", "minimal-ui"],
+  "display": "standalone",
+  "dir": "ltr",
+  "lang": "en-US",
+  "name": "sangoway",
+  "short_name": "sangoway",
+  "start_url": "https://sangoway.com",
+  "id": "https://sangoway.com",
+  "description": "sangoway shipping tracking app",
+  "scope": "https://sangoway.com"
+}

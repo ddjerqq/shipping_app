@@ -1,21 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using Presentation.Components.Layout
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+    <title>ShippingApp</title>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <base href="/">
-    <title>ShippingApp</title>
+    @* TODO add this only after the feature is paid for *@
+    @* <link rel="manifest" href="manifest.jsonc"> *@
 
     <link href="Presentation.styles.css" rel="stylesheet" />
-    <link href="favicon.png" rel="icon" />
+    <link href="favicon.ico" rel="icon" />
     <link href="app.min.css" rel="stylesheet" />
-    <script src="scripts/app.js"></script>
+    <script src="scripts/util.js"></script>
 
-    <HeadOutlet @rendermode="InteractiveAuto" />
+    <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 <body>
 
-<Routes @rendermode="InteractiveAuto"/>
+<Routes @rendermode="InteractiveServer"/>
 
 <div id="blazor-error-ui">
     error detected, please
