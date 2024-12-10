@@ -14,7 +14,5 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
 
         services.AddScoped<IDateTimeProvider, UtcDateTimeProvider>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
-
-        services.AddTransient<IJwtGenerator, JwtGenerator>();
     }
 }

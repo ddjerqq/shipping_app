@@ -5,20 +5,16 @@ using Domain.Aggregates;
 using Domain.Common;
 using Domain.Entities;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
-using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Persistence;
-using Presentation.Components;
-using Presentation.Services;
 
-namespace Presentation.Config;
+namespace Infrastructure.Config;
 
 public sealed class ConfigureAuth : ConfigurationBase
 {
@@ -75,10 +71,8 @@ public sealed class ConfigureAuth : ConfigurationBase
             .AddPersonalDataProtection<ILookupProtector, ILookupProtectorKeyRing>()
             .AddDefaultTokenProviders();
 
-        // services.AddScoped<IUserStore<User>, UserStore<User, Role, AppDbContext, UserId>>();
-
         services.AddAuthorizationBuilder()
             .AddDefaultPolicy("default", policy => policy.RequireAuthenticatedUser())
-            .AddPolicy("is_elon", policy => policy.RequireClaim(ClaimsPrincipalExt.RoleClaimType, "elon"));
+            .AddPolicy("is_elon", policy => policy.RequireClaim(ClaimsPrincipalExt.UsernameClaimType, "elon"));
     }
 }

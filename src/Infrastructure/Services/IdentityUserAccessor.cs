@@ -1,9 +1,10 @@
 using Domain.Aggregates;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
-namespace Presentation.Services;
+namespace Infrastructure.Services;
 
-internal sealed class IdentityUserAccessor(UserManager<User> userManager, IdentityRedirectManager redirectManager)
+public sealed class IdentityUserAccessor(UserManager<User> userManager, IdentityRedirectManager redirectManager)
 {
     public async Task<User> GetRequiredUserAsync(HttpContext context)
     {

@@ -2,10 +2,10 @@ using Domain.Aggregates;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Presentation.Services;
+namespace Infrastructure.Services;
 
 // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
-internal sealed class IdentityNoOpEmailSender : IEmailSender<User>
+public sealed class IdentityNoOpEmailSender : IEmailSender<User>
 {
     private readonly IEmailSender _emailSender = new NoOpEmailSender();
 
