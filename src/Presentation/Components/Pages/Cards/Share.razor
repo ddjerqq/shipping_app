@@ -1,6 +1,9 @@
 ﻿@using Application.Common
 @using Domain.Aggregates
 @using Domain.Common
+@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Avatar
+@using Presentation.Components.Ui.Form
 
 <Card>
     <Header>
@@ -9,7 +12,7 @@
     </Header>
     <Content>
         <div class="flex space-x-2">
-            <FormInput Value="https://example.com/link/to/document" readonly/>
+            <FormInputText Value="https://example.com/link/to/document" readonly/>
             <CopyButton Variant="secondary" Class="shrink-0" Content="https://example.com/link/to/document">
                 Copy Link
             </CopyButton>

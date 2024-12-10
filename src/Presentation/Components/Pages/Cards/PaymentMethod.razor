@@ -1,4 +1,7 @@
-﻿<Card>
+﻿@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Form
+
+<Card>
     <Header>
         <Title>Payment Method</Title>
         <Description>Add a new payment method to your account.</Description>
@@ -26,12 +29,12 @@
 
         <div class="grid gap-2">
             <FormLabel for="name">Name</FormLabel>
-            <FormInput id="name" placeholder="First Last" />
+            <FormInputText id="name" placeholder="First Last" />
         </div>
 
         <div class="grid gap-2">
             <FormLabel for="number">Card number</FormLabel>
-            <FormInput id="number" placeholder="" />
+            <FormInputText id="number" placeholder="" />
         </div>
 
         <div class="grid grid-cols-3 gap-4">
@@ -63,7 +66,7 @@
             </div>
             <div class="grid gap-2">
                 <FormLabel for="cvc">CVC</FormLabel>
-                <FormInput id="cvc" placeholder="CVC" />
+                <FormInputText id="cvc" placeholder="CVC" />
             </div>
         </div>
     </Content>
