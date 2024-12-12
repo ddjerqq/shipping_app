@@ -2,8 +2,10 @@ using System.Reflection;
 using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
+using Domain.Entities;
+using EntityFrameworkCore.DataProtection.Extensions;
 using Generated;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -13,8 +15,9 @@ namespace Persistence;
 
 public sealed class AppDbContext(
     DbContextOptions<AppDbContext> options,
+    IDataProtectionProvider dataProtectionProvider,
     ConvertDomainEventsToOutboxMessagesInterceptor convertDomainEventsToOutboxMessagesInterceptor)
-    : DbContext(options), IAppDbContext
+    : IdentityDbContext<User, Role, UserId>(options), IAppDbContext
 {
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
@@ -22,6 +25,7 @@ public sealed class AppDbContext(
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.Load(nameof(Persistence)));
         base.OnModelCreating(builder);
+        builder.UseDataProtection(dataProtectionProvider);
         SnakeCaseRename(builder);
     }
 
@@ -73,55 +77,5 @@ public sealed class AppDbContext(
             foreach (var index in entity.GetIndexes())
                 index.SetDatabaseName(index.GetDatabaseName()!.ToSnakeCase());
         }
-    }
-
-    public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string?> GetUserNameAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task SetUserNameAsync(User user, string? userName, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string?> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task SetNormalizedUserNameAsync(User user, string? normalizedName, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> FindByIdAsync(string userId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
     }
 }

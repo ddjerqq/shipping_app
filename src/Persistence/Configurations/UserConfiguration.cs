@@ -1,4 +1,5 @@
 using Domain.Aggregates;
+using EntityFrameworkCore.DataProtection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,19 +10,11 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.Property(x => x.PersonalId)
+            .IsEncryptedQueryable(isUnique: true)
             .HasMaxLength(11);
 
         builder.HasIndex(x => x.PersonalId)
             .IsUnique();
-
-        // builder.Property<CultureInfo>()
-        //     .HasConversion(culture => culture.Name, name => new CultureInfo(name))
-        //     .HasMaxLength(6);
-
-        // builder.Property<IEdition>()
-        //     .HasConversion(e => EditionToString(e), s => StringToEdition(s))
-        //     .HasMaxLength(11);
-
     }
 
     // private static string EditionToString(IEdition edition) => edition switch

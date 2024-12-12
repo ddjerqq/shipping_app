@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Persistence;
 
 namespace Infrastructure.Config;
@@ -26,18 +27,14 @@ public sealed class ConfigureAuth : ConfigurationBase
         services.AddScoped<IEmailSender<User>, IdentityNoOpEmailSender>();
         services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
-        services.AddDataProtection()
-            .UseCryptographicAlgorithms(
-                new AuthenticatedEncryptorConfiguration
-                {
-                    EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
-                    ValidationAlgorithm = ValidationAlgorithm.HMACSHA256,
-                }
-            )
-            .SetApplicationName("shippingapp")
-            .PersistKeysToFileSystem(new DirectoryInfo("ASPNETCORE_DATAPROTECTION__PATH".FromEnvRequired()));
+        services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies();
 
-        services.AddIdentity<User, Role>(options =>
+        services.AddIdentityCore<User>(options =>
             {
                 options.ClaimsIdentity.UserIdClaimType = ClaimsPrincipalExt.IdClaimType;
                 options.ClaimsIdentity.UserNameClaimType = ClaimsPrincipalExt.UsernameClaimType;
@@ -62,13 +59,13 @@ public sealed class ConfigureAuth : ConfigurationBase
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedAccount = false;
-                options.Stores.ProtectPersonalData = true;
+                // store
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
             })
+            .AddSignInManager()
+            .AddRoles<Role>()
             .AddEntityFrameworkStores<AppDbContext>()
-            .AddUserStore<UserStore>()
-            .AddPersonalDataProtection<ILookupProtector, ILookupProtectorKeyRing>()
             .AddDefaultTokenProviders();
 
         services.AddAuthorizationBuilder()

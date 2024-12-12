@@ -29,6 +29,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _ = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        await UserAccessor.GetRequiredUserAsync(HttpContext);
     }
 }

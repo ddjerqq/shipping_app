@@ -59,7 +59,7 @@ public static class WebAppExt
 
         app.UseStaticFiles();
 
-        app.UseRouting();
+        // app.UseRouting();
         app.UseRateLimiter();
         app.UseRequestLocalization();
 
@@ -68,20 +68,16 @@ public static class WebAppExt
         app.UseAntiforgery();
         app.UseCustomHeaderMiddleware();
 
-        app.UseEndpoints(endpointBuilder =>
+        app.MapAdditionalIdentityEndpoints();
+
+        app.MapAppHealthChecks();
+        app.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode();
+
+        app.MapFallback(ctx =>
         {
-            endpointBuilder.MapAdditionalIdentityEndpoints();
-
-            endpointBuilder.MapAppHealthChecks();
-            endpointBuilder.MapRazorComponents<App>()
-                .AddInteractiveServerRenderMode()
-                .AddAdditionalAssemblies(typeof(_Imports).Assembly);
-
-            endpointBuilder.MapFallback(ctx =>
-            {
-                ctx.Response.Redirect($"/404?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
-                return Task.CompletedTask;
-            });
+            ctx.Response.Redirect($"/404?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
+            return Task.CompletedTask;
         });
     }
 
