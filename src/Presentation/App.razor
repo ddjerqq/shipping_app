@@ -14,11 +14,11 @@
     <link href="app.min.css" rel="stylesheet" />
     <script src="scripts/util.js"></script>
 
-    <HeadOutlet @rendermode="InteractiveServer" />
+    <HeadOutlet @rendermode="RenderModeForPage" />
 </head>
 <body>
 
-<Routes @rendermode="InteractiveServer"/>
+<Routes @rendermode="RenderModeForPage"/>
 
 <div id="blazor-error-ui">
     error detected, please
@@ -61,3 +61,12 @@
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 </html>
+
+@code {
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/account")
+        ? null
+        : InteractiveServer;
+}

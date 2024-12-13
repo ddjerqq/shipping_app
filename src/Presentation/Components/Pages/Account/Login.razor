@@ -1,0 +1,139 @@
+﻿@page "/Account/Login"
+
+@using System.ComponentModel.DataAnnotations
+@using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+
+@using Domain.Aggregates
+@using Presentation.Components.Ui.Form
+
+@inject SignInManager<User> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@inject IToastService Toast
+
+@attribute [AllowAnonymous]
+
+<PageTitle>Log in</PageTitle>
+
+<div class="flex flex-col space-y-2 text-start">
+    <h1 class="text-2xl font-semibold tracking-tight">
+        Log in to your account
+    </h1>
+</div>
+
+<div class="grid gap-6">
+    <AppForm @bind-Model="Input" OnValidSubmit="LoginUser" novalidate class="grid gap-4">
+        <FormField>
+            <FormLabel for="email">Email</FormLabel>
+            <FormInputText id="email"
+                           @bind-Value="@Input.Email"
+                           placeholder="name@example.com"
+                           type="email"
+                           required
+                           autocomplete="email"
+                           disabled="@IsLoading" />
+
+            <FormInvalidFeedback For="@(() => Input.Email)" />
+        </FormField>
+
+        <FormField>
+            <FormLabel for="password">Password</FormLabel>
+            <FormInputText id="password"
+                           @bind-Value="@Input.Password"
+                           placeholder="Enter password"
+                           type="password"
+                           required
+                           autocomplete="password"
+                           disabled="@IsLoading" />
+
+            <FormDescription>
+                <a href="/account/forgotPassword" class="underline underline-offset-4 hover:text-primary">Forgot password?</a>
+                <a href="/account/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">Resend email confirmation</a>
+            </FormDescription>
+
+            <FormInvalidFeedback For="@(() => Input.Password)" />
+        </FormField>
+
+        <Button type="submit" disabled="@IsLoading">
+            @if (IsLoading)
+            {
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin" />
+            }
+            Login
+        </Button>
+
+        <Button Href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" Variant="outline" disabled="@IsLoading">
+            @if (IsLoading)
+            {
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin" />
+            }
+            Register
+        </Button>
+    </AppForm>
+</div>
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    private bool IsLoading { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpContext is not null && HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
+    public async Task LoginUser()
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            Logger.LogInformation("User logged in.");
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else if (result.RequiresTwoFactor)
+        {
+            RedirectManager.RedirectTo(
+                "Account/LoginWith2fa",
+                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+        }
+        else if (result.IsLockedOut)
+        {
+            Logger.LogWarning("User account locked out.");
+            RedirectManager.RedirectTo("Account/Lockout");
+        }
+        else
+        {
+            Toast.ShowError("Error: Invalid login attempt.");
+        }
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+}
