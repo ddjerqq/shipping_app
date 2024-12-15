@@ -1,4 +1,5 @@
 ﻿@page "/Account/ResendEmailConfirmation"
+@attribute [AllowAnonymous]
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
@@ -12,6 +13,7 @@
 @inject IEmailSender<User> EmailSender
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+
 
 <PageTitle>Resend email confirmation</PageTitle>
 

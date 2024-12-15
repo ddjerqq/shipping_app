@@ -8,8 +8,8 @@ namespace Application.Packages.Commands;
 
 public sealed record CreatePackageCommand : IRequest<Package>
 {
-    public string Origin { get; init; } = default!;
-    public string Destination { get; init; } = default!;
+    public AbstractAddress Origin { get; init; } = default!;
+    public AbstractAddress Destination { get; init; } = default!;
 
     public TrackingCode? TrackingCode { get; init; }
     public Category Category { get; init; } = default!;

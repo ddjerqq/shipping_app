@@ -82,7 +82,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('autoprefixer'),
+    require('tailwindcss-animate')
+  ],
 };
 
 export default config;

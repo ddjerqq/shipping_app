@@ -9,8 +9,8 @@ namespace Presentation.Components.Ui.Form;
 
 public sealed class FormInputText : InputBase<string?>
 {
-    public string BaseClass =
-        "peer border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 " +
+    public const string BaseClass =
+        "peer border-input bg-background autofill:!bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 " +
         "w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none " +
         "focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 " +
         "[&.valid]:!border-green-400 [&.valid]:!ring-green-400 [&.valid]:!text-green-600";
@@ -29,7 +29,7 @@ public sealed class FormInputText : InputBase<string?>
         builder.OpenElement(0, "input");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrWhiteSpace(2, "name", NameAttributeValue);
-        builder.AddAttributeIfNotNullOrWhiteSpace(3, "class", Tw.Merge(BaseClass, CssClass, Class));
+        builder.AddAttributeIfNotNullOrWhiteSpace(3, "class", Tw.Merge(Class, BaseClass, CssClass));
         builder.AddAttribute(4, "value", CurrentValueAsString);
         builder.AddAttribute(5, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");

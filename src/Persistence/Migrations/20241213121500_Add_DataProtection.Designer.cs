@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -10,9 +11,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241213121500_Add_DataProtection")]
+    partial class Add_DataProtection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -88,9 +91,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Destination")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT")
-                        .HasColumnName("destination")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
+                        .HasColumnName("destination");
 
                     b.Property<string>("Dimensions")
                         .HasColumnType("TEXT")
@@ -114,9 +117,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Origin")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT")
-                        .HasColumnName("origin")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
+                        .HasColumnName("origin");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
@@ -169,12 +172,6 @@ namespace Persistence.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER")
                         .HasColumnName("access_failed_count");
-
-                    b.Property<string>("AddressInfo")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("address_info")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -375,9 +372,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Destination")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT")
-                        .HasColumnName("destination")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
+                        .HasColumnName("destination");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("TEXT")
@@ -395,9 +392,9 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Origin")
                         .IsRequired()
+                        .HasMaxLength(3)
                         .HasColumnType("TEXT")
-                        .HasColumnName("origin")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
+                        .HasColumnName("origin");
 
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("TEXT")

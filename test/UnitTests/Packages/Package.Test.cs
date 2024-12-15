@@ -18,6 +18,7 @@ public sealed class PackageTests
             UserName = "staff origin",
             Email = "staff@origin.com",
             PersonalId = "01001000000",
+            AddressInfo = new NoAddress(),
         };
 
         var staffDestination = new User
@@ -26,6 +27,7 @@ public sealed class PackageTests
             UserName = "staff destination",
             Email = "staff@destination.com",
             PersonalId = "01001000000",
+            AddressInfo = new NoAddress(),
         };
 
         var sender = new User
@@ -34,6 +36,7 @@ public sealed class PackageTests
             UserName = "sender",
             Email = "sender@gmail.com",
             PersonalId = "01001000000",
+            AddressInfo = new NoAddress(),
         };
 
         var originTime = new DateTimeOffset(2024, 11, 11, 0, 0, 0, TimeSpan.FromHours(-5));
@@ -42,15 +45,15 @@ public sealed class PackageTests
         var race = new Race(RaceId.New())
         {
             Name = "KAL82-KE82",
-            Origin = "JFK",
+            Origin = new AirportAddress("USA", "JFK"),
             Start = originTime,
-            Destination = "TBS",
+            Destination = new AirportAddress("GEO", "TBS"),
             Arrival = destTime.AddHours(8),
         };
 
         var package = Package.Create(
-            "JFK",
-            "TBS",
+            new AirportAddress("USA", "JFK"),
+            new AirportAddress("GEO", "TBS"),
             null,
             Category.Toy,
             "water blaster toy for kids",

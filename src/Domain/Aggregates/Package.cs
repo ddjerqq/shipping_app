@@ -13,8 +13,8 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public const decimal PricePerKg = 8;
     private readonly List<PackageReceptionStatus> _statuses = [];
 
-    public required string Origin { get; init; }
-    public required string Destination { get; init; }
+    public required AbstractAddress Origin { get; init; }
+    public required AbstractAddress Destination { get; init; }
 
     // user ordered package and declared the package
     public required TrackingCode TrackingCode { get; init; }
@@ -58,7 +58,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         }
     }
 
-    public static Package Create(string origin, string destination, TrackingCode? trackingCode, Category category, string description, WebAddress websiteAddress, Money retailPrice, bool houseDelivery, User sender)
+    public static Package Create(AbstractAddress origin, AbstractAddress destination, TrackingCode? trackingCode, Category category, string description, WebAddress websiteAddress, Money retailPrice, bool houseDelivery, User sender)
     {
         var packageId = PackageId.New();
         return new Package(packageId)

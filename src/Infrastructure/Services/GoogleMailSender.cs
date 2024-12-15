@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-public sealed class GoogleMailSender : IEmailSender
+public sealed class GoogleMailSender
 {
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;

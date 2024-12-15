@@ -1,7 +1,9 @@
 using System.Numerics;
 using Domain.Aggregates;
+using EntityFrameworkCore.DataProtection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Persistence.ValueConverters;
 
 namespace Persistence.Configurations;
 
@@ -9,8 +11,14 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
 {
     public void Configure(EntityTypeBuilder<Package> builder)
     {
-        builder.Property(x => x.Origin).HasMaxLength(3);
-        builder.Property(x => x.Destination).HasMaxLength(3);
+        builder.Property(x => x.Origin)
+            .HasConversion<AbstractAddressToStringConverter>()
+            .IsEncrypted();
+
+        builder.Property(x => x.Destination)
+            .HasConversion<AbstractAddressToStringConverter>()
+            .IsEncrypted();
+
         builder.Property(x => x.TrackingCode).HasMaxLength(32);
         // category
         builder.Property(x => x.Description).HasMaxLength(256);

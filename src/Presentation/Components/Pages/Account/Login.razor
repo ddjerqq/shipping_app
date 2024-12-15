@@ -1,18 +1,15 @@
-﻿@page "/Account/Login"
+﻿@page "/account/login"
 
-@using System.ComponentModel.DataAnnotations
-@using Blazored.Toast.Services
+@using Application.Cqrs.Users.Commands
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
-
-@using Domain.Aggregates
+@using MediatR
 @using Presentation.Components.Ui.Form
 
-@inject SignInManager<User> SignInManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-@inject IToastService Toast
+@inject IMediator Mediator
 
 @attribute [AllowAnonymous]
 
@@ -25,65 +22,88 @@
 </div>
 
 <div class="grid gap-6">
-    <AppForm @bind-Model="Input" OnValidSubmit="LoginUser" novalidate class="grid gap-4">
+    <AppForm @bind-Model="Command" OnValidSubmit="LoginUser" method="POST" FormName="login" novalidate class="grid gap-4">
         <FormField>
             <FormLabel for="email">Email</FormLabel>
             <FormInputText id="email"
-                           @bind-Value="@Input.Email"
+                           @bind-Value="@Command.Email"
                            placeholder="name@example.com"
                            type="email"
                            required
                            autocomplete="email"
-                           disabled="@IsLoading" />
+                           disabled="@IsLoading"/>
 
-            <FormInvalidFeedback For="@(() => Input.Email)" />
+            <FormInvalidFeedback For="@(() => Command.Email)"/>
         </FormField>
 
         <FormField>
             <FormLabel for="password">Password</FormLabel>
             <FormInputText id="password"
-                           @bind-Value="@Input.Password"
+                           @bind-Value="@Command.Password"
                            placeholder="Enter password"
                            type="password"
                            required
-                           autocomplete="password"
-                           disabled="@IsLoading" />
+                           autocomplete="current-password"
+                           disabled="@IsLoading"/>
 
-            <FormDescription>
-                <a href="/account/forgotPassword" class="underline underline-offset-4 hover:text-primary">Forgot password?</a>
-                <a href="/account/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">Resend email confirmation</a>
+            <FormDescription Class="w-full flex justify-between">
+                <a href="/account/forgotPassword" class="underline underline-offset-4 hover:text-primary">
+                    Forgot password?
+                </a>
+                <a href="/account/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
+                    Resend email confirmation
+                </a>
             </FormDescription>
 
-            <FormInvalidFeedback For="@(() => Input.Password)" />
+            <FormInvalidFeedback For="@(() => Command.Password)"/>
+        </FormField>
+
+        <FormField Class="flex-row">
+            <FormInputCheckbox
+                id="remember-me"
+                @bind-Value="@Command.RememberMe"
+                disabled="@IsLoading"/>
+
+            <FormLabel for="remember-me">
+                Remember me
+            </FormLabel>
         </FormField>
 
         <Button type="submit" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin" />
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
             }
             Login
         </Button>
 
-        <Button Href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))" Variant="outline" disabled="@IsLoading">
+        <Button
+            Href="@(NavigationManager.GetUriWithQueryParameters("account/register", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
+            Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin" />
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
             }
             Register
         </Button>
+
+        <span class="text-sm text-red-300 space-y-2 empty:hidden">
+            @_statusMessage
+        </span>
     </AppForm>
 </div>
 
 @code {
+    private string? _statusMessage;
+
     [CascadingParameter]
     private HttpContext? HttpContext { get; set; }
 
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
-
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
+
+    [SupplyParameterFromForm]
+    private LoginCommand Command { get; set; } = new();
 
     private bool IsLoading { get; set; }
 
@@ -98,9 +118,7 @@
 
     public async Task LoginUser()
     {
-        // This doesn't count login failures towards account lockout
-        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await Mediator.Send(Command);
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
@@ -109,31 +127,18 @@
         else if (result.RequiresTwoFactor)
         {
             RedirectManager.RedirectTo(
-                "Account/LoginWith2fa",
-                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+                "account/loginWith2fa",
+                new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Command.RememberMe });
         }
         else if (result.IsLockedOut)
         {
             Logger.LogWarning("User account locked out.");
-            RedirectManager.RedirectTo("Account/Lockout");
+            _statusMessage = "Error: Account locked out.";
+            RedirectManager.RedirectTo("account/lockout");
         }
         else
         {
-            Toast.ShowError("Error: Invalid login attempt.");
+            _statusMessage = "Error: Invalid credentials.";
         }
-    }
-
-    private sealed class InputModel
-    {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = "";
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; } = "";
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 }

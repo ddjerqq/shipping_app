@@ -1,147 +1,244 @@
-﻿@page "/Account/Register"
+﻿@page "/account/register"
+@attribute [AllowAnonymous]
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
+@using Application.Cqrs.Users.Commands
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using MediatR
 
 @using Domain.Aggregates
+@using Presentation.Components.Ui.Form
 
 @inject UserManager<User> UserManager
-@inject IUserStore<User> UserStore
-@inject SignInManager<User> SignInManager
-@inject IEmailSender<User> EmailSender
-@inject ILogger<Register> Logger
-@inject NavigationManager NavigationManager
+@inject IMediator Mediator
 @inject IdentityRedirectManager RedirectManager
+@inject NavigationManager NavigationManager
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
+<div class="flex flex-col space-y-2 text-start">
+    <h1 class="text-2xl font-semibold tracking-tight">
+        Create an account
+    </h1>
+</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message"/>
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator/>
-            <h2>Create a new account.</h2>
-            <hr/>
-            <ValidationSummary class="text-danger" role="alert"/>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com"/>
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger"/>
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password"/>
-                <label for="password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger"/>
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password"/>
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger"/>
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </EditForm>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr/>
-            <ExternalLoginPicker/>
-        </section>
-    </div>
+<div class="grid gap-6">
+    <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser" method="POST" FormName="register" novalidate class="grid gap-4">
+        <div class="w-full flex flex-row gap-4 justify-between">
+            <FormField>
+                <FormLabel for="full-name">Full name</FormLabel>
+                <FormInputText id="full-name"
+                               @bind-Value="@Command.FullName"
+                               placeholder="Enter full name"
+                               type="full-name"
+                               required
+                               autocomplete="cc-name"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.FullName)"/>
+            </FormField>
+
+            <FormField>
+                <FormLabel for="email">Email</FormLabel>
+                <FormInputText id="email"
+                               @bind-Value="@Command.Email"
+                               placeholder="Enter email"
+                               type="email"
+                               required
+                               autocomplete="email"
+                               disabled="@IsLoading"/>
+
+                <FormDescription Class="w-full flex justify-between">
+                    <a href="/account/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
+                        Resend email confirmation
+                    </a>
+                </FormDescription>
+
+                <FormInvalidFeedback For="@(() => Command.Email)"/>
+            </FormField>
+        </div>
+
+        <div class="w-full flex flex-row gap-4 justify-between">
+            <FormField>
+                <FormLabel for="phone">Phone number</FormLabel>
+                <FormInputText id="phone"
+                               @bind-Value="@Command.PhoneNumber"
+                               placeholder="+955 555 555 555"
+                               type="phone"
+                               required
+                               autocomplete="phone"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.PhoneNumber)"/>
+            </FormField>
+
+            <FormField>
+                <FormLabel for="personal-id">Personal Id</FormLabel>
+                <FormInputText id="personal-id"
+                               @bind-Value="@Command.PersonalId"
+                               placeholder="Enter Personal id (GEO) or your SSN (USA)"
+                               type="email"
+                               required
+                               autocomplete="personal-id"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.PersonalId)"/>
+            </FormField>
+        </div>
+
+        <FormField>
+            <FormLabel for="birth-date">Birth date</FormLabel>
+            <InputDate id="birth-date"
+                       class="@FormInputText.BaseClass"
+                       @bind-Value="@Command.BirthDate"
+                       Type="InputDateType.Date"
+                       required
+                       autocomplete="bday"
+                       disabled="@IsLoading"/>
+
+            <FormInvalidFeedback For="@(() => Command.Password)"/>
+        </FormField>
+
+        <FormField>
+            <FormLabel for="password">Password</FormLabel>
+            <FormInputText id="password"
+                           @bind-Value="@Command.Password"
+                           placeholder="Enter password"
+                           type="password"
+                           required
+                           autocomplete="new-password"
+                           disabled="@IsLoading"/>
+
+            <FormDescription Class="w-full flex justify-between">
+                Password must contain at least 12 characters
+            </FormDescription>
+
+            <FormInvalidFeedback For="@(() => Command.Password)"/>
+        </FormField>
+
+        <div class="w-full flex flex-row gap-4 justify-between">
+            <FormField>
+                <FormLabel for="country">Country</FormLabel>
+                <FormInputText id="country"
+                               @bind-Value="@Command.Country"
+                               type="text"
+                               required
+                               autocomplete="shipping country"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.Country)"/>
+            </FormField>
+
+            <FormField>
+                <FormLabel for="state">State</FormLabel>
+                <FormInputText id="state"
+                               @bind-Value="@Command.State"
+                               type="text"
+                               autocomplete="shipping address-level1"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.State)"/>
+            </FormField>
+        </div>
+
+        <div class="w-full flex flex-row gap-4 justify-between">
+            <FormField>
+                <FormLabel for="city">City</FormLabel>
+                <FormInputText id="city"
+                               @bind-Value="@Command.City"
+                               type="text"
+                               required
+                               autocomplete="shipping address-level2"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.City)"/>
+            </FormField>
+
+            <FormField>
+                <FormLabel for="zip">Zip code</FormLabel>
+                <FormInputText id="zip"
+                               @bind-Value="@Command.ZipCode"
+                               type="text"
+                               required
+                               autocomplete="shipping postal-code"
+                               disabled="@IsLoading"/>
+
+                <FormInvalidFeedback For="@(() => Command.ZipCode)"/>
+            </FormField>
+        </div>
+
+        <FormField>
+            <FormLabel for="address">Address</FormLabel>
+            <FormInputText id="address"
+                           @bind-Value="@Command.Address"
+                           type="text"
+                           required
+                           autocomplete="shipping street-address"
+                           disabled="@IsLoading"/>
+
+            <FormDescription Class="w-full flex justify-between">
+                Your personal data is protected.
+            </FormDescription>
+
+            <FormInvalidFeedback For="@(() => Command.Address)"/>
+        </FormField>
+
+        <Button type="submit" disabled="@IsLoading">
+            @if (IsLoading)
+            {
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+            }
+            Register
+        </Button>
+
+        <Button
+            Href="@(NavigationManager.GetUriWithQueryParameters("account/login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
+            Variant="outline" disabled="@IsLoading">
+            @if (IsLoading)
+            {
+                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+            }
+            Already have an account? Login
+        </Button>
+
+        <span class="text-sm text-red-300 space-y-2 empty:hidden">
+            @Message
+        </span>
+    </AppForm>
 </div>
 
 @code {
-    private IEnumerable<IdentityError>? identityErrors;
+    private IEnumerable<IdentityError>? _identityErrors;
 
     [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
+    private RegisterCommand Command { get; set; } = new();
 
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+    private bool IsLoading { get; set; }
+
+    private string? Message => _identityErrors is null ? null : $"Error: {string.Join(", ", _identityErrors.Select(error => error.Description))}";
 
     public async Task RegisterUser(EditContext editContext)
     {
-        var user = CreateUser();
-
-        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-        var emailStore = GetEmailStore();
-        await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-        var result = await UserManager.CreateAsync(user, Input.Password);
-
+        var result = await Mediator.Send(Command);
         if (!result.Succeeded)
         {
-            identityErrors = result.Errors;
+            _identityErrors = result.Errors;
             return;
         }
-
-        Logger.LogInformation("User created a new account with password.");
-
-        var userId = await UserManager.GetUserIdAsync(user);
-        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
-
-        await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+                "account/registerConfirmation",
+                new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
         }
 
-        await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
-    }
-
-    private User CreateUser()
-    {
-        try
-        {
-            return Activator.CreateInstance<User>();
-        }
-        catch
-        {
-            throw new InvalidOperationException($"Can't create an instance of '{nameof(Lucide.User)}'. " +
-                                                $"Ensure that '{nameof(Lucide.User)}' is not an abstract class and has a parameterless constructor.");
-        }
-    }
-
-    private IUserEmailStore<User> GetEmailStore()
-    {
-        if (!UserManager.SupportsUserEmail)
-        {
-            throw new NotSupportedException("The default UI requires a user store with email support.");
-        }
-
-        return (IUserEmailStore<User>)UserStore;
-    }
-
-    private sealed class InputModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; } = "";
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; } = "";
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; } = "";
+        NavigationManager.NavigateTo(ReturnUrl ?? "/", true);
     }
 }

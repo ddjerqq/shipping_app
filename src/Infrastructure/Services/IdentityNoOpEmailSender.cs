@@ -4,17 +4,26 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Infrastructure.Services;
 
-// Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
-public sealed class IdentityNoOpEmailSender : IEmailSender<User>
+public sealed class IdentityNoOpEmailSender(GoogleMailSender emailSender) : IEmailSender<User>
 {
-    private readonly IEmailSender _emailSender = new NoOpEmailSender();
+    public Task SendConfirmationLinkAsync(User user, string email, string confirmationLink)
+    {
+        Console.WriteLine(confirmationLink);
+        return Task.CompletedTask;
+    }
+    // emailSender.SendAsync("support@sangoway.com", email, "Confirm your email", $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
 
-    public Task SendConfirmationLinkAsync(User user, string email, string confirmationLink) =>
-        _emailSender.SendEmailAsync(email, "Confirm your email", $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
+    public Task SendPasswordResetLinkAsync(User user, string email, string resetLink)
+    {
+        Console.WriteLine(resetLink);
+        return Task.CompletedTask;
+    }
+    // emailSender.SendAsync("support@sangoway.com", email, "Reset your password", $"Please reset your password by <a href='{resetLink}'>clicking here</a>.");
 
-    public Task SendPasswordResetLinkAsync(User user, string email, string resetLink) =>
-        _emailSender.SendEmailAsync(email, "Reset your password", $"Please reset your password by <a href='{resetLink}'>clicking here</a>.");
-
-    public Task SendPasswordResetCodeAsync(User user, string email, string resetCode) =>
-        _emailSender.SendEmailAsync(email, "Reset your password", $"Please reset your password using the following code: {resetCode}");
+    public Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
+    {
+        Console.WriteLine(resetCode);
+        return Task.CompletedTask;
+    }
+    // emailSender.SendAsync("support@sangoway.com", email, "Reset your password", $"Please reset your password using the following code: {resetCode}");
 }

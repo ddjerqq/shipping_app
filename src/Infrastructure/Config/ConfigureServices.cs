@@ -12,6 +12,8 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
         services.AddMemoryCache();
         services.AddHttpContextAccessor();
 
+        services.AddScoped<GoogleMailSender>();
+
         services.AddScoped<IDateTimeProvider, UtcDateTimeProvider>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
     }

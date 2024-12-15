@@ -61,11 +61,12 @@ public sealed class ConfigureAuth : ConfigurationBase
                 options.SignIn.RequireConfirmedAccount = false;
                 // store
                 options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz ";
             })
             .AddSignInManager()
             .AddRoles<Role>()
             .AddEntityFrameworkStores<AppDbContext>()
+            .AddUserStore<UserStore<User, Role, AppDbContext, UserId, IdentityUserClaim<UserId>, IdentityUserRole<UserId>, IdentityUserLogin<UserId>, IdentityUserToken<UserId>, IdentityRoleClaim<UserId>>>()
             .AddDefaultTokenProviders();
 
         services.AddAuthorizationBuilder()
