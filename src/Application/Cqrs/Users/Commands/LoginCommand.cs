@@ -21,8 +21,6 @@ public sealed record LoginCommand : IRequest<LoginResult>
     [LogMasked]
     public string Password { get; set; } = default!;
 
-    public bool RememberMe { get; set; }
-
     public TimeZoneInfo TimeZoneInfo { get; set; } = default!;
 }
 

@@ -2,6 +2,7 @@
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
 @inject NavigationManager Nav
+@inject IJSRuntime Js
 @inject BrowserInternalizationProvider BrowserInternalizationProvider
 
 <CascadingBlazoredModal
@@ -47,5 +48,11 @@
         BrowserTimeZone = await BrowserInternalizationProvider.GetBrowserTimeZoneAsync();
         BrowserCultureInfo = await BrowserInternalizationProvider.GetBrowserLocaleAsync();
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Js.InvokeVoidAsync("window.initFlowbite");
     }
 }

@@ -1,5 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime Js
 
 <main class="h-full flex flex-col bg-topo">
     <AppHeader />
@@ -8,11 +7,3 @@
         @Body
     </section>
 </main>
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await Js.InvokeVoidAsync("window.initFlowbite");
-    }
-}

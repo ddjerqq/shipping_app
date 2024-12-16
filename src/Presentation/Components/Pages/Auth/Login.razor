@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/auth/login"
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
 @inject CookieService Cookie
@@ -37,28 +37,17 @@
                            autocomplete="current-password"
                            disabled="@IsLoading"/>
 
-            <FormDescription Class="w-full flex justify-between">
-                <a href="/forgotPassword" class="underline underline-offset-4 hover:text-primary">
-                    Forgot password?
-                </a>
-                <a href="/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
-                    Resend email confirmation
-                </a>
-            </FormDescription>
-
             <FormInvalidFeedback For="@(() => Command.Password)"/>
         </FormField>
 
-        <FormField Class="flex-row">
-            <FormInputCheckbox
-                id="remember-me"
-                @bind-Value="@Command.RememberMe"
-                disabled="@IsLoading"/>
-
-            <FormLabel for="remember-me">
-                Remember me
-            </FormLabel>
-        </FormField>
+        <FormDescription Class="w-full flex justify-between">
+            <a href="/auth/forgot" class="underline underline-offset-4 hover:text-primary">
+                Forgot password?
+            </a>
+            <a href="/auth/resend_email_confirmation" class="underline underline-offset-4 hover:text-primary">
+                Resend email confirmation
+            </a>
+        </FormDescription>
 
         <Button type="submit" disabled="@IsLoading">
             @if (IsLoading)
@@ -69,7 +58,7 @@
         </Button>
 
         <Button
-            Href="@(NavigationManager.GetUriWithQueryParameters("register", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
+            Href="@(NavigationManager.GetUriWithQueryParameters("auth/register", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
             Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {

@@ -9,14 +9,19 @@
 @using Blazored
 @using Blazicons
 @using Blazored.Modal
+@using Blazored.Toast.Services
 @using Presentation.Components
 @using Presentation.Components.Ui
 @using Microsoft.AspNetCore.Authorization
 @using TailwindMerge
 @using Infrastructure.Services
+@using MediatR
 
 @using static Blazicons.Lucide
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 
 @attribute [Authorize]
 @inject TwMerge Tw
+@inject NavigationManager NavigationManager
+@inject IToastService Toast
+@inject IMediator Mediator

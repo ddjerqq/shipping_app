@@ -1,4 +1,4 @@
-﻿@page "/register"
+﻿@page "/auth/register"
 @using System.Globalization
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
@@ -38,12 +38,6 @@
                                required
                                autocomplete="email"
                                disabled="@IsLoading"/>
-
-                <FormDescription Class="w-full flex justify-between">
-                    <a href="/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
-                        Resend email confirmation
-                    </a>
-                </FormDescription>
 
                 <FormInvalidFeedback For="@(() => Command.Email)"/>
             </FormField>
@@ -174,6 +168,12 @@
             <FormInvalidFeedback For="@(() => Command.Address)"/>
         </FormField>
 
+        <FormDescription Class="w-full flex justify-between">
+            <a href="/auth/resend_email_confirmation" class="underline underline-offset-4 hover:text-primary">
+                Resend email confirmation
+            </a>
+        </FormDescription>
+
         <Button type="submit" disabled="@IsLoading">
             @if (IsLoading)
             {
@@ -183,7 +183,7 @@
         </Button>
 
         <Button
-            Href="@(NavigationManager.GetUriWithQueryParameters("login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
+            Href="@(NavigationManager.GetUriWithQueryParameters("auth/login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
             Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {

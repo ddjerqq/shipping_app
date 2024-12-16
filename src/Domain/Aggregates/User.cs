@@ -21,8 +21,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 
-    public bool EmailConfirmed { get; init; }
-    public bool PhoneNumberConfirmed { get; init; }
+    public bool EmailConfirmed { get; set; }
 
     public string SecurityStamp { get; init; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; init; } = Guid.NewGuid().ToString();

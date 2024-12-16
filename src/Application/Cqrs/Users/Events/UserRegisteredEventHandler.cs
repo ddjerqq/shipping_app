@@ -25,15 +25,11 @@ internal sealed class UserRegisteredEventHandler(
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 
         var code = GenerateToken(user);
+
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = QueryHelpers.AddQueryString("account/confirmEmail",
-            new Dictionary<string, string?> { ["userId"] = user.Id.ToString(), ["code"] = code });
+        var callbackUrl = QueryHelpers.AddQueryString("account/confirmEmail", new Dictionary<string, string?> { ["userId"] = user.Id.ToString(), ["code"] = code });
 
         logger.LogInformation("User {UserId} registered, sending confirmation email", user.Id);
-
-#if DEBUG
-        logger.LogInformation("Confirmation link: {CallbackUrl}", callbackUrl);
-#endif
 
         await emailSender.SendAsync("support@sangoway.com", user.Email, "email confirmation", HtmlEncoder.Default.Encode(callbackUrl), ct);
     }

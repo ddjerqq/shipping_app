@@ -48,7 +48,7 @@ public sealed class JwtGenerator : IJwtGenerator
                 return Task.CompletedTask;
             }
 
-            ctx.Response.Redirect($"/login?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
+            ctx.Response.Redirect($"/auth/login?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
             ctx.HandleResponse();
             return Task.CompletedTask;
         },

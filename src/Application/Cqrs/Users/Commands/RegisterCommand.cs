@@ -117,7 +117,6 @@ internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> log
         {
             Email = request.Email,
             Password = request.Password,
-            RememberMe = false,
             TimeZoneInfo = request.TimeZoneInfo,
         };
 
