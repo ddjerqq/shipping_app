@@ -14,13 +14,15 @@ internal class PackageReceptionStatusConfiguration : IEntityTypeConfiguration<Pa
         builder.HasOne(status => status.Package)
             .WithMany(package => package.Statuses)
             .HasForeignKey(status => status.PackageId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         builder.Ignore(x => x.UserIsNull);
 
         builder.HasOne(package => package.User)
             .WithMany()
             .HasForeignKey(package => package.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
     }
 }

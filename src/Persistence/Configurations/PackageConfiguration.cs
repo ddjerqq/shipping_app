@@ -28,7 +28,8 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.HasOne(package => package.Owner)
             .WithMany(user => user.Packages)
             .HasForeignKey(package => package.OwnerId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         builder.Property(x => x.Dimensions)
             .HasConversion(x => VecToString(x), x => StringToVec(x));
@@ -38,12 +39,14 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.HasOne(package => package.Race)
             .WithMany(race => race.Packages)
             .HasForeignKey(package => package.RaceId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         builder.HasMany(package => package.Statuses)
             .WithOne(status => status.Package)
             .HasForeignKey(status => status.PackageId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
     }
 
     private static string? VecToString(Vector3? vec) => vec is { X: var x, Y: var y, Z: var z } ? $"{x}:{y}:{z}" : null;

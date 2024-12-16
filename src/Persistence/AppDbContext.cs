@@ -1,13 +1,11 @@
 using System.Reflection;
 using Application.Common;
 using Application.Services;
-using Domain.Aggregates;
-using Domain.Entities;
 using EntityFrameworkCore.DataProtection.Extensions;
 using Generated;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Interceptors;
 
@@ -17,9 +15,11 @@ public sealed class AppDbContext(
     DbContextOptions<AppDbContext> options,
     IDataProtectionProvider dataProtectionProvider,
     ConvertDomainEventsToOutboxMessagesInterceptor convertDomainEventsToOutboxMessagesInterceptor)
-    : IdentityDbContext<User, Role, UserId>(options), IAppDbContext
+    : DbContext(options), IAppDbContext
 {
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+
+    public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken ct = default) => Database.BeginTransactionAsync(ct);
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
