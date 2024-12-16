@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Numerics;
 using System.Text.Json;
 using Application.JsonConverters;
@@ -12,31 +13,43 @@ public sealed class PackageTests
     [Test]
     public void Test_Creation()
     {
-        var staffOrigin = new User
+        var staffOrigin = new User(UserId.New())
         {
             Id = UserId.New(),
-            UserName = "staff origin",
+            Username = "staff origin",
             Email = "staff@origin.com",
+            PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
+            PasswordHash = "",
+            TimeZone = TimeZoneInfo.Local,
+            CultureInfo = CultureInfo.CurrentCulture,
         };
 
-        var staffDestination = new User
+        var staffDestination = new User(UserId.New())
         {
             Id = UserId.New(),
-            UserName = "staff destination",
+            Username = "staff destination",
             Email = "staff@destination.com",
+            PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
+            PasswordHash = "",
+            TimeZone = TimeZoneInfo.Local,
+            CultureInfo = CultureInfo.CurrentCulture,
         };
 
-        var sender = new User
+        var sender = new User(UserId.New())
         {
             Id = UserId.New(),
-            UserName = "sender",
+            Username = "sender",
             Email = "sender@gmail.com",
+            PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
+            PasswordHash = "",
+            TimeZone = TimeZoneInfo.Local,
+            CultureInfo = CultureInfo.CurrentCulture,
         };
 
         var originTime = new DateTimeOffset(2024, 11, 11, 0, 0, 0, TimeSpan.FromHours(-5));
@@ -58,7 +71,7 @@ public sealed class PackageTests
             Category.Toy,
             "water blaster toy for kids",
             new WebAddress("amazon.com"),
-            new Money("USD",20),
+            new Money("USD", 20),
             false,
             sender);
 

@@ -1,17 +1,36 @@
+using System.Globalization;
 using Domain.Abstractions;
+using Domain.Entities;
 using Domain.ValueObjects;
 using Generated;
-using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Aggregates;
 
 [StrongId]
-public sealed class User : ApplicationUser
+public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 {
-    [ProtectedPersonalData]
-    public required string PersonalId { get; init; }
+    public const int MaxAccessFailedCount = 5;
+    public static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(5);
 
+    public required string PersonalId { get; init; }
+    public required string Username { get; init; }
+    public required string Email { get; init; }
+    public required string PhoneNumber { get; init; }
+    public required string PasswordHash { get; init; }
     public required AbstractAddress AddressInfo { get; init; }
+    public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
+    public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
+
+    public bool EmailConfirmed { get; init; }
+    public bool PhoneNumberConfirmed { get; init; }
+
+    public string SecurityStamp { get; init; } = Guid.NewGuid().ToString();
+    public string ConcurrencyStamp { get; init; } = Guid.NewGuid().ToString();
+    public DateTimeOffset? LockoutEnd { get; set; }
+    public int AccessFailedCount { get; set; }
 
     public IEnumerable<Package> Packages { get; init; } = [];
+    public ICollection<UserClaim> Claims { get; init; } = [];
+    public ICollection<UserLogin> Logins { get; init; } = [];
+    public ICollection<UserRole> Roles { get; init; } = [];
 }
