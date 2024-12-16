@@ -2,6 +2,7 @@
 @using Domain.Aggregates
 @using Domain.Common
 @using Domain.ValueObjects
+@using Microsoft.IdentityModel.Tokens
 @using Presentation.Components.Ui.Card
 @using Presentation.Components.Ui.Avatar
 @using Presentation.Components.Ui.Form
@@ -13,7 +14,7 @@
     </Header>
     <Content>
         <div class="flex space-x-2">
-            <FormInputText Value="https://example.com/link/to/document" readonly/>
+            <input class="@FormInputText.BaseClass" value="https://example.com/link/to/document" readonly/>
             <CopyButton Variant="secondary" Class="shrink-0" Content="https://example.com/link/to/document">
                 Copy Link
             </CopyButton>
@@ -27,12 +28,12 @@
                     <div class="flex items-center justify-between space-x-4">
                         <div class="flex items-center space-x-4">
                             <Avatar>
-                                <AvatarImage Src="@ClaimsPrincipalExt.GetDefaultAvatar(user.UserName)" Alt="@($"{user.UserName}'s avatar")"/>
-                                <AvatarFallback>@user.UserName!.Initials()</AvatarFallback>
+                                <AvatarImage Src="@ClaimsPrincipalExt.GetDefaultAvatar(user.Username)" Alt="@($"{user.Username}'s avatar")"/>
+                                <AvatarFallback>@user.Username!.Initials()</AvatarFallback>
                             </Avatar>
                             <div>
                                 <p class="text-sm font-medium leading-none">
-                                    @user.UserName
+                                    @user.Username
                                 </p>
                                 <p class="text-muted-foreground text-sm">
                                     @user.Email
@@ -63,28 +64,13 @@
 
     private static readonly User[] Users =
     [
-        new()
+        new(UserId.New())
         {
-            Id = UserId.New(),
-            UserName = "Olivia Martin",
-            Email = "m@example.com",
-            PersonalId = "01001000001",
-            AddressInfo = new NoAddress(),
-        },
-        new()
-        {
-            Id = UserId.New(),
-            UserName = "Isabella Nguyen",
-            Email = "b@example.com",
-            PersonalId = "01001000001",
-            AddressInfo = new NoAddress(),
-        },
-        new()
-        {
-            Id = UserId.New(),
-            UserName = "Sofia Davis",
-            Email = "p@example.com",
-            PersonalId = "01001000001",
+            PersonalId = "123-1234-123",
+            Username = "john doe",
+            Email = "johndoe@gmail.com",
+            PhoneNumber = "995500100200",
+            PasswordHash = BC.EnhancedHashPassword("password"),
             AddressInfo = new NoAddress(),
         },
     ];

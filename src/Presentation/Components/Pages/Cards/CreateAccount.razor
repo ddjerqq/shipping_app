@@ -1,4 +1,5 @@
 ﻿@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Form
 <Card>
     <Header class="space-y-1">
         <Title class="text-2xl">Create an account</Title>
@@ -27,11 +28,11 @@
         </div>
         <div class="grid gap-2">
             <FormLabel for="email">Email</FormLabel>
-            <FormInput id="email" type="email" placeholder="m@example.com" />
+            <input class="@FormInputText.BaseClass" id="email" type="email" placeholder="m@example.com" />
         </div>
         <div class="grid gap-2">
             <FormLabel for="text">Password</FormLabel>
-            <FormInput id="text" type="text" />
+            <input class="@FormInputText.BaseClass" id="text" type="text" />
         </div>
     </Content>
     <Footer>

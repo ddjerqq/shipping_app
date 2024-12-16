@@ -1,21 +1,9 @@
-﻿@page "/account/register"
-@attribute [AllowAnonymous]
-
-@using System.ComponentModel.DataAnnotations
-@using System.Text
-@using System.Text.Encodings.Web
+﻿@page "/register"
+@using System.Globalization
 @using Application.Cqrs.Users.Commands
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.WebUtilities
-@using MediatR
-
-@using Domain.Aggregates
 @using Presentation.Components.Ui.Form
-
-@inject UserManager<User> UserManager
-@inject IMediator Mediator
-@inject IdentityRedirectManager RedirectManager
-@inject NavigationManager NavigationManager
+@inject CookieService Cookie
+@attribute [AllowAnonymous]
 
 <PageTitle>Register</PageTitle>
 
@@ -52,7 +40,7 @@
                                disabled="@IsLoading"/>
 
                 <FormDescription Class="w-full flex justify-between">
-                    <a href="/account/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
+                    <a href="/resendEmailConfirmation" class="underline underline-offset-4 hover:text-primary">
                         Resend email confirmation
                     </a>
                 </FormDescription>
@@ -195,7 +183,7 @@
         </Button>
 
         <Button
-            Href="@(NavigationManager.GetUriWithQueryParameters("account/login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
+            Href="@(NavigationManager.GetUriWithQueryParameters("login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
             Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {
@@ -203,41 +191,44 @@
             }
             Already have an account? Login
         </Button>
-
-        <span class="text-sm text-red-300 space-y-2 empty:hidden">
-            @Message
-        </span>
     </AppForm>
 </div>
 
 @code {
-    private IEnumerable<IdentityError>? _identityErrors;
+    [CascadingParameter]
+    private TimeZoneInfo BrowserTimeZone { get; set; } = default!;
 
-    [SupplyParameterFromForm]
-    private RegisterCommand Command { get; set; } = new();
+    [CascadingParameter]
+    private CultureInfo BrowserLocale { get; set; } = default!;
 
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
     private bool IsLoading { get; set; }
 
-    private string? Message => _identityErrors is null ? null : $"Error: {string.Join(", ", _identityErrors.Select(error => error.Description))}";
+    private RegisterCommand Command { get; set; } = new();
 
     public async Task RegisterUser(EditContext editContext)
     {
+        Command.TimeZoneInfo = BrowserTimeZone;
+        Command.CultureInfo = BrowserLocale;
+
+        IsLoading = true;
         var result = await Mediator.Send(Command);
-        if (!result.Succeeded)
+        IsLoading = false;
+
+        if (result is null)
         {
-            _identityErrors = result.Errors;
+            Toast.ShowError("The email, phone number, or personal Id is already in use by another user.");
             return;
         }
 
-        if (UserManager.Options.SignIn.RequireConfirmedAccount)
-        {
-            RedirectManager.RedirectTo(
-                "account/registerConfirmation",
-                new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
-        }
+        // TODO registration confirmation
+        // RedirectManager.RedirectTo(
+        //     "account/registerConfirmation",
+        //     new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
+
+        await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
 
         NavigationManager.NavigateTo(ReturnUrl ?? "/", true);
     }

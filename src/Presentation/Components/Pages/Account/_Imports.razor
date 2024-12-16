@@ -1,4 +1,10 @@
-﻿@using Presentation.Components.Layout
+﻿@using Blazored.Toast.Services
+@using MediatR
+@using Presentation.Components.Layout
 @using Presentation.Components.Shared
 @using Presentation.Components.Pages
 @layout AuthLayout
+
+@inject NavigationManager NavigationManager
+@inject IToastService Toast
+@inject IMediator Mediator

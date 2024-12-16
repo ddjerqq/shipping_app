@@ -68,8 +68,6 @@ public static class WebAppExt
         app.UseAntiforgery();
         app.UseCustomHeaderMiddleware();
 
-        app.MapAdditionalIdentityEndpoints();
-
         app.MapAppHealthChecks();
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode();

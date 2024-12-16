@@ -9,25 +9,39 @@
     @* TODO add this only after the feature is paid for *@
     @* <link rel="manifest" href="manifest.jsonc"> *@
 
+    <link rel="icon" href="favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+
     <link href="Presentation.styles.css" rel="stylesheet" />
-    <link href="favicon.ico" rel="icon" />
-    <link href="app.min.css" rel="stylesheet" />
+    <link href="styles/app.min.css" rel="stylesheet" />
     <script src="scripts/util.js"></script>
 
-    <HeadOutlet @rendermode="RenderModeForPage" />
+    <HeadOutlet @rendermode="InteractiveServer" />
+
+    <meta property="og:title" content="sangoway">
+    <meta name="twitter:title" content="sangoway">
+    <meta name="theme-color" content="#047835">
+    <meta name="og:image" content="">
+    <meta name="twitter:image" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:description" content="Sangoway shipping">
+    <meta name="description" content="Sangoway shipping">
+    <meta property="twitter:description" content="Sangoway shipping">
 </head>
 <body>
 
-<Routes @rendermode="RenderModeForPage"/>
+<Routes @rendermode="InteractiveServer"/>
 
-<div id="blazor-error-ui">
+<div id="blazor-error-ui" class="text-black">
     error detected, please
     <a href="" class="reload">reload</a>
     <a class="dismiss">&times;</a>
 </div>
 
 <div id="components-reconnect-modal">
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border border-gray-300 bg-white text-2xl" id="reconnect-show">
+    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-show">
         <span>detected a networking error</span>
         <span>this is not a major issue</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
@@ -36,11 +50,11 @@
         </button>
     </div>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border border-gray-300 bg-white text-2xl" id="reconnect-hide">
+    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-hide">
         <span>server connection restore, you may reload the page.</span>
     </div>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border border-gray-300 bg-white text-2xl" id="reconnect-failed">
+    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-failed">
         <span>reload the page to recover the connection</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="window.Blazor.reconnect()">
             <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
@@ -48,7 +62,7 @@
         </button>
     </div>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border border-gray-300 bg-white text-2xl" id="reconnect-rejected">
+    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-rejected">
         <span>to reconnect, reload the page</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
             <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
@@ -65,8 +79,4 @@
 @code {
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
-
-    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/account")
-        ? null
-        : InteractiveServer;
 }

@@ -2,8 +2,8 @@
   "name": "client",
   "type": "module",
   "scripts": {
-    "tw:build": "tailwindcss -i ./wwwroot/app.css -o ./wwwroot/app.min.css --minify",
-    "tw:watch": "tailwindcss -i ./wwwroot/app.css -o ./wwwroot/app.min.css --minify --watch"
+    "tw:build": "tailwindcss -i ./wwwroot/styles/app.css -o ./wwwroot/styles/app.min.css --minify",
+    "tw:watch": "tailwindcss -i ./wwwroot/styles/app.css -o ./wwwroot/styles/app.min.css --minify --watch"
   },
   "devDependencies": {
     "@types/node": "^22.9.1",

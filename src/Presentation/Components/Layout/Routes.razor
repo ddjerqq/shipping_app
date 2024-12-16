@@ -1,6 +1,8 @@
-﻿@using Blazored.Toast
+﻿@using System.Globalization
+@using Blazored.Toast
 @using Blazored.Toast.Configuration
 @inject NavigationManager Nav
+@inject BrowserInternalizationProvider BrowserInternalizationProvider
 
 <CascadingBlazoredModal
     Class="min-w-sm w-full max-w-full sm:max-w-2xl text-lg sm:text-2xl bg-white border-2 border-gray-300 rounded-md flex flex-col justify-center text-center p-2"
@@ -8,19 +10,23 @@
     Position="ModalPosition.Middle"
     AnimationType="ModalAnimationType.FadeInOut">
 
-    <Router AppAssembly="@typeof(Program).Assembly">
-        <Found Context="routeData">
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                <NotAuthorized>
-                    <Redirect To="@($"Account/Login?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force/>
-                </NotAuthorized>
-            </AuthorizeRouteView>
-        </Found>
-        <NotFound>
-            <Redirect To="@($"404?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force="true" />
-        </NotFound>
-    </Router>
+    <CascadingValue Value="BrowserTimeZone">
+        <CascadingValue Value="BrowserCultureInfo">
+            <Router AppAssembly="@typeof(Program).Assembly">
+                <Found Context="routeData">
+                    <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                        <NotAuthorized>
+                            <Redirect To="@($"login?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force/>
+                        </NotAuthorized>
+                    </AuthorizeRouteView>
+                </Found>
+                <NotFound>
+                    <Redirect To="@($"404?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force="true"/>
+                </NotFound>
+            </Router>
+        </CascadingValue>
+    </CascadingValue>
 </CascadingBlazoredModal>
 
 <BlazoredToasts
@@ -30,4 +36,16 @@
     ShowCloseButton="false"
     ShowProgressBar="false"
     PauseProgressOnHover="true"
-    RemoveToastsOnNavigation="false" />
+    RemoveToastsOnNavigation="false"/>
+
+@code {
+    public TimeZoneInfo BrowserTimeZone { get; set; } = TimeZoneInfo.Utc;
+    public CultureInfo BrowserCultureInfo { get; set; } = CultureInfo.InvariantCulture;
+
+    protected override async Task OnInitializedAsync()
+    {
+        BrowserTimeZone = await BrowserInternalizationProvider.GetBrowserTimeZoneAsync();
+        BrowserCultureInfo = await BrowserInternalizationProvider.GetBrowserLocaleAsync();
+        await base.OnInitializedAsync();
+    }
+}
