@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Application.Common;
+using Application.Services;
 using Domain.Aggregates;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
@@ -13,31 +15,20 @@ namespace Infrastructure.Services;
 // every 30 minutes an interactive circuit is connected.
 public sealed class IdentityRevalidatingAuthenticationStateProvider(
     ILoggerFactory loggerFactory,
-    IServiceScopeFactory scopeFactory,
-    IOptions<IdentityOptions> options)
+    IServiceScopeFactory scopeFactory)
     : RevalidatingServerAuthenticationStateProvider(loggerFactory)
 {
     protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
 
     protected override async Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken ct)
     {
-        // Get the user manager from a new scope to ensure it fetches fresh data
         await using var scope = scopeFactory.CreateAsyncScope();
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-        return await ValidateSecurityStampAsync(userManager, authenticationState.User);
-    }
+        var currentUser = scope.ServiceProvider.GetRequiredService<ICurrentUserAccessor>();
 
-    private async Task<bool> ValidateSecurityStampAsync(UserManager<User> userManager, ClaimsPrincipal principal)
-    {
-        var user = await userManager.GetUserAsync(principal);
+        var user = await currentUser.TryGetCurrentUserAsync(ct);
         if (user is null)
             return false;
 
-        if (!userManager.SupportsUserSecurityStamp)
-            return true;
-
-        var principalStamp = principal.FindFirstValue(options.Value.ClaimsIdentity.SecurityStampClaimType);
-        var userStamp = await userManager.GetSecurityStampAsync(user);
-        return principalStamp == userStamp;
+        return authenticationState.User.GetSecurityStamp() == user.SecurityStamp;
     }
 }

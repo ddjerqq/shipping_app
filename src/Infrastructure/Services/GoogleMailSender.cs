@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-public sealed class GoogleMailSender
+public sealed class GoogleMailSender : IEmailSender
 {
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;
@@ -43,14 +43,15 @@ public sealed class GoogleMailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-        try
-        {
-            await _client.SendMailAsync(msg, ct);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to send email");
-            throw;
-        }
+        Console.WriteLine(msg);
+        // try
+        // {
+        //     await _client.SendMailAsync(msg, ct);
+        // }
+        // catch (Exception ex)
+        // {
+        //     _logger.LogError(ex, "Failed to send email");
+        //     throw;
+        // }
     }
 }

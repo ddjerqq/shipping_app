@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Services;
 
+[Obsolete("i just dont like it lol")]
 public sealed class IdentityRedirectManager(NavigationManager navigationManager)
 {
     public const string StatusCookieName = "Identity.StatusMessage";
