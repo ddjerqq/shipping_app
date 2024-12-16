@@ -31,7 +31,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
         var messages = await dbContext
             .Set<OutboxMessage>()
             .Where(m => m.ProcessedOn == null)
-            .OrderBy(m => m.OccuredOn)
+            .OrderBy(m => m.Id)
             .Take(MessagesPerBatch)
             .ToListAsync(context.CancellationToken);
 

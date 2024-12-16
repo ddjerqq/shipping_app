@@ -12,9 +12,12 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
         services.AddMemoryCache();
         services.AddHttpContextAccessor();
 
-        services.AddScoped<GoogleMailSender>();
+        services.AddScoped<BrowserInternalizationProvider>();
+        services.AddScoped<CookieService>();
 
+        services.AddScoped<IEmailSender, GoogleMailSender>();
         services.AddScoped<IDateTimeProvider, UtcDateTimeProvider>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
+        services.AddScoped<IIpGeoLocationService, IpInfoIpGeoLocationService>();
     }
 }
