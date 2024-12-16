@@ -1,17 +1,19 @@
-using System.Text;
-using System.Text.Encodings.Web;
+using System.Globalization;
 using Application.Services;
 using Destructurama.Attributed;
 using Domain.Aggregates;
+using Domain.Events;
 using Domain.ValueObjects;
+using EntityFrameworkCore.DataProtection.Extensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using RegisterResult = (string Token, Domain.Aggregates.User User)?;
 
 namespace Application.Cqrs.Users.Commands;
 
-public sealed record RegisterCommand : IRequest<IdentityResult>
+public sealed record RegisterCommand : IRequest<RegisterResult>
 {
     [LogMasked]
     public string FullName { get; set; } = default!;
@@ -35,7 +37,7 @@ public sealed record RegisterCommand : IRequest<IdentityResult>
     public string Country { get; set; } = default!;
 
     [LogMasked]
-    public string? State { get; set; } = default!;
+    public string? State { get; set; }
 
     [LogMasked]
     public string City { get; set; } = default!;
@@ -45,6 +47,12 @@ public sealed record RegisterCommand : IRequest<IdentityResult>
 
     [LogMasked]
     public string Address { get; set; } = default!;
+
+    [LogMasked]
+    public TimeZoneInfo TimeZoneInfo { get; set; } = default!;
+
+    [LogMasked]
+    public CultureInfo CultureInfo { get; set; } = default!;
 }
 
 public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
@@ -65,43 +73,55 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
     }
 }
 
-internal sealed class RegisterCommandHandler(UserManager<User> userManager, IUserStore<User> userStore, ILookupNormalizer lookupNormalizer, IEmailSender<User> emailSender, SignInManager<User> signInManager)
-    : IRequestHandler<RegisterCommand, IdentityResult>
+internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> logger, ISender sender, IAppDbContext dbContext)
+    : IRequestHandler<RegisterCommand, RegisterResult>
 {
-    public async Task<IdentityResult> Handle(RegisterCommand request, CancellationToken ct)
+    public async Task<RegisterResult> Handle(RegisterCommand request, CancellationToken ct)
     {
-        var user = new User
+        var usersWithEmail = await dbContext.Users.WherePdEquals(nameof(User.Email), request.Email.ToLowerInvariant()).CountAsync(ct);
+        var usersWithPhoneId = await dbContext.Users.WherePdEquals(nameof(User.PhoneNumber), request.PhoneNumber).CountAsync(ct);
+        var usersWithPersonalId = await dbContext.Users.WherePdEquals(nameof(User.PersonalId), request.PersonalId).CountAsync(ct);
+
+        if (usersWithEmail + usersWithPhoneId + usersWithPersonalId > 0)
         {
-            Id = UserId.New(),
-            UserName = request.FullName,
-            EmailConfirmed = true,
-            PhoneNumberConfirmed = true,
+            logger.LogWarning("User already registered email: {Email}, phone: {PhoneNumber}, personalId: {PersonalId}", request.Email, request.PhoneNumber, request.PersonalId);
+            return null;
+        }
+
+        await using var transaction = await dbContext.BeginTransactionAsync(ct);
+
+        var user = new User(UserId.New())
+        {
             PersonalId = request.PersonalId,
-            AddressInfo = new FullAddress(request.Country, request.State ?? request.City, request.City, request.ZipCode, request.Address),
+            Username = request.FullName.ToLowerInvariant(),
+            Email = request.Email.ToLowerInvariant(),
+            PhoneNumber = request.PhoneNumber,
+            PasswordHash = BC.EnhancedHashPassword(request.Password),
+            AddressInfo = new FullAddress(request.Country,
+                request.State ?? request.City,
+                request.City,
+                request.ZipCode,
+                request.Address),
+            CultureInfo = request.CultureInfo,
+            TimeZone = request.TimeZoneInfo,
         };
 
-        await userStore.SetUserNameAsync(user, request.FullName, ct);
-        await userStore.SetNormalizedUserNameAsync(user, lookupNormalizer.NormalizeName(request.FullName), ct);
+        user.AddDomainEvent(new UserRegistered(user.Id));
 
-        await ((IUserEmailStore<User>)userStore).SetEmailAsync(user, request.Email, ct);
-        await ((IUserEmailStore<User>)userStore).SetNormalizedEmailAsync(user, lookupNormalizer.NormalizeEmail(request.Email), ct);
+        await dbContext.Users.AddAsync(user, ct);
+        await dbContext.SaveChangesAsync(ct);
 
-        await ((IUserPhoneNumberStore<User>)userStore).SetPhoneNumberAsync(user, request.PhoneNumber, ct);
-        await ((IUserPhoneNumberStore<User>)userStore).SetPhoneNumberConfirmedAsync(user, false, ct);
+        await transaction.CommitAsync(ct);
 
-        var result = await userManager.CreateAsync(user, request.Password);
+        var loginCommand = new LoginCommand
+        {
+            Email = request.Email,
+            Password = request.Password,
+            RememberMe = false,
+            TimeZoneInfo = request.TimeZoneInfo,
+        };
 
-        var userId = await userManager.GetUserIdAsync(user);
-        var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = QueryHelpers.AddQueryString("account/confirmEmail",
-            new Dictionary<string, string?> { ["userId"] = userId, ["code"] = code });
-
-        await emailSender.SendConfirmationLinkAsync(user, request.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
-        if (!userManager.Options.SignIn.RequireConfirmedAccount)
-            await signInManager.SignInAsync(user, isPersistent: false);
-
-        return result;
+        var res = await sender.Send(loginCommand, ct);
+        return res is not null ? (res.Value.Token, res.Value.User)! : null;
     }
 }

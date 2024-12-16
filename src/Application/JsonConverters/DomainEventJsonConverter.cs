@@ -24,7 +24,7 @@ public sealed class DomainEventJsonConverter : JsonConverter<IDomainEvent>
     public override void Write(Utf8JsonWriter writer, IDomainEvent value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
-        writer.WriteString("Type", value.GetType().FullName);
+        writer.WriteString("Type", value.GetType().AssemblyQualifiedName);
         writer.WritePropertyName("Data");
         JsonSerializer.Serialize(writer, value, value.GetType(), options);
         writer.WriteEndObject();

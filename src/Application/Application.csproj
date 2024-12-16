@@ -15,13 +15,11 @@
         <PackageReference Include="Destructurama.Attributed" Version="4.0.0"/>
         <PackageReference Include="FluentValidation" Version="11.11.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+        <PackageReference Include="IPinfo" Version="3.0.1" />
         <PackageReference Include="MediatR.Contracts" Version="2.0.1"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.0" />
-        <PackageReference Include="Microsoft.IdentityModel.Abstractions" Version="8.3.0" />
+        <PackageReference Include="Klean.EntityFrameworkCore.DataProtection" Version="1.1.0" />
         <PackageReference Include="QuickForm" Version="2.1.0"/>
         <PackageReference Include="SerilogTracing" Version="2.3.0" />
         <PackageReference Include="SerilogTracing.Expressions" Version="2.3.0" />
@@ -41,5 +39,11 @@
 
     <ItemGroup>
         <Folder Include="Cqrs\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.WebUtilities">
+        <HintPath>..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\9.0.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
