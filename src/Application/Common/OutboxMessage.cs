@@ -3,6 +3,7 @@ using System.Text.Json;
 using Application.JsonConverters;
 using Destructurama.Attributed;
 using Domain.Abstractions;
+using EntityFrameworkCore.DataProtection;
 
 namespace Application.Common;
 
@@ -14,6 +15,7 @@ public sealed class OutboxMessage
     public string Type { get; init; } = default!;
 
     [LogMasked]
+    [Encrypt(IsQueryable = false, IsUnique = false)]
     [StringLength(2048)]
     public string Content { get; init; } = string.Empty;
 
@@ -29,7 +31,7 @@ public sealed class OutboxMessage
         return new OutboxMessage
         {
             Id = Ulid.NewUlid(),
-            Type = domainEvent.GetType().Name,
+            Type = domainEvent.GetType().AssemblyQualifiedName!,
             Content = JsonSerializer.Serialize(domainEvent, ApplicationJsonConstants.Options.Value),
             OccuredOn = DateTimeOffset.Now,
             ProcessedOn = null,
