@@ -170,7 +170,7 @@ public sealed class StrongIdGenerator : IIncrementalGenerator
                          
                                  if (!string.IsNullOrWhiteSpace(s)
                                      && s.Split("_") is [.. var typeNameParts, var idValue]
-                                     && string.Join(string.Empty, typeNameParts) is var typeName && typeName == global::Generated.SourceGeneratorExt.ToSnakeCase(nameof({{idClassName}}).Replace("Id", ""))
+                                     && string.Join('_', typeNameParts) is var typeName && typeName == global::Generated.SourceGeneratorExt.ToSnakeCase(nameof({{idClassName}}).Replace("Id", ""))
                                      && global::System.Ulid.TryParse(idValue, out var id))
                                  {
                                      result = new {{idClassName}}(id);
