@@ -7,14 +7,10 @@
 
 <PageTitle>Register</PageTitle>
 
-<div class="flex flex-col space-y-2 text-start">
-    <h1 class="text-2xl font-semibold tracking-tight">
-        Create an account
-    </h1>
-</div>
+<div class="p-6 md:p-8 space-y-4">
+    <AuthHeader Title="Create an account"/>
 
-<div class="grid gap-6">
-    <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser" method="POST" FormName="register" novalidate class="grid gap-4">
+    <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser" novalidate class="grid gap-6">
         <div class="w-full flex flex-row gap-4 justify-between">
             <FormField>
                 <FormLabel for="full-name">Full name</FormLabel>
@@ -48,10 +44,10 @@
                 <FormLabel for="phone">Phone number</FormLabel>
                 <FormInputText id="phone"
                                @bind-Value="@Command.PhoneNumber"
-                               placeholder="+955 555 555 555"
+                               placeholder="+955 599123123"
                                type="phone"
                                required
-                               autocomplete="phone"
+                               autocomplete="tel mobile"
                                disabled="@IsLoading"/>
 
                 <FormInvalidFeedback For="@(() => Command.PhoneNumber)"/>
@@ -61,7 +57,7 @@
                 <FormLabel for="personal-id">Personal Id</FormLabel>
                 <FormInputText id="personal-id"
                                @bind-Value="@Command.PersonalId"
-                               placeholder="Enter Personal id (GEO) or your SSN (USA)"
+                               placeholder="Id or SSN"
                                type="email"
                                required
                                autocomplete="personal-id"
@@ -81,7 +77,7 @@
                        autocomplete="bday"
                        disabled="@IsLoading"/>
 
-            <FormInvalidFeedback For="@(() => Command.Password)"/>
+            <FormInvalidFeedback For="@(() => Command.BirthDate)"/>
         </FormField>
 
         <FormField>
@@ -101,95 +97,96 @@
             <FormInvalidFeedback For="@(() => Command.Password)"/>
         </FormField>
 
-        <div class="w-full flex flex-row gap-4 justify-between">
-            <FormField>
-                <FormLabel for="country">Country</FormLabel>
-                <FormInputText id="country"
-                               @bind-Value="@Command.Country"
-                               type="text"
-                               required
-                               autocomplete="shipping country"
-                               disabled="@IsLoading"/>
-
-                <FormInvalidFeedback For="@(() => Command.Country)"/>
-            </FormField>
-
-            <FormField>
-                <FormLabel for="state">State</FormLabel>
-                <FormInputText id="state"
-                               @bind-Value="@Command.State"
-                               type="text"
-                               autocomplete="shipping address-level1"
-                               disabled="@IsLoading"/>
-
-                <FormInvalidFeedback For="@(() => Command.State)"/>
-            </FormField>
-        </div>
-
-        <div class="w-full flex flex-row gap-4 justify-between">
-            <FormField>
-                <FormLabel for="city">City</FormLabel>
-                <FormInputText id="city"
-                               @bind-Value="@Command.City"
-                               type="text"
-                               required
-                               autocomplete="shipping address-level2"
-                               disabled="@IsLoading"/>
-
-                <FormInvalidFeedback For="@(() => Command.City)"/>
-            </FormField>
-
-            <FormField>
-                <FormLabel for="zip">Zip code</FormLabel>
-                <FormInputText id="zip"
-                               @bind-Value="@Command.ZipCode"
-                               type="text"
-                               required
-                               autocomplete="shipping postal-code"
-                               disabled="@IsLoading"/>
-
-                <FormInvalidFeedback For="@(() => Command.ZipCode)"/>
-            </FormField>
-        </div>
-
-        <FormField>
-            <FormLabel for="address">Address</FormLabel>
-            <FormInputText id="address"
-                           @bind-Value="@Command.Address"
-                           type="text"
-                           required
-                           autocomplete="shipping street-address"
-                           disabled="@IsLoading"/>
-
-            <FormDescription Class="w-full flex justify-between">
-                Your personal data is protected.
-            </FormDescription>
-
-            <FormInvalidFeedback For="@(() => Command.Address)"/>
-        </FormField>
-
-        <FormDescription Class="w-full flex justify-between">
-            <a href="/auth/resend_email_confirmation" class="underline underline-offset-4 hover:text-primary">
-                Resend email confirmation
-            </a>
-        </FormDescription>
+        @* <div class="w-full flex flex-row gap-4 justify-between"> *@
+        @*     <FormField> *@
+        @*         <FormLabel for="country">Country</FormLabel> *@
+        @*         <FormInputText id="country" *@
+        @*                        @bind-Value="@Command.Country" *@
+        @*                        type="text" *@
+        @*                        required *@
+        @*                        autocomplete="shipping country" *@
+        @*                        disabled="@IsLoading"/> *@
+        @* *@
+        @*         <FormInvalidFeedback For="@(() => Command.Country)"/> *@
+        @*     </FormField> *@
+        @* *@
+        @*     <FormField> *@
+        @*         <FormLabel for="state">State</FormLabel> *@
+        @*         <FormInputText id="state" *@
+        @*                        @bind-Value="@Command.State" *@
+        @*                        type="text" *@
+        @*                        autocomplete="shipping address-level1" *@
+        @*                        disabled="@IsLoading"/> *@
+        @* *@
+        @*         <FormInvalidFeedback For="@(() => Command.State)"/> *@
+        @*     </FormField> *@
+        @* </div> *@
+        @* *@
+        @* <div class="w-full flex flex-row gap-4 justify-between"> *@
+        @*     <FormField> *@
+        @*         <FormLabel for="city">City</FormLabel> *@
+        @*         <FormInputText id="city" *@
+        @*                        @bind-Value="@Command.City" *@
+        @*                        type="text" *@
+        @*                        required *@
+        @*                        autocomplete="shipping address-level2" *@
+        @*                        disabled="@IsLoading"/> *@
+        @* *@
+        @*         <FormInvalidFeedback For="@(() => Command.City)"/> *@
+        @*     </FormField> *@
+        @* *@
+        @*     <FormField> *@
+        @*         <FormLabel for="zip">Zip code</FormLabel> *@
+        @*         <FormInputText id="zip" *@
+        @*                        @bind-Value="@Command.ZipCode" *@
+        @*                        type="text" *@
+        @*                        required *@
+        @*                        autocomplete="shipping postal-code" *@
+        @*                        disabled="@IsLoading"/> *@
+        @* *@
+        @*         <FormInvalidFeedback For="@(() => Command.ZipCode)"/> *@
+        @*     </FormField> *@
+        @* </div> *@
+        @* *@
+        @* <FormField> *@
+        @*     <FormLabel for="address">Address</FormLabel> *@
+        @*     <FormInputText id="address" *@
+        @*                    @bind-Value="@Command.Address" *@
+        @*                    type="text" *@
+        @*                    required *@
+        @*                    autocomplete="shipping street-address" *@
+        @*                    disabled="@IsLoading"/> *@
+        @* *@
+        @*     <FormDescription Class="w-full flex justify-between"> *@
+        @*         Your personal data is protected. *@
+        @*     </FormDescription> *@
+        @* *@
+        @*     <FormInvalidFeedback For="@(() => Command.Address)"/> *@
+        @* </FormField> *@
 
         <Button type="submit" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+                <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
             }
             Register
         </Button>
+
+        <div
+            class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+            <span class="relative z-10 bg-background px-2 text-muted-foreground">
+                Already have an account?
+            </span>
+        </div>
 
         <Button
             Href="@(NavigationManager.GetUriWithQueryParameters("auth/login", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
             Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+                <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
             }
-            Already have an account? Login
+            Login
         </Button>
     </AppForm>
 </div>
@@ -228,8 +225,7 @@
         //     "account/registerConfirmation",
         //     new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
 
-        await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-
+        await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token);
         NavigationManager.NavigateTo(ReturnUrl ?? "/", true);
     }
 }

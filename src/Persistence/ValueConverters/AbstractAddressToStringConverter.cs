@@ -1,5 +1,4 @@
 using Domain.ValueObjects;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence.ValueConverters;

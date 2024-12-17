@@ -1,10 +1,10 @@
-﻿<label class="@(Tw.Merge(BaseClass, Class))"
+﻿<label class="@Tw.Merge(BaseClass, Class)"
        @attributes="@AdditionalAttributes">
     @ChildContent
 </label>
 
 @code {
-    public static string BaseClass = "text-sm font-medium leading-none peer-required:after:content-['*'] peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
+    public const string BaseClass = "flex justify-between text-sm font-medium leading-none peer-[.invalid]:text-green-700 peer-[.valid]:text-green-700 peer-required:after:content-['*'] peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 
     [Parameter]
     public string Class { get; set; } = default!;

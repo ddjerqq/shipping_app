@@ -21,7 +21,6 @@ public sealed class PackageTests
             PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
-            PasswordHash = "",
             TimeZone = TimeZoneInfo.Local,
             CultureInfo = CultureInfo.CurrentCulture,
         };
@@ -34,7 +33,6 @@ public sealed class PackageTests
             PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
-            PasswordHash = "",
             TimeZone = TimeZoneInfo.Local,
             CultureInfo = CultureInfo.CurrentCulture,
         };
@@ -47,7 +45,6 @@ public sealed class PackageTests
             PhoneNumber = "",
             PersonalId = "01001000000",
             AddressInfo = new NoAddress(),
-            PasswordHash = "",
             TimeZone = TimeZoneInfo.Local,
             CultureInfo = CultureInfo.CurrentCulture,
         };

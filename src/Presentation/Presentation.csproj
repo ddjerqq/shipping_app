@@ -42,4 +42,8 @@
       <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\Persistence\Persistence.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Pages\Auth\PasswordReset\ResetPasswordConfirmation.razor" />
+    </ItemGroup>
 </Project>

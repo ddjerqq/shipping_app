@@ -264,10 +264,6 @@ namespace Persistence.Migrations
                         .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsQueryable", true)
                         .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsUniqueIndex", true);
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("phone_number_confirmed");
-
                     b.Property<string>("PhoneNumberShadowHash")
                         .IsRequired()
                         .HasColumnType("TEXT")

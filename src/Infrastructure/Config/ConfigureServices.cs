@@ -18,6 +18,7 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
         services.AddScoped<IEmailSender, GoogleMailSender>();
         services.AddScoped<IDateTimeProvider, UtcDateTimeProvider>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
+        services.AddScoped<IUserVerificationTokenGenerator, JwtUserVerificationTokenGenerator>();
         services.AddScoped<IIpGeoLocationService, IpInfoIpGeoLocationService>();
     }
 }

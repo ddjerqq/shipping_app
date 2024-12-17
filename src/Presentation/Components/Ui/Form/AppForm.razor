@@ -33,7 +33,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; } = [];
 
-    private FluentValidationValidator? FluentValidationValidator { get; set; }
+    public FluentValidationValidator? FluentValidationValidator { get; set; }
 
     [DisallowNull]
     public CustomValidationCssClassProvider? ValidationCssClassProvider { get; private set; }
@@ -67,7 +67,7 @@
         else
         {
             var messages = EditContext!.GetValidationMessages().ToList();
-            Log.Logger.Warning("Validation failed in form: {Messages}", messages);
+            Log.Logger.Warning("Validation failed in form: {@Messages}", messages);
             StateHasChanged();
             await OnInvalidSubmit.InvokeAsync(EditContext);
         }

@@ -6,14 +6,10 @@
 
 <PageTitle>Log in</PageTitle>
 
-<div class="flex flex-col space-y-2 text-start">
-    <h1 class="text-2xl font-semibold tracking-tight">
-        Log in to your account
-    </h1>
-</div>
+<div class="p-6 md:p-8 space-y-4">
+    <AuthHeader Title="Welcome back!" Description="Login to your account"/>
 
-<div class="grid gap-6">
-    <AppForm @bind-Model="Command" OnValidSubmit="LoginUser" method="POST" FormName="login" novalidate class="grid gap-4">
+    <AppForm @bind-Model="Command" OnValidSubmit="LoginUser" novalidate class="grid gap-4">
         <FormField>
             <FormLabel for="email">Email</FormLabel>
             <FormInputText id="email"
@@ -28,7 +24,13 @@
         </FormField>
 
         <FormField>
-            <FormLabel for="password">Password</FormLabel>
+            <FormLabel for="password">
+                Password
+
+                <a href="/auth/forgot_password" class="hover:underline text-muted-foreground hover:text-primary">
+                    Forgot password?
+                </a>
+            </FormLabel>
             <FormInputText id="password"
                            @bind-Value="@Command.Password"
                            placeholder="Enter password"
@@ -37,32 +39,35 @@
                            autocomplete="current-password"
                            disabled="@IsLoading"/>
 
+            <FormDescription>
+                <a href="/auth/resend_email_confirmation" class="hover:underline text-muted-foreground hover:text-primary">
+                    Resend email confirmation
+                </a>
+            </FormDescription>
+
             <FormInvalidFeedback For="@(() => Command.Password)"/>
         </FormField>
-
-        <FormDescription Class="w-full flex justify-between">
-            <a href="/auth/forgot" class="underline underline-offset-4 hover:text-primary">
-                Forgot password?
-            </a>
-            <a href="/auth/resend_email_confirmation" class="underline underline-offset-4 hover:text-primary">
-                Resend email confirmation
-            </a>
-        </FormDescription>
 
         <Button type="submit" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+                <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
             }
             Login
         </Button>
+
+        <div class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+            <span class="relative z-10 bg-background px-2 text-muted-foreground">
+                Dont have an account?
+            </span>
+        </div>
 
         <Button
             Href="@(NavigationManager.GetUriWithQueryParameters("auth/register", new Dictionary<string, object?> { ["returnUrl"] = ReturnUrl }))"
             Variant="outline" disabled="@IsLoading">
             @if (IsLoading)
             {
-                <Blazicon Svg="Loader" class="mr-2 h-4 w-4 animate-spin"/>
+                <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
             }
             Register
         </Button>

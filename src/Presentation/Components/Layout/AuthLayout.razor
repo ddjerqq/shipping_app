@@ -1,41 +1,32 @@
-﻿@inherits LayoutComponentBase
+﻿@using Presentation.Components.Pages.Auth
+@using Presentation.Components.Ui.Card
+@inherits LayoutComponentBase
 @attribute [AllowAnonymous]
 
-<div class="container relative h-full flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-  <div class="relative hidden h-full flex-col p-10 text-white border-r lg:flex">
-    <div class="absolute inset-0 bg-topo"></div>
-    <div class="relative z-10 flex items-center text-lg font-medium">
-      <Blazicon Svg="Truck" class="mr-2 h-6 w-6"/>
-      ShippingApp
-    </div>
-    <div class="relative z-10 mt-auto">
-      <blockquote class="space-y-2">
-        <p class="text-lg">
-          "I have put in countless hours perfecting this DDD template."
-        </p>
-        <footer class="text-sm">
-          <a href="https://t.me/tenxdeveloper" target="_blank" class="underline underline-offset-4 hover:text-primary">
-            tenxdeveloper
-          </a>
-        </footer>
-      </blockquote>
-    </div>
-  </div>
-  <div class="lg:p-8">
-    <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
-      @Body
+<div class="flex min-h-svh flex-col items-center justify-center p-6 md:p-10 bg-topo bg-background">
+  <div class="w-full max-w-sm md:max-w-3xl">
+    <div class="flex flex-col gap-6">
+      <Card Class="overflow-hidden">
+        <Content Class="grid p-0 md:grid-cols-2">
+          @Body
 
-      <p class="px-8 text-center text-sm text-muted-foreground">
-        By clicking continue, you agree to our
-        <a href="/terms" class="underline underline-offset-4 hover:text-primary">
-          Terms of Service
-        </a>
-        and
-        <a href="/privacy" class="underline underline-offset-4 hover:text-primary">
-          Privacy Policy
-        </a>
-        .
-      </p>
+          <div class="relative hidden bg-muted md:block">
+            <img
+              src="https://ui.shadcn.com/placeholder.svg"
+              alt="Image"
+              class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"/>
+          </div>
+        </Content>
+      </Card>
+
+      @if (IsLoginOrRegister)
+      {
+        <AuthAgreeToTerms/>
+      }
     </div>
   </div>
 </div>
+
+@code {
+  private bool IsLoginOrRegister => NavigationManager.Uri is var uri && (uri.Contains("login") || uri.Contains("register"));
+}

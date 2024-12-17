@@ -1,8 +1,8 @@
 using Application;
+using Domain.Common;
 using dotenv.net;
 using FluentValidation;
 using Infrastructure.Config;
-using Presentation;
 using Presentation.Common;
 using SerilogTracing;
 
@@ -37,7 +37,9 @@ ConfigurationBase.ConfigureServicesFromAssemblies(builder.Services, [
 
 var app = builder.Build();
 
-app.UseConfiguredSerilogRequestLogging();
+if ("LOG__LOG_REQUESTS".FromEnv("false") == "true")
+    app.UseConfiguredSerilogRequestLogging();
+
 await app.MigrateDatabaseAsync();
 app.UseApplicationMiddleware();
 

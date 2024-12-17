@@ -3,7 +3,6 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Presentation.Components;
 using Serilog;
 
 namespace Presentation.Common;

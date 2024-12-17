@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using IPinfo.Models;
 
 namespace Application.Services;

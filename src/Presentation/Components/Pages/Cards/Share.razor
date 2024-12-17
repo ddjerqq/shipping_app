@@ -2,7 +2,6 @@
 @using Domain.Aggregates
 @using Domain.Common
 @using Domain.ValueObjects
-@using Microsoft.IdentityModel.Tokens
 @using Presentation.Components.Ui.Card
 @using Presentation.Components.Ui.Avatar
 @using Presentation.Components.Ui.Form
@@ -70,7 +69,6 @@
             Username = "john doe",
             Email = "johndoe@gmail.com",
             PhoneNumber = "995500100200",
-            PasswordHash = BC.EnhancedHashPassword("password"),
             AddressInfo = new NoAddress(),
         },
     ];

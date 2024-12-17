@@ -1,0 +1,20 @@
+<div class="w-full flex flex-col items-center text-start">
+    <h1 class="w-full text-2xl font-semibold tracking-tight">
+        @Title
+    </h1>
+
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <p class="w-full text-balance text-muted-foreground">
+            @Description
+        </p>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = default!;
+
+    [Parameter]
+    public string? Description { get; set; }
+}

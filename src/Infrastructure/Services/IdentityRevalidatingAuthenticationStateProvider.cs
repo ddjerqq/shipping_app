@@ -1,13 +1,9 @@
-using System.Security.Claims;
 using Application.Common;
 using Application.Services;
-using Domain.Aggregates;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services;
 

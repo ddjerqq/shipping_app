@@ -103,4 +103,19 @@ public sealed class JwtGenerator : IJwtGenerator
 
         return GenerateToken(allClaims, expiration);
     }
+
+    public bool TryValidateToken(string token, out List<Claim> claims)
+    {
+        try
+        {
+            var principal = _handler.ValidateToken(token, TokenValidationParameters, out _);
+            claims = principal.Claims.ToList();
+            return true;
+        }
+        catch
+        {
+            claims = [];
+            return false;
+        }
+    }
 }

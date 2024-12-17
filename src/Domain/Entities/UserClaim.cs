@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using Domain.Abstractions;
 using Domain.Aggregates;

@@ -6,7 +6,7 @@
         <Card>
             <Header Class="flex flex-row items-center justify-between space-y-0 pb-2">
                 <Title Class="text-sm font-medium">@name</Title>
-                <Blazicon Svg="@icon" class="text-muted-foreground h-4 w-4" />
+                <Blazicon Svg="@icon" class="text-muted-foreground size-4" />
             </Header>
             <Content>
                 <div class="text-2xl font-bold">@(amount.ToString("C"))</div>
@@ -42,9 +42,9 @@
 @code {
     public static readonly (string Name, SvgIcon Icon, decimal Amount, float AnnualChange)[] Cards =
     [
-        ("Total Revenue", DollarSign, 45231.89m, 20.1f),
-        ("Subscriptions", Users, 2350, 180.1f),
-        ("Sales", CreditCard, 12234, 19f),
-        ("Active Now", Activity, 573, 201f),
+        ("Total Revenue", Icons.DollarSign, 45231.89m, 20.1f),
+        ("Subscriptions", Icons.Users, 2350, 180.1f),
+        ("Sales", Icons.CreditCard, 12234, 19f),
+        ("Active Now", Icons.Activity, 573, 201f),
     ];
 }

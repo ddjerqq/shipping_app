@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Application.Services;
+using Domain.Aggregates;
 using Domain.Common;
 using Microsoft.Extensions.Logging;
 
@@ -43,15 +44,24 @@ public sealed class GoogleMailSender : IEmailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-        Console.WriteLine(msg);
-        // try
-        // {
-        //     await _client.SendMailAsync(msg, ct);
-        // }
-        // catch (Exception ex)
-        // {
-        //     _logger.LogError(ex, "Failed to send email");
-        //     throw;
-        // }
+#if DEBUG
+        _logger.LogInformation("sending message to {recipient} {message}", recipient, msg);
+#else
+        try
+        {
+            await _client.SendMailAsync(msg, ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to send email");
+            throw;
+        }
+#endif
     }
+
+    public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default) =>
+        SendAsync("noreply@localhost", recipient.Email, "Confirm your email", $"Please confirm your account by clicking this link: {callback}", ct);
+
+    public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default) =>
+        SendAsync("noreply@localhost", user.Email, "Reset your password", $"Please reset your password by clicking this link: {callback}", ct);
 }

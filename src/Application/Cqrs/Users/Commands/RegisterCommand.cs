@@ -59,16 +59,16 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
 {
     public RegisterCommandValidator()
     {
-        RuleFor(x => x.FullName).MinimumLength(5).MaximumLength(32);
+        RuleFor(x => x.FullName).NotEmpty().MinimumLength(5).MaximumLength(32);
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.Password).MinimumLength(12).MaximumLength(256);
-        RuleFor(x => x.PhoneNumber).MinimumLength(10).MaximumLength(15);
-        RuleFor(x => x.BirthDate).LessThan(DateOnly.FromDateTime(DateTime.Now).AddYears(-18)).WithMessage("You must be 18 years old or older to use this service");
-        RuleFor(x => x.PersonalId).Matches(@"(\d{11}|\d{3}\-\d{4}\-\d{3})").WithMessage("Must be 11 digit georgian ID or 3-4-3 digits american SSN");
-        RuleFor(x => x.Country).Matches("(GEO|US)").WithMessage("Must be GEO or USA");
+        RuleFor(x => x.Password).NotEmpty().MinimumLength(12).MaximumLength(256);
+        RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(10).MaximumLength(15);
+        RuleFor(x => x.BirthDate).Must(dateOnly => dateOnly < DateOnly.FromDateTime(DateTime.Now).AddYears(-18)).WithMessage("You must be 18 years old or older to use this service");
+        RuleFor(x => x.PersonalId).NotEmpty().Matches(@"(\d{11}|\d{3}\-\d{4}\-\d{3})").WithMessage("Must be 11 digit georgian ID or 3-4-3 digits american SSN");
+        RuleFor(x => x.Country).NotEmpty().Matches("(GEO|US)").WithMessage("Must be GEO or USA");
         RuleFor(x => x.State).NotEmpty();
         RuleFor(x => x.City).NotEmpty();
-        RuleFor(x => x.ZipCode).Matches(@"^\d+").WithMessage("Must be digits only");
+        RuleFor(x => x.ZipCode).NotEmpty().Matches(@"^\d+").WithMessage("Must be digits only");
         RuleFor(x => x.Address).NotEmpty().MaximumLength(256);
     }
 }
@@ -96,7 +96,6 @@ internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> log
             Username = request.FullName.ToLowerInvariant(),
             Email = request.Email.ToLowerInvariant(),
             PhoneNumber = request.PhoneNumber,
-            PasswordHash = BC.EnhancedHashPassword(request.Password),
             AddressInfo = new FullAddress(request.Country,
                 request.State ?? request.City,
                 request.City,
@@ -105,6 +104,7 @@ internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> log
             CultureInfo = request.CultureInfo,
             TimeZone = request.TimeZoneInfo,
         };
+        user.SetPassword(request.Password, true);
 
         user.AddDomainEvent(new UserRegistered(user.Id));
 

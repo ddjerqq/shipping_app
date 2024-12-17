@@ -1,6 +1,5 @@
 using Domain.Aggregates;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Services;
 

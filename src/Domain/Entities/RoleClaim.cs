@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using Domain.Abstractions;
-using Domain.ValueObjects;
 using Generated;
 
 namespace Domain.Entities;
