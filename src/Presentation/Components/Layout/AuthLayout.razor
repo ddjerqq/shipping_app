@@ -1,21 +1,29 @@
-﻿@using Presentation.Components.Pages.Auth
+﻿@using System.Security.Cryptography
+@using Application.Common
+@using Presentation.Components.Pages.Auth
 @using Presentation.Components.Ui.Card
 @inherits LayoutComponentBase
 @attribute [AllowAnonymous]
 
 <div class="flex min-h-svh flex-col items-center justify-center p-6 md:p-10 bg-topo bg-background">
-  <div class="w-full max-w-sm md:max-w-3xl">
+
+  <div class="@("w-full max-w-sm " + (IsLoginOrRegister ? "md:max-w-4xl" : "max-w-sm"))">
     <div class="flex flex-col gap-6">
       <Card Class="overflow-hidden">
-        <Content Class="grid p-0 md:grid-cols-2">
-          @Body
-
-          <div class="relative hidden bg-muted md:block">
-            <img
-              src="https://ui.shadcn.com/placeholder.svg"
-              alt="Image"
-              class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"/>
+        <Content Class="@("grid p-0 " + (IsLoginOrRegister ? "md:grid-cols-2" : "md:grid-cols-1"))">
+          <div class="p-6 md:p-8 space-y-6">
+            @Body
           </div>
+
+          @if (IsLoginOrRegister)
+          {
+            <div class="relative hidden bg-muted md:block">
+              <img
+                src="@ClaimsPrincipalExt.GetDefaultAvatar()"
+                alt="Image"
+                class="absolute inset-0 h-full w-full object-cover"/>
+            </div>
+          }
         </Content>
       </Card>
 

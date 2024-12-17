@@ -2,7 +2,6 @@ import type { Config } from 'tailwindcss';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
-  darkMode: ['selector'],
   content: [
     './Components/**/*.{html,cs,js,razor}',
     './Layout/**/*.{html,cs,js,razor}',
@@ -59,7 +58,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: [...fontFamily.sans],
+        sans: ['geist', ...fontFamily.sans],
       },
       keyframes: {
         'accordion-down': {

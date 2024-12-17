@@ -1,4 +1,5 @@
-﻿<p class="@(Tw.Merge("text-sm text-muted-foreground block peer-[.invalid]:hidden peer-[.valid]:hidden", Class))"
+﻿@* block peer-[.invalid]:hidden peer-[.valid]:hidden *@
+<p class="@(Tw.Merge("text-sm text-muted-foreground", Class))"
        @attributes="@AdditionalAttributes">
     @ChildContent
 </p>

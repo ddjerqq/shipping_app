@@ -7,6 +7,7 @@ using TailwindMerge;
 
 namespace Presentation.Components.Ui.Form;
 
+[Obsolete("this needs an update")]
 public sealed class FormInputCheckbox : InputBase<bool>
 {
     public const string BaseClass =

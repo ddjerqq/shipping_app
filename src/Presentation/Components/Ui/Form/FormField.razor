@@ -1,8 +1,13 @@
-﻿<div class="@(Tw.Merge("flex flex-col gap-1", Class))" @attributes="@AdditionalAttributes">
+﻿<div class="@(Tw.Merge(BaseClass, Class))" @attributes="@AdditionalAttributes">
     @ChildContent
 </div>
 
 @code {
+    public const string BaseClass =
+        "grid gap-2 has-[.valid]:text-green-700 has-[.invalid]:text-destructive " +
+        "has-[.valid]:[&_label]:text-green-700 has-[.invalid]:[&_label]:text-destructive " +
+        "[&_label:required]:after:content-['*'] has-disabled:[&_label]:cursor-not-allowed has-disabled:[&_label]:opacity-70";
+
     [Parameter]
     public string Class { get; set; } = default!;
 

@@ -18,7 +18,7 @@
     </Button>
 
     <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
-        <div class="px-4 py-3 text-sm text-white">
+        <div class="px-4 py-3 text-sm">
             <div>@context.User.GetUsername()</div>
             <div class="font-medium truncate">@context.User.GetEmail()</div>
         </div>
@@ -26,15 +26,15 @@
         <ul class="py-2 text-sm text-background-200">
             <li>
                 @* <Button Href="me"></Button> *@
-                <a href="me" class="block px-4 py-2 hover:bg-gray-700 hover:text-white">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-700 hover:text-white">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-700 hover:text-white">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-700 hover:text-white">Settings</a>
+                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
+                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
+                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
+                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
             </li>
         </ul>
 
         <div class="py-2">
-            <a @onclick="SignOut" class="block px-4 py-2 text-sm hover:bg-red-700 text-red-200 hover:text-white">
+            <a @onclick="SignOut" class="block px-4 py-2 text-sm hover:bg-destructive text-destructive hover:text-white">
                 Sign out
             </a>
         </div>

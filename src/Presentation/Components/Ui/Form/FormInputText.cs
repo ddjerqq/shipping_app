@@ -10,10 +10,11 @@ namespace Presentation.Components.Ui.Form;
 public sealed class FormInputText : InputBase<string?>
 {
     public const string BaseClass =
-        "peer border-input bg-background autofill:!bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 " +
-        "w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none " +
-        "focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 " +
-        "[&.valid]:!border-green-400 [&.valid]:!ring-green-400 [&.valid]:!text-green-600";
+        "peer flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors " +
+        "file:border-0 file:bg-background file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground " +
+        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm " +
+        "[&.valid]:!border-green-700 [&.valid]:!ring-green-700 [&.valid]:!text-green-700 " +
+        "[&.invalid]:!border-destructive [&.invalid]:!ring-destructive [&.invalid]:!text-destructive ";
 
     [Inject]
     public TwMerge Tw { get; set; } = default!;

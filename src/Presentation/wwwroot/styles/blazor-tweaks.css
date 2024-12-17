@@ -10,10 +10,6 @@
   background: #FF0000;
 }
 
-html, body {
-  font-family: 'Inter var', sans-serif;
-}
-
 /* disconnect modal */
 #components-reconnect-modal {
   position: fixed;
@@ -138,34 +134,29 @@ html, body {
   padding: 0.75rem 1rem !important;
   border-radius: calc(0.5rem - 2px) !important;
 
-  /*--toast-box-shadow-color: #f3f4f6;*/
-  /*box-shadow: var(--box-shadow-color) 0 0 5px 2px!important;*/
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 
-  background-color: var(--toast-bg-color) !important;
+  background-color: var(--background) !important;
   border: 1px solid var(--toast-border-color) !important;
   color: var(--toast-text-color) !important;
 }
 
 .blazored-toast-info {
-  --toast-bg-color: #dbeafe;
   --toast-text-color: #1e40af;
   --toast-border-color: #172554;
 }
 
 .blazored-toast-success {
-  --toast-bg-color: #dcfce7;
   --toast-text-color: #166534;
   --toast-border-color: #052e16;
 }
 
 .blazored-toast-warning {
-  --toast-bg-color: #fef9c3;
   --toast-text-color: #854d0e;
   --toast-border-color: #422006;
 }
 
 .blazored-toast-error {
-  --toast-bg-color: #fee2e2;
   --toast-text-color: #991b1b;
   --toast-border-color: #450a0a;
 }

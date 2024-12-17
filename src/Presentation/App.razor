@@ -1,6 +1,7 @@
 ﻿@using Presentation.Components.Layout
+@using Presentation.Components.Ui.Card
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <title>ShippingApp</title>
     <meta charset="utf-8" />
@@ -40,36 +41,36 @@
     <a class="dismiss">&times;</a>
 </div>
 
-<div id="components-reconnect-modal">
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-show">
+<Card id="components-reconnect-modal">
+    <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-show">
         <span>detected a networking error</span>
         <span>this is not a major issue</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
             <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
             reload
         </button>
-    </div>
+    </Content>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-hide">
+    <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-hide">
         <span>server connection restore, you may reload the page.</span>
-    </div>
+    </Content>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-failed">
+    <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-failed">
         <span>reload the page to recover the connection</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="window.Blazor.reconnect()">
             <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
             reload
         </button>
-    </div>
+    </Content>
 
-    <div class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-rejected">
+    <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl" id="reconnect-rejected">
         <span>to reconnect, reload the page</span>
         <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
             <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
             reload
         </button>
-    </div>
-</div>
+    </Content>
+</Card>
 
 <script src="_framework/blazor.web.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
