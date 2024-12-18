@@ -66,13 +66,15 @@ h1:focus {
   outline: none;
 }
 
-.scrollbar-none::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-  background: transparent; /* Optional: just make scrollbar invisible */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-.scrollbar-none::-webkit-scrollbar-thumb {
-  background: #FF0000;
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
