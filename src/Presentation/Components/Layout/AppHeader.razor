@@ -1,23 +1,30 @@
-﻿<header class="border-b px-8 mb-4 bg-background">
-    <div class="h-16 flex justify-between gap-4 items-center ">
-        <nav class="flex items-center gap-4 lg:gap-6">
-            <NavLink href="/" Match="NavLinkMatch.All" ActiveClass="text-primary"
-                     class="hover:text-primary text-muted-foreground text-sm font-medium transition-colors">
-                Home
-            </NavLink>
+﻿<header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-8">
+    <div class="w-full">
+        <div class="container flex h-14 items-center justify-between">
+            <div class="mr-4 flex">
+                <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/">
+                    <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                    <span class="hidden font-bold lg:inline-block">SanGoWay</span>
+                </a>
 
-            <NavLink href="/cards" Match="NavLinkMatch.All" ActiveClass="text-primary"
-                     class="hover:text-primary text-muted-foreground text-sm font-medium transition-colors">
-                Cards
-            </NavLink>
+                <nav class="flex items-center text-sm gap-4 sm:gap-6">
+                    <NavLink href="/" Match="NavLinkMatch.All" ActiveClass="active"
+                             class="hover:text-foreground text-foreground/80 [&.active]:text-primary transition-colors">
+                        Home
+                    </NavLink>
 
-            <NavLink href="/dashboard" Match="NavLinkMatch.All" ActiveClass="text-primary"
-                     class="hover:text-primary text-muted-foreground text-sm font-medium transition-colors">
-                Dashboard
-            </NavLink>
-        </nav>
+                    <NavLink href="/cards" Match="NavLinkMatch.All" ActiveClass="active"
+                             class="hover:text-foreground text-foreground/80 [&.active]:text-primary transition-colors">
+                        Cards
+                    </NavLink>
 
-        <div class="flex items-center gap-4">
+                    <NavLink href="/dashboard" Match="NavLinkMatch.All" ActiveClass="active"
+                             class="hover:text-foreground text-foreground/80 [&.active]:text-primary transition-colors">
+                        Dashboard
+                    </NavLink>
+                </nav>
+            </div>
+
             <AuthStatus/>
         </div>
     </div>

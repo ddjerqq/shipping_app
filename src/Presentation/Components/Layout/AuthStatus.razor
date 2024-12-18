@@ -4,9 +4,9 @@
 @inject CookieService Cookie
 
 <AuthorizeView>
-    <Button Variant="outline" Class="flex-shrink-0" data-dropdown-toggle="dropdown">
-        <span>
-            @context.User.GetUsername()
+    <Button Variant="outline" Class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
+        <span class="hidden md:block">
+            @context.User.GetUsername()?.CapitalizeName()
         </span>
 
         <Avatar Class="size-6">
@@ -19,24 +19,21 @@
 
     <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
         <div class="px-4 py-3 text-sm">
-            <div>@context.User.GetUsername()</div>
-            <div class="font-medium truncate">@context.User.GetEmail()</div>
+            <div>@context.User.GetUsername()?.CapitalizeName()</div>
+            <div class="font-medium text-xs text-muted-foreground truncate">@context.User.GetEmail()</div>
         </div>
 
-        <ul class="py-2 text-sm text-background-200">
-            <li>
-                @* <Button Href="me"></Button> *@
-                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
-                <a href="me" class="block px-4 py-2 hover:bg-gray-200 hover:text-black">Settings</a>
-            </li>
-        </ul>
+        <nav class="py-2 text-sm text-background-200">
+            <Button Href="me" Variant="ghost" Class="justify-start w-full rounded-none">
+                Settings
+            </Button>
+        </nav>
 
         <div class="py-2">
-            <a @onclick="SignOut" class="block px-4 py-2 text-sm hover:bg-destructive text-destructive hover:text-white">
+            <Button Variant="ghost" Class="justify-start text-destructive hover:text-destructive w-full rounded-none" @onclick="@SignOut">
+                <Blazicon Svg="@Icons.LogOut"/>
                 Sign out
-            </a>
+            </Button>
         </div>
     </div>
 </AuthorizeView>
