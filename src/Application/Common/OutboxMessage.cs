@@ -15,7 +15,7 @@ public sealed class OutboxMessage
     public string Type { get; init; } = default!;
 
     [LogMasked]
-    [Encrypt(IsQueryable = false, IsUnique = false)]
+    [Encrypt(false, false)]
     [StringLength(2048)]
     public string Content { get; init; } = string.Empty;
 

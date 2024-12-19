@@ -19,7 +19,7 @@
         <PackageReference Include="MediatR.Contracts" Version="2.0.1"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="9.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
-        <PackageReference Include="Klean.EntityFrameworkCore.DataProtection" Version="1.1.0" />
+        <PackageReference Include="Klean.EntityFrameworkCore.DataProtection" Version="1.2.0" />
         <PackageReference Include="QuickForm" Version="2.1.0"/>
         <PackageReference Include="SerilogTracing" Version="2.3.0" />
         <PackageReference Include="SerilogTracing.Expressions" Version="2.3.0" />
