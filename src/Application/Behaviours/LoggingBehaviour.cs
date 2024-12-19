@@ -13,7 +13,7 @@ internal sealed class LoggingBehaviour<TRequest, TResponse>(ICurrentUserAccessor
     {
         var userId = currentUser.Id?.ToString() ?? "unauthenticated";
 
-        using var activity = Log.Logger.StartActivity("{@UserId} sent request {@RequestName} {@Request}", userId, typeof(TRequest).Name, request);
+        using var activity = Log.Logger.StartActivity("{@UserId} sent request {@RequestName} {Request}", userId, typeof(TRequest).Name, request);
 
         try
         {
