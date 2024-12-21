@@ -33,20 +33,20 @@ public sealed record RegisterCommand : IRequest<RegisterResult>
     [LogMasked]
     public string Password { get; set; } = default!;
 
-    [LogMasked]
-    public string Country { get; set; } = default!;
-
-    [LogMasked]
-    public string? State { get; set; }
-
-    [LogMasked]
-    public string City { get; set; } = default!;
-
-    [LogMasked]
-    public string ZipCode { get; set; } = default!;
-
-    [LogMasked]
-    public string Address { get; set; } = default!;
+    // [LogMasked]
+    // public string Country { get; set; } = default!;
+    //
+    // [LogMasked]
+    // public string? State { get; set; }
+    //
+    // [LogMasked]
+    // public string City { get; set; } = default!;
+    //
+    // [LogMasked]
+    // public string ZipCode { get; set; } = default!;
+    //
+    // [LogMasked]
+    // public string Address { get; set; } = default!;
 
     [LogMasked]
     public TimeZoneInfo TimeZoneInfo { get; set; } = default!;
@@ -65,11 +65,11 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
         RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(10).MaximumLength(15);
         RuleFor(x => x.BirthDate).Must(dateOnly => dateOnly < DateOnly.FromDateTime(DateTime.Now).AddYears(-18)).WithMessage("You must be 18 years old or older to use this service");
         RuleFor(x => x.PersonalId).NotEmpty().Matches(@"(\d{11}|\d{3}\-\d{4}\-\d{3})").WithMessage("Must be 11 digit georgian ID or 3-4-3 digits american SSN");
-        RuleFor(x => x.Country).NotEmpty().Matches("(GEO|US)").WithMessage("Must be GEO or USA");
-        RuleFor(x => x.State).NotEmpty();
-        RuleFor(x => x.City).NotEmpty();
-        RuleFor(x => x.ZipCode).NotEmpty().Matches(@"^\d+").WithMessage("Must be digits only");
-        RuleFor(x => x.Address).NotEmpty().MaximumLength(256);
+        // RuleFor(x => x.Country).NotEmpty().Matches("(GEO|US)").WithMessage("Must be GEO or USA");
+        // RuleFor(x => x.State).NotEmpty();
+        // RuleFor(x => x.City).NotEmpty();
+        // RuleFor(x => x.ZipCode).NotEmpty().Matches(@"^\d+").WithMessage("Must be digits only");
+        // RuleFor(x => x.Address).NotEmpty().MaximumLength(256);
     }
 }
 
@@ -96,11 +96,12 @@ internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> log
             Username = request.FullName.ToLowerInvariant(),
             Email = request.Email.ToLowerInvariant(),
             PhoneNumber = request.PhoneNumber,
-            AddressInfo = new FullAddress(request.Country,
-                request.State ?? request.City,
-                request.City,
-                request.ZipCode,
-                request.Address),
+            // AddressInfo = new FullAddress(request.Country,
+            //     request.State ?? request.City,
+            //     request.City,
+            //     request.ZipCode,
+            //     request.Address),
+            AddressInfo = new NoAddress(),
             CultureInfo = request.CultureInfo,
             TimeZone = request.TimeZoneInfo,
         };

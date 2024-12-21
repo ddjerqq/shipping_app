@@ -17,7 +17,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Username { get; init; }
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
-    public required AbstractAddress AddressInfo { get; init; }
+    public AbstractAddress? AddressInfo { get; init; } = default!;
     public CultureInfo CultureInfo { get; init; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 

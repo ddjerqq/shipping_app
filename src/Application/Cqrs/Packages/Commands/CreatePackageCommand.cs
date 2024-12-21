@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 
-namespace Application.Packages.Commands;
+namespace Application.Cqrs.Packages.Commands;
 
 public sealed record CreatePackageCommand : IRequest<Package>
 {
