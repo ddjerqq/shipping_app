@@ -1,13 +1,27 @@
-const path = require("path");
-
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: "production",
-  entry: "./wwwroot/scripts/globe.js",
+  entry: "./wwwroot/scripts/globe.ts",
   devtool: "source-map",
-  plugins: [],
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "wwwroot/dist"),
-  }
-};
+    path: __dirname + "/wwwroot/scripts",
+    filename: "globe.min.js",
+  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // }
+}
