@@ -1,6 +1,5 @@
-﻿@page "/"
+﻿@page "/home"
 @using Domain.Common
-@inject IJSRuntime Js
 
 <PageTitle>Home</PageTitle>
 
@@ -12,17 +11,4 @@
     <AuthorizeView>
         <h1>Hello, @(context.User.Identity?.Name?.SplitName()?.First ?? "world")</h1>
     </AuthorizeView>
-
-    <div id="globeContainer" style="z-index: 1000"></div>
 </div>
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // importing will run the code
-            await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
-        }
-    }
-}

@@ -1,12 +1,10 @@
-﻿@using System.Security.Cryptography
-@using Application.Common
+﻿@using Application.Common
 @using Presentation.Components.Pages.Auth
 @using Presentation.Components.Ui.Card
 @inherits LayoutComponentBase
 @attribute [AllowAnonymous]
 
 <div class="flex min-h-svh flex-col items-center justify-center p-6 md:p-10 bg-topo bg-background">
-
   <div class="@("w-full max-w-sm " + (IsLoginOrRegister ? "md:max-w-4xl" : "max-w-sm"))">
     <div class="flex flex-col gap-6">
       <Card Class="overflow-hidden">

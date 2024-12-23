@@ -4,38 +4,47 @@
 @inject CookieService Cookie
 
 <AuthorizeView>
-    <Button Variant="outline" Class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
-        <span class="hidden md:block">
-            @context.User.GetUsername()?.CapitalizeName()
-        </span>
+    <Authorized>
+        <Button Variant="outline" Class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
+            <span class="hidden md:block">
+                @context.User.GetUsername()?.CapitalizeName()
+            </span>
 
-        <Avatar Class="size-6">
-            <AvatarImage Src="@(context.User.GetAvatar())" Alt="@(context.User.GetUsername())"/>
-            <AvatarFallback>
-                @context.User.GetUsername()?.Initials()
-            </AvatarFallback>
-        </Avatar>
-    </Button>
+            <Avatar Class="size-6">
+                <AvatarImage Src="@(context.User.GetAvatar())" Alt="@(context.User.GetUsername())"/>
+                <AvatarFallback>
+                    @context.User.GetUsername()?.Initials()
+                </AvatarFallback>
+            </Avatar>
+        </Button>
 
-    <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
-        <div class="px-4 py-3 text-sm">
-            <div>@context.User.GetUsername()?.CapitalizeName()</div>
-            <div class="font-medium text-xs text-muted-foreground truncate">@context.User.GetEmail()</div>
+        <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
+            <div class="px-4 py-3 text-sm">
+                <div>@context.User.GetUsername()?.CapitalizeName()</div>
+                <div class="font-medium text-xs text-muted-foreground truncate">@context.User.GetEmail()</div>
+            </div>
+
+            <nav class="py-2 text-sm text-background-200">
+                <Button Href="me" Variant="ghost" Class="justify-start w-full rounded-none">
+                    Settings
+                </Button>
+            </nav>
+
+            <div class="py-2">
+                <Button Variant="ghost" Class="justify-start text-destructive hover:text-destructive w-full rounded-none"
+                        @onclick="@SignOut">
+                    <Blazicon Svg="@Icons.LogOut"/>
+                    Sign out
+                </Button>
+            </div>
         </div>
+    </Authorized>
 
-        <nav class="py-2 text-sm text-background-200">
-            <Button Href="me" Variant="ghost" Class="justify-start w-full rounded-none">
-                Settings
-            </Button>
-        </nav>
-
-        <div class="py-2">
-            <Button Variant="ghost" Class="justify-start text-destructive hover:text-destructive w-full rounded-none" @onclick="@SignOut">
-                <Blazicon Svg="@Icons.LogOut"/>
-                Sign out
-            </Button>
-        </div>
-    </div>
+    <NotAuthorized>
+        <Button Href="auth/login" Variant="default">
+            Login
+        </Button>
+    </NotAuthorized>
 </AuthorizeView>
 
 

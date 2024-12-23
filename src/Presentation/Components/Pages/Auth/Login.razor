@@ -126,7 +126,7 @@
         if (result is not null)
         {
             await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-            NavigationManager.NavigateTo(ReturnUrl ?? "/");
+            NavigationManager.NavigateTo(ReturnUrl ?? "/home");
         }
         else if (result is (true, _, _))
             NavigationManager.NavigateTo("account/lockout");

@@ -1,0 +1,37 @@
+@page "/"
+@inject IJSRuntime Js
+
+<div class="w-full flex flex-row justify-center items-center">
+    <canvas id="globe" class="size-[800px]"></canvas>
+</div>
+
+@code {
+    // websiteze notificationebi axali package
+    // dgeshi ramdeni shekveta shemovida
+    // boxing open close days
+    // find package tracking code find by last 6 numbers, do not show the shipping price to the user
+    // date when the user will receive the package
+    // find by UserName or phone number or ID
+    // scanner test the scanner
+    // excel export daily about shipping with weights on it too
+    // i13n english geo russian too
+    // saxlis delivery +$10 taxi delivery and saxlidan gamousvlelad
+    // +$5 for choosing office
+    // moculobiti wona
+    // illegal items list
+    // attach photos to package
+    // attach invoice when pre-declaring attach file
+    // attach price the user paid
+    // how many items in package
+    // amazon and other shipping apps, tell users they can buy from the websites there
+    // footer add text
+    // ratings and reviews 4-5 stars review but dont allow users to actually review? ლოლ
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
+        }
+    }
+}

@@ -88,6 +88,30 @@
             "city": "",
             "lat": "13.6900",
             "lng": "100.7501"
+        },
+        {
+            "text": "TBS",
+            "size": 1.0,
+            "country": "Georgia",
+            "city": "Tbilisi",
+            "lat": "41.6696",
+            "lng": "44.9645"
+        },
+        {
+            "text": "JFK",
+            "size": 1.0,
+            "country": "United States of America",
+            "city": "New York",
+            "lat": "40.6446",
+            "lng": "-73.7797"
+        },
+        {
+            "text": "CN",
+            "size": 1.0,
+            "country": "China",
+            "city": "China",
+            "lat": "23.3925",
+            "lng": "113.2988"
         }
     ]
 }

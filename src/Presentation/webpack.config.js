@@ -1,3 +1,5 @@
+const TerserPlugin = require("terser-webpack-plugin");
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: "production",
@@ -19,9 +21,15 @@ module.exports = {
     path: __dirname + "/wwwroot/scripts",
     filename: "globe.min.js",
   },
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //   },
-  // }
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          keep_fnames: true
+        }
+      })
+    ]
+  }
 }

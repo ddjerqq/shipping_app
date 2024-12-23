@@ -250,6 +250,6 @@
         //     new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
 
         await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token);
-        NavigationManager.NavigateTo(ReturnUrl ?? "/", true);
+        NavigationManager.NavigateTo(ReturnUrl ?? "/home", true);
     }
 }
