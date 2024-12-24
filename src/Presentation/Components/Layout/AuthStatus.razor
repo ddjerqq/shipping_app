@@ -11,7 +11,7 @@
             </span>
 
             <Avatar Class="size-6">
-                <AvatarImage Src="@(context.User.GetAvatar())" Alt="@(context.User.GetUsername())"/>
+                <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar())" Alt="@(context.User.GetUsername())"/>
                 <AvatarFallback>
                     @context.User.GetUsername()?.Initials()
                 </AvatarFallback>

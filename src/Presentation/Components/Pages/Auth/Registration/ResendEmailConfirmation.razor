@@ -1,10 +1,10 @@
-﻿@page "/auth/forgot_password"
+﻿@page "/auth/resend_email_confirmation"
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
 
-<PageTitle>Forgot password?</PageTitle>
+<PageTitle>Resend email confirmation</PageTitle>
 
-<AuthHeader Title="Forgot your password?" Description="Enter your email, and we'll send you a link to get back into your account."/>
+<AuthHeader Title="Didn't receive an email?" Description="Enter your email, and we'll send you a link to get confirm your email again."/>
 
 <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync" novalidate class="grid gap-6">
     <FormField>
@@ -25,12 +25,12 @@
         {
             <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
         }
-        Reset
+        Resend
     </Button>
 </AppForm>
 
 @code {
-    private ForgotPasswordCommand Command { get; set; } = new();
+    private ResendEmailConfirmationCommand Command { get; set; } = new();
     private bool IsLoading { get; set; }
 
     private async Task OnValidSubmitAsync()
@@ -39,6 +39,6 @@
         await Mediator.Send(Command);
         IsLoading = false;
 
-        NavigationManager.NavigateTo("auth/forgot_confirmation");
+        NavigationManager.NavigateTo("account/register_confirmation");
     }
 }

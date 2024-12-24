@@ -2,8 +2,6 @@
 @using System.Globalization
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
-@inject CookieService Cookie
-@attribute [AllowAnonymous]
 
 <PageTitle>Register</PageTitle>
 
@@ -67,19 +65,6 @@
     </div>
 
     <FormField>
-        <FormLabel for="birth-date">Birth date</FormLabel>
-        <InputDate id="birth-date"
-                   class="@FormInputText.BaseClass"
-                   @bind-Value="@Command.BirthDate"
-                   Type="InputDateType.Date"
-                   required
-                   autocomplete="bday"
-                   disabled="@IsLoading"/>
-
-        <FormInvalidFeedback For="@(() => Command.BirthDate)"/>
-    </FormField>
-
-    <FormField>
         <FormLabel for="password">Password</FormLabel>
         <FormInputText id="password"
                        @bind-Value="@Command.Password"
@@ -96,72 +81,15 @@
         <FormInvalidFeedback For="@(() => Command.Password)"/>
     </FormField>
 
-    @* <div class="w-full flex gap-2 items-center justify-between"> *@
-    @*     <FormField> *@
-    @*         <FormLabel for="country">Country</FormLabel> *@
-    @*         <FormInputText id="country" *@
-    @*                        @bind-Value="@Command.Country" *@
-    @*                        type="text" *@
-    @*                        required *@
-    @*                        autocomplete="shipping country" *@
-    @*                        disabled="@IsLoading"/> *@
-    @* *@
-    @*         <FormInvalidFeedback For="@(() => Command.Country)"/> *@
-    @*     </FormField> *@
-    @* *@
-    @*     <FormField> *@
-    @*         <FormLabel for="state">State</FormLabel> *@
-    @*         <FormInputText id="state" *@
-    @*                        @bind-Value="@Command.State" *@
-    @*                        type="text" *@
-    @*                        autocomplete="shipping address-level1" *@
-    @*                        disabled="@IsLoading"/> *@
-    @* *@
-    @*         <FormInvalidFeedback For="@(() => Command.State)"/> *@
-    @*     </FormField> *@
-    @* </div> *@
-    @* *@
-    @* <div class="w-full flex flex-row gap-4 justify-between"> *@
-    @*     <FormField> *@
-    @*         <FormLabel for="city">City</FormLabel> *@
-    @*         <FormInputText id="city" *@
-    @*                        @bind-Value="@Command.City" *@
-    @*                        type="text" *@
-    @*                        required *@
-    @*                        autocomplete="shipping address-level2" *@
-    @*                        disabled="@IsLoading"/> *@
-    @* *@
-    @*         <FormInvalidFeedback For="@(() => Command.City)"/> *@
-    @*     </FormField> *@
-    @* *@
-    @*     <FormField> *@
-    @*         <FormLabel for="zip">Zip code</FormLabel> *@
-    @*         <FormInputText id="zip" *@
-    @*                        @bind-Value="@Command.ZipCode" *@
-    @*                        type="text" *@
-    @*                        required *@
-    @*                        autocomplete="shipping postal-code" *@
-    @*                        disabled="@IsLoading"/> *@
-    @* *@
-    @*         <FormInvalidFeedback For="@(() => Command.ZipCode)"/> *@
-    @*     </FormField> *@
-    @* </div> *@
-    @* *@
-    @* <FormField> *@
-    @*     <FormLabel for="address">Address</FormLabel> *@
-    @*     <FormInputText id="address" *@
-    @*                    @bind-Value="@Command.Address" *@
-    @*                    type="text" *@
-    @*                    required *@
-    @*                    autocomplete="shipping street-address" *@
-    @*                    disabled="@IsLoading"/> *@
-    @* *@
-    @*     <FormDescription Class="w-full flex justify-between"> *@
-    @*         Your personal data is protected. *@
-    @*     </FormDescription> *@
-    @* *@
-    @*     <FormInvalidFeedback For="@(() => Command.Address)"/> *@
-    @* </FormField> *@
+    <FormField>
+        <div class="flex flex-row items-center gap-2">
+            <FormInputCheckbox id="terms" @bind-Value="Command.AgreeToTerms"/>
+            <FormLabel for="terms">
+                <AuthAgreeToTerms/>
+            </FormLabel>
+        </div>
+        <FormInvalidFeedback For="@(() => Command.AgreeToTerms)"/>
+    </FormField>
 
     <Button type="submit" disabled="@IsLoading">
         @if (IsLoading)
@@ -238,18 +166,12 @@
         var result = await Mediator.Send(Command);
         IsLoading = false;
 
-        if (result is null)
+        if (result is false)
         {
-            Toast.ShowError("The email, phone number, or personal Id is already in use by another user.");
+            Toast.ShowError("The email, phone number, or personal Id is already in use by another user. Try logging in");
             return;
         }
 
-        // TODO registration confirmation
-        // RedirectManager.RedirectTo(
-        //     "account/registerConfirmation",
-        //     new Dictionary<string, object?> { ["email"] = Command.Email, ["returnUrl"] = ReturnUrl });
-
-        await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token);
-        NavigationManager.NavigateTo(ReturnUrl ?? "/home", true);
+        NavigationManager.NavigateTo("account/register_confirmation");
     }
 }

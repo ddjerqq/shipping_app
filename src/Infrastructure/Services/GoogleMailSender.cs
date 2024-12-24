@@ -45,7 +45,7 @@ public sealed class GoogleMailSender : IEmailSender
         msg.IsBodyHtml = true;
 
 #if DEBUG
-        _logger.LogInformation("sending message to {recipient} {message}", recipient, msg);
+        _logger.LogInformation("sending message to {recipient} {@message}", recipient, msg);
 #else
         try
         {

@@ -1,11 +1,10 @@
 using Application.Services;
 using FluentValidation;
 using MediatR;
-using ResetPasswordResult = (string Token, Domain.Aggregates.User User)?;
 
 namespace Application.Cqrs.Users.Commands;
 
-public sealed record ResetPasswordCommand : IRequest<ResetPasswordResult>
+public sealed record ResetPasswordCommand : IRequest
 {
     public string NewPassword { get; set; } = default!;
 
@@ -27,13 +26,13 @@ public sealed class ResetPasswordValidator : AbstractValidator<ResetPasswordComm
     }
 }
 
-internal sealed class ResetPasswordHandler(IAppDbContext dbContext, IJwtGenerator jwtGenerator, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResetPasswordCommand, ResetPasswordResult>
+internal sealed class ResetPasswordHandler(IAppDbContext dbContext, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResetPasswordCommand>
 {
-    public async Task<ResetPasswordResult> Handle(ResetPasswordCommand request, CancellationToken ct)
+    public async Task Handle(ResetPasswordCommand request, CancellationToken ct)
     {
-        var result = tokenGenerator.ValidateToken("reset_password", request.Token);
+        var result = tokenGenerator.ValidateToken(IUserVerificationTokenGenerator.ResetPasswordPurpose, request.Token);
         if (result is null)
-            return null;
+            return;
 
         var (_, _, securityStamp, userId) = result.Value;
 
@@ -46,8 +45,5 @@ internal sealed class ResetPasswordHandler(IAppDbContext dbContext, IJwtGenerato
 
         user.SetPassword(request.NewPassword);
         await dbContext.SaveChangesAsync(ct);
-
-        var token = jwtGenerator.GenerateToken(user);
-        return (token, user);
     }
 }

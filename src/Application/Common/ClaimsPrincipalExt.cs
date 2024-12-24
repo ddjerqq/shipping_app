@@ -31,10 +31,6 @@ public static class ClaimsPrincipalExt
         principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value
             .Split(';').Select(x => RoleId.Parse(x)) ?? [];
 
-    [Obsolete("to be removed")]
-    public static string GetAvatar(this ClaimsPrincipal principal) => GetDefaultAvatar();
-
-    [Obsolete("to be removed")]
     public static string GetDefaultAvatar(string? username = default)
     {
         username ??= RandomNumberGenerator.GetHexString(5);

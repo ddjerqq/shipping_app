@@ -4,7 +4,6 @@ using Domain.Aggregates;
 using EntityFrameworkCore.DataProtection.Extensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Cqrs.Users.Commands;
@@ -28,13 +27,10 @@ internal sealed class ForgotPasswordCommandHandler(IAppDbContext dbContext, IEma
     {
         var user = await dbContext.Users.WherePdEquals(nameof(User.Email), request.Email.ToLowerInvariant()).FirstOrDefaultAsync(ct);
 
-        // Don't reveal that the user does not exist or is not confirmed
         if (user is null || !user.EmailConfirmed)
             return;
 
-        var token = tokenGenerator.GenerateToken(user, "reset_password");
-        var callbackUrl = QueryHelpers.AddQueryString("https://localhost/auth/reset_password", new Dictionary<string, string?> { ["token"] = token });
-
+        var callbackUrl = tokenGenerator.GeneratePasswordResetCallbackUrl(user);
         await emailSender.SendPasswordResetAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
     }
 }

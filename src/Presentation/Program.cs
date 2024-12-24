@@ -1,10 +1,8 @@
 using Application;
-using Domain.Common;
 using dotenv.net;
 using FluentValidation;
 using Infrastructure.Config;
 using Presentation.Common;
-using SerilogTracing;
 
 ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
 // for custom languages

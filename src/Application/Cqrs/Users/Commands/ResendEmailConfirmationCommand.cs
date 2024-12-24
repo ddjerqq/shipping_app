@@ -1,0 +1,38 @@
+using System.Text.Encodings.Web;
+using Application.Services;
+using Domain.Aggregates;
+using EntityFrameworkCore.DataProtection.Extensions;
+using FluentValidation;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+namespace Application.Cqrs.Users.Commands;
+
+public sealed record ResendEmailConfirmationCommand : IRequest
+{
+    public string Email { get; set; } = "";
+}
+
+public sealed class ResendEmailConfirmationValidator : AbstractValidator<ResendEmailConfirmationCommand>
+{
+    public ResendEmailConfirmationValidator()
+    {
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
+    }
+}
+
+internal sealed class ResendEmailConfirmationHandler(IAppDbContext dbContext, ILogger<ResendEmailConfirmationHandler> logger, IEmailSender emailSender, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResendEmailConfirmationCommand>
+{
+    public async Task Handle(ResendEmailConfirmationCommand request, CancellationToken ct)
+    {
+        var user = await dbContext.Users.WherePdEquals(nameof(User.Email), request.Email.ToLowerInvariant()).FirstOrDefaultAsync(ct);
+
+        if (user is null)
+            return;
+
+        var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
+        logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
+        await emailSender.SendEmailConfirmationAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
+    }
+}

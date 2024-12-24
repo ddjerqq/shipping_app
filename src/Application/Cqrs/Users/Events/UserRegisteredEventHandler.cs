@@ -2,7 +2,6 @@ using System.Text.Encodings.Web;
 using Application.Services;
 using Domain.Events;
 using MediatR;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Cqrs.Users.Events;
@@ -19,9 +18,7 @@ internal sealed class UserRegisteredEventHandler(
         var user = await dbContext.Users.FindAsync([notification.UserId], ct)
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 
-        var code = tokenGenerator.GenerateToken(user, "user_registered");
-        var callbackUrl = QueryHelpers.AddQueryString("https://localhost/auth/confirm_email", new Dictionary<string, string?> { ["code"] = code });
-
+        var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
         logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
         await emailSender.SendEmailConfirmationAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
     }
