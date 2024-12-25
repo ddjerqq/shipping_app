@@ -20,6 +20,6 @@ internal sealed class UserRegisteredEventHandler(
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
         logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
-        await emailSender.SendEmailConfirmationAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
+        await emailSender.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }

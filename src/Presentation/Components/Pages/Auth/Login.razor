@@ -36,12 +36,21 @@
         <FormInputText id="password"
                        @bind-Value="@Command.Password"
                        placeholder="Enter password"
-                       type="password"
+                       type="@(ShowPassword ? "text" : "password")"
                        required
                        autocomplete="current-password"
                        disabled="@IsLoading"/>
 
         <FormInvalidFeedback For="@(() => Command.Password)"/>
+    </FormField>
+
+    <FormField>
+        <div class="flex flex-row items-center gap-2">
+            <FormInputCheckbox id="show" @bind-Value="ShowPassword"/>
+            <FormLabel for="show">
+                Show password
+            </FormLabel>
+        </div>
     </FormField>
 
     <Button type="submit" disabled="@IsLoading">
@@ -106,13 +115,11 @@
     [CascadingParameter]
     private TimeZoneInfo BrowserTimeZone { get; set; } = default!;
 
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
-
     [SupplyParameterFromForm]
     private LoginCommand Command { get; set; } = new();
 
     private bool IsLoading { get; set; }
+    private bool ShowPassword { get; set; }
 
     public async Task LoginUser()
     {
@@ -122,14 +129,18 @@
         var result = await Mediator.Send(Command);
         IsLoading = false;
 
-        if (result is not null)
+        switch (result)
         {
-            await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-            NavigationManager.NavigateTo(ReturnUrl ?? "/home");
+            case null:
+                Toast.ShowError("Invalid credentials.");
+                return;
+            case (true, _, _):
+                NavigationManager.NavigateTo("auth/lockout");
+                return;
+            default:
+                await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
+                NavigationManager.NavigateTo("/home", true);
+                break;
         }
-        else if (result is (true, _, _))
-            NavigationManager.NavigateTo("account/lockout");
-        else
-            Toast.ShowError("Invalid credentials.");
     }
 }

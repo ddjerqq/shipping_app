@@ -8,6 +8,8 @@ public sealed record ResetPasswordCommand : IRequest
 {
     public string NewPassword { get; set; } = default!;
 
+    public string ConfirmNewPassword { get; set; } = default!;
+
     public string Token { get; set; } = default!;
 }
 
@@ -16,11 +18,14 @@ public sealed class ResetPasswordValidator : AbstractValidator<ResetPasswordComm
     public ResetPasswordValidator(IJwtGenerator jwtGenerator)
     {
         RuleFor(x => x.NewPassword)
-            .NotEmpty().WithMessage("New password is required.")
-            .MinimumLength(6).WithMessage("New password must be at least 6 characters.");
+            .NotEmpty().MinimumLength(12);
+
+        RuleFor(x => x.ConfirmNewPassword)
+            .NotEmpty().MinimumLength(12)
+            .Equal(command => command.NewPassword).WithMessage("Passwords dont match!");
 
         RuleFor(x => x.Token)
-            .NotEmpty().WithMessage("Token is required.")
+            .NotEmpty()
             .Must(token => jwtGenerator.TryValidateToken(token, out _))
             .WithMessage("Invalid token!");
     }
@@ -34,7 +39,7 @@ internal sealed class ResetPasswordHandler(IAppDbContext dbContext, IUserVerific
         if (result is null)
             return;
 
-        var (_, _, securityStamp, userId) = result.Value;
+        var (_, securityStamp, userId) = result.Value;
 
         var user = await dbContext.Users.FindAsync([userId], ct);
         if (user is null)

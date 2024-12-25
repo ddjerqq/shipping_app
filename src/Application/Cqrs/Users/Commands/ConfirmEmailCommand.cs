@@ -23,7 +23,7 @@ internal sealed class ConfirmEmailHandler(IAppDbContext dbContext, IUserVerifica
         if (result is null)
             return null;
 
-        var (_, _, securityStamp, userId) = result.Value;
+        var (_, securityStamp, userId) = result.Value;
 
         var user = await dbContext.Users.FindAsync([userId], ct);
         if (user is null)

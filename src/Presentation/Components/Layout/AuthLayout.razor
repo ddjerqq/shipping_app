@@ -29,5 +29,6 @@
 </div>
 
 @code {
-  private bool IsLoginOrRegister => NavigationManager.Uri is var uri && (uri.Contains("login") || uri.Contains("register"));
+  // is auth/login or auth/register but not auth/register_confirmation
+  private bool IsLoginOrRegister => new Uri(NavigationManager.Uri) is var uri && uri.AbsolutePath.Contains("auth/login") || uri.AbsolutePath.Contains("auth/register") && !uri.AbsolutePath.Contains("auth/register_confirmation");
 }

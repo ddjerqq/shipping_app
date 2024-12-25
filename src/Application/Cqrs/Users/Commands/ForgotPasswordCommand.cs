@@ -31,6 +31,6 @@ internal sealed class ForgotPasswordCommandHandler(IAppDbContext dbContext, IEma
             return;
 
         var callbackUrl = tokenGenerator.GeneratePasswordResetCallbackUrl(user);
-        await emailSender.SendPasswordResetAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
+        await emailSender.SendPasswordResetAsync(user, callbackUrl, ct);
     }
 }

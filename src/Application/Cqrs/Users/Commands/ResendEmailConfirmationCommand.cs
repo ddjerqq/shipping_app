@@ -28,11 +28,12 @@ internal sealed class ResendEmailConfirmationHandler(IAppDbContext dbContext, IL
     {
         var user = await dbContext.Users.WherePdEquals(nameof(User.Email), request.Email.ToLowerInvariant()).FirstOrDefaultAsync(ct);
 
-        if (user is null)
+        // use not found or already confirmed
+        if (user is null || user.EmailConfirmed)
             return;
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
         logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
-        await emailSender.SendEmailConfirmationAsync(user, HtmlEncoder.Default.Encode(callbackUrl), ct);
+        await emailSender.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }

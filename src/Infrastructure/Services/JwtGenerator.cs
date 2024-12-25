@@ -7,7 +7,9 @@ using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace Infrastructure.Services;
 
@@ -37,7 +39,7 @@ public sealed class JwtGenerator : IJwtGenerator
                 return Task.CompletedTask;
             }
 
-            ctx.Response.Redirect($"/404?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
+            ctx.Response.Redirect("auth/denied");
             return Task.CompletedTask;
         },
         OnChallenge = ctx =>
@@ -48,7 +50,7 @@ public sealed class JwtGenerator : IJwtGenerator
                 return Task.CompletedTask;
             }
 
-            ctx.Response.Redirect($"/auth/login?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
+            ctx.Response.Redirect("auth/login");
             ctx.HandleResponse();
             return Task.CompletedTask;
         },
@@ -112,8 +114,10 @@ public sealed class JwtGenerator : IJwtGenerator
             claims = principal.Claims.ToList();
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Logger.Debug(ex, "Failed to validate token");
+
             claims = [];
             return false;
         }

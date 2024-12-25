@@ -12,29 +12,27 @@ public sealed class JwtUserVerificationTokenGenerator(IJwtGenerator jwtGenerator
         Claim[] claims =
         [
             new("purpose", purpose),
-            new("valid_until", DateTimeOffset.UtcNow.ToString("O")),
             new("security_stamp", user.SecurityStamp),
             new("sid", user.Id.ToString()),
         ];
 
-        return jwtGenerator.GenerateToken(claims);
+        return jwtGenerator.GenerateToken(claims, TimeSpan.FromMinutes(5));
     }
 
-    public (string Purpose, DateTimeOffset ValidUntil, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token)
+    public (string Purpose, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token)
     {
         if (!jwtGenerator.TryValidateToken(token, out var claims))
             return null;
 
-        if (!claims.HasAllKeys("purpose", "valid_until", "security_stamp", "sid"))
+        if (!claims.HasAllKeys("purpose", "security_stamp", "sid"))
             return null;
 
         var claimPurpose = claims.FindFirstValue("purpose")!;
-        var claimsValidUntil = DateTimeOffset.ParseExact(claims.FindFirstValue("valid_until")!, "O", null);
         var claimsSecurityStamp = claims.FindFirstValue("security_stamp")!;
         var claimsSid = UserId.Parse(claims.FindFirstValue("sid")!);
 
-        if (claimPurpose == purpose && claimsValidUntil >= DateTimeOffset.UtcNow)
-            return (claimPurpose, claimsValidUntil, claimsSecurityStamp, claimsSid);
+        if (claimPurpose == purpose)
+            return (claimPurpose, claimsSecurityStamp, claimsSid);
 
         return null;
     }

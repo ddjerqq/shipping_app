@@ -33,5 +33,5 @@ public interface IUserVerificationTokenGenerator
     /// <remarks>
     /// Please note it is your responsibility to validate the security_stamp and the sid
     /// </remarks>
-    public (string Purpose, DateTimeOffset ValidUntil, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token);
+    public (string Purpose, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token);
 }

@@ -73,7 +73,7 @@ public static class WebAppExt
 
         app.MapFallback(ctx =>
         {
-            ctx.Response.Redirect($"/404?returnUrl={UrlEncoder.Default.Encode(ctx.Request.Path)}");
+            ctx.Response.Redirect("404");
             return Task.CompletedTask;
         });
     }

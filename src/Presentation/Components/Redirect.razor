@@ -5,6 +5,9 @@
     public string To { get; set; } = default!;
 
     [Parameter]
+    public string ReturnUrl { get; set; } = default!;
+
+    [Parameter]
     public bool Force { get; set; }
 
     protected override void OnInitialized()

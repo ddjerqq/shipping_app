@@ -1,12 +1,13 @@
 ﻿@using System.Globalization
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
+@using Microsoft.AspNetCore.WebUtilities
 @inject NavigationManager Nav
 @inject IJSRuntime Js
 @inject BrowserInternalizationProvider BrowserInternalizationProvider
 
 <CascadingBlazoredModal
-    Class="min-w-sm w-full max-w-full sm:max-w-2xl text-lg sm:text-2xl !bg-white border-2 border-gray-300 rounded-md flex flex-col justify-center text-center p-2"
+    Class="min-w-sm w-full max-w-full sm:max-w-2xl text-lg sm:text-2xl border-2 rounded-md flex flex-col justify-center text-center p-2"
     OverlayCustomClass="backdrop-blur p-4"
     Position="ModalPosition.Middle"
     AnimationType="ModalAnimationType.FadeInOut">
@@ -18,12 +19,12 @@
                     <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
                     <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                         <NotAuthorized>
-                            <Redirect To="@($"login?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force/>
+                            <Redirect To="login" Force/>
                         </NotAuthorized>
                     </AuthorizeRouteView>
                 </Found>
                 <NotFound>
-                    <Redirect To="@($"404?returnUrl={Uri.EscapeDataString(Nav.Uri)}")" Force="true"/>
+                    <Redirect To="404" Force/>
                 </NotFound>
             </Router>
         </CascadingValue>
@@ -32,7 +33,7 @@
 
 <BlazoredToasts
     Position="@ToastPosition.BottomRight"
-    Timeout="4"
+    Timeout="100"
     MaxToastCount="3"
     ShowCloseButton="false"
     ShowProgressBar="false"

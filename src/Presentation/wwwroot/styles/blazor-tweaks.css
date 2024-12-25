@@ -126,7 +126,6 @@
 }
 
 .blazored-toast {
-  --toast-bg-color: hsl(var(--primary) / var(--tw-bg-opacity, 1));
   --toast-text-color: #000;
   --toast-border-color: var(--border);
 
@@ -136,24 +135,24 @@
 
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 
-  background-color: var(--background) !important;
+  background-color: white !important;
   border: 1px solid var(--toast-border-color) !important;
   color: var(--toast-text-color) !important;
 }
 
 .blazored-toast-info {
-  --toast-text-color: #1e40af;
+  --toast-text-color: #142760;
   --toast-border-color: #172554;
 }
 
 .blazored-toast-success {
   --toast-text-color: #166534;
-  --toast-border-color: #052e16;
+  --toast-border-color: #09331a;
 }
 
 .blazored-toast-warning {
-  --toast-text-color: #854d0e;
-  --toast-border-color: #422006;
+  --toast-text-color: #633e12;
+  --toast-border-color: #6e350f;
 }
 
 .blazored-toast-error {
