@@ -28,9 +28,7 @@
                 Password
             </FormLabel>
 
-            <a href="/auth/forgot_password" class="ml-auto text-sm hover:underline text-muted-foreground hover:text-primary">
-                Forgot password?
-            </a>
+            <Link Href="auth/forgot_password" Title="Forgot password?" Class="ml-auto text-sm"/>
         </div>
 
         <FormInputText id="password"
@@ -100,15 +98,11 @@
     <div class="space-y-3 text-muted-foreground text-sm">
         <div class="text-center">
             Don't have an account?
-            <a href="auth/register" class="hover:underline hover:text-primary">
-                Register
-            </a>
+            <Link Href="auth/register" Title="Register"/>
         </div>
 
         <div class="text-center">
-            <a href="auth/resend_email_confirmation" class="hover:underline hover:text-primary">
-                Resend email confirmation
-            </a>
+            <Link Href="auth/resend_email_confirmation" Title="Resend email confirmation"/>
         </div>
     </div>
 </AppForm>
