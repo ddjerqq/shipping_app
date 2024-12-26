@@ -7,7 +7,7 @@ public interface IEmailSender
     /// <summary>
     ///     Sends an email with the specified subject, content, recipients, and from address.
     /// </summary>
-    protected Task SendAsync(string from, string recipient, string subject, string content, CancellationToken ct = default);
+    protected Task SendAsync(string recipient, string subject, string content, CancellationToken ct = default);
 
     /// <summary>
     /// Sends an Email confirmation link to the specified user

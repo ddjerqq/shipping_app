@@ -9,33 +9,29 @@ namespace Infrastructure.Services;
 
 public sealed class GoogleMailSender : IEmailSender
 {
+    private readonly string _username;
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;
 
     public GoogleMailSender(ILogger<GoogleMailSender> logger)
     {
         _logger = logger;
+        _username = "GOOGLE__USERNAME".FromEnvRequired();
+        var password = "GOOGLE__APP_PASSWORD".FromEnvRequired();
 
-        var username = "SMTP__USERNAME".FromEnvRequired();
-        var password = "SMTP__PASSWORD".FromEnvRequired();
-        var port = int.Parse("SMTP__PORT".FromEnvRequired());
-        var host = "SMTP__HOST".FromEnvRequired();
-
-        _client = new SmtpClient
+        _client = new SmtpClient("smtp.gmail.com")
         {
-            Host = host,
-            Port = port,
+            Port = 587,
             EnableSsl = true,
             UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(username, password),
-            DeliveryMethod = SmtpDeliveryMethod.Network,
+            Credentials = new NetworkCredential(_username, password),
             Timeout = 20_000,
         };
     }
 
-    public async Task SendAsync(string from, string recipient, string subject, string body, CancellationToken ct = default)
+    public async Task SendAsync(string recipient, string subject, string body, CancellationToken ct = default)
     {
-        var fromAddress = new MailAddress(from);
+        var fromAddress = new MailAddress(_username);
         var toAddress = new MailAddress(recipient);
 
         using var msg = new MailMessage(fromAddress, toAddress);
@@ -44,24 +40,22 @@ public sealed class GoogleMailSender : IEmailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-#if DEBUG
         _logger.LogInformation("sending message to {recipient} {@message}", recipient, msg);
-#else
+
         try
         {
-            await _client.SendMailAsync(msg, ct);
+            await Task.Run(() => _client.Send(msg), ct);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to send email");
             throw;
         }
-#endif
     }
 
     public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default) =>
-        SendAsync("noreply@localhost", recipient.Email, "Confirm your email", $"Please confirm your account by clicking this link: {callback}", ct);
+        SendAsync(recipient.Email, "Confirm your email", $"Please confirm your account by clicking this link: {callback}", ct);
 
     public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default) =>
-        SendAsync("noreply@localhost", user.Email, "Reset your password", $"Please reset your password by clicking this link: {callback}", ct);
+        SendAsync(user.Email, "Reset your password", $"Please reset your password by clicking this link: {callback}", ct);
 }
