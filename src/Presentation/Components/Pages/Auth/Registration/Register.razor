@@ -145,10 +145,10 @@
 
 @code {
     [CascadingParameter]
-    private TimeZoneInfo BrowserTimeZone { get; set; } = default!;
+    private TimeZoneInfo BrowserTimeZone { get; set; } = null!;
 
     [CascadingParameter]
-    private CultureInfo BrowserLocale { get; set; } = default!;
+    private CultureInfo BrowserLocale { get; set; } = null!;
 
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }

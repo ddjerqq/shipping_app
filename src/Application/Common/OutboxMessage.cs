@@ -12,7 +12,7 @@ public sealed class OutboxMessage
     public Ulid Id { get; init; } = Ulid.NewUlid();
 
     [StringLength(128)]
-    public string Type { get; init; } = default!;
+    public string Type { get; init; } = null!;
 
     [LogMasked]
     [Encrypt(false, false)]

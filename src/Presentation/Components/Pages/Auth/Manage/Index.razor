@@ -34,12 +34,12 @@
 </div>
 
 @code {
-    private User user = default!;
+    private User user = null!;
     private string? username;
     private string? phoneNumber;
 
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = null!;
 
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();

@@ -8,7 +8,7 @@ namespace Application.Exceptions;
 /// </summary>
 public sealed class UnauthenticatedException(string message) : Exception(message)
 {
-    public static void ThrowIfNull([NotNull] User? user, string? message = default)
+    public static void ThrowIfNull([NotNull] User? user, string? message = null)
     {
         if (user is null)
             throw new UnauthenticatedException(message ?? "User not authenticated");

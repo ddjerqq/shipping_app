@@ -15,25 +15,25 @@ namespace Application.Cqrs.Users.Commands;
 public sealed record RegisterCommand : IRequest<bool>
 {
     [LogMasked]
-    public string FullName { get; set; } = default!;
+    public string FullName { get; set; } = null!;
 
     [LogMasked]
-    public string Email { get; set; } = default!;
+    public string Email { get; set; } = null!;
 
     [LogMasked]
-    public string PhoneNumber { get; set; } = default!;
+    public string PhoneNumber { get; set; } = null!;
 
     [LogMasked]
-    public string PersonalId { get; set; } = default!;
+    public string PersonalId { get; set; } = null!;
 
     [LogMasked]
-    public string Password { get; set; } = default!;
+    public string Password { get; set; } = null!;
 
     [LogMasked]
-    public TimeZoneInfo TimeZoneInfo { get; set; } = default!;
+    public TimeZoneInfo TimeZoneInfo { get; set; } = null!;
 
     [LogMasked]
-    public CultureInfo CultureInfo { get; set; } = default!;
+    public CultureInfo CultureInfo { get; set; } = null!;
 
     public bool AgreeToTerms { get; set; }
 }

@@ -113,7 +113,7 @@
 
 @code {
     [CascadingParameter]
-    private TimeZoneInfo BrowserTimeZone { get; set; } = default!;
+    private TimeZoneInfo BrowserTimeZone { get; set; } = null!;
 
     [SupplyParameterFromForm]
     private LoginCommand Command { get; set; } = new();

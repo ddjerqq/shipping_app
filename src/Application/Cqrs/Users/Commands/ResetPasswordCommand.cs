@@ -6,11 +6,11 @@ namespace Application.Cqrs.Users.Commands;
 
 public sealed record ResetPasswordCommand : IRequest
 {
-    public string NewPassword { get; set; } = default!;
+    public string NewPassword { get; set; } = null!;
 
-    public string ConfirmNewPassword { get; set; } = default!;
+    public string ConfirmNewPassword { get; set; } = null!;
 
-    public string Token { get; set; } = default!;
+    public string Token { get; set; } = null!;
 }
 
 public sealed class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>

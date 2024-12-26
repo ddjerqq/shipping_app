@@ -2,10 +2,10 @@
 
 @code {
     [Parameter, EditorRequired]
-    public string To { get; set; } = default!;
+    public string To { get; set; } = null!;
 
     [Parameter]
-    public string ReturnUrl { get; set; } = default!;
+    public string ReturnUrl { get; set; } = null!;
 
     [Parameter]
     public bool Force { get; set; }

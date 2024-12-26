@@ -8,19 +8,19 @@ namespace Application.Cqrs.Packages.Commands;
 
 public sealed record CreatePackageCommand : IRequest<Package>
 {
-    public AbstractAddress Origin { get; init; } = default!;
-    public AbstractAddress Destination { get; init; } = default!;
+    public AbstractAddress Origin { get; init; } = null!;
+    public AbstractAddress Destination { get; init; } = null!;
 
     public TrackingCode? TrackingCode { get; init; }
     public Category Category { get; init; } = default!;
 
-    public string Description { get; init; } = default!;
+    public string Description { get; init; } = null!;
     public WebAddress WebsiteAddress { get; init; } = default!;
     public Money RetailPrice { get; init; } = default!;
     public bool HouseDelivery { get; init; }
 
     public UserId OwnerId { get; init; } = default!;
-    public User Owner { get; init; } = default!;
+    public User Owner { get; init; } = null!;
 }
 
 public sealed class CreatePackageValidator : AbstractValidator<CreatePackageCommand>

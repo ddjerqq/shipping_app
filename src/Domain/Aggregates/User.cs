@@ -17,13 +17,13 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Username { get; init; }
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
-    public AbstractAddress? AddressInfo { get; init; } = default!;
+    public AbstractAddress? AddressInfo { get; init; } = null!;
     public CultureInfo CultureInfo { get; init; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public bool EmailConfirmed { get; set; }
 
-    public string PasswordHash { get; private set; } = default!;
+    public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
     public DateTimeOffset? LockoutEnd { get; set; }

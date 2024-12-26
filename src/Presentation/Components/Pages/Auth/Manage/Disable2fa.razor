@@ -32,10 +32,10 @@
 </div>
 
 @code {
-    private User user = default!;
+    private User user = null!;
 
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {

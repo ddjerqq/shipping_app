@@ -66,13 +66,13 @@
 @code {
     public const string LinkLoginCallbackAction = "LinkLoginCallback";
 
-    private User user = default!;
+    private User user = null!;
     private IList<UserLoginInfo>? currentLogins;
     private IList<AuthenticationScheme>? otherLogins;
     private bool showRemoveButton;
 
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = null!;
 
     [SupplyParameterFromForm]
     private string? LoginProvider { get; set; }

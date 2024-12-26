@@ -25,7 +25,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public required bool HouseDelivery { get; init; }
 
     public required UserId OwnerId { get; init; }
-    public required User Owner { get; init; } = default!;
+    public required User Owner { get; init; } = null!;
 
     // arrived at origin.
     // scan the barcode, go to an address like - /track/{CODE}

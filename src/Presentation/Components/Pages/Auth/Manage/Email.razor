@@ -56,12 +56,12 @@
 
 @code {
     private string? message;
-    private User user = default!;
+    private User user = null!;
     private string? email;
     private bool isEmailConfirmed;
 
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = null!;
 
     [SupplyParameterFromForm(FormName = "change-email")]
     private InputModel Input { get; set; } = new();

@@ -8,7 +8,7 @@ namespace Domain.Entities;
 [StrongId]
 public sealed class UserClaim(UserClaimId id) : Entity<UserClaimId>(id)
 {
-    public User User { get; init; } = default!;
+    public User User { get; init; } = null!;
     public UserId UserId { get; init; }
     public required string ClaimType { get; init; }
     public required string ClaimValue { get; init; }

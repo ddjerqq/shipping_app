@@ -31,7 +31,7 @@ public static class ClaimsPrincipalExt
         principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value
             .Split(';').Select(x => RoleId.Parse(x)) ?? [];
 
-    public static string GetDefaultAvatar(string? username = default)
+    public static string GetDefaultAvatar(string? username = null)
     {
         username ??= RandomNumberGenerator.GetHexString(5);
         username = UrlEncoder.Default.Encode(username);

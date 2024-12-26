@@ -7,7 +7,7 @@ namespace Application.Exceptions;
 /// </summary>
 public sealed class NotFoundException(string message) : Exception(message)
 {
-    public static void ThrowIfNull([NotNull] object? obj, string? message = default)
+    public static void ThrowIfNull([NotNull] object? obj, string? message = null)
     {
         if (obj is null)
             throw new NotFoundException(message ?? "Entity not found");

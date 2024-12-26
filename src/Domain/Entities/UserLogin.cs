@@ -8,7 +8,7 @@ namespace Domain.Entities;
 [StrongId]
 public sealed partial class UserLogin(UserLoginId id) : Entity<UserLoginId>(id)
 {
-    public User User { get; set; } = default!;
+    public User User { get; set; } = null!;
     public UserId UserId { get; init; }
     public required string UserAgent { get; init; }
     public required string Location { get; init; }

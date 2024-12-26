@@ -17,10 +17,10 @@ public sealed class FormInputText : InputBase<string?>
         "[&.invalid]:!border-destructive [&.invalid]:!ring-destructive [&.invalid]:!text-destructive ";
 
     [Inject]
-    public TwMerge Tw { get; set; } = default!;
+    public TwMerge Tw { get; set; } = null!;
 
     [Parameter]
-    public string Class { get; set; } = default!;
+    public string Class { get; set; } = null!;
 
     [DisallowNull]
     public ElementReference? Element { get; private set; }

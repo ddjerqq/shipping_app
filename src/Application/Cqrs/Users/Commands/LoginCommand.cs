@@ -15,12 +15,12 @@ namespace Application.Cqrs.Users.Commands;
 public sealed record LoginCommand : IRequest<LoginResult>
 {
     [LogMasked]
-    public string Email { get; set; } = default!;
+    public string Email { get; set; } = null!;
 
     [LogMasked]
-    public string Password { get; set; } = default!;
+    public string Password { get; set; } = null!;
 
-    public TimeZoneInfo TimeZoneInfo { get; set; } = default!;
+    public TimeZoneInfo TimeZoneInfo { get; set; } = null!;
 }
 
 public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>

@@ -40,11 +40,11 @@
 
 @code {
     private string? message;
-    private User user = default!;
+    private User user = null!;
     private bool requirePassword;
 
     [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private HttpContext HttpContext { get; set; } = null!;
 
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();

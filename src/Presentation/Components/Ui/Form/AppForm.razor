@@ -22,7 +22,7 @@
     public EventCallback<TEntity> ModelChanged { get; set; }
 
     [Parameter, EditorRequired]
-    public RenderFragment ChildContent { get; set; } = default!;
+    public RenderFragment ChildContent { get; set; } = null!;
 
     [Parameter]
     public EventCallback<EditContext> OnValidSubmit { get; set; }

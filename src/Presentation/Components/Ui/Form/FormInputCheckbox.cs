@@ -14,10 +14,10 @@ public sealed class FormInputCheckbox : InputCheckbox
         "disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground";
 
     [Inject]
-    public TwMerge Tw { get; set; } = default!;
+    public TwMerge Tw { get; set; } = null!;
 
     [Parameter]
-    public string Class { get; set; } = default!;
+    public string Class { get; set; } = null!;
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
