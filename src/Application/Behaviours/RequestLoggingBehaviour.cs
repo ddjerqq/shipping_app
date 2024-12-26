@@ -1,6 +1,5 @@
 using Application.Services;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using SerilogTracing;

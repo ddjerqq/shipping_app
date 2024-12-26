@@ -1,13 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Encodings.Web;
 using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 

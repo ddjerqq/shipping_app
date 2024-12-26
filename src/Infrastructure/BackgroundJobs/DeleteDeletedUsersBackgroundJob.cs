@@ -1,15 +1,7 @@
-using System.Text.Json;
-using Application.Common;
-using Application.JsonConverters;
 using Application.Services;
-using Domain.Abstractions;
-using Domain.Common;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Serilog;
-using Serilog.Events;
-using SerilogTracing;
 
 namespace Infrastructure.BackgroundJobs;
 

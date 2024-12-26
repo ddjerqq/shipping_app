@@ -1,5 +1,4 @@
 #pragma warning disable ASP0014
-using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Persistence;

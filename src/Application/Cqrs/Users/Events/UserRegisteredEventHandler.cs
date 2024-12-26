@@ -1,4 +1,3 @@
-using System.Text.Encodings.Web;
 using Application.Services;
 using Domain.Events;
 using MediatR;
