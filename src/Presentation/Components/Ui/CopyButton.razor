@@ -2,7 +2,9 @@
 @inject IJSRuntime Js
 
 <Button Variant="@Variant" Class="@Class"
-        @onclick="@OnClick">
+        @onclick="@OnClick"
+        title="@Content"
+        @attributes="AdditionalAttributes">
     @if (Copied)
     {
         @:Copied!
@@ -43,7 +45,7 @@
     {
         Copied = true;
         await Js.InvokeVoidAsync("navigator.clipboard.writeText", Content);
-        await Task.Delay(1500);
+        await Task.Delay(1000);
         Copied = false;
     }
 }

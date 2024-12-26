@@ -1,0 +1,51 @@
+@using Application.Common
+@using Domain.ValueObjects
+@using Presentation.Components.Ui.Card
+
+<div class="grid">
+    <Card>
+        <Header Class="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Title>
+                @Country
+            </Title>
+            <span class="text-muted-foreground">
+                Rate: @Rate.Amount.ToString("C") @Rate.Currency
+            </span>
+        </Header>
+        <Content Class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
+            <AuthorizeView>
+                <AddressField Title="Name" Value="@context.User.GetUsername()"/>
+                <AddressField Title="Country" Value="@Country"/>
+                <AddressField Title="State" Value="@State"/>
+                <AddressField Title="City" Value="@City"/>
+                <AddressField Title="Address 1" Value="@Address1"/>
+                <AddressField Title="Address 2" Value="@context.User.GetRoomCode()"/>
+                <AddressField Title="Zip code" Value="@ZipCode"/>
+                <AddressField Title="Phone" Value="@Phone"/>
+            </AuthorizeView>
+        </Content>
+    </Card>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Money Rate { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Address1 { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string City { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string State { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string ZipCode { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string Country { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public string Phone { get; set; } = null!;
+}

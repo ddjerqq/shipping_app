@@ -14,12 +14,6 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
     private ClaimsPrincipal? User => httpContextAccessor.HttpContext?.User;
 
     public UserId? Id => User?.GetId();
-    public string? PersonalId => User?.GetPersonalId();
-    public string? Username => User?.GetUsername();
-    public string? Email => User?.GetEmail();
-    public string? PhoneNumber => User?.GetPhoneNumber();
-    public string? SecurityStamp => User?.GetSecurityStamp();
-    public IEnumerable<RoleId> RoleIds => User?.GetRoleIds() ?? [];
 
     public async Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default)
     {

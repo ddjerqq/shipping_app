@@ -1,15 +1,17 @@
-﻿@page "/dashboard"
+﻿@page "/home"
 @using Presentation.Components.Ui.Tabs
+
+<PageTitle>Home</PageTitle>
 
 <div class="h-full flex-1 space-y-4 p-8 pt-6">
     <div class="flex items-center justify-between space-y-2">
-        <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <div class="flex items-center space-x-2">
-            <Button>
-                <Blazicon Svg="Icons.Download" class="mr-2 size-4"/>
-                Download
-            </Button>
-        </div>
+        <h2 class="text-3xl font-bold tracking-tight">My packages</h2>
+        @* <div class="flex items-center space-x-2"> *@
+        @*     <Button> *@
+        @*         <Blazicon Svg="Icons.Download" class="mr-2 size-4"/> *@
+        @*         Download *@
+        @*     </Button> *@
+        @* </div> *@
     </div>
 
     <Tabs Value="overview" class="space-y-4">

@@ -17,6 +17,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Username { get; init; }
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
+    // TODO give users multiple addresses, this will be generated? or ? do we even collect the address info unless its a UserHouseAddress
     public AbstractAddress? AddressInfo { get; init; }
     public CultureInfo CultureInfo { get; init; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;

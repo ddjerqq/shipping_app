@@ -2,8 +2,8 @@
 
 public readonly record struct Money
 {
-    public Currency Currency { get; private init; }
-    public decimal Amount { get; private init; }
+    public Currency Currency { get; }
+    public decimal Amount { get; }
 
     public Money(Currency currency, decimal amount)
     {

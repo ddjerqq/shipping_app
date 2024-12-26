@@ -13,7 +13,7 @@ internal sealed class AbstractAddressToStringConverter()
         NoAddress => "not-specified",
         AirportAddress airportAddress => $"airport {airportAddress.Country} {airportAddress.AirportCode}",
         ZipCodeAddress zipCodeAddress => $"zip {zipCodeAddress.Country} {zipCodeAddress.ZipCode}",
-        FullAddress fullAddress => $"full {fullAddress.Country} {fullAddress.State} {fullAddress.City} {fullAddress.ZipCode} {fullAddress.Address}",
+        UserHouseAddress fullAddress => $"full {fullAddress.Country} {fullAddress.State} {fullAddress.City} {fullAddress.ZipCode} {fullAddress.Address}",
         _ => throw new ArgumentException("Address type not supported yet"),
     };
 
@@ -22,7 +22,7 @@ internal sealed class AbstractAddressToStringConverter()
         ["not-specified"] => new NoAddress(),
         ["airport", var country, var airportCode] => new AirportAddress(country, airportCode),
         ["zip", var country, var zipCode] => new ZipCodeAddress(country, int.Parse(zipCode)),
-        ["full", var country, var state, var city, var zipCode, .. var rest] => new FullAddress(country, state, city, zipCode, string.Join(' ', rest)),
+        ["full", var country, var state, var city, var zipCode, .. var rest] => new UserHouseAddress(country, state, city, zipCode, string.Join(' ', rest)),
         _ => throw new ArgumentException("Address type not supported yet"),
     };
 }

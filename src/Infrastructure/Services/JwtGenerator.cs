@@ -86,22 +86,8 @@ public sealed class JwtGenerator : IJwtGenerator
 
     public string GenerateToken(User user, TimeSpan? expiration = null)
     {
-        var claims = new[]
-        {
-            new Claim(ClaimsPrincipalExt.IdClaimType, user.Id.ToString()),
-            new Claim(ClaimsPrincipalExt.PersonalIdClaimType, user.PersonalId),
-            new Claim(ClaimsPrincipalExt.UsernameClaimType, user.Username),
-            new Claim(ClaimsPrincipalExt.EmailClaimType, user.Email),
-            new Claim(ClaimsPrincipalExt.PhoneClaimType, user.PhoneNumber),
-            new Claim(ClaimsPrincipalExt.RoleClaimType, string.Join(';', user.Roles.Select(role => role.RoleId))),
-            new Claim(ClaimsPrincipalExt.SecurityStampClaimType, user.SecurityStamp),
-        };
-        var userClaims = user.Claims.Select(uc => uc.Claim);
-        var roleClaims = user.Roles.SelectMany(ur => ur.Role.Claims.Select(rc => rc.Claim));
-
-        var allClaims = claims.Concat(userClaims).Concat(roleClaims);
-
-        return GenerateToken(allClaims, expiration);
+        var claims = user.GetAllClaims();
+        return GenerateToken(claims, expiration);
     }
 
     public bool TryValidateToken(string token, out List<Claim> claims)
