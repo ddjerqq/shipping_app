@@ -52,42 +52,60 @@
 
 <div id="components-reconnect-modal">
     <Card id="reconnect-show">
-        <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl">
-            <span>detected a networking error</span>
-            <span>this is not a major issue</span>
-            <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
-                <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
-                reload
-            </button>
+        <Header Class="space-y-1">
+            <Title Class="text-2xl">Detected a networking hiccup</Title>
+            <Description>This is not a major issue</Description>
+        </Header>
+        <Content Class="grid gap-4">
+            To continue using the website please reload
         </Content>
+        <Footer>
+            <Button Class="w-full" onclick="location.reload()">
+                <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
+                Reload
+            </Button>
+        </Footer>
     </Card>
 
     <Card id="reconnect-hide">
-        <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl">
-            <span>server connection restore, you may reload the page.</span>
+        <Header Class="space-y-1">
+            <Title Class="text-2xl">Success</Title>
+        </Header>
+        <Content Class="grid gap-4">
+            Server connection restored
         </Content>
     </Card>
 
     <Card id="reconnect-failed">
-        <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl">
-
-
-            <span>reload the page to recover the connection</span>
-            <button class="btn btn-icon btn-success p-1 flex-grow" onclick="window.Blazor.reconnect()">
-                <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
-                reload
-            </button>
+        <Header Class="space-y-1">
+            <Title Class="text-2xl">Connection dropped</Title>
+            <Description>This is not a major issue</Description>
+        </Header>
+        <Content Class="grid gap-4">
+            To continue using the website please reload
         </Content>
+        <Footer>
+            <Button Class="w-full" onclick="window.Blazor.reconnect()">
+                <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
+                Reload
+            </Button>
+        </Footer>
     </Card>
 
     <Card id="reconnect-rejected">
-        <Content Class="flex-col gap-3 max-w-md p-2 rounded-md border text-black border-gray-300 bg-white text-2xl">
-            <span>to reconnect, reload the page</span>
-            <button class="btn btn-icon btn-success p-1 flex-grow" onclick="location.reload()">
-                <Blazicon Name="@Lucide.ArrowDown" class="size-6"/>
-                reload
-            </button>
+        <Header Class="space-y-1">
+            <Title Class="text-2xl">Automatic reconnect rejected</Title>
+            <Description>This is not a major issue</Description>
+        </Header>
+        <Content Class="grid gap-4">
+            To continue using the website please reload
         </Content>
+        <Footer>
+            <Button Class="w-full" onclick="location.reload()">
+                <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
+                Reload
+            </Button>
+        </Footer>
     </Card>
 </div>
 

@@ -1,15 +1,3 @@
-
-.scrollbar-none::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-  background: transparent; /* Optional: just make scrollbar invisible */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-.scrollbar-none::-webkit-scrollbar-thumb {
-  background: #FF0000;
-}
-
 /* disconnect modal */
 #components-reconnect-modal {
   position: fixed;
@@ -57,18 +45,22 @@
 
 #components-reconnect-modal.components-reconnect-show > #reconnect-show {
   display: inline-flex;
+  flex-direction: column;
 }
 
 #components-reconnect-modal.components-reconnect-hide > #reconnect-hide {
   display: inline-flex;
+  flex-direction: column;
 }
 
 #components-reconnect-modal.components-reconnect-failed > #reconnect-failed {
   display: inline-flex;
+  flex-direction: column;
 }
 
 #components-reconnect-modal.components-reconnect-rejected > #reconnect-rejected {
   display: inline-flex;
+  flex-direction: column;
 }
 
 #blazor-error-ui {
