@@ -53,6 +53,8 @@
         </div>
     </FormField>
 
+    <Recaptcha @ref="@RecaptchaComponent"/>
+
     <Button type="submit" disabled="@IsLoading">
         @if (IsLoading)
         {
@@ -120,9 +122,16 @@
 
     private bool IsLoading { get; set; }
     private bool ShowPassword { get; set; }
+    private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task LoginUser()
     {
+        if (!await RecaptchaComponent.IsValid())
+        {
+            Toast.ShowWarning("Please complete captcha before continuing");
+            return;
+        }
+
         Command.TimeZoneInfo = BrowserTimeZone;
 
         IsLoading = true;

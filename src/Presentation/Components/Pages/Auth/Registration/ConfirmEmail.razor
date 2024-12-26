@@ -2,7 +2,10 @@
 @using Application.Cqrs.Users.Commands
 
 <PageTitle>Confirm email</PageTitle>
-<AuthHeader Title="Email confirmation" Description="If the code is correct, your account should be verified."/>
+<AuthHeader Title="Your account has been confirmed" Description="Welcome to the best app ever!"/>
+<Button Href="auth/login" Class="w-full">
+    Login
+</Button>
 
 @code {
     [SupplyParameterFromQuery]
@@ -18,13 +21,6 @@
 
         var user = await Mediator.Send(new ConfirmEmailCommand(Token));
         if (user is null)
-        {
             Toast.ShowError("Failed to validate token");
-            return;
-        }
-
-        Toast.ShowSuccess($"Welcome back {user.Username}!");
-        await Task.Delay(2000);
-        NavigationManager.NavigateTo("auth/login");
     }
 }

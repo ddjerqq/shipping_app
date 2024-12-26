@@ -52,6 +52,6 @@
     private async Task SignOut()
     {
         await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
-        NavigationManager.NavigateTo("/login");
+        NavigationManager.NavigateTo("auth/login");
     }
 }
