@@ -30,6 +30,9 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .IsEncryptedQueryable(isUnique: true)
             .HasMaxLength(20);
 
+        builder.HasIndex(x => x.RoomCode)
+            .IsUnique();
+
         // email confirmed
         // phone confirmed
 
