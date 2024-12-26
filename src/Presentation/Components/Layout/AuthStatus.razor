@@ -2,6 +2,7 @@
 @using Domain.Common
 @using Presentation.Components.Ui.Avatar
 @inject CookieService Cookie
+@inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
 
 <AuthorizeView>
     <Authorized>
@@ -47,11 +48,11 @@
     </NotAuthorized>
 </AuthorizeView>
 
-
 @code {
     private async Task SignOut()
     {
         await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
+        AuthenticationStateProvider.ForceSignOut();
         NavigationManager.NavigateTo("auth/login");
     }
 }

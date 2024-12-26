@@ -46,15 +46,4 @@
     <ItemGroup>
       <AdditionalFiles Include="Components\Pages\Auth\PasswordReset\ResetPasswordConfirmation.razor" />
     </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js.LICENSE.txt" />
-      <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js.map" />
-      <_ContentIncludedByDefault Remove="Components\Pages\Dashboard\Index.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Components\Layout\User\" />
-    </ItemGroup>
 </Project>

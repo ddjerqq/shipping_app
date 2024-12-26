@@ -18,7 +18,8 @@ public sealed class ConfigureAuth : ConfigurationBase
 
         services.AddScoped<ILookupNormalizer, LowerInvariantLookupNormalizer>();
         services.AddScoped<IJwtGenerator, JwtGenerator>();
-        services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+        services.AddScoped<IdentityRevalidatingAuthenticationStateProvider>();
+        services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<IdentityRevalidatingAuthenticationStateProvider>());
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

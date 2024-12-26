@@ -24,7 +24,7 @@
         if (response.Success)
             return true;
 
-        Log.Logger.Warning("Recaptcha has errors: {@Errors}", response.ErrorCodes);
+        Log.Logger.Warning("Recaptcha has errors: {Errors}", string.Join(';', response.ErrorCodes));
         Toast.ShowWarning($"Captcha errors {string.Join(';', response.ErrorCodes)}");
 
         return false;

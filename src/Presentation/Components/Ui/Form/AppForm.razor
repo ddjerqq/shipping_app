@@ -68,7 +68,7 @@
         {
             var messages = EditContext!.GetValidationMessages().ToList();
             Toast.ShowWarning($"Validation errors: {string.Join(';', messages)}");
-            Log.Logger.Warning("Validation failed in form: {@Messages}", messages);
+            Log.Logger.Warning("Validation failed in form: {Messages}", string.Join(';', messages));
             StateHasChanged();
             await OnInvalidSubmit.InvokeAsync(EditContext);
         }

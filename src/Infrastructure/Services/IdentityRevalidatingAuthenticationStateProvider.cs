@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Application.Common;
 using Application.Services;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -7,14 +8,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-// This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
-// every 30 minutes an interactive circuit is connected.
 public sealed class IdentityRevalidatingAuthenticationStateProvider(
     ILoggerFactory loggerFactory,
     IServiceScopeFactory scopeFactory)
     : RevalidatingServerAuthenticationStateProvider(loggerFactory)
 {
-    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
+    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(5);
 
     protected override async Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken ct)
     {
@@ -26,5 +25,12 @@ public sealed class IdentityRevalidatingAuthenticationStateProvider(
             return false;
 
         return authenticationState.User.GetSecurityStamp() == user.SecurityStamp;
+    }
+
+    public void ForceSignOut()
+    {
+        var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
+        var anonymousState = new AuthenticationState(anonymousUser);
+        SetAuthenticationState(Task.FromResult(anonymousState));
     }
 }

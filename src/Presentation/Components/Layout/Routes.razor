@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
+@using Presentation.Components.Pages
 @inject NavigationManager Nav
 @inject IJSRuntime Js
 @inject BrowserInternalizationProvider BrowserInternalizationProvider
@@ -18,7 +19,7 @@
                     <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
                     <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                         <NotAuthorized>
-                            <Redirect To="login" Force/>
+                            <Redirect To="auth/login" Force/>
                         </NotAuthorized>
                     </AuthorizeRouteView>
                 </Found>
