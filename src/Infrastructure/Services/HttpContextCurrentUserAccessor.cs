@@ -27,6 +27,7 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
             .ThenInclude(uc => uc.Role)
             .ThenInclude(r => r.Claims)
             .AsSplitQuery()
+            .Where(u => u.Id == id)
             .FirstOrDefaultAsync(ct);
 
         return user ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {id} not found");
