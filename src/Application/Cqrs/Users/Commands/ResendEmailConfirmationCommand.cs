@@ -1,4 +1,5 @@
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.Aggregates;
 using EntityFrameworkCore.DataProtection.Extensions;
 using FluentValidation;
@@ -10,6 +11,7 @@ namespace Application.Cqrs.Users.Commands;
 
 public sealed record ResendEmailConfirmationCommand : IRequest
 {
+    [LogMasked]
     public string Email { get; set; } = "";
 }
 

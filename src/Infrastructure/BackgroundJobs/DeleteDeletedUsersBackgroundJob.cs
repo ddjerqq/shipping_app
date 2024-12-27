@@ -8,7 +8,7 @@ namespace Infrastructure.BackgroundJobs;
 [DisallowConcurrentExecution]
 public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : IJob
 {
-    public static readonly JobKey Key = new("delete_old_personal_data");
+    public static readonly JobKey Key = new("delete_deleted_users_background_job");
 
     public async Task Execute(IJobExecutionContext context)
     {

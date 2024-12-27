@@ -1,4 +1,5 @@
 using Application.Services;
+using Destructurama.Attributed;
 using FluentValidation;
 using MediatR;
 
@@ -6,8 +7,10 @@ namespace Application.Cqrs.Users.Commands;
 
 public sealed record ResetPasswordCommand : IRequest
 {
+    [LogMasked]
     public string NewPassword { get; set; } = null!;
 
+    [LogMasked]
     public string ConfirmNewPassword { get; set; } = null!;
 
     public string Token { get; set; } = null!;

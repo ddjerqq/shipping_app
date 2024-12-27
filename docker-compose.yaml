@@ -41,8 +41,3 @@
     volumes:
       - /var/log/shippingapp/seq/:/data
     restart: unless-stopped
-  workerservice1:
-    image: workerservice1
-    build:
-      context: .
-      dockerfile: WorkerService1/Dockerfile
