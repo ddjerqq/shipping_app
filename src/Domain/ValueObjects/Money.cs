@@ -27,5 +27,7 @@ public readonly record struct Money
         };
     }
 
+    public string FormatedValue => $"{Currency.Symbol}{Amount:N}";
+
     public override string ToString() => $"{Currency}-{Amount}";
 }

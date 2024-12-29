@@ -13,15 +13,13 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public const decimal PricePerKg = 8;
     private readonly List<PackageReceptionStatus> _statuses = [];
 
-    public required AbstractAddress Origin { get; init; }
-    public required AbstractAddress Destination { get; init; }
-
     // user ordered package and declared the package
     public required TrackingCode TrackingCode { get; init; }
     public required Category Category { get; init; }
     public required string Description { get; init; }
-    public required WebAddress WebsiteAddress { get; init; }
+    public required string WebsiteAddress { get; init; }
     public required Money RetailPrice { get; init; }
+    public required int ItemCount { get; init; }
     public required bool HouseDelivery { get; init; }
 
     public required UserId OwnerId { get; init; }
@@ -58,23 +56,21 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         }
     }
 
-    public static Package Create(AbstractAddress origin, AbstractAddress destination, TrackingCode? trackingCode, Category category, string description, WebAddress websiteAddress, Money retailPrice, bool houseDelivery, User sender)
+    public static Package Create(TrackingCode? trackingCode, Category category, string description, string websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner)
     {
         var packageId = PackageId.New();
         return new Package(packageId)
         {
-            Origin = origin,
-            Destination = destination,
-
             TrackingCode = trackingCode ?? TrackingCode.New(),
             Category = category,
             Description = description,
             WebsiteAddress = websiteAddress,
             RetailPrice = retailPrice,
+            ItemCount = itemCount,
             HouseDelivery = houseDelivery,
 
-            OwnerId = sender.Id,
-            Owner = sender,
+            OwnerId = owner.Id,
+            Owner = owner,
 
             Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTimeOffset.Now)],
         };
@@ -100,9 +96,6 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     /// <inheritdoc cref="PackageReceptionStatus.InTransit"/>
     public void SentToDestination(User sentBy, Race race, DateTimeOffset date)
     {
-        if (race.Origin != Origin || race.Destination != Destination)
-            throw new InvalidOperationException("The race origin and destination dont match the package");
-
         RaceId = race.Id;
         Race = race;
 

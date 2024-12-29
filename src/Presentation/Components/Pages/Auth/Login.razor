@@ -1,11 +1,17 @@
 ﻿@page "/auth/login"
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
+@using Presentation.Components.Ui.Form.Inputs
 @inject CookieService Cookie
 
 <PageTitle>Log in</PageTitle>
-
 <AuthHeader Title="Welcome back!" Description="Login to your account"/>
+
+<AuthorizeView>
+    <Authorized>
+        <Redirect To="home"/>
+    </Authorized>
+</AuthorizeView>
 
 <AppForm @bind-Model="Command" OnValidSubmit="LoginUser" novalidate class="flex flex-col gap-6">
     <FormField>
@@ -44,7 +50,8 @@
 
     <FormField>
         <div class="flex flex-row items-center gap-2">
-            <FormInputCheckbox id="show" @bind-Value="ShowPassword"/>
+            <Switch id="show" @bind-Value="ShowPassword"/>
+            @* <FormInputCheckbox id="show" @bind-Value="ShowPassword"/> *@
             <FormLabel for="show">
                 Show password
             </FormLabel>

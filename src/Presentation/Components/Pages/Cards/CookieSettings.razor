@@ -1,5 +1,6 @@
 ﻿@using Presentation.Components.Ui.Card
 @using Presentation.Components.Ui.Form
+@using Presentation.Components.Ui.Form.Inputs
 <Card>
     <Header>
         <Title>Cookie settings</Title>
@@ -13,7 +14,7 @@
                     These cookies are essential in order to use the website and use its features.
                 </span>
             </FormLabel>
-            <Switch id="necessary" checked aria-label="Necessary" />
+            <Switch id="necessary" Value aria-label="Necessary" />
         </div>
         <div class="flex items-center justify-between space-x-2">
             <FormLabel for="functional" Class="flex flex-col space-y-1">

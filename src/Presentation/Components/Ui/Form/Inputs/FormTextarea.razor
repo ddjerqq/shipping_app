@@ -1,8 +1,8 @@
-﻿<textarea
-    @bind="@Value"
-    @oninput="@(e => ValueChanged.InvokeAsync(e.Value?.ToString()))"
-    class="@(Tw.Merge(FormInputText.BaseClass, Class))"
-    @attributes="@AdditionalAttributes"></textarea>
+﻿<InputTextArea
+    Value="@Value"
+    ValueChanged="@ValueChanged"
+    @attributes="AdditionalAttributes"
+    class="@(Tw.Merge(FormInputText.BaseClass, Class))"/>
 
 @code {
     [Parameter]
@@ -12,7 +12,7 @@
     public string Value { get; set; } = null!;
 
     [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
+    public EventCallback<string?> ValueChanged { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = [];

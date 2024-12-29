@@ -62,13 +62,12 @@ public sealed class PackageTests
         };
 
         var package = Package.Create(
-            new AirportAddress("USA", "JFK"),
-            new AirportAddress("GEO", "TBS"),
             null,
             Category.Toy,
             "water blaster toy for kids",
-            new WebAddress("amazon.com"),
+            "amazon.com",
             new Money("USD", 20),
+            1,
             false,
             sender);
 

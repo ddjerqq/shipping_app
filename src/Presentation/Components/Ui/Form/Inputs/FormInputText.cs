@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Presentation.Common;
 using TailwindMerge;
 
-namespace Presentation.Components.Ui.Form;
+namespace Presentation.Components.Ui.Form.Inputs;
 
 public sealed class FormInputText : InputBase<string?>
 {

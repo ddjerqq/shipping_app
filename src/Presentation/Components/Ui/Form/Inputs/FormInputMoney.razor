@@ -1,0 +1,51 @@
+@using Domain.ValueObjects
+
+<div class="flex first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none">
+    <input id="@Id" TValue="decimal" type="number" min="0" value="@Value.Amount" @onchange="@SetAmount" class="@Class("w-full rounded-l-md border-l")"/>
+
+    <select id="@Id" @onchange="@SetCurrency" class="@Class("rounded-r-md border-r")">
+        @foreach (var currency in (string[]) ["USD", "EUR"])
+        {
+            <option value="@currency" selected="@(Value.Currency == currency)">@currency</option>
+        }
+    </select>
+</div>
+
+@code {
+    public Func<string, string> Class = additional =>
+        additional +
+        " peer flex h-9 border-y border-input bg-background px-3 py-1 shadow-sm text-sm transition-colors " +
+        "file:border-0 file:bg-background file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground " +
+        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 " +
+        "[&.valid]:!border-green-700 [&.valid]:!ring-green-700 [&.valid]:!text-green-700 " +
+        "[&.invalid]:!border-destructive [&.invalid]:!ring-destructive [&.invalid]:!text-destructive ";
+
+    [Parameter, EditorRequired]
+    public string Id { get; set; } = null!;
+
+    [Parameter]
+    public Money Value { get; set; }
+
+    [Parameter]
+    public EventCallback<Money> ValueChanged { get; set; }
+
+    private async Task SetAmount(ChangeEventArgs args)
+    {
+        if (args.Value?.ToString() is var value && !string.IsNullOrWhiteSpace(value))
+        {
+            var amount = decimal.Parse(value);
+            var newValue = new Money(Value.Currency, amount);
+            await ValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    private async Task SetCurrency(ChangeEventArgs args)
+    {
+        if (args.Value?.ToString() is var value && !string.IsNullOrWhiteSpace(value))
+        {
+            var currency = new Currency(value);
+            var newValue = new Money(currency, Value.Amount);
+            await ValueChanged.InvokeAsync(newValue);
+        }
+    }
+}

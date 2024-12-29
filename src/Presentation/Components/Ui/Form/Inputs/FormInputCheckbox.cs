@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using TailwindMerge;
 
-namespace Presentation.Components.Ui.Form;
+namespace Presentation.Components.Ui.Form.Inputs;
 
 public sealed class FormInputCheckbox : InputCheckbox
 {

@@ -17,6 +17,7 @@ public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : I
         var unprocessedUsersCount = await dbContext
             .Users
             .IgnoreQueryFilters()
+            .Where(u => u.Deleted != null)
             .Where(u => u.Deleted < threeYearsAgo)
             .CountAsync();
 
@@ -26,6 +27,7 @@ public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : I
         var users = await dbContext
             .Users
             .IgnoreQueryFilters()
+            .Where(u => u.Deleted != null)
             .Where(u => u.Deleted < threeYearsAgo)
             .OrderBy(m => m.Id)
             .ToListAsync(context.CancellationToken);

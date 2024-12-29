@@ -14,7 +14,7 @@ using SerilogTracing;
 namespace Infrastructure.BackgroundJobs;
 
 [DisallowConcurrentExecution]
-public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAppDbContext dbContext, IDateTimeProvider dateTimeProvider) : IJob
+public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAppDbContext dbContext) : IJob
 {
     public static readonly JobKey Key = new("process_outbox_messages");
     private static readonly int MessagesPerBatch = int.Parse("OUTBOX__MESSAGES_PER_BATCH".FromEnv("20"));
@@ -60,7 +60,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
             }
             finally
             {
-                message.ProcessedOn = dateTimeProvider.UtcNow;
+                message.ProcessedOn = DateTime.UtcNow;
                 await Log.CloseAndFlushAsync();
             }
         }

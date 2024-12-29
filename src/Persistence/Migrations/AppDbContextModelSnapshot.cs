@@ -34,11 +34,11 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("error");
 
-                    b.Property<DateTimeOffset>("OccuredOn")
+                    b.Property<DateTime>("OccuredOn")
                         .HasColumnType("TEXT")
                         .HasColumnName("occured_on");
 
-                    b.Property<DateTimeOffset?>("ProcessedOn")
+                    b.Property<DateTime?>("ProcessedOn")
                         .HasColumnType("TEXT")
                         .HasColumnName("processed_on");
 
@@ -64,11 +64,12 @@ namespace Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("category");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -85,12 +86,6 @@ namespace Persistence.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT")
                         .HasColumnName("description");
-
-                    b.Property<string>("Destination")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("destination")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
 
                     b.Property<string>("Dimensions")
                         .HasColumnType("TEXT")
@@ -111,12 +106,6 @@ namespace Persistence.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("TEXT")
                         .HasColumnName("last_modified_by");
-
-                    b.Property<string>("Origin")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("origin")
-                        .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
@@ -183,11 +172,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("concurrency_stamp");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -317,11 +307,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -381,11 +372,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("arrival");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -446,11 +438,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("concurrency_stamp");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -504,11 +497,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("claim_value");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -560,11 +554,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("claim_value");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
@@ -604,11 +599,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT")
                         .HasColumnName("created");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 

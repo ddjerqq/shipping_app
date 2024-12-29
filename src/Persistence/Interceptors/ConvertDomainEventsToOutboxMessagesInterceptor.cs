@@ -18,8 +18,6 @@ public sealed class ConvertDomainEventsToOutboxMessagesInterceptor : SaveChanges
         if (dbContext is null)
             return await base.SavingChangesAsync(eventData, result, ct);
 
-        var dateTimeProvider = dbContext.GetService<IDateTimeProvider>();
-
         var outboxMessages = dbContext
             .ChangeTracker
             .Entries()

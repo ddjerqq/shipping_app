@@ -1,0 +1,97 @@
+@using Application.Cqrs.Packages.Commands
+@using Domain.ValueObjects
+@using Presentation.Components.Ui.Form
+@using Presentation.Components.Ui.Form.Inputs
+@using Presentation.Components.Ui.Card
+
+<Card>
+    <Header>
+        <Title>Declare new package</Title>
+        <Description>Please pre-declare your packages so that there aren't any delays when shipping it</Description>
+    </Header>
+    <Content>
+        <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate class="flex flex-col gap-6">
+            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+                <FormField>
+                    <FormLabel for="tracking-code">Tracking code</FormLabel>
+                    <FormInputText id="tracking-code"
+                                   @bind-Value="@Command.TrackingCode"
+                                   placeholder="Enter tracking code"
+                                   required/>
+
+                    <FormInvalidFeedback For="@(() => Command.TrackingCode)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="category">Category</FormLabel>
+                    <FormInputEnum id="category" @bind-Value="Command.Category" Options="@(Enum.GetValues<Category>())" required/>
+                    <FormInvalidFeedback For="@(() => Command.Category)"/>
+                </FormField>
+            </div>
+
+            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+                <FormField>
+                    <FormLabel for="description">Description</FormLabel>
+                    <FormInputText id="description"
+                                   @bind-Value="@Command.Description"
+                                   placeholder="Enter description"
+                                   required/>
+                    <FormInvalidFeedback For="@(() => Command.Description)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="web-address">Website address</FormLabel>
+                    <FormInputText id="web-address"
+                                   @bind-Value="@Command.Description"
+                                   placeholder="Enter web address"
+                                   type="url"
+                                   required/>
+                    <FormInvalidFeedback For="@(() => Command.Description)"/>
+                </FormField>
+            </div>
+
+            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+                <FormField>
+                    <FormLabel for="retail-price">Retail price</FormLabel>
+                    <FormInputMoney Id="retail-price" @bind-Value="@Command.RetailPrice"/>
+                    <FormInvalidFeedback For="@(() => Command.RetailPrice)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="item-count">Item Count</FormLabel>
+                    <InputNumber id="item-count"
+                                 class="@FormInputText.BaseClass"
+                                 @bind-Value="@Command.ItemCount"
+                                 required/>
+                    <FormInvalidFeedback For="@(() => Command.ItemCount)"/>
+                </FormField>
+            </div>
+
+            <FormField>
+                @* // TODO invoice here... *@
+                <FormLabel for="invoice">Invoice</FormLabel>
+                <InputFile id="invoice" class="@FormInputText.BaseClass"/>
+                @* <FormInvalidFeedback For="@(() => Command.ItemCount)"/> *@
+            </FormField>
+
+            <FormField>
+                @* // TODO picture *@
+                <FormLabel for="picture">Picture</FormLabel>
+                <InputFile id="picture" class="@FormInputText.BaseClass"/>
+            </FormField>
+
+            <Button type="submit">
+                Declare
+            </Button>
+        </AppForm>
+    </Content>
+</Card>
+
+@code {
+    private CreatePackageCommand Command { get; set; } = new();
+
+    private async Task OnValidSubmit()
+    {
+        await Mediator.Send(Command);
+    }
+}

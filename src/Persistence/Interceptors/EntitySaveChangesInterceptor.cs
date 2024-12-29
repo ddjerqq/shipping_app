@@ -38,7 +38,7 @@ public sealed class EntitySaveChangesInterceptor : SaveChangesInterceptor
         var userAccessor = context.GetService<ICurrentUserAccessor>();
 
         var currentUserId = userAccessor.Id?.ToString() ?? "system";
-        var dateTime = DateTimeOffset.UtcNow;
+        var dateTime = DateTime.UtcNow;
 
         var trackedEntityEntries = context.ChangeTracker
             .Entries()

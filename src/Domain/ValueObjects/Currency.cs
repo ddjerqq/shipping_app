@@ -7,6 +7,16 @@ public readonly record struct Currency(string Value)
         : Value;
 
     public static implicit operator string(Currency currency) => currency.Value;
-    public static explicit operator Currency(string value) => new(value);
+    public static implicit operator Currency(string value) => new(value);
+
+    public string Symbol => Value switch
+    {
+        "USD" => "$",
+        "EUR" => "€",
+        "GBP" => "£",
+        "JPY" => "¥",
+        _ => Value,
+    };
+
     public override string ToString() => Value;
 }

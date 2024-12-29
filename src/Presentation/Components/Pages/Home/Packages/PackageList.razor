@@ -1,0 +1,70 @@
+﻿@using Application.Common
+@using Application.Services
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Presentation.Components.Ui.Avatar
+@using Presentation.Components.Ui.Card
+
+@inject ICurrentUserAccessor CurrentUser
+
+<Card>
+    <Header>
+        <Title>My Packages</Title>
+        <Description>You have ordered a total of @Packages.Count() package(s)</Description>
+    </Header>
+    <Content>
+        <div class="space-y-2 overflow-y-scroll max-h-[600px]">
+            @foreach (var package in Packages)
+            {
+                <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg" Class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
+                    <div class="flex gap-4 items-center">
+                        <Avatar Class="hidden md:block size-9">
+                            <AvatarImage Src="@ClaimsPrincipalExt.GetDefaultAvatar()" Alt="Avatar"/>
+                            <AvatarFallback>package image</AvatarFallback>
+                        </Avatar>
+
+                        <div class="flex flex-col gap-1 justify-center">
+                            <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
+                            <span class="font-medium capitalize leading-none">@package.Description</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Retail Price</span>
+                        <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Status</span>
+                        <span class="font-medium capitalize leading-none">@package.Statuses.Last().Status.GetDisplayName()</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Last Update</span>
+                        <span class="font-medium capitalize leading-none">@package.Statuses.Last().Date.ToString("ddd, MMM dd")</span>
+                    </div>
+                </Button>
+            }
+        </div>
+    </Content>
+</Card>
+
+
+@code {
+    private IEnumerable<Package> Packages { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var currentUser = await CurrentUser.GetCurrentUserAsync();
+
+        Packages =
+        [
+            Package.Create(TrackingCode.New(), Category.Bags, "versacce bag", "versace.com", new Money("USD", 100), 1, false, currentUser),
+            Package.Create(TrackingCode.New(), Category.Clothing, "nike shoes", "nike.com", new Money("USD", 200), 1, false, currentUser),
+            Package.Create(TrackingCode.New(), Category.DifferentElectronicAndConsumerProducts, "iphone 13", "apple.com", new Money("USD", 1000), 1, false, currentUser),
+            Package.Create(TrackingCode.New(), Category.HouseholdFurniture, "sofa", "ikea.com", new Money("USD", 500), 1, false, currentUser),
+            Package.Create(TrackingCode.New(), Category.Jewellery, "diamond ring", "tiffany.com", new Money("USD", 1000), 1, false, currentUser),
+        ];
+    }
+}

@@ -2,10 +2,16 @@
 @using System.Globalization
 @using Application.Cqrs.Users.Commands
 @using Presentation.Components.Ui.Form
+@using Presentation.Components.Ui.Form.Inputs
 
 <PageTitle>Register</PageTitle>
-
 <AuthHeader Title="Create an account"/>
+
+<AuthorizeView>
+    <Authorized>
+        <Redirect To="home"/>
+    </Authorized>
+</AuthorizeView>
 
 <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser" novalidate class="grid gap-6">
     <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
@@ -138,7 +144,7 @@
     <div class="space-y-3 text-muted-foreground text-sm">
         <div class="text-center">
             Already have an account?
-            <Link href="auth/login" Title="Login"/>
+            <Link Href="auth/login" Title="Login"/>
         </div>
     </div>
 </AppForm>

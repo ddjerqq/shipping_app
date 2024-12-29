@@ -30,6 +30,7 @@ public static class EnumExt
 
         return value.GetAttribute<DisplayAttribute>()?.Name ?? value.ToString();
     }
+    // get display Name, description
 
     private static TAttribute? GetAttribute<TAttribute>(this Enum value) where TAttribute : Attribute
     {

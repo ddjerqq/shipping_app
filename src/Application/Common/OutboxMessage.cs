@@ -19,9 +19,9 @@ public sealed class OutboxMessage
     [StringLength(2048)]
     public string Content { get; init; } = string.Empty;
 
-    public DateTimeOffset OccuredOn { get; init; }
+    public DateTime OccuredOn { get; init; }
 
-    public DateTimeOffset? ProcessedOn { get; set; }
+    public DateTime? ProcessedOn { get; set; }
 
     [StringLength(1024)]
     public string? Error { get; set; }
@@ -33,7 +33,7 @@ public sealed class OutboxMessage
             Id = Ulid.NewUlid(),
             Type = domainEvent.GetType().AssemblyQualifiedName!,
             Content = JsonSerializer.Serialize(domainEvent, ApplicationJsonConstants.Options.Value),
-            OccuredOn = DateTimeOffset.Now,
+            OccuredOn = DateTime.Now,
             ProcessedOn = null,
             Error = null,
         };
