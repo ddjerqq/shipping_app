@@ -20,6 +20,6 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
         services.AddScoped<IRecaptchaVerifier, GoogleRecaptchaVerifier>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
         services.AddScoped<IUserVerificationTokenGenerator, JwtUserVerificationTokenGenerator>();
-        services.AddScoped<IIpGeoLocationService, IpInfoIpGeoLocationService>();
+        services.AddScoped<IIpGeoLocator, IpInfoIpGeoLocator>();
     }
 }

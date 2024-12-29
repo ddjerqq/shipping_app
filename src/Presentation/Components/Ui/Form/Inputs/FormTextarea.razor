@@ -1,5 +1,8 @@
-﻿<InputTextArea
+﻿@using System.Linq.Expressions
+
+<InputTextArea
     Value="@Value"
+    ValueExpression="@ValueExpression"
     ValueChanged="@ValueChanged"
     @attributes="AdditionalAttributes"
     class="@(Tw.Merge(FormInputText.BaseClass, Class))"/>
@@ -10,6 +13,9 @@
 
     [Parameter]
     public string Value { get; set; } = null!;
+
+    [Parameter]
+    public Expression<Func<string>> ValueExpression { get; set; } = null!;
 
     [Parameter]
     public EventCallback<string?> ValueChanged { get; set; }

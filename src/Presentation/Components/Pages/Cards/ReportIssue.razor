@@ -1,6 +1,7 @@
 ﻿@using Presentation.Components.Ui.Card
 @using Presentation.Components.Ui.Form
 @using Presentation.Components.Ui.Form.Inputs
+
 <Card>
     <Header>
         <Title>Report an issue</Title>
@@ -30,12 +31,14 @@
         </div>
         <div class="grid gap-2">
             <FormLabel for="subject">Subject</FormLabel>
-            <input class="@FormInputText.BaseClass" id="subject" placeholder="I need help with..." />
+            <input class="@FormInputText.BaseClass" id="subject" placeholder="I need help with..."/>
         </div>
         <div class="grid gap-2">
             <FormLabel for="description">Description</FormLabel>
-            <FormTextarea id="description"
-                      placeholder="Please include all information relevant to your issue." />
+            <FormTextarea
+                id="description"
+                @bind-Value="@Description"
+                placeholder="Please include all information relevant to your issue."/>
         </div>
     </Content>
     <Footer class="justify-between space-x-2">
@@ -47,4 +50,6 @@
 @code {
     private static readonly string[] Areas = ["team", "billing", "account", "deployments", "support"];
     private static readonly string[] Levels = ["Severity 1 (Highest)", "Severity 2", "Severity 3", "Severity 4 (Lowest)"];
+
+    private string Description { get; set; } = "Enter your description here";
 }

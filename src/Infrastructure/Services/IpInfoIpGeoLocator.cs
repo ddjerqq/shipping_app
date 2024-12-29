@@ -6,11 +6,11 @@ using IPinfo.Models;
 
 namespace Infrastructure.Services;
 
-public sealed class IpInfoIpGeoLocationService : IIpGeoLocationService
+public sealed class IpInfoIpGeoLocator : IIpGeoLocator
 {
     private readonly IPinfoClient _client;
 
-    public IpInfoIpGeoLocationService()
+    public IpInfoIpGeoLocator()
     {
         var token = "IPINFO__API_KEY".FromEnvRequired();
 

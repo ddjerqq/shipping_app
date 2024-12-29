@@ -14,7 +14,7 @@
                     These cookies are essential in order to use the website and use its features.
                 </span>
             </FormLabel>
-            <Switch id="necessary" Value aria-label="Necessary" />
+            <Switch id="necessary" @bind-Value="A" aria-label="Necessary" />
         </div>
         <div class="flex items-center justify-between space-x-2">
             <FormLabel for="functional" Class="flex flex-col space-y-1">
@@ -23,7 +23,7 @@
                     These cookies allow the website to provide personalized functionality.
                 </span>
             </FormLabel>
-            <Switch id="functional" aria-label="Functional" />
+            <Switch id="functional" @bind-Value="B" aria-label="Functional" />
         </div>
         <div class="flex items-center justify-between space-x-2">
             <FormLabel for="performance" Class="flex flex-col space-y-1">
@@ -32,7 +32,7 @@
                     These cookies help to improve the performance of the website.
                 </span>
             </FormLabel>
-            <Switch id="performance" aria-label="Performance" />
+            <Switch id="performance" @bind-Value="C" aria-label="Performance" />
         </div>
     </Content>
     <Footer>
@@ -41,3 +41,9 @@
         </Button>
     </Footer>
 </Card>
+
+@code {
+    public bool A { get; set; }
+    public bool B { get; set; }
+    public bool C { get; set; }
+}

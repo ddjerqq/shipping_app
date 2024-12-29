@@ -1,8 +1,11 @@
 @using Application.Cqrs.Packages.Commands
+@using Application.Services
 @using Domain.ValueObjects
 @using Presentation.Components.Ui.Form
 @using Presentation.Components.Ui.Form.Inputs
 @using Presentation.Components.Ui.Card
+
+@inject IFileStore FileStore
 
 <Card>
     <Header>
@@ -68,16 +71,15 @@
             </div>
 
             <FormField>
-                @* // TODO invoice here... *@
                 <FormLabel for="invoice">Invoice</FormLabel>
-                <InputFile id="invoice" class="@FormInputText.BaseClass"/>
-                @* <FormInvalidFeedback For="@(() => Command.ItemCount)"/> *@
+                <InputFile id="invoice" class="@FormInputText.BaseClass" OnChange="UploadInvoice"/>
+                <FormInvalidFeedback For="@(() => Command.InvoiceKey)"/>
             </FormField>
 
             <FormField>
-                @* // TODO picture *@
                 <FormLabel for="picture">Picture</FormLabel>
-                <InputFile id="picture" class="@FormInputText.BaseClass"/>
+                <InputFile id="picture" class="@FormInputText.BaseClass" accept="image/*" OnChange="UploadPicture"/>
+                <FormInvalidFeedback For="@(() => Command.PictureKey)"/>
             </FormField>
 
             <Button type="submit">
@@ -93,5 +95,65 @@
     private async Task OnValidSubmit()
     {
         await Mediator.Send(Command);
+    }
+
+    private async Task UploadInvoice(InputFileChangeEventArgs args)
+    {
+        // TODO move this to the command??
+
+        // 1 megabyte is max size
+        if (args.FileCount > 1)
+        {
+            Toast.ShowError("Please attach only one file");
+            return;
+        }
+
+        var file = args.File;
+        if (file.Size >= 5_000_000)
+        {
+            Toast.ShowError("Please attach a file smaller than 5 megabytes");
+            return;
+        }
+
+        var fileTypeExt = Path.GetExtension(file.Name);
+        if (fileTypeExt is not ".pdf")
+        {
+            Toast.ShowError("Please attach a file with a valid extension .pdf");
+            return;
+        }
+
+        await using var fileStream = file.OpenReadStream();
+        var fileKey = await FileStore.CreateFileAsync(fileStream, fileTypeExt);
+
+        Command.InvoiceKey = fileKey;
+    }
+
+    private async Task UploadPicture(InputFileChangeEventArgs args)
+    {
+        // 1 megabyte is max size
+        if (args.FileCount > 1)
+        {
+            Toast.ShowError("Please attach only one file");
+            return;
+        }
+
+        var file = args.File;
+        if (file.Size >= 1_000_000)
+        {
+            Toast.ShowError("Please attach a file smaller than 1 megabyte");
+            return;
+        }
+
+        var fileTypeExt = Path.GetExtension(file.Name);
+        if (fileTypeExt is not (".jpg" or ".jpeg" or ".png"))
+        {
+            Toast.ShowError("Please attach a file with a valid extension (.jpg, .jpeg, .png)");
+            return;
+        }
+
+        await using var fileStream = file.OpenReadStream();
+        var fileKey = await FileStore.CreateFileAsync(fileStream, fileTypeExt);
+
+        Command.PictureKey = fileKey;
     }
 }

@@ -17,6 +17,9 @@ public sealed record CreatePackageCommand : IRequest<Package>
     public int ItemCount { get; set; } = 1;
     public bool HouseDelivery { get; set; }
 
+    public string? PictureKey { get; set; }
+    public string? InvoiceKey { get; set; }
+
     public UserId OwnerId { get; set; } = default!;
     public User Owner { get; set; } = null!;
 }
@@ -31,8 +34,6 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
         RuleFor(x => x.WebsiteAddress).NotNull();
         RuleFor(x => x.RetailPrice).NotNull();
         RuleFor(x => x.ItemCount).NotNull().GreaterThanOrEqualTo(1);
-        RuleFor(x => x.OwnerId).NotNull();
-        RuleFor(x => x.Owner).NotNull();
     }
 }
 

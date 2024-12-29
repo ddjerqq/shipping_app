@@ -34,7 +34,7 @@ public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
 
 internal sealed class LoginCommandHandler(
     IAppDbContext dbContext,
-    IIpGeoLocationService ipGeoLocationService,
+    IIpGeoLocator ipGeoLocator,
     IHttpContextAccessor httpContextAccessor,
     IJwtGenerator jwtGenerator)
     : IRequestHandler<LoginCommand, LoginResult>
@@ -83,7 +83,7 @@ internal sealed class LoginCommandHandler(
         var httpContext = httpContextAccessor.HttpContext;
         var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
         var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString();
-        var ipInfo = await ipGeoLocationService.GetIpInfoAsync(ipAddress, ct);
+        var ipInfo = await ipGeoLocator.GetIpInfoAsync(ipAddress, ct);
 
         var login = await dbContext.Set<UserLogin>()
             .Where(ul => ul.UserId == user.Id)
