@@ -22,7 +22,6 @@ internal class RaceConfiguration : IEntityTypeConfiguration<Race>
         builder.HasMany(race => race.Packages)
             .WithOne(package => package.Race)
             .HasForeignKey(package => package.RaceId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

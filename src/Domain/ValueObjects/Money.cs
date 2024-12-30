@@ -22,7 +22,7 @@ public readonly record struct Money
 
         return parts switch
         {
-            [var currency, var amount] => new Money(new Currency(currency), decimal.Parse(parts[1])),
+            [var currency, var amount] => new Money(new Currency(currency), decimal.Parse(amount)),
             _ => throw new FormatException("Invalid money format."),
         };
     }

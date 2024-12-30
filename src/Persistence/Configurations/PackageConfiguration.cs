@@ -10,11 +10,16 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
     public void Configure(EntityTypeBuilder<Package> builder)
     {
         builder.Property(x => x.TrackingCode).HasMaxLength(32);
+        builder.HasIndex(x => x.TrackingCode).IsUnique();
+
         // category
         builder.Property(x => x.Description).HasMaxLength(256);
         builder.Property(x => x.WebsiteAddress).HasMaxLength(32);
         // retail price
         // house delivery
+        builder.Property(x => x.InvoiceFileKey).HasMaxLength(64);
+        builder.Property(x => x.PictureFileKey).HasMaxLength(64);
+
         builder.HasOne(package => package.Owner)
             .WithMany(user => user.Packages)
             .HasForeignKey(package => package.OwnerId)
@@ -29,8 +34,7 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.HasOne(package => package.Race)
             .WithMany(race => race.Packages)
             .HasForeignKey(package => package.RaceId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(package => package.Statuses)
             .WithOne(status => status.Package)

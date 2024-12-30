@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241229112300_Initial")]
+    [Migration("20241230133020_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -98,9 +98,18 @@ namespace Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("house_delivery");
 
+                    b.Property<string>("InvoiceFileKey")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("invoice_file_key");
+
                     b.Property<bool>("IsPaid")
                         .HasColumnType("INTEGER")
                         .HasColumnName("is_paid");
+
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("item_count");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("TEXT")
@@ -115,8 +124,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("owner_id");
 
+                    b.Property<string>("PictureFileKey")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("picture_file_key");
+
                     b.Property<string>("RaceId")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("race_id");
 
@@ -349,7 +362,6 @@ namespace Persistence.Migrations
                         .HasColumnName("status");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("user_id");
 
@@ -705,7 +717,6 @@ namespace Persistence.Migrations
                         .WithMany("Packages")
                         .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("f_k_package__race_race_id");
 
                     b.Navigation("Owner");
@@ -726,7 +737,6 @@ namespace Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("f_k_package_reception_status_user_user_id");
 
                     b.Navigation("Package");

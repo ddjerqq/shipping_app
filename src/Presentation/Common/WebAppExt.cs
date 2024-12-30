@@ -73,7 +73,7 @@ public static class WebAppExt
         app.MapFallback(ctx =>
         {
             // catch requests that dont really exist?
-            ctx.Response.Redirect("404");
+            ctx.Response.Redirect("/404");
             return Task.CompletedTask;
         });
     }

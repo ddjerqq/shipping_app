@@ -2,26 +2,27 @@
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
-@using Domain.ValueObjects
 @using Presentation.Components.Ui.Avatar
 @using Presentation.Components.Ui.Card
 
 @inject ICurrentUserAccessor CurrentUser
+@inject IFileStore FileStore
 
 <Card>
     <Header>
         <Title>My Packages</Title>
-        <Description>You have ordered a total of @Packages.Count() package(s)</Description>
+        <Description>You have ordered a total of @Packages.Count() @(Packages.Count() > 1 ? "packages" : "package")</Description>
     </Header>
     <Content>
         <div class="space-y-2 overflow-y-scroll max-h-[600px]">
             @foreach (var package in Packages)
             {
-                <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg" Class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
+                <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg"
+                        Class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
                     <div class="flex gap-4 items-center">
                         <Avatar Class="hidden md:block size-9">
-                            <AvatarImage Src="@ClaimsPrincipalExt.GetDefaultAvatar()" Alt="Avatar"/>
-                            <AvatarFallback>package image</AvatarFallback>
+                            <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
+                            <AvatarFallback>Package image</AvatarFallback>
                         </Avatar>
 
                         <div class="flex flex-col gap-1 justify-center">
@@ -53,18 +54,20 @@
 
 @code {
     private IEnumerable<Package> Packages { get; set; } = [];
+    private Dictionary<PackageId, string> PictureUrls { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
     {
         var currentUser = await CurrentUser.GetCurrentUserAsync();
+        Packages = currentUser.Packages;
 
-        Packages =
-        [
-            Package.Create(TrackingCode.New(), Category.Bags, "versacce bag", "versace.com", new Money("USD", 100), 1, false, currentUser),
-            Package.Create(TrackingCode.New(), Category.Clothing, "nike shoes", "nike.com", new Money("USD", 200), 1, false, currentUser),
-            Package.Create(TrackingCode.New(), Category.DifferentElectronicAndConsumerProducts, "iphone 13", "apple.com", new Money("USD", 1000), 1, false, currentUser),
-            Package.Create(TrackingCode.New(), Category.HouseholdFurniture, "sofa", "ikea.com", new Money("USD", 500), 1, false, currentUser),
-            Package.Create(TrackingCode.New(), Category.Jewellery, "diamond ring", "tiffany.com", new Money("USD", 1000), 1, false, currentUser),
-        ];
+        foreach (var package in Packages)
+        {
+            var url = !string.IsNullOrWhiteSpace(package.PictureFileKey)
+                ? await FileStore.GetPresignedFileUrlAsync(package.PictureFileKey)
+                : ClaimsPrincipalExt.GetDefaultAvatar();
+
+            PictureUrls.Add(package.Id, url!);
+        }
     }
 }

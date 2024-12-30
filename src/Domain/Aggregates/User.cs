@@ -32,7 +32,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public DateTimeOffset? LockoutEnd { get; set; }
     public int AccessFailedCount { get; set; }
 
-    public IEnumerable<Package> Packages { get; init; } = [];
+    public ICollection<Package> Packages { get; init; } = [];
     public ICollection<UserClaim> Claims { get; init; } = [];
     public ICollection<UserLogin> Logins { get; init; } = [];
     public ICollection<UserRole> Roles { get; init; } = [];

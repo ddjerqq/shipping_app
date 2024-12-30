@@ -3,10 +3,12 @@
 </div>
 
 @code {
-    public const string BaseClass =
-        "grid gap-2 has-[.valid]:text-green-700 has-[.invalid]:text-destructive " +
-        "has-[.valid]:[&_label]:text-green-700 has-[.invalid]:[&_label]:text-destructive " +
-        "[&_label:required]:after:content-['*'] has-disabled:[&_label]:cursor-not-allowed has-disabled:[&_label]:opacity-70";
+    public string BaseClass =
+        "grid gap-2 " +
+        "has-[.valid]:text-green-700 has-[.invalid]:text-destructive " +
+        "[&_label]:has-[.valid]:text-green-700        [&_label]:has-[.invalid]:text-destructive " +
+        "[&_label]:has-[:disabled]:cursor-not-allowed [&_label]:has-[:disabled]:opacity-70 " +
+        "[&_label]:has-[:required]:after:text-red-600 [&_label]:has-[:required]:after:content-['*']";
 
     [Parameter]
     public string Class { get; set; } = null!;

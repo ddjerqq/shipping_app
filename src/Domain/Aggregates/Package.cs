@@ -21,6 +21,8 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public required Money RetailPrice { get; init; }
     public required int ItemCount { get; init; }
     public required bool HouseDelivery { get; init; }
+    public string? InvoiceFileKey { get; set; }
+    public string? PictureFileKey { get; set; }
 
     public required UserId OwnerId { get; init; }
     public required User Owner { get; init; } = null!;
@@ -56,10 +58,13 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         }
     }
 
+    /// <summary>
+    /// Creates the package, generating the tracking code if null, and adds it to the user's packages.
+    /// </summary>
     public static Package Create(TrackingCode? trackingCode, Category category, string description, string websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner)
     {
         var packageId = PackageId.New();
-        return new Package(packageId)
+        var package = new Package(packageId)
         {
             TrackingCode = trackingCode ?? TrackingCode.New(),
             Category = category,
@@ -74,6 +79,10 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
             Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTimeOffset.Now)],
         };
+
+        owner.Packages.Add(package);
+
+        return package;
     }
 
     private void UpdateStatus(PackageReceptionStatus receptionStatus)

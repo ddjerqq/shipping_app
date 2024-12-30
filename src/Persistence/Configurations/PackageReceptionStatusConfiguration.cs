@@ -22,7 +22,6 @@ internal class PackageReceptionStatusConfiguration : IEntityTypeConfiguration<Pa
         builder.HasOne(package => package.User)
             .WithMany()
             .HasForeignKey(package => package.UserId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

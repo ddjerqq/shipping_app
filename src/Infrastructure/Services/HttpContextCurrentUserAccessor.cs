@@ -26,6 +26,8 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
             .Include(x => x.Roles)
             .ThenInclude(uc => uc.Role)
             .ThenInclude(r => r.Claims)
+            .Include(u => u.Packages)
+            .ThenInclude(p => p.Statuses)
             .AsSplitQuery()
             .Where(u => u.Id == id)
             .FirstOrDefaultAsync(ct);

@@ -1,9 +1,9 @@
 @using Domain.ValueObjects
 
-<div class="flex first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none">
-    <input id="@Id" TValue="decimal" type="number" min="0" value="@Value.Amount" @onchange="@SetAmount" class="@Class("w-full rounded-l-md border-l")"/>
+<div class="flex first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none" @attributes="@AdditionalAttributes">
+    <input id="@Id" TValue="decimal" type="number" min="0" value="@Value.Amount" @onchange="@SetAmount" class="@_class("w-full rounded-l-md border-l")" @attributes="@AdditionalAttributes"/>
 
-    <select id="@Id" @onchange="@SetCurrency" class="@Class("rounded-r-md border-r")">
+    <select id="@Id" @onchange="@SetCurrency" class="@_class("rounded-r-md border-r")" @attributes="@AdditionalAttributes">
         @foreach (var currency in (string[]) ["USD", "EUR"])
         {
             <option value="@currency" selected="@(Value.Currency == currency)">@currency</option>
@@ -12,7 +12,7 @@
 </div>
 
 @code {
-    public Func<string, string> Class = additional =>
+    private Func<string, string> _class = additional =>
         additional +
         " peer flex h-9 border-y border-input bg-background px-3 py-1 shadow-sm text-sm transition-colors " +
         "file:border-0 file:bg-background file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground " +
@@ -28,6 +28,9 @@
 
     [Parameter]
     public EventCallback<Money> ValueChanged { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 
     private async Task SetAmount(ChangeEventArgs args)
     {

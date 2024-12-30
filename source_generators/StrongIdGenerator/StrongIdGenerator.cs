@@ -158,12 +158,16 @@ public sealed class StrongIdGenerator : IIncrementalGenerator
 
                          {{GeneratedCodeAttribute}}
                          [global::System.ComponentModel.TypeConverter(typeof({{idClassName}}TypeConverter))]
-                         public readonly record struct {{idClassName}}(global::System.Ulid Value) : global::Generated.IStrongId, global::System.IComparable<{{idClassName}}>, global::System.IParsable<{{idClassName}}>
+                         public readonly record struct {{idClassName}}(global::System.Ulid Value) : global::Generated.IStrongId, global::System.IComparable, global::System.IParsable<{{idClassName}}>
                          {
                              public static {{idClassName}} Empty => new(global::System.Ulid.Empty);
+                             
                              public static {{idClassName}} New() => new(global::System.Ulid.NewUlid());
+                             
                              public override string ToString() => global::Generated.SourceGeneratorExt.ToSnakeCase(nameof({{idClassName}}).Replace("Id", "")) + $"_{Value.ToString().ToLower()}";
+                             
                              public static {{idClassName}} Parse(string s, global::System.IFormatProvider? provider = default) => TryParse(s, provider, out var result) ? result : throw new global::System.FormatException();
+                             
                              public static bool TryParse([global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)] string? s, global::System.IFormatProvider? provider, out {{idClassName}} result)
                              {
                                  result = default!;
@@ -179,7 +183,13 @@ public sealed class StrongIdGenerator : IIncrementalGenerator
                          
                                  return false;
                              }
-                             public int CompareTo({{idClassName}} other) => Value.CompareTo(other);
+                             
+                             public int CompareTo(object value)
+                             {
+                               if (value == null) return 1;
+                               if (value is {{idClassName}} other) return this.Value.CompareTo(other.Value);
+                               throw new ArgumentException("Object must be of type {{idClassName}}.", nameof(value));
+                             }
                          }
 
                          {{GeneratedCodeAttribute}}

@@ -14,10 +14,11 @@
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate class="flex flex-col gap-6">
-            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+            <InlineFormFieldContainer>
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
                     <FormInputText id="tracking-code"
+                                   disabled="@IsLoading"
                                    @bind-Value="@Command.TrackingCode"
                                    placeholder="Enter tracking code"
                                    required/>
@@ -27,15 +28,20 @@
 
                 <FormField>
                     <FormLabel for="category">Category</FormLabel>
-                    <FormInputEnum id="category" @bind-Value="Command.Category" Options="@(Enum.GetValues<Category>())" required/>
+                    <FormInputEnum id="category"
+                                   disabled="@IsLoading"
+                                   @bind-Value="Command.Category"
+                                   Options="@(Enum.GetValues<Category>())"
+                                   required/>
                     <FormInvalidFeedback For="@(() => Command.Category)"/>
                 </FormField>
-            </div>
+            </InlineFormFieldContainer>
 
-            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+            <InlineFormFieldContainer>
                 <FormField>
                     <FormLabel for="description">Description</FormLabel>
                     <FormInputText id="description"
+                                   disabled="@IsLoading"
                                    @bind-Value="@Command.Description"
                                    placeholder="Enter description"
                                    required/>
@@ -45,44 +51,71 @@
                 <FormField>
                     <FormLabel for="web-address">Website address</FormLabel>
                     <FormInputText id="web-address"
-                                   @bind-Value="@Command.Description"
+                                   disabled="@IsLoading"
+                                   @bind-Value="@Command.WebsiteAddress"
                                    placeholder="Enter web address"
                                    type="url"
                                    required/>
-                    <FormInvalidFeedback For="@(() => Command.Description)"/>
+                    <FormInvalidFeedback For="@(() => Command.WebsiteAddress)"/>
                 </FormField>
-            </div>
+            </InlineFormFieldContainer>
 
-            <div class="w-full grid grid-cols-2 gap-2 items-start justify-between">
+            <InlineFormFieldContainer>
                 <FormField>
                     <FormLabel for="retail-price">Retail price</FormLabel>
-                    <FormInputMoney Id="retail-price" @bind-Value="@Command.RetailPrice"/>
+                    <FormInputMoney Id="retail-price"
+                                    disabled="@IsLoading"
+                                    @bind-Value="@Command.RetailPrice"
+                                    required/>
                     <FormInvalidFeedback For="@(() => Command.RetailPrice)"/>
                 </FormField>
 
                 <FormField>
                     <FormLabel for="item-count">Item Count</FormLabel>
                     <InputNumber id="item-count"
+                                 disabled="@IsLoading"
                                  class="@FormInputText.BaseClass"
                                  @bind-Value="@Command.ItemCount"
                                  required/>
                     <FormInvalidFeedback For="@(() => Command.ItemCount)"/>
                 </FormField>
-            </div>
+            </InlineFormFieldContainer>
+
+            <InlineFormFieldContainer>
+                <FormField>
+                    <FormLabel for="invoice">Invoice</FormLabel>
+                    <InputFile id="invoice"
+                               disabled="@IsLoading"
+                               class="@FormInputText.BaseClass"
+                               accept=".pdf,.doc,.docx"
+                               OnChange="UploadInvoice"/>
+                    <FormInvalidFeedback For="@(() => Command.InvoiceFile)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="picture">Picture</FormLabel>
+                    <InputFile id="picture"
+                               disabled="@IsLoading"
+                               class="@FormInputText.BaseClass"
+                               accept=".jpg,.jpeg,.png"
+                               OnChange="UploadPicture"/>
+                    <FormInvalidFeedback For="@(() => Command.PictureFile)"/>
+                </FormField>
+            </InlineFormFieldContainer>
 
             <FormField>
-                <FormLabel for="invoice">Invoice</FormLabel>
-                <InputFile id="invoice" class="@FormInputText.BaseClass" OnChange="UploadInvoice"/>
-                <FormInvalidFeedback For="@(() => Command.InvoiceKey)"/>
+                <FormLabel for="house-delivery">House delivery</FormLabel>
+                <Switch id="house-delivery"
+                        disabled="@IsLoading"
+                        @bind-Value="@Command.HouseDelivery"/>
+                <FormInvalidFeedback For="@(() => Command.HouseDelivery)"/>
             </FormField>
 
-            <FormField>
-                <FormLabel for="picture">Picture</FormLabel>
-                <InputFile id="picture" class="@FormInputText.BaseClass" accept="image/*" OnChange="UploadPicture"/>
-                <FormInvalidFeedback For="@(() => Command.PictureKey)"/>
-            </FormField>
-
-            <Button type="submit">
+            <Button type="submit" disabled="@IsLoading">
+                @if (IsLoading)
+                {
+                    <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+                }
                 Declare
             </Button>
         </AppForm>
@@ -91,69 +124,36 @@
 
 @code {
     private CreatePackageCommand Command { get; set; } = new();
+    private bool IsLoading { get; set; }
 
     private async Task OnValidSubmit()
     {
+        IsLoading = true;
         await Mediator.Send(Command);
+        IsLoading = false;
+
+        Toast.ShowSuccess("You successfully declared your package!");
     }
 
-    private async Task UploadInvoice(InputFileChangeEventArgs args)
+    private void UploadInvoice(InputFileChangeEventArgs args)
     {
-        // TODO move this to the command??
-
-        // 1 megabyte is max size
         if (args.FileCount > 1)
         {
             Toast.ShowError("Please attach only one file");
             return;
         }
 
-        var file = args.File;
-        if (file.Size >= 5_000_000)
-        {
-            Toast.ShowError("Please attach a file smaller than 5 megabytes");
-            return;
-        }
-
-        var fileTypeExt = Path.GetExtension(file.Name);
-        if (fileTypeExt is not ".pdf")
-        {
-            Toast.ShowError("Please attach a file with a valid extension .pdf");
-            return;
-        }
-
-        await using var fileStream = file.OpenReadStream();
-        var fileKey = await FileStore.CreateFileAsync(fileStream, fileTypeExt);
-
-        Command.InvoiceKey = fileKey;
+        Command.InvoiceFile = args.File;
     }
 
-    private async Task UploadPicture(InputFileChangeEventArgs args)
+    private void UploadPicture(InputFileChangeEventArgs args)
     {
-        // 1 megabyte is max size
         if (args.FileCount > 1)
         {
             Toast.ShowError("Please attach only one file");
             return;
         }
 
-        var file = args.File;
-        if (file.Size >= 1_000_000)
-        {
-            Toast.ShowError("Please attach a file smaller than 1 megabyte");
-            return;
-        }
-
-        var fileTypeExt = Path.GetExtension(file.Name);
-        if (fileTypeExt is not (".jpg" or ".jpeg" or ".png"))
-        {
-            Toast.ShowError("Please attach a file with a valid extension (.jpg, .jpeg, .png)");
-            return;
-        }
-
-        await using var fileStream = file.OpenReadStream();
-        var fileKey = await FileStore.CreateFileAsync(fileStream, fileTypeExt);
-
-        Command.PictureKey = fileKey;
+        Command.PictureFile = args.File;
     }
 }
