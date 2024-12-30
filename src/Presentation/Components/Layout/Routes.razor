@@ -2,6 +2,7 @@
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
 @using Presentation.Components.Pages
+@using Presentation.Components.Shared
 @inject NavigationManager Nav
 @inject IJSRuntime Js
 @inject BrowserInternalizationProvider BrowserInternalizationProvider
@@ -19,12 +20,12 @@
                     <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
                     <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                         <NotAuthorized>
-                            <Redirect To="auth/login" Force/>
+                            <Redirect To="/auth/login" Force/>
                         </NotAuthorized>
                     </AuthorizeRouteView>
                 </Found>
                 <NotFound>
-                    <Redirect To="404" Force/>
+                    <Redirect To="/404" Force/>
                 </NotFound>
             </Router>
         </CascadingValue>
@@ -32,8 +33,8 @@
 </CascadingBlazoredModal>
 
 <BlazoredToasts
-    Position="@ToastPosition.BottomRight"
-    Timeout="4"
+    Position="@ToastPosition.TopCenter"
+    Timeout="5"
     MaxToastCount="3"
     ShowCloseButton="false"
     ShowProgressBar="false"

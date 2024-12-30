@@ -124,22 +124,18 @@
 
 @code {
     private CreatePackageCommand Command { get; set; } = new();
-    private bool IsLoading { get; set; }
 
     private async Task OnValidSubmit()
     {
-        IsLoading = true;
-        await Mediator.Send(Command);
-        IsLoading = false;
-
-        Toast.ShowSuccess("You successfully declared your package!");
+        await SendCommandAsync(Command);
+        ShowSuccess("You successfully declared your package!");
     }
 
     private void UploadInvoice(InputFileChangeEventArgs args)
     {
         if (args.FileCount > 1)
         {
-            Toast.ShowError("Please attach only one file");
+            ShowError("Please attach only one file");
             return;
         }
 
@@ -150,7 +146,7 @@
     {
         if (args.FileCount > 1)
         {
-            Toast.ShowError("Please attach only one file");
+            ShowError("Please attach only one file");
             return;
         }
 

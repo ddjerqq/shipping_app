@@ -20,8 +20,6 @@
 @using Icons = Blazicons.Lucide
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 
+
+@inherits Presentation.Components.Shared.AppComponentBase
 @attribute [Authorize]
-@inject TwMerge Tw
-@inject NavigationManager NavigationManager
-@inject IToastService Toast
-@inject IMediator Mediator

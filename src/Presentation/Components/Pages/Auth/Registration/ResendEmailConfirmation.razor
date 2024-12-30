@@ -34,20 +34,17 @@
 
 @code {
     private ResendEmailConfirmationCommand Command { get; set; } = new();
-    private bool IsLoading { get; set; }
-    private Recaptcha RecaptchaComponent { get; set; } = null!;
+        private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     private async Task OnValidSubmitAsync()
     {
         if (!await RecaptchaComponent.IsValid())
         {
-            Toast.ShowWarning("Please complete captcha before continuing");
+            ShowWarning("Please complete captcha before continuing");
             return;
         }
 
-        IsLoading = true;
-        await Mediator.Send(Command);
-        IsLoading = false;
+        await SendCommandAsync(Command);
 
         NavigationManager.NavigateTo("auth/register_confirmation");
     }

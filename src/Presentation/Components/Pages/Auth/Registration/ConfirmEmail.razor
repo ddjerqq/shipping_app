@@ -21,6 +21,6 @@
 
         var user = await Mediator.Send(new ConfirmEmailCommand(Token));
         if (user is null)
-            Toast.ShowError("Failed to validate token");
+            ShowError("Failed to validate token");
     }
 }

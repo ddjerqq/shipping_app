@@ -9,7 +9,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <Redirect To="home"/>
+        <Redirect To="/home"/>
     </Authorized>
 </AuthorizeView>
 
@@ -121,28 +121,27 @@
     [SupplyParameterFromForm]
     private LoginCommand Command { get; set; } = new();
 
-    private bool IsLoading { get; set; }
-    private bool ShowPassword { get; set; }
+        private bool ShowPassword { get; set; }
     private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task LoginUser()
     {
         if (!await RecaptchaComponent.IsValid())
         {
-            Toast.ShowWarning("Please complete captcha before continuing");
+            ShowWarning("Please complete captcha before continuing");
             return;
         }
 
         Command.TimeZoneInfo = BrowserTimeZone;
 
         IsLoading = true;
-        var result = await Mediator.Send(Command);
+        var result = await SendCommandAsync(Command);
         IsLoading = false;
 
         switch (result)
         {
             case null:
-                Toast.ShowError("Invalid credentials.");
+                ShowError("Invalid credentials.");
                 return;
             case (true, _, _):
                 NavigationManager.NavigateTo("auth/lockout");
