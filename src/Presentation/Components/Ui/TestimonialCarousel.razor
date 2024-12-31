@@ -1,0 +1,117 @@
+<div class="w-full max-w-3xl mx-auto">
+<div class="bg-white rounded-lg shadow-lg">
+    <div class="relative p-6">
+        <button 
+            @onclick="PreviousSlide"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 hover:scale-110 active:scale-95 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Previous testimonial">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+            
+        <button 
+            @onclick="NextSlide"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 hover:scale-110 active:scale-95 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Next testimonial">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+        <div class="text-center px-12">
+            <div class="transition-all duration-500 ease-in-out transform @(IsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")">
+                <p class="text-lg mb-6 text-gray-700">@testimonials[currentIndex].Content</p>
+                    
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="w-12 h-12 overflow-hidden rounded-full flex-shrink-0">
+                        <img src="@testimonials[currentIndex].Avatar"
+                             alt="@testimonials[currentIndex].Author"
+                             class="w-full h-full object-cover">
+                    </div>
+                    
+                    <div class="text-left">
+                        <h3 class="font-semibold text-gray-900">@testimonials[currentIndex].Author</h3>
+                        <p class="text-sm text-gray-500">@testimonials[currentIndex].Role</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dots Indicator -->
+        <div class="flex justify-center space-x-2 mt-6">
+            @for (int i = 0; i < testimonials.Length; i++)
+            {
+                var index = i;
+                <button @onclick="() => GoToSlide(index)"
+                        class="w-2 h-2 rounded-full transition-all duration-300 ease-in-out hover:scale-150 @(currentIndex == index ? "bg-blue-500 scale-125" : "bg-gray-300")"
+                        aria-label="@($"Go to testimonial {index + 1}")">
+                </button>
+            }
+        </div>
+    </div>
+</div>
+</div>
+
+@code {
+    private int currentIndex = 0;
+    private bool IsVisible = true;
+
+    private class Testimonial
+    {
+        public string Content { get; set; }
+        public string Author { get; set; }
+        public string Role { get; set; }
+        public string Avatar { get; set; }
+    }
+
+    private Testimonial[] testimonials = new[]
+    {
+        new Testimonial
+        {
+            Content = "The best decision we've ever made was working with this team. They've transformed our business completely.",
+            Author = "Sarah Johnson",
+            Role = "CEO, TechStart",
+            Avatar = "https://i.pinimg.com/originals/07/33/ba/0733ba760b29378474dea0fdbcb97107.png"
+        },
+        new Testimonial
+        {
+            Content = "Incredible attention to detail and outstanding customer service. Would highly recommend to anyone!",
+            Author = "Michael Chen",
+            Role = "Director of Operations, InnovateCo",
+            Avatar = "https://i.pinimg.com/originals/07/33/ba/0733ba760b29378474dea0fdbcb97107.png"
+        },
+        new Testimonial
+        {
+            Content = "Their expertise and dedication have helped us achieve results beyond our expectations.",
+            Author = "Emily Rodriguez",
+            Role = "Marketing Manager, GrowthCorp",
+            Avatar = "https://i.pinimg.com/originals/07/33/ba/0733ba760b29378474dea0fdbcb97107.png"
+        }
+    };
+
+    private async Task NextSlide()
+    {
+        IsVisible = false;
+        await Task.Delay(500); 
+        currentIndex = (currentIndex + 1) % testimonials.Length;
+        IsVisible = true;
+    }
+
+    private async Task PreviousSlide()
+    {
+        IsVisible = false;
+        await Task.Delay(500);
+        currentIndex = currentIndex == 0 ? testimonials.Length - 1 : currentIndex - 1;
+        IsVisible = true;
+    }
+
+    private async Task GoToSlide(int index)
+    {
+        if (index == currentIndex) return;
+        
+        IsVisible = false;
+        await Task.Delay(500); 
+        currentIndex = index;
+        IsVisible = true;
+    }
+}
