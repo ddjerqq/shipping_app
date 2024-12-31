@@ -62,11 +62,11 @@ export class GlobeContext {
     // init controls
     this._controls = new OrbitControls(this._camera, this._renderer.domElement);
     this._controls.enableDamping = true;
-    this._controls.dampingFactor = 0.01;
+    this._controls.dampingFactor = 0.05;
     this._controls.enableRotate = true;
     this._controls.enableZoom = false;
     this._controls.enablePan = false;
-    this._controls.rotateSpeed = 0.3;
+    this._controls.rotateSpeed = 0.5;
     this._controls.minPolarAngle = Math.PI / 4;
     this._controls.maxPolarAngle = Math.PI / 2;
 
@@ -142,7 +142,7 @@ export class GlobeContext {
     this._camera.lookAt(this._scene.position);
     this._controls.update();
     this._renderer.render(this._scene, this._camera);
-    this._globe.rotation.y -= 0.00025;
+    this._globe.rotation.y -= 0.1;
     requestAnimationFrame(() => this.animate());
   }
 

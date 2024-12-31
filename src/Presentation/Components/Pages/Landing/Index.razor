@@ -1,9 +1,143 @@
 @page "/"
 @inject IJSRuntime Js
+@using Presentation.Components
+@using Components.Ui 
+@using Ui.Tabs
+@using Presentation.Components.Ui.Tabs
 
-<div class="w-full flex flex-row justify-center items-center">
-    <canvas id="globe" class="size-[800px]"></canvas>
+<div class="flex flex-col lg:flex-row items-center justify-between w-full h-screen p-8 relative">
+    @* <img src="images/america.svg" alt="america" class="absolute h-[800px] w-[2400px] opacity-70 transform rotate-125 top-[-400px] left-[0px]" /> *@
+    <div class="flex flex-col justify-center items-start w-full lg:w-1/2 mb-8 lg:mb-0">
+        <h1 class="text-6xl font-bold mb-4">No. 1 <span class="text-[#21bf73]">Shipping</span> Company from U.S.A to Georgia</h1>
+        <p class="mb-4 text-sm max-w-3xl mx-auto">
+            We are the leaders in the shipping industry, offering reliable, fast, and affordable services worldwide.
+            Our mission is to revolutionize logistics by providing cutting-edge solutions that meet the demands of modern global trade.
+        </p>
+        <CtaButton>
+            Get Started
+        </CtaButton>
+    </div>
+
+    <div class="flex justify-center items-center w-full lg:w-1/2">
+        <canvas id="globe" class="w-[500px] h-[500px]"></canvas>
+    </div>
 </div>
+
+<div class="my-16 flex items-center justify-between bg-gray-100 py-8 px-16">
+    <div class="w-1/2 flex justify-center items-center">
+        <img
+            src="images/truck3d.png"
+            alt="Delivery Truck"
+            class="object-cover h-[500px] w-[500px] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]"
+        />
+    </div>
+
+    
+    <div class="w-1/2 text-left">
+        <div style="font-size: 12px; margin-bottom: 48px; margin-top: 16px;" class="bg-gray-100 text-[#21bf73] rounded-full uppercase px-4 py-1 inline-block shadow-md">
+            we're the best
+        </div>
+        <h2 class="text-4xl font-semibold mb-4">Why Us</h2>
+        <p class="text-sm mb-4">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3">
+                    <g>
+                        <path fill="#00b090"
+                              d="M12 8.758a.694.694 0 0 1-.217.515l-5.605 5.485-1.053 1.03A.725.725 0 0 1 4.6 16a.724.724 0 0 1-.527-.212l-1.053-1.03-2.803-2.743A.694.694 0 0 1 0 11.5c0-.202.072-.374.217-.515l1.053-1.03a.725.725 0 0 1 .526-.213c.207 0 .382.071.527.213L4.6 12.19l5.078-4.977c.14-.14.33-.216.527-.212.206 0 .382.07.526.212l1.053 1.03c.142.134.22.321.217.516Z"/>
+                    </g>
+                </svg>
+                <span>We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time.</span>
+            </div>
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3">
+                    <g>
+                        <path fill="#00b090"
+                              d="M12 8.758a.694.694 0 0 1-.217.515l-5.605 5.485-1.053 1.03A.725.725 0 0 1 4.6 16a.724.724 0 0 1-.527-.212l-1.053-1.03-2.803-2.743A.694.694 0 0 1 0 11.5c0-.202.072-.374.217-.515l1.053-1.03a.725.725 0 0 1 .526-.213c.207 0 .382.071.527.213L4.6 12.19l5.078-4.977c.14-.14.33-.216.527-.212.206 0 .382.07.526.212l1.053 1.03c.142.134.22.321.217.516Z"/>
+                    </g>
+                </svg>
+                <span>With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe.</span>
+            </div>
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3">
+                    <g>
+                        <path fill="#00b090"
+                              d="M12 8.758a.694.694 0 0 1-.217.515l-5.605 5.485-1.053 1.03A.725.725 0 0 1 4.6 16a.724.724 0 0 1-.527-.212l-1.053-1.03-2.803-2.743A.694.694 0 0 1 0 11.5c0-.202.072-.374.217-.515l1.053-1.03a.725.725 0 0 1 .526-.213c.207 0 .382.071.527.213L4.6 12.19l5.078-4.977c.14-.14.33-.216.527-.212.206 0 .382.07.526.212l1.053 1.03c.142.134.22.321.217.516Z"/>
+                    </g>
+                </svg>
+                <span>Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination.</span>
+            </div>
+        </p>
+        <CtaButton>Get Started</CtaButton>
+    </div>
+</div>
+
+
+<div class="my-16">
+    <div class="flex flex-col lg:flex-row justify-between gap-8">
+        <div class="text-center p-6 rounded">
+            <h3 class="text-4xl font-bold text-[#21bf73]">200+</h3>
+            <p class="text-sm">Parcels from U.S.A</p>
+        </div>
+        <div class="text-center p-6 rounded">
+            <h3 class="text-4xl font-bold text-[#21bf73]">500+</h3>
+            <p class="text-sm">Parcels from Georgia</p>
+        </div>
+        <div class="text-center p-6 rounded">
+            <h3 class="text-4xl font-bold text-[#21bf73]">1400+</h3>
+            <p class="text-sm">Storage Items</p>
+        </div>
+        <div class="text-center p-6 rounded">
+            <h3 class="text-4xl font-bold text-[#21bf73]">15</h3>
+            <p class="text-sm">Moving Items</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="bg-gray-100 py-16 my-16 relative">
+    <img src="images/package.svg" alt="package" class="absolute h-[100px] opacity-20 transform rotate-125 top-[50px] left-[50px]" />
+    <img src="images/package.svg" alt="package" class="absolute h-[100px] opacity-20 transform rotate-10 bottom-[50px] right-[50px]" />
+    <h2 class="text-center text-4xl font-semibold mb-8">3 Simple Steps</h2>
+    <div class="flex flex-col lg:flex-row justify-center gap-8 mx-auto max-w-screen-lg">
+        <div class="bg-white shadow-md rounded-lg p-8 text-left w-full lg:w-1/3">
+            <div class="flex justify-center mb-4">
+                <div class="bg-[#21bf73] p-2 rounded-full">
+                    <img src="images/register.svg" alt="package" class="h-10 w-10 text-white"/>
+                </div>
+            </div>
+            <h3 class="text-2xl font-semibold mb-4">Step 1: Register</h3>
+            <p class="text-sm text-gray-600 mb-6">Create an account to start shipping with us. It's quick and easy.</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-8 text-left w-full lg:w-1/3">
+            <div class="flex justify-center mb-4">
+                <div class="bg-[#21bf73] p-2 rounded-full">
+                    <img src="images/form.svg" alt="package" class="h-10 w-10 text-white"/>
+                </div>
+            </div>
+            <h3 class="text-2xl font-semibold mb-4">Step 2: Fill Out Details</h3>
+            <p class="text-sm text-gray-600 mb-6">Provide your shipping details, including package information and destination.</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-8 text-left w-full lg:w-1/3">
+            <div class="flex justify-center mb-4">
+                <div class="bg-[#21bf73] p-2 rounded-full">
+                    <img src="images/package-white.svg" alt="package" class="h-10 w-10 text-white"/>
+                </div>
+            </div>
+            <h3 class="text-2xl font-semibold mb-4">Step 3: Ship Your Package</h3>
+            <p class="text-sm text-gray-600 mb-6">Leave the rest to us! We’ll ensure your package is delivered on time.</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-8">
+        <CtaButton>
+            Get Started
+        </CtaButton>
+    </div>
+</div>
+
+<TestimonialCarousel />
+
+
 
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
