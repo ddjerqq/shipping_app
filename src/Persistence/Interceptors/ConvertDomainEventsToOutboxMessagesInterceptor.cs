@@ -1,8 +1,6 @@
 using Application.Common;
-using Application.Services;
 using Domain.Abstractions;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Persistence.Interceptors;
 

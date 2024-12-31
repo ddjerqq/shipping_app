@@ -1,6 +1,5 @@
 using System.Threading.RateLimiting;
 using Application;
-using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
 using Microsoft.AspNetCore.Builder;

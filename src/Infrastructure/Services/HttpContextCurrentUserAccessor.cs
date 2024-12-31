@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
-using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

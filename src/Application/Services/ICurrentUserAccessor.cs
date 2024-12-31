@@ -1,6 +1,5 @@
 using Application.Exceptions;
 using Domain.Aggregates;
-using Domain.Entities;
 
 namespace Application.Services;
 
