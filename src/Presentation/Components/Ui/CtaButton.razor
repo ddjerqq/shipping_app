@@ -1,20 +1,22 @@
-<button class="@($"px-[72px] py-3 bg-[#21bf73] text-white rounded-[8px] text-base tracking-wider shadow-[0_8px_8px_rgba(0,0,0,0.08)] border border-transparent hover:bg-[#1aa65f] transition-all duration-300 {CustomClass}")"
-        style="@CustomStyle"
-        @onclick="NavigateToRegister"
-        @attributes="AdditionalAttributes">
+<button
+    class="@(Tw.Merge(Class, "px-[72px] py-3 bg-[#21bf73] text-white rounded-[8px] text-base tracking-wider shadow-[0_8px_8px_rgba(0,0,0,0.08)] border border-transparent hover:bg-[#1aa65f] transition-all duration-300"))"
+    @onclick="@NavigateToRegister"
+    @attributes="AdditionalAttributes">
     @ChildContent
 </button>
 
 @code {
-    [Inject] private Microsoft.AspNetCore.Components.NavigationManager _navigationManager { get; set; } = default!;
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = null!;
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public string? CustomClass { get; set; }
-    [Parameter] public string? CustomStyle { get; set; }
-    [Parameter] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
     private void NavigateToRegister()
     {
-        _navigationManager.NavigateTo("auth/register");
+        NavigationManager.NavigateTo("auth/register");
     }
 }
