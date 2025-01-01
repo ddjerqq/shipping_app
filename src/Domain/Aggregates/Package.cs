@@ -1,5 +1,6 @@
 using System.Numerics;
 using Domain.Abstractions;
+using Domain.Common;
 using Domain.Entities;
 using Domain.Events;
 using Domain.ValueObjects;
@@ -30,9 +31,14 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     // arrived at origin.
     // scan the barcode, go to an address like - /track/{CODE}
     // set the dimensions and weight of the package
+
+    /// <summary>
+    /// gets the dimensions in centimeters
+    /// </summary>
     public Vector3? Dimensions { get; private set; }
-    public double? WeightGrams { get; private set; }
-    public decimal ShippingPrice => (decimal)(WeightGrams ?? 0) / 1000 * PricePerKg;
+    public float? WeightGrams { get; private set; }
+
+    public decimal ShippingPrice => this.GetTotalPrice();
 
     // TODO payment method and receipt here. comes from stripe api?
     public bool IsPaid { get; init; }
@@ -94,7 +100,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtOrigin"/>
-    public void ArrivedAtOrigin(User receivedBy, Vector3 dimensions, double weightGrams, DateTimeOffset date)
+    public void ArrivedAtOrigin(User receivedBy, Vector3 dimensions, float weightGrams, DateTimeOffset date)
     {
         Dimensions = dimensions;
         WeightGrams = weightGrams;

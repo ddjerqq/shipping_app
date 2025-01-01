@@ -23,7 +23,7 @@
 </div>
 
 <div>
-    <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync" method="post">
+    <EditForm Model="Input" FormName="delete-user" OnValidSubmit="OnValidSubmitAsync">
         <DataAnnotationsValidator/>
         <ValidationSummary class="text-danger" role="alert"/>
         @if (requirePassword)

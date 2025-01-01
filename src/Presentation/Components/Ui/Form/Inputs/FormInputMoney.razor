@@ -1,7 +1,7 @@
 @using Domain.ValueObjects
 
-<div class="flex first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none" @attributes="@AdditionalAttributes">
-    <input id="@Id" TValue="decimal" type="number" min="0" value="@Value.Amount" @onchange="@SetAmount" class="@_class("w-full rounded-l-md border-l")" @attributes="@AdditionalAttributes"/>
+<div class="flex select-none first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none" @attributes="@AdditionalAttributes">
+    <input id="@Id" TValue="decimal" type="number" min="0" step="0.01" value="@Value.Amount" @onchange="@SetAmount" class="@_class("w-full rounded-l-md border-l")" @attributes="@AdditionalAttributes"/>
 
     <select id="@Id" @onchange="@SetCurrency" class="@_class("rounded-r-md border-r")" @attributes="@AdditionalAttributes">
         @foreach (var currency in (string[]) ["USD", "EUR"])
