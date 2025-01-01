@@ -1,8 +1,33 @@
 @page "/faq"
+@using Presentation.Components.Ui.Card
+@using Presentation.Components.Shared
 @attribute [AllowAnonymous]
 
-<h3>Faq</h3>
+<PageTitle>Frequently asked questions</PageTitle>
+<PageHeader Title="Frequently asked questions"/>
+
+<div class="grid gap-4 mt-4">
+    @foreach (var (question, answer) in _questions)
+    {
+        <Card>
+            <Header>
+                <Title class="text-2xl">@question</Title>
+            </Header>
+            <Content>
+                @answer
+            </Content>
+        </Card>
+    }
+</div>
 
 @code {
-
+    private readonly IEnumerable<(string Question, MarkupString HtmlAnswer)> _questions =
+    [
+        ("What is SanGoWay?", (MarkupString)"<p>SanGoWay is a platform that helps you to calculate the cost of shipping from the USA to Georgia.</p>"),
+        ("How does it work?", (MarkupString)"<p>SanGoWay uses the weight and dimensions of your package to calculate the cost of shipping from the USA to Georgia.</p>"),
+        ("How do I get started?", (MarkupString)"<p>Getting started is easy. Just sign up and start calculating the cost of shipping your package.</p>"),
+        ("How do I pay for shipping?", (MarkupString)"<p>SanGoWay accepts payment via credit card and bank transfer.</p>"),
+        ("How do I track my package?", (MarkupString)"<p>Once your package is shipped, you will receive a tracking number that you can use to track your package.</p>"),
+        ("How do I get my package?", (MarkupString)"<p>Once your package arrives in Georgia, you can pick it up at our office or have it delivered to your address.</p>"),
+    ];
 }
