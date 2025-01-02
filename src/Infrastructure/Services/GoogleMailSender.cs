@@ -3,6 +3,7 @@ using System.Net.Mail;
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
+using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
@@ -13,7 +14,7 @@ public sealed class GoogleMailSender : IEmailSender
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;
 
-    public GoogleMailSender(ILogger<GoogleMailSender> logger)
+    public GoogleMailSender(ILogger<GoogleMailSender> logger, IEmailMarkupProvider markupProvider)
     {
         _logger = logger;
         _username = "GOOGLE__USERNAME".FromEnvRequired();
@@ -27,7 +28,11 @@ public sealed class GoogleMailSender : IEmailSender
             Credentials = new NetworkCredential(_username, password),
             Timeout = 20_000,
         };
+
+        EmailMarkupProvider = markupProvider;
     }
+
+    public IEmailMarkupProvider EmailMarkupProvider { get; }
 
     public async Task SendAsync(string recipient, string subject, string body, CancellationToken ct = default)
     {
@@ -36,11 +41,11 @@ public sealed class GoogleMailSender : IEmailSender
 
         using var msg = new MailMessage(fromAddress, toAddress);
         msg.IsBodyHtml = false;
-        msg.Subject = subject;
+        msg.Subject = $"noreply - {subject}";
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-        _logger.LogInformation("sending message to {recipient} {message}", recipient, msg.Body);
+        _logger.LogInformation("sending email to {recipient}", recipient);
 
         try
         {
@@ -52,10 +57,4 @@ public sealed class GoogleMailSender : IEmailSender
             throw;
         }
     }
-
-    public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default) =>
-        SendAsync(recipient.Email, "Confirm your email", $"Please confirm your account by clicking this link: {callback}", ct);
-
-    public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default) =>
-        SendAsync(user.Email, "Reset your password", $"Please reset your password by clicking this link: {callback}", ct);
 }

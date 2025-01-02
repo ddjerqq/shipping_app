@@ -32,7 +32,7 @@ internal sealed class ConfirmEmailHandler(IAppDbContext dbContext, IUserVerifica
         if (user.SecurityStamp != securityStamp)
             throw new InvalidOperationException("User auth credentials changed");
 
-        user.EmailConfirmed = true;
+        user.ConfirmEmail();
         await dbContext.SaveChangesAsync(ct);
         return user;
     }

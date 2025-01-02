@@ -1,0 +1,54 @@
+@layout EmailLayout
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.Entities
+@using Microsoft.AspNetCore.Components.Sections
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Someone just signed into your <strong style="color:#040;font-weight:bold;">Sangoway</strong> account
+</SectionContent>
+
+<SectionContent SectionId="@EmailLayout.FooterSectionId">
+    If you didn't attempt to login to your account just now, please change your password IMMEDIATELY
+    Someone is trying to access your account. Do not delay resetting your password.
+    <br/>
+    You can contact our support <a href="mailto:support@sangoway.com" target="_blank" style="color:#067df7;text-decoration:none;">here</a>
+</SectionContent>
+
+<EmailParagraph>
+    If this was you, you can disregard this message.
+</EmailParagraph>
+
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+
+<EmailParagraph>
+    Ip: @Login.IpAddress <br/>
+    UserAgent: @Login.UserAgent <br/>
+    Device Type: @Login.DeviceType <br/>
+    Location: @Login.Location <br/>
+</EmailParagraph>
+
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+
+<EmailParagraph>
+    If this was not you, please change your password immediately.
+</EmailParagraph>
+
+<EmailCta Href="@($"https://{WebAppDomain}/auth/forgot_password")" Title="Change password" target="_blank"/>
+
+<EmailParagraph>
+    But if it was you, you don't need to do anything.
+</EmailParagraph>
+
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+
+    [Parameter]
+    public User User { get; set; } = null!;
+
+    [Parameter]
+    public UserLogin Login { get; set; } = null!;
+}

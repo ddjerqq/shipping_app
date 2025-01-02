@@ -1,0 +1,13 @@
+@inherits ComponentBase
+
+<p @attributes="@AdditionalAttributes" style="color:#000;font-size:14px;line-height:24px;">
+    @ChildContent
+</p>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+}

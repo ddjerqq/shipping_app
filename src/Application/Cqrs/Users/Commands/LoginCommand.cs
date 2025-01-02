@@ -96,13 +96,12 @@ internal sealed class LoginCommandHandler(
             {
                 UserId = user.Id,
                 UserAgent = userAgent,
-                Location = ipInfo is not null ? $"{ipInfo.Country} {ipInfo.City}" : "unknown",
+                Location = ipInfo is not null ? $"{ipInfo.Country}, {ipInfo.City}" : "unknown",
                 IpAddress = ipAddress ?? "unknown",
                 LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo),
             };
 
-            user.Logins.Add(login);
-            user.AddDomainEvent(new UserLoggedInFromNewDevice(user.Id, login.Id));
+            user.AddLogin(login);
         }
         else
         {

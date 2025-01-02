@@ -1,0 +1,22 @@
+@layout EmailLayout
+@using Domain.Common
+@using Microsoft.AspNetCore.Components.Sections
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Welcome to <strong style="color:#040;font-weight:bold;">Sangoway</strong>
+</SectionContent>
+
+<EmailParagraph>
+    You successfully verified your email account
+</EmailParagraph>
+
+<EmailParagraph>
+    We are excited to have you on board.
+</EmailParagraph>
+
+<EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+}

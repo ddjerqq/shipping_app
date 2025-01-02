@@ -1,0 +1,51 @@
+@using Domain.Aggregates
+@using Domain.Common
+@using Microsoft.AspNetCore.Components.Sections
+@layout EmailLayout
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Verify your email to sign up for <strong style="color:#040;font-weight:bold;">Sangoway</strong>
+</SectionContent>
+
+<SectionContent SectionId="@EmailLayout.FooterSectionId">
+    If you didn't attempt to sign up but received this email, or if the location doesn't match, you can ignore this email.
+    No account will be created. Don't share or forward the link with anyone.
+    Our customer service will never ask for it. Do not read this code out loud. Be cautious of phishing attempts and always
+    verify the sender and domain (sangoway.com) before acting.
+    If you are concerned about your account's safety, please contact our
+    <a href="mailto:support@sangoway.com" target="_blank" style="color:#067df7;text-decoration:none;">Support email</a>
+    to get in touch with us.
+</SectionContent>
+
+<EmailParagraph>
+    We have received a sign-up attempt with your email address.
+</EmailParagraph>
+
+<EmailParagraph>
+    To complete the sign-up process, please, please click the button below
+</EmailParagraph>
+
+<EmailCta Href="@CallbackUrl" Title="Verify email" target="_blank"/>
+
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+<EmailParagraph>
+    Please note that by completing your sign-up you are agreeing to our <br/>
+    <a href="@($"https://{WebAppDomain}/terms")" target="_blank" style="color:#067df7;text-decoration:none;">
+        Terms of Service
+    </a> and
+    <a href="@($"https://{WebAppDomain}/privacy")" target="_blank" style="color:#067df7;text-decoration:none;">
+        Privacy Policy
+    </a>:
+</EmailParagraph>
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+
+    [Parameter]
+    public User User { get; set; } = null!;
+
+    [Parameter]
+    public string CallbackUrl { get; set; } = null!;
+}

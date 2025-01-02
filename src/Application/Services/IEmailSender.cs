@@ -1,9 +1,15 @@
 ﻿using Domain.Aggregates;
+using Domain.Entities;
 
 namespace Application.Services;
 
 public interface IEmailSender
 {
+    /// <summary>
+    /// The email markup provider.
+    /// </summary>
+    protected IEmailMarkupProvider EmailMarkupProvider { get; }
+
     /// <summary>
     ///     Sends an email with the specified subject, content, recipients, and from address.
     /// </summary>
@@ -12,10 +18,45 @@ public interface IEmailSender
     /// <summary>
     /// Sends an Email confirmation link to the specified user
     /// </summary>
-    public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default);
+    public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetEmailConfirmationMarkup(recipient, callback, ct);
+        return SendAsync(recipient.Email, "Confirm your email", markup, ct);
+    }
+
+    /// <summary>
+    /// Sends a welcome email to the specified user
+    /// </summary>
+    public Task SendWelcomeEmailAsync(User user, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetWelcomeEmailMarkup(user, ct);
+        return SendAsync(user.Email, "Welcome!", markup, ct);
+    }
+
+    /// <summary>
+    /// Sends a notification to the user about a new login from an unknown location
+    /// </summary>
+    public Task SendNewLoginLocationNotificationAsync(User user, UserLogin login, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetNewLoginLocationNotificationMarkup(user, login, ct);
+        return SendAsync(user.Email, "New login location detected", markup, ct);
+    }
 
     /// <summary>
     /// Sends a password reset link to the specified user
     /// </summary>
-    public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default);
+    public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetPasswordResetMarkup(user, callback, ct);
+        return SendAsync(user.Email, "Reset your password", markup, ct);
+    }
+
+    /// <summary>
+    /// Sends a notification to the user about a password change
+    /// </summary>
+    public Task SendPasswordChangedAsync(User user, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetPasswordChangedNotificationMarkup(user, ct);
+        return SendAsync(user.Email, "Password changed", markup, ct);
+    }
 }

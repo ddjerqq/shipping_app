@@ -31,7 +31,7 @@ public static class LoggingExt
 {
     public static LoggerConfiguration Configure(this LoggerConfiguration config)
     {
-        SelfLog.Enable(Console.Error);
+        // SelfLog.Enable(Console.Error);
 
         var seqHost = "SEQ__HOST".FromEnvRequired();
         var seqPort = "SEQ__PORT".FromEnvRequired();

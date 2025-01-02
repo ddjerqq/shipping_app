@@ -1,12 +1,27 @@
+using Application.Services;
 using Domain.Events;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Cqrs.Users.Events;
 
-internal sealed class UserLoggedInFromNewDeviceEventHandler : INotificationHandler<UserLoggedInFromNewDevice>
+internal sealed class UserLoggedInFromNewDeviceEventHandler(
+    ILogger<UserLoggedInFromNewDeviceEventHandler> logger,
+    IAppDbContext dbContext,
+    IEmailSender emailSender) : INotificationHandler<UserLoggedInFromNewDevice>
 {
-    public Task Handle(UserLoggedInFromNewDevice notification, CancellationToken ct)
+    public async Task Handle(UserLoggedInFromNewDevice notification, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var user = await dbContext.Users
+                       .Include(x => x.Logins)
+                       .FirstOrDefaultAsync(x => x.Id == notification.UserId, ct)
+                   ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
+
+        var login = user.Logins.FirstOrDefault(x => x.Id == notification.UserLoginId)
+            ?? throw new InvalidOperationException($"Failed to load the user login from the database, login with id: {notification.UserLoginId} not found");
+
+        logger.LogInformation("User {UserId} logged in from a new location. {LoginId}", user.Id, notification.UserLoginId);
+        await emailSender.SendNewLoginLocationNotificationAsync(user, login, ct);
     }
 }

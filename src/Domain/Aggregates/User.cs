@@ -24,7 +24,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 
     public int RoomCode { get; init; } = Random.Shared.Next(1_000_000, 9_999_999);
 
-    public bool EmailConfirmed { get; set; }
+    public bool EmailConfirmed { get; private set; }
 
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
@@ -44,5 +44,17 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 
         if (!isInitial)
             AddDomainEvent(new UserResetPassword(Id));
+    }
+
+    public void ConfirmEmail()
+    {
+        EmailConfirmed = true;
+        AddDomainEvent(new UserConfirmedEmail(Id));
+    }
+
+    public void AddLogin(UserLogin login)
+    {
+        Logins.Add(login);
+        AddDomainEvent(new UserLoggedInFromNewDevice(Id, login.Id));
     }
 }

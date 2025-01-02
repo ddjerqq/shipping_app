@@ -3,6 +3,7 @@ using Application.Common;
 using Application.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -13,18 +14,26 @@ public sealed class IdentityRevalidatingAuthenticationStateProvider(
     IServiceScopeFactory scopeFactory)
     : RevalidatingServerAuthenticationStateProvider(loggerFactory)
 {
-    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(5);
+    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(3);
 
     protected override async Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken ct)
     {
         await using var scope = scopeFactory.CreateAsyncScope();
         var currentUser = scope.ServiceProvider.GetRequiredService<ICurrentUserAccessor>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<IAppDbContext>();
 
-        var user = await currentUser.TryGetCurrentUserAsync(ct);
-        if (user is null)
+        var userId = currentUser.Id;
+        if (userId is null)
             return false;
 
-        return authenticationState.User.GetSecurityStamp() == user.SecurityStamp;
+        // we don't need to load the entire user to validate the security stamp.
+        // just project the user into the security stamp.
+        var userSecurityStamp = await dbContext.Users
+            .Where(x => x.Id == userId.Value)
+            .Select(x => x.SecurityStamp)
+            .FirstOrDefaultAsync(ct);
+
+        return authenticationState.User.GetSecurityStamp() == userSecurityStamp;
     }
 
     public void ForceSignOut()

@@ -1,6 +1,8 @@
 ﻿using Application;
+using Application.Services;
 using Blazored.Modal;
 using Blazored.Toast;
+using Presentation.Services;
 using TailwindMerge.Extensions;
 
 namespace Presentation.Config;
@@ -15,5 +17,7 @@ public sealed class ConfigureClient : ConfigurationBase
         services.AddTailwindMerge();
         services.AddBlazoredModal();
         services.AddBlazoredToast();
+
+        services.AddScoped<IEmailMarkupProvider, RazorEmailMarkupProvider>();
     }
 }
