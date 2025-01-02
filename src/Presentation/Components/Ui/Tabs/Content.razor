@@ -1,8 +1,9 @@
-﻿@if (CurrentValue == Value)
+﻿@inherits UiComponentBase
+
+@if (CurrentValue == Value)
 {
-    <div
-        class="@(Tw.Merge("ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2", Class))"
-        @attributes="@AdditionalAttributes">
+    <div @attributes="@AdditionalAttributes"
+         class="@(Merge("ring-offset-background focus-visible:ring-ring mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"))">
         @ChildContent
     </div>
 }
@@ -13,13 +14,4 @@
 
     [Parameter, EditorRequired]
     public string Value { get; set; } = null!;
-
-    [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

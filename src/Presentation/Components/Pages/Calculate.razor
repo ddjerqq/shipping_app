@@ -9,7 +9,7 @@
 <PageTitle>Calculate package price</PageTitle>
 <PageHeader Title="Calculate the price for your package"/>
 
-<Card Class="mt-4">
+<Card class="mt-4">
     <Header>
         <Description>Enter the required parameters of the parcel and the calculator will calculate the cost of the delivery</Description>
     </Header>
@@ -27,13 +27,13 @@
                              max="1000"
                              required
                              disabled="@IsLoading"/>
-                <FormDescription Class="text-xs">
+                <FormDescription class="text-xs">
                     Please keep in mind, the weight will get rounded up to the nearest 100 grams.
                 </FormDescription>
                 <FormInvalidFeedback For="@(() => Command.WeightKiloGrams)"/>
             </FormField>
 
-            <InlineFormFieldContainer Class="mt-2 sm:grid-cols-3">
+            <InlineFormFieldContainer class="mt-2 sm:grid-cols-3">
                 <FormField>
                     <FormLabel for="x">Length (cm)</FormLabel>
                     <InputNumber id="x"
@@ -73,7 +73,7 @@
                     <FormInvalidFeedback For="@(() => Command.Height)"/>
                 </FormField>
 
-                <FormDescription Class="col-span-3">
+                <FormDescription class="col-span-3">
                     To find out more about volumetric weight and how it's calculated please visit our
                     <Link Href="/faq" Title="FAQ"/>
                 </FormDescription>
@@ -81,16 +81,16 @@
         </AppForm>
     </Content>
 
-    <Footer Class="grid gap-2 grid-cols-2">
+    <Footer class="grid gap-2 grid-cols-2">
         @if (Command.VolumetricApplied)
         {
-            <FormField Class="pointer-events-none">
+            <FormField class="pointer-events-none">
                 <FormLabel for="volumetric-price">Volumetric price</FormLabel>
                 <FormInputMoney Id="volumetric-price" Value="Command.VolumetricPrice"/>
             </FormField>
         }
 
-        <FormField Class="pointer-events-none">
+        <FormField class="pointer-events-none">
             <FormLabel for="total-price">Total price</FormLabel>
             <FormInputMoney Id="total-price" Value="Command.Price"/>
         </FormField>

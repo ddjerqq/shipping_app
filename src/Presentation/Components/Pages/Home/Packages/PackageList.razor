@@ -18,9 +18,9 @@
             @foreach (var package in Packages)
             {
                 <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg"
-                        Class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
+                        class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
                     <div class="flex gap-4 items-center">
-                        <Avatar Class="hidden md:block size-9">
+                        <Avatar class="hidden md:block size-9">
                             <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
                             <AvatarFallback>Package image</AvatarFallback>
                         </Avatar>

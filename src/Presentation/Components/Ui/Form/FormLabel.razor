@@ -1,17 +1,10 @@
-﻿<label class="@Tw.Merge(BaseClass, Class)"
-       @attributes="@AdditionalAttributes">
+﻿@inherits UiComponentBase
+
+<label @attributes="@AdditionalAttributes"
+       class="@Tw.Merge(BaseClass, Class)">
     @ChildContent
 </label>
 
 @code {
     public const string BaseClass = "text-sm font-medium leading-none select-none";
-
-    [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

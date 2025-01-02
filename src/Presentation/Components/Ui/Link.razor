@@ -1,4 +1,6 @@
-<a class="@(Tw.Merge(Class, BaseClass))" href="@Href" @attributes="AdditionalAttributes">
+@inherits UiComponentBase
+
+<a href="@Href" @attributes="AdditionalAttributes" class="@(Merge(BaseClass))">
     @ChildContent
 </a>
 
@@ -6,19 +8,10 @@
     public const string BaseClass = "underline underline-offset-4 text-muted-foreground decoration-muted-foreground hover:text-primary";
 
     [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; } = null!;
-
-    [Parameter]
-    public string? Title { get; set; } = null!;
+    public string? Title { get; set; }
 
     [Parameter, EditorRequired]
     public string Href { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 
     protected override void OnParametersSet()
     {

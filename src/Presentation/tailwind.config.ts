@@ -84,6 +84,7 @@ const config: Config = {
   },
   plugins: [
     require('autoprefixer'),
+    require('@tailwindcss/typography'),
     require('tailwindcss-animate')
   ],
 };

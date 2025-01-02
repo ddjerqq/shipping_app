@@ -1,16 +1,14 @@
 ﻿@using System.Linq.Expressions
+@inherits UiComponentBase
 
 <InputTextArea
     Value="@Value"
     ValueExpression="@ValueExpression"
     ValueChanged="@ValueChanged"
     @attributes="AdditionalAttributes"
-    class="@(Tw.Merge(FormInputText.BaseClass, Class))"/>
+    class="@(Merge(FormInputText.BaseClass))"/>
 
 @code {
-    [Parameter]
-    public string Class { get; set; } = null!;
-
     [Parameter]
     public string Value { get; set; } = null!;
 
@@ -19,7 +17,4 @@
 
     [Parameter]
     public EventCallback<string?> ValueChanged { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

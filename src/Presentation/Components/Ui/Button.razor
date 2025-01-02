@@ -1,18 +1,19 @@
 ﻿@using System.ComponentModel.DataAnnotations
+@inherits UiComponentBase
 
 @if (Href is not null)
 {
-    <a class="@GetButtonClass(Tw, Variant, Size, Class)"
-       href="@Href"
-       @attributes="@AdditionalAttributes">
+    <a href="@Href"
+       @attributes="@AdditionalAttributes"
+       class="@GetButtonClass(Tw, Variant, Size, Class)">
         @ChildContent
     </a>
 }
 else
 {
-    <button class="@GetButtonClass(Tw, Variant, Size, Class)"
-            href="@Href"
-            @attributes="@AdditionalAttributes">
+    <button href="@Href"
+            @attributes="@AdditionalAttributes"
+            class="@GetButtonClass(Tw, Variant, Size, Class)">
         @ChildContent
     </button>
 }
@@ -51,9 +52,6 @@ else
     }
 
     [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
     [AllowedValues("default", "destructive", "outline", "secondary", "ghost", "link")]
     public string Variant { get; set; } = "default";
 
@@ -63,10 +61,4 @@ else
 
     [Parameter]
     public string? Href { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

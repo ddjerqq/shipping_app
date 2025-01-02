@@ -6,12 +6,12 @@
 
 <AuthorizeView>
     <Authorized>
-        <Button Variant="outline" Class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
+        <Button Variant="outline" class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
             <span class="hidden md:block">
                 @context.User.GetUsername()?.CapitalizeName()
             </span>
 
-            <Avatar Class="size-6">
+            <Avatar class="size-6">
                 <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar())" Alt="@(context.User.GetUsername())"/>
                 <AvatarFallback>
                     @context.User.GetUsername()?.Initials()
@@ -26,13 +26,13 @@
             </div>
 
             <nav class="py-2 text-sm">
-                <Button Href="me" Variant="ghost" Class="justify-start w-full rounded-none">
+                <Button Href="me" Variant="ghost" class="justify-start w-full rounded-none">
                     Settings
                 </Button>
             </nav>
 
             <div class="py-2">
-                <Button Variant="ghost" Class="justify-start text-destructive hover:text-destructive w-full rounded-none"
+                <Button Variant="ghost" class="justify-start text-destructive hover:text-destructive w-full rounded-none"
                         @onclick="@SignOut">
                     <Blazicon Svg="@Icons.LogOut"/>
                     Sign out

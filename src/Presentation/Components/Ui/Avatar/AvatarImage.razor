@@ -1,18 +1,13 @@
 ﻿@using System.Diagnostics.CodeAnalysis
+@inherits UiComponentBase
 
-<img alt="@Alt" src="@Src" class="@(Tw.Merge("aspect-square h-full w-full", Class))" @attributes="AdditionalAttributes"/>
+<img alt="@Alt" src="@Src" @attributes="AdditionalAttributes" class="@(Merge("aspect-square h-full w-full"))"/>
 
 @code {
-    [Parameter]
-    public string Class { get; set; } = null!;
-
     [Parameter, EditorRequired]
     [StringSyntax(StringSyntaxAttribute.Uri)]
     public string Src { get; set; } = null!;
 
     [Parameter, EditorRequired]
     public string Alt { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

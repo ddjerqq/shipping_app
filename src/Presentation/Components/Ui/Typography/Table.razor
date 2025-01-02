@@ -1,0 +1,41 @@
+@inherits UiComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@(Merge("my-6 w-full overflow-y-auto"))">
+    <table class="w-full">
+        <thead>
+        <tr class="m-0 border-t p-0 even:bg-muted">
+            @foreach (var header in Data.FirstOrDefault(defaultValue: []))
+            {
+                <th class="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right">
+                    @header
+                </th>
+            }
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var row in Data.Skip(1))
+        {
+            <tr class="m-0 border-t p-0 even:bg-muted">
+                @foreach (var col in row)
+                {
+                    <td class="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right">
+                        @col
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string[][] Data { get; set; } =
+    [
+        ["King's Treasury", "People's happiness"],
+        ["Empty", "Overflowing"],
+        ["Modest", "Satisfied"],
+        ["Full", "Ecstatic"],
+    ];
+}

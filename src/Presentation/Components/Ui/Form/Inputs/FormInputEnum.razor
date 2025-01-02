@@ -1,5 +1,6 @@
 ﻿@using System.Linq.Expressions
 @using Domain.Common
+@inherits UiComponentBase
 @typeparam TEnum where TEnum : Enum
 
 <InputSelect
@@ -8,7 +9,7 @@
     ValueExpression="@ValueExpression"
     ValueChanged="@ValueChanged"
     @attributes="AdditionalAttributes"
-    class="@(Tw.Merge(FormInputText.BaseClass, Class))">
+    class="@(Merge(FormInputText.BaseClass))">
     @foreach (var option in Options)
     {
         <option value="@option">@option.GetDisplayName()</option>
@@ -19,9 +20,6 @@
 
 @code {
     [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
     public TEnum Value { get; set; } = default!;
 
     [Parameter]
@@ -30,12 +28,6 @@
     [Parameter]
     public EventCallback<TEnum> ValueChanged { get; set; }
 
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
     [Parameter, EditorRequired]
     public IEnumerable<TEnum> Options { get; set; } = [];
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }

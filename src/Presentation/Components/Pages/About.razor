@@ -1,6 +1,44 @@
 @page "/about"
 @using Presentation.Components.Shared
+@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Typography
 @attribute [AllowAnonymous]
 
 <PageTitle>About</PageTitle>
-<PageHeader Title="About"/>
+
+<Card class="mx-auto">
+    <Header>
+        <Title>
+            <Header1>About Us</Header1>
+        </Title>
+        <Description>
+            Welcome to our shipping service! We pride ourselves on being the most affordable and reliable delivery service for parcels from the USA to Georgia.
+        </Description>
+    </Header>
+
+    <Content>
+        <Header2>Our Mission</Header2>
+        <Paragraph>
+            Our goal is to make international shipping affordable and hassle-free. At just <strong>$7 per kilogram</strong>, we ensure that your parcels are delivered safely and on time from the USA to Georgia.
+        </Paragraph>
+
+        <Header2>Who We Are</Header2>
+        <Paragraph>
+            We are a small business driven by a passion for delivering value to our customers. Our team consists of:
+        </Paragraph>
+        <UnorderedList>
+            <li><strong>Owner:</strong> Giorgi Sanakoevi</li>
+            <li><strong>Development Team:</strong> A talented group of developers. <Link Title="Contact dev team" Href="https://t.me/tenxdeveloper"/></li>
+        </UnorderedList>
+
+        <Header2>Our Achievements</Header2>
+        <Paragraph>
+            Since our inception, we have successfully delivered <strong>2,320 parcels</strong> from the USA to Georgia, helping countless customers enjoy affordable and reliable shipping.
+        </Paragraph>
+
+        <Header2>Why Choose Us?</Header2>
+        <Paragraph>
+            We combine cost-effective pricing, personalized service, and a commitment to excellence to ensure that your shipping experience is second to none. When you choose us, you’re supporting a dedicated small business that values your trust.
+        </Paragraph>
+    </Content>
+</Card>

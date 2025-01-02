@@ -1,6 +1,45 @@
 @page "/terms"
-@using Presentation.Components.Shared
+@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Typography
 @attribute [AllowAnonymous]
 
-<PageTitle>About</PageTitle>
-<PageHeader Title="About"/>
+<PageTitle>Terms and Conditions</PageTitle>
+
+<Card class="mx-auto">
+  <Header>
+    <Title>
+      <Header1>Terms and Conditions</Header1>
+    </Title>
+    <Description>
+      These Terms and Conditions govern your use of our shipping app and services. By using our app, you agree to comply with these terms. Please read them carefully.
+    </Description>
+  </Header>
+
+  <Content>
+    <Header2>Prohibited Items</Header2>
+    <Paragraph>Users are strictly prohibited from shipping illegal items. A detailed list of prohibited items can be found at <Link Title="rs.ge/prohibitedItems" Href="https://www.rs.ge/OnlineOrders?cat=3&tab=1" target="_blank" rel="noopener noreferrer"/>. Violation of this rule may result in account suspension or termination.</Paragraph>
+
+    <Header2>Compliance with Laws</Header2>
+    <Paragraph>All users must comply with applicable local, national, and international laws and regulations related to the shipping and transportation of goods. This includes restrictions on hazardous materials, controlled substances, and any items deemed illegal in the destination country.</Paragraph>
+
+    <Header2>User Responsibilities</Header2>
+    <Paragraph>By using our app, you agree to:</Paragraph>
+    <UnorderedList>
+      <li>Provide accurate and complete information about the items being shipped.</li>
+      <li>Ensure that the contents of your shipment comply with all relevant laws and regulations.</li>
+      <li>Pay any applicable fees, taxes, or duties associated with your shipment.</li>
+    </UnorderedList>
+
+    <Header2>Liability Limitations</Header2>
+    <Paragraph>We are not responsible for any loss or damage to items shipped through our service, except as required by law. Users are encouraged to purchase insurance for valuable or fragile items.</Paragraph>
+
+    <Header2>Termination of Service</Header2>
+    <Paragraph>We reserve the right to suspend or terminate your account if you violate these Terms and Conditions or engage in any activity that compromises the security or integrity of our app.</Paragraph>
+
+    <Header2>Changes to Terms</Header2>
+    <Paragraph>We may update these Terms and Conditions periodically to reflect changes in our services or for legal reasons. Continued use of the app after changes are made constitutes your acceptance of the updated terms.</Paragraph>
+
+    <Header2>Contact Us</Header2>
+    <Paragraph>If you have any questions or concerns about these Terms and Conditions, please contact us at <Link Href="mailto:support@sangoway.com" Title="support@sangoway.com"/>.</Paragraph>
+  </Content>
+</Card>

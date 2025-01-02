@@ -10,19 +10,19 @@
     <Content class="grid gap-6">
         <div value="card" class="grid grid-cols-3 gap-4">
             <FormLabel @onclick="@(() => SelectedMethod = 0)"
-                    Class="@(Tw.Merge(SelectedMethod == 0 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
+                    class="@(Tw.Merge(SelectedMethod == 0 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
                 <Blazicon Svg="Icons.CreditCard" class="mb-3 size-6" />
                 Card
             </FormLabel>
 
             <FormLabel @onclick="@(() => SelectedMethod = 1)"
-                    Class="@(Tw.Merge(SelectedMethod == 1 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
+                    class="@(Tw.Merge(SelectedMethod == 1 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
                 <Blazicon Svg="Icons.CreditCard" class="mb-3 size-6" />
                 Paypal
             </FormLabel>
 
             <FormLabel @onclick="@(() => SelectedMethod = 2)"
-                    Class="@(Tw.Merge(SelectedMethod == 2 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
+                    class="@(Tw.Merge(SelectedMethod == 2 ? "border-primary" : "border-muted", "bg-popover hover:bg-accent hover:text-accent-foreground flex flex-col items-center justify-between rounded-md border-2 p-4"))">
                 <Blazicon Svg="Icons.CreditCard" class="mb-3 size-6" />
                 Apple
             </FormLabel>
@@ -72,7 +72,7 @@
         </div>
     </Content>
     <Footer>
-        <Button Class="w-full">Continue</Button>
+        <Button class="w-full">Continue</Button>
     </Footer>
 </Card>
 

@@ -1,0 +1,28 @@
+@inherits UiComponentBase
+
+<ul @attributes="@AdditionalAttributes" class="@(Merge("my-6 ml-6 list-disc [&>li]:mt-2"))">
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        foreach (var item in Items!)
+        {
+            <li>@item</li>
+        }
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public IEnumerable<MarkupString>? Items { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (ChildContent is null && Items is null)
+            throw new InvalidOperationException("UnorderedList component requires either ChildContent or Items parameter to be set.");
+    }
+}

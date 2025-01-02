@@ -4,7 +4,7 @@
 
 <div class="grid">
     <Card>
-        <Header Class="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
             <Title>
                 @Country
             </Title>
@@ -12,7 +12,7 @@
                 Rate: @Rate.Amount.ToString("C") @Rate.Currency
             </span>
         </Header>
-        <Content Class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
+        <Content class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
             <AuthorizeView>
                 <AddressField Title="Name" Value="@context.User.GetUsername()"/>
                 <AddressField Title="Country" Value="@Country"/>

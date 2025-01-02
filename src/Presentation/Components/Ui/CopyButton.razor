@@ -1,7 +1,8 @@
 ﻿@using System.ComponentModel.DataAnnotations
+@inherits UiComponentBase
 @inject IJSRuntime Js
 
-<Button Variant="@Variant" Class="@Class"
+<Button Variant="@Variant"
         @onclick="@OnClick"
         title="@Content"
         @attributes="AdditionalAttributes">
@@ -22,9 +23,6 @@
     public string Content { get; set; } = null!;
 
     [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
     [AllowedValues("default", "destructive", "outline", "secondary", "ghost", "link")]
     public string Variant { get; set; } = "default";
 
@@ -34,12 +32,6 @@
 
     [Parameter]
     public string? Href { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 
     private async Task OnClick()
     {

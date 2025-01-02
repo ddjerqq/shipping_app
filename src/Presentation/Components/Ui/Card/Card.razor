@@ -1,15 +1,6 @@
-﻿<div class="@(Tw.Merge("bg-card text-card-foreground rounded-lg border shadow-sm", Class))"
-     @attributes="@AdditionalAttributes">
+﻿@inherits UiComponentBase
+
+<div @attributes="@AdditionalAttributes"
+     class="@(Merge("bg-card text-card-foreground rounded-lg border shadow-sm"))">
     @ChildContent
 </div>
-
-@code {
-    [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
-}

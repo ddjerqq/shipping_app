@@ -1,7 +1,10 @@
-﻿<button
+﻿@inherits UiComponentBase
+
+<button
     data-state="@(CurrentValue == Value ? "active" : "")"
     @onclick="@(() => ChangeValue(Value))"
-    class="@(Tw.Merge("ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm", Class))">
+    @attributes="@AdditionalAttributes"
+    class="@(Merge("ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm"))">
     @ChildContent
 </button>
 
@@ -14,13 +17,4 @@
 
     [Parameter, EditorRequired]
     public string Value { get; set; } = null!;
-
-    [Parameter]
-    public string Class { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
 }
