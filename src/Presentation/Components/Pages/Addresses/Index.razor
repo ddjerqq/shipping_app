@@ -1,4 +1,5 @@
 ﻿@page "/addresses"
+@using Domain.Aggregates
 @using Domain.ValueObjects
 @using Presentation.Components.Ui.Tabs
 
@@ -16,7 +17,7 @@
         </List>
         <Content Value="usa" class="space-y-4">
             <AddressDisplay
-                Rate="@(new Money((Currency)"USD", 7))"
+                Rate="@(new Money((Currency)"USD", Package.PricePerKg))"
                 Address1="21-A Brookside Dr."
                 City="Wilmington"
                 State="DE"
