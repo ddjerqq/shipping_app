@@ -78,6 +78,17 @@
                     <Link Href="/faq" Title="FAQ"/>
                 </FormDescription>
             </InlineFormFieldContainer>
+
+            <FormField>
+                <FormLabel for="house-delivery">House delivery?</FormLabel>
+                <Switch id="house-delivery"
+                        @bind-Value="@Command.IsHouseDelivery"
+                        disabled="@IsLoading"/>
+                <FormDescription>
+                    To find out more about how we calculate the package prices please visit our
+                    <Link Title="FAQ" Href="/faq"/>
+                </FormDescription>
+            </FormField>
         </AppForm>
     </Content>
 
