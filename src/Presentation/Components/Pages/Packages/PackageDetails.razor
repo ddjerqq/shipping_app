@@ -1,135 +1,230 @@
+@page "/packages/{Id}"
+@using System.Numerics
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
+@using Domain.Entities
 @using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
 @using Microsoft.EntityFrameworkCore
-@using Presentation.Components.Shared
-@using Presentation.Components.Ui.Card
-@using Presentation.Components.Ui.Tabs
-@using Presentation.Components.Ui.Form
-@using Presentation.Components.Ui.Form.Inputs
-@page "/packages/{Id}"
+@layout HomeLayout
 @inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
 @inject IFileStore FileStore
 @attribute [StreamRendering]
 
-<PageHeader Title="Package"/>
+<PageTitle>Package details</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">Package details</SectionContent>
 
 @if (Package is not null)
 {
     <Card class="mx-auto mt-4">
-        <Header>
-            <Title class="text-2xl">Package details</Title>
-        </Header>
+        <Header class="flex-row justify-between">
+            <div class="space-y-2">
+                <Title class="text-2xl">Package</Title>
 
+                <div class="text-muted-foreground text-sm">
+                    <span class="text-base">
+                        Status updates:
+                    </span>
+
+                    <ul>
+                        @foreach (var status in Package.Statuses)
+                        {
+                            <li>@status.Status.GetDisplayName(): @status.Date.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            @if (PictureUrl is not null)
+            {
+                <a href="@PictureUrl" target="_blank" class="shrink-0">
+                    <img src="@PictureUrl" alt="package image" class="aspect-square rounded-xl size-16 sm:size-20 md:size-24"/>
+                </a>
+            }
+        </Header>
         <Content>
             <Tabs Value="@Package.CurrentStatus.Status.ToString()" class="space-y-4">
-                <div class="grid justify-start items-center align-middle">
-                    <span>
-                        Status:
-                    </span>
-                    <List>
-                        @foreach (var status in Enum.GetValues<PackageStatus>())
-                        {
-                            <Trigger Value="@(status.ToString())" disabled="@(status != Package.CurrentStatus.Status)">
-                                @status.GetDisplayName()
-                            </Trigger>
-                        }
-                    </List>
-                </div>
-
+                <List>
+                    @foreach (var status in Enum.GetValues<PackageStatus>())
+                    {
+                        <Trigger Value="@(status.ToString())" disabled="@(status != Package.CurrentStatus.Status)">
+                            @status.GetDisplayName()
+                        </Trigger>
+                    }
+                </List>
                 <TabContent Value="@Package.CurrentStatus.Status.ToString()" class="mt-4 space-y-4">
-                    <AppForm @bind-Model="Package" OnValidSubmit="Update">
-                        <InlineFormFieldContainer class="sm:grid-cols-2 md:grid-cols-4">
+                    <AppForm @bind-Model="Package" OnValidSubmit="Update" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                        <FormField>
+                            <FormLabel for="tracking-code">Tracking code</FormLabel>
+                            <input id="tracking-code"
+                                   class="@FormInputText.BaseClass"
+                                   disabled
+                                   value="@Package.TrackingCode.Value"/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="category">Category</FormLabel>
+                            <FormInputEnum id="category"
+                                           disabled="@IsLoading"
+                                           @bind-Value="Package.Category"
+                                           Options="@(Enum.GetValues<Category>())"
+                                           required/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="description">Description</FormLabel>
+                            <FormInputText id="description"
+                                           disabled="@IsLoading"
+                                           @bind-Value="@Package.Description"
+                                           placeholder="Enter description"
+                                           required/>
+                            <FormInvalidFeedback For="@(() => Package.Description)"/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="web-address">Website address</FormLabel>
+                            <FormInputText id="web-address"
+                                           disabled="@IsLoading"
+                                           @bind-Value="@Package.WebsiteAddress"
+                                           placeholder="Enter web address"
+                                           type="url"
+                                           required/>
+                            <FormInvalidFeedback For="@(() => Package.WebsiteAddress)"/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="retail-price">Retail price</FormLabel>
+                            <FormInputMoney Id="retail-price"
+                                            disabled="@IsLoading"
+                                            @bind-Value="@Package.RetailPrice"
+                                            required/>
+                            <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="item-count">Item Count</FormLabel>
+                            <InputNumber id="item-count"
+                                         disabled="@IsLoading"
+                                         class="@FormInputText.BaseClass"
+                                         @bind-Value="@Package.ItemCount"
+                                         required/>
+                            <FormInvalidFeedback For="@(() => Package.ItemCount)"/>
+                        </FormField>
+
+                        <FormField>
+                            <FormLabel for="invoice">Invoice</FormLabel>
+                            @if (InvoiceUrl is not null)
+                            {
+                                <Button Href="@InvoiceUrl" type="button" Variant="outline">Download</Button>
+                            }
+                            else
+                            {
+                                <InputFile id="invoice"
+                                           disabled="@IsLoading"
+                                           class="@FormInputText.BaseClass"
+                                           accept=".pdf,.doc,.docx"
+                                           OnChange="UploadInvoice"/>
+                            }
+                        </FormField>
+
+                        @if (PictureUrl is null)
+                        {
                             <FormField>
-                                <FormLabel for="tracking-code">Tracking code</FormLabel>
-                                <input id="tracking-code"
+                                <FormLabel for="picture">Picture</FormLabel>
+                                <InputFile id="picture"
+                                           disabled="@IsLoading"
+                                           class="@FormInputText.BaseClass"
+                                           accept=".jpg,.jpeg,.png"
+                                           OnChange="UploadPicture"/>
+                            </FormField>
+                        }
+
+                        <FormField>
+                            <FormLabel for="house-delivery">House delivery</FormLabel>
+                            <Switch id="house-delivery"
+                                    disabled="@IsLoading"
+                                    Value="@Package.HouseDelivery"
+                                    ValueExpression="@(() => Package.HouseDelivery)"
+                            />
+                        </FormField>
+
+                        @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
+                        {
+                            var dimensions = Package.Dimensions!.Value;
+                            var dimensionsDisplay = $"{dimensions.X} x {dimensions.Y} x {dimensions.Z} cm";
+
+                            <FormField>
+                                <FormLabel for="dimensions">Dimensions</FormLabel>
+                                <input id="dimensions"
                                        class="@FormInputText.BaseClass"
                                        disabled
-                                       value="@Package.TrackingCode.Value"/>
+                                       value="@(dimensionsDisplay)"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="category">Category</FormLabel>
-                                <FormInputEnum id="category"
-                                               disabled="@IsLoading"
-                                               @bind-Value="Package.Category"
-                                               Options="@(Enum.GetValues<Category>())"
-                                               required/>
+                                <FormLabel for="weight">Weight</FormLabel>
+                                <input id="weight"
+                                       class="@FormInputText.BaseClass"
+                                       disabled
+                                       value="@(Package.WeightGrams)"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="description">Description</FormLabel>
-                                <FormInputText id="description"
-                                               disabled="@IsLoading"
-                                               @bind-Value="@Package.Description"
-                                               placeholder="Enter description"
-                                               required/>
-                                <FormInvalidFeedback For="@(() => Package.Description)"/>
+                                <FormLabel for="shipping-price">Shipping price</FormLabel>
+                                <FormInputMoney Id="shipping-price"
+                                                disabled
+                                                Value="@(new Money("USD", Package.ShippingPrice))"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="web-address">Website address</FormLabel>
-                                <FormInputText id="web-address"
-                                               disabled="@IsLoading"
-                                               @bind-Value="@Package.WebsiteAddress"
-                                               placeholder="Enter web address"
-                                               type="url"
-                                               required/>
-                                <FormInvalidFeedback For="@(() => Package.WebsiteAddress)"/>
+                                <FormLabel for="volumetric-price">Volumetric weight price</FormLabel>
+                                <FormInputMoney Id="volumetric-price"
+                                                disabled
+                                                Value="@(new Money("USD", Package.GetVolumetricWeightPrice()))"/>
                             </FormField>
-                        </InlineFormFieldContainer>
+                        }
 
-                        <InlineFormFieldContainer class="sm:grid-cols-2 md:grid-cols-4">
+                        @if (Package.CurrentStatus.Status >= PackageStatus.InTransit)
+                        {
                             <FormField>
-                                <FormLabel for="retail-price">Retail price</FormLabel>
-                                <FormInputMoney Id="retail-price"
-                                                disabled="@IsLoading"
-                                                @bind-Value="@Package.RetailPrice"
-                                                required/>
-                                <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
+                                <FormLabel for="flight-code">Flight Code</FormLabel>
+                                <input id="flight-code"
+                                       class="@FormInputText.BaseClass"
+                                       disabled
+                                       value="@Package.Race!.Name"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="item-count">Item Count</FormLabel>
-                                <InputNumber id="item-count"
-                                             disabled="@IsLoading"
-                                             class="@FormInputText.BaseClass"
-                                             @bind-Value="@Package.ItemCount"
-                                             required/>
-                                <FormInvalidFeedback For="@(() => Package.ItemCount)"/>
+                                <FormLabel for="copy-flight-code">Copy flight Code</FormLabel>
+                                <CopyButton Variant="outline" Content="@Package.Race!.Name">
+                                    Copy flight code
+                                </CopyButton>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="invoice">Invoice</FormLabel>
-                                // invoice here
+                                <FormLabel for="start">Takeoff</FormLabel>
+                                <input id="start"
+                                       class="@FormInputText.BaseClass"
+                                       disabled
+                                       value="@Package.Race!.Start.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="house-delivery">House delivery</FormLabel>
-                                <Switch id="house-delivery"
-                                        disabled="@IsLoading"
-                                        Value="@Package.HouseDelivery"
-                                        ValueExpression="@(() => Package.HouseDelivery)"
-                                />
+                                <FormLabel for="arrival">Arrival</FormLabel>
+                                <input id="arrival"
+                                       class="@FormInputText.BaseClass"
+                                       disabled
+                                       value="@Package.Race!.Arrival.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")"/>
                             </FormField>
-                        </InlineFormFieldContainer>
+                        }
+
+                        <Button type="submit">Save</Button>
                     </AppForm>
-
-                    @* <span>@Package.Owner</span> *@
-                    @* *@
-                    @* <span>@Package.Dimensions</span> *@
-                    @* <span>@Package.WeightGrams</span> *@
-                    @* *@
-                    @* // from which, volumetric (if any) *@
-                    @* <span>@Package.ShippingPrice</span> *@
-                    @* *@
-                    @* <span>@Package.Race</span> *@
-                    @* <span>@Package.Statuses</span> *@
                 </TabContent>
             </Tabs>
         </Content>
-
         <Footer class="text-sm text-muted-foreground">
             Package ID: @Id
         </Footer>
@@ -140,20 +235,99 @@
     [Parameter]
     public string Id { get; set; } = null!;
 
-    public PackageId? PackageId => Domain.Aggregates.PackageId.TryParse(Id, null, out var id) ? id : null;
-    public Package? Package { get; set; }
-    public string? InvoiceUrl { get; set; }
-    public string? PictureUrl { get; set; }
+    private PackageId? PackageId => Domain.Aggregates.PackageId.TryParse(Id, null, out var id) ? id : null;
+    private Package? Package { get; set; }
+    private string? InvoiceUrl { get; set; }
+    private string? PictureUrl { get; set; }
+
+    private IBrowserFile? InvoiceFile { get; set; }
+    private IBrowserFile? PictureFile { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Package = await DbContext.Packages
             .Include(x => x.Statuses)
+            .Include(x => x.Race)
             .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
+
+        if (Package is null || Package.OwnerId != CurrentUser.Id)
+        {
+            NavigationManager.NavigateTo("/404");
+            return;
+        }
+
+        if (Package.InvoiceFileKey is not null)
+            InvoiceUrl = await FileStore.GetPresignedFileUrlAsync(Package.InvoiceFileKey, CancellationToken);
+
+        if (Package.PictureFileKey is not null)
+            PictureUrl = await FileStore.GetPresignedFileUrlAsync(Package.PictureFileKey, CancellationToken);
+    }
+
+    private void UploadInvoice(InputFileChangeEventArgs args)
+    {
+        if (args.FileCount > 1)
+        {
+            ShowError("Please attach only one file");
+            return;
+        }
+
+        var file = args.File;
+        if (file.Size >= 1_000_000)
+        {
+            ShowError("The file is too big");
+            return;
+        }
+
+        if (Path.GetExtension(file.Name) is not ".pdf")
+        {
+            ShowError("The file must be a .pdf format");
+            return;
+        }
+
+        InvoiceFile = file;
+    }
+
+    private void UploadPicture(InputFileChangeEventArgs args)
+    {
+        if (args.FileCount > 1)
+        {
+            ShowError("Please attach only one file");
+            return;
+        }
+
+        var file = args.File;
+        if (file.Size >= 1_000_000)
+        {
+            ShowError("The file is too big");
+            return;
+        }
+
+        if (Path.GetExtension(file.Name) is not (".jpg" or ".jpeg" or ".png"))
+        {
+            ShowError("The file must be a .jpg, .jpeg or .png format");
+            return;
+        }
+
+        PictureFile = file;
     }
 
     private async Task Update()
     {
+        if (InvoiceFile is not null)
+        {
+            await using var fileStream = InvoiceFile.OpenReadStream(cancellationToken: CancellationToken);
+            Package!.InvoiceFileKey = await FileStore.CreateFileAsync(fileStream, Path.GetExtension(InvoiceFile.Name), CancellationToken);
+            ShowSuccess("Invoice file uploaded successfully");
+        }
+
+        if (PictureFile is not null)
+        {
+            await using var fileStream = PictureFile.OpenReadStream(cancellationToken: CancellationToken);
+            Package!.PictureFileKey = await FileStore.CreateFileAsync(fileStream, Path.GetExtension(PictureFile.Name), CancellationToken);
+            ShowSuccess("Picture file uploaded successfully");
+        }
+
         await DbContext.SaveChangesAsync(CancellationToken);
+        ShowSuccess("Package updated successfully");
     }
 }

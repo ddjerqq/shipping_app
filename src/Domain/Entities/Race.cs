@@ -9,8 +9,8 @@ namespace Domain.Entities;
 public sealed class Race(RaceId id) : Entity<RaceId>(id)
 {
     public required string Name { get; init; }
-    public required AbstractAddress Origin { get; init; }
-    public required AbstractAddress Destination { get; init; }
+    public required string Origin { get; init; }
+    public required string Destination { get; init; }
     public required DateTimeOffset Start { get; init; }
     public required DateTimeOffset Arrival { get; init; }
 

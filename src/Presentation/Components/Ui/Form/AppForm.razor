@@ -62,7 +62,20 @@
     {
         ValidationCssClassProvider!.ValidateAllFields = true;
 
-        if (await FluentValidationValidator!.ValidateAsync())
+        bool isValid;
+
+        try
+        {
+            isValid = await FluentValidationValidator!.ValidateAsync();
+        }
+        catch (InvalidOperationException)
+        {
+            // This exception is thrown when the form is submitted without any validation rules on the model, which is a warning
+            Log.Logger.Warning("No validation rules found for model {Model}", Model);
+            isValid = true;
+        }
+
+        if (isValid)
             await OnValidSubmit.InvokeAsync(EditContext);
         else
         {

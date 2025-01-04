@@ -7,7 +7,6 @@ using Generated;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Templates.Themes;
 using SerilogTracing.Expressions;

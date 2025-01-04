@@ -55,7 +55,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public PackageReceptionStatus CurrentStatus => _statuses.Last();
     public required IEnumerable<PackageReceptionStatus> Statuses
     {
-        get => _statuses;
+        get => _statuses.OrderBy(x => x.Status);
         init
         {
             var statuses = value.ToList();
@@ -99,18 +99,21 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
     private void UpdateStatus(PackageReceptionStatus receptionStatus)
     {
-        if (_statuses.Last().Status >= receptionStatus.Status)
+        if (CurrentStatus.Status + 1 != receptionStatus.Status)
+            throw new InvalidOperationException($"This order ({Id}) is not in the correct status to be set to {receptionStatus}");
+
+        if (CurrentStatus.Status >= receptionStatus.Status)
             throw new InvalidOperationException($"This order ({Id}) already has a status of type {receptionStatus}");
 
         _statuses.Add(receptionStatus);
     }
 
-    /// <inheritdoc cref="PackageReceptionStatus.AtOrigin"/>
-    public void ArrivedAtOrigin(User receivedBy, Vector3 dimensions, float weightGrams, DateTimeOffset date)
+    /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
+    public void ArrivedAtWarehouse(User receivedBy, Vector3 dimensions, float weightGrams, DateTimeOffset date)
     {
         Dimensions = dimensions;
         WeightGrams = weightGrams;
-        UpdateStatus(PackageReceptionStatus.AtOrigin(this, receivedBy, date));
+        UpdateStatus(PackageReceptionStatus.AtWarehouse(this, receivedBy, date));
         AddDomainEvent(new PackageArrivedAtOrigin(Id, receivedBy.Id, date));
     }
 

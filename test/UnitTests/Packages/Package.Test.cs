@@ -55,9 +55,9 @@ public sealed class PackageTests
         var race = new Race(RaceId.New())
         {
             Name = "KAL82-KE82",
-            Origin = new AirportAddress("USA", "JFK"),
+            Origin = "JFK",
             Start = originTime,
-            Destination = new AirportAddress("GEO", "TBS"),
+            Destination = "TBS",
             Arrival = destTime.AddHours(8),
         };
 
@@ -71,7 +71,7 @@ public sealed class PackageTests
             false,
             sender);
 
-        package.ArrivedAtOrigin(staffOrigin, new Vector3(100, 100, 100), 100, originTime);
+        package.ArrivedAtWarehouse(staffOrigin, new Vector3(100, 100, 100), 100, originTime);
         package.SentToDestination(staffOrigin, race, originTime.AddHours(4));
         package.ArrivedAtDestination(staffDestination, destTime.AddHours(12));
         package.Delivered(destTime.AddHours(14));

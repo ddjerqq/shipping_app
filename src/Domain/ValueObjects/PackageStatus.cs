@@ -13,8 +13,8 @@ public enum PackageStatus
      /// <summary>
      /// arrived at the warehouse at the origin
      /// </summary>
-     [Display(Name = "In the warehouse")]
-     AtOrigin,
+     [Display(Name = "Warehouse")]
+     InWarehouse,
 
      /// <summary>
      /// on its way to the destination, either by flight, land, or sea
@@ -26,7 +26,7 @@ public enum PackageStatus
      /// arrived at the destination
      /// </summary>
      [Display(Name = "Arrived")]
-     AtDestination,
+     Arrived,
 
      /// <summary>
      /// collected by the receiver

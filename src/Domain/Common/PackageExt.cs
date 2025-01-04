@@ -1,5 +1,3 @@
-using System.Net;
-using System.Numerics;
 using Domain.Aggregates;
 
 namespace Domain.Common;
@@ -33,6 +31,6 @@ public static class PackageExt
 
     public static decimal GetTotalPrice(this Package package) =>
         package is { Dimensions: { X: var x, Y: var y, Z: var z }, WeightGrams: { } weightGrams }
-            ? GetTotalPrice(x, y, z, weightGrams, package.HouseDelivery)
+            ? GetTotalPrice(x, y, z, weightGrams / 1000, package.HouseDelivery)
             : 0;
 }

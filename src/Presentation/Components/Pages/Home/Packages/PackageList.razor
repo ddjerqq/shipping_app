@@ -3,7 +3,6 @@
 @using Domain.Aggregates
 @using Domain.Common
 @using Presentation.Components.Ui.Avatar
-@using Presentation.Components.Ui.Card
 
 @inject ICurrentUserAccessor CurrentUser
 @inject IFileStore FileStore
@@ -27,7 +26,7 @@
 
                         <div class="flex flex-col gap-1 justify-center">
                             <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
-                            <span class="font-medium capitalize leading-none">@package.Description</span>
+                            <span class="max-w-[80px] truncate font-medium capitalize leading-none">@package.Description</span>
                         </div>
                     </div>
 

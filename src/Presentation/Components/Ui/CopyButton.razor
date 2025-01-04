@@ -5,6 +5,7 @@
 <Button Variant="@Variant"
         @onclick="@OnClick"
         title="@Content"
+        type="button"
         @attributes="AdditionalAttributes">
     @if (Copied)
     {
@@ -30,10 +31,7 @@
     [AllowedValues("default", "sm", "lg", "icon")]
     public string Size { get; set; } = "default";
 
-    [Parameter]
-    public string? Href { get; set; }
-
-    private async Task OnClick()
+    private async Task OnClick(MouseEventArgs args)
     {
         Copied = true;
         await Js.InvokeVoidAsync("navigator.clipboard.writeText", Content);

@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Application.Services;
-using Domain.Aggregates;
 using Domain.Common;
-using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;

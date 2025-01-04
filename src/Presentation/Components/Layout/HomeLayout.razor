@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Components.Sections
+@layout MainLayout
+@inherits LayoutComponentBase
+
+<div class="h-full flex-1 space-y-4">
+    <div class="flex items-center justify-between space-y-2">
+        <h1 class="text-3xl font-bold tracking-tight">
+            <SectionOutlet SectionId="TitleSectionId"/>
+        </h1>
+    </div>
+
+    @Body
+</div>
+
+
+@code {
+    public const string TitleSectionId = "title";
+}

@@ -6,8 +6,8 @@
 
 <AuthorizeView>
     <Authorized>
-        <Button Variant="outline" class="px-0 md:px-3 max-md:size-10 md:h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
-            <span class="hidden md:block">
+        <Button Variant="outline" class="px-3 h-10 flex-shrink-0" data-dropdown-toggle="dropdown">
+            <span class="max-w-[120px] text-nowrap truncate">
                 @context.User.GetUsername()?.CapitalizeName()
             </span>
 
@@ -42,7 +42,7 @@
     </Authorized>
 
     <NotAuthorized>
-        <Button Href="auth/login" Variant="default">
+        <Button Href="/auth/login" Variant="default">
             Login
         </Button>
     </NotAuthorized>

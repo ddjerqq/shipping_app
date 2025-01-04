@@ -30,9 +30,9 @@ public sealed class PackageReceptionStatus(PackageReceptionStatusId id) : Entity
     /// <summary>
     /// Creates a new reception status indicating that the package has been received at the origin warehouse by the specified staff user.
     /// </summary>
-    public static PackageReceptionStatus AtOrigin(Package package, User receivedBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
+    public static PackageReceptionStatus AtWarehouse(Package package, User receivedBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
-        Status = PackageStatus.AtOrigin,
+        Status = PackageStatus.InWarehouse,
         PackageId = package.Id,
         Package = package,
         UserId = receivedBy.Id,
@@ -58,7 +58,7 @@ public sealed class PackageReceptionStatus(PackageReceptionStatusId id) : Entity
     /// </summary>
     public static PackageReceptionStatus AtDestination(Package package, User receivedBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
-        Status = PackageStatus.AtDestination,
+        Status = PackageStatus.Arrived,
         PackageId = package.Id,
         Package = package,
         UserId = receivedBy.Id,
