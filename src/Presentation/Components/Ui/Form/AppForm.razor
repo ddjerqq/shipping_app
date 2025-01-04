@@ -1,10 +1,10 @@
 ﻿@using System.Diagnostics.CodeAnalysis
 @using Blazored.FluentValidation
 @using Serilog
-@typeparam TEntity where TEntity : class, new()
+@typeparam TEntity where TEntity : class
 @attribute [CascadingTypeParameter(nameof(TEntity))]
 
-<EditForm EditContext="EditContext" OnSubmit="OnSubmit" FormName="@FormName" Enhance AdditionalAttributes="@AdditionalAttributes">
+<EditForm EditContext="EditContext" OnSubmit="OnSubmit" FormName="@FormName" Enhance novalidate class="grid gap-6" @attributes="@AdditionalAttributes">
     <DataAnnotationsValidator />
     <FluentValidationValidator @ref="FluentValidationValidator" />
 

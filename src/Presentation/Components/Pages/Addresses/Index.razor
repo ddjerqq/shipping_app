@@ -15,7 +15,7 @@
             <Trigger Value="usa">United states</Trigger>
             <Trigger Value="uk">United Kingdom</Trigger>
         </List>
-        <Content Value="usa" class="space-y-4">
+        <TabContent Value="usa" class="space-y-4">
             <AddressDisplay
                 Rate="@(new Money((Currency)"USD", Package.PricePerKg))"
                 Address1="21-A Brookside Dr."
@@ -24,8 +24,8 @@
                 ZipCode="19804"
                 Country="United States"
                 Phone="+1 302 691 0017"/>
-        </Content>
-        <Content Value="uk" class="space-y-4">
+        </TabContent>
+        <TabContent Value="uk" class="space-y-4">
             <AddressDisplay
                 Rate="@(new Money((Currency)"USD", 9))"
                 Address1="13 Oglethorpe Road"
@@ -34,6 +34,6 @@
                 ZipCode="RM10 7SA"
                 Country="United Kingdom"
                 Phone="+44 7450 949016"/>
-        </Content>
+        </TabContent>
     </Tabs>
 </div>

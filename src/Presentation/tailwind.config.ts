@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import type {Config} from 'tailwindcss';
+import {fontFamily} from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 const config: Config = {
@@ -8,7 +8,7 @@ const config: Config = {
     './Layout/**/*.{html,cs,js,razor}',
     './Pages/**/*.{html,cs,js,razor}',
   ],
-  safelist: ['dark'],
+  darkMode: 'selector',
   theme: {
     container: {
       center: true,
@@ -63,16 +63,16 @@ const config: Config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {height: '0'},
+          to: {height: 'var(--radix-accordion-content-height)'},
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {height: 'var(--radix-accordion-content-height)'},
+          to: {height: '0'},
         },
         'caret-blink': {
-          '0%,70%,100%': { opacity: '1' },
-          '20%,50%': { opacity: '0' },
+          '0%,70%,100%': {opacity: '1'},
+          '20%,50%': {opacity: '0'},
         },
       },
       animation: {
@@ -84,7 +84,6 @@ const config: Config = {
   },
   plugins: [
     require('autoprefixer'),
-    require('@tailwindcss/typography'),
     require('tailwindcss-animate')
   ],
 };

@@ -1,0 +1,159 @@
+@using Application.Services
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Microsoft.EntityFrameworkCore
+@using Presentation.Components.Shared
+@using Presentation.Components.Ui.Card
+@using Presentation.Components.Ui.Tabs
+@using Presentation.Components.Ui.Form
+@using Presentation.Components.Ui.Form.Inputs
+@page "/packages/{Id}"
+@inject IAppDbContext DbContext
+@inject IFileStore FileStore
+@attribute [StreamRendering]
+
+<PageHeader Title="Package"/>
+
+@if (Package is not null)
+{
+    <Card class="mx-auto mt-4">
+        <Header>
+            <Title class="text-2xl">Package details</Title>
+        </Header>
+
+        <Content>
+            <Tabs Value="@Package.CurrentStatus.Status.ToString()" class="space-y-4">
+                <div class="grid justify-start items-center align-middle">
+                    <span>
+                        Status:
+                    </span>
+                    <List>
+                        @foreach (var status in Enum.GetValues<PackageStatus>())
+                        {
+                            <Trigger Value="@(status.ToString())" disabled="@(status != Package.CurrentStatus.Status)">
+                                @status.GetDisplayName()
+                            </Trigger>
+                        }
+                    </List>
+                </div>
+
+                <TabContent Value="@Package.CurrentStatus.Status.ToString()" class="mt-4 space-y-4">
+                    <AppForm @bind-Model="Package" OnValidSubmit="Update">
+                        <InlineFormFieldContainer class="sm:grid-cols-2 md:grid-cols-4">
+                            <FormField>
+                                <FormLabel for="tracking-code">Tracking code</FormLabel>
+                                <input id="tracking-code"
+                                       class="@FormInputText.BaseClass"
+                                       disabled
+                                       value="@Package.TrackingCode.Value"/>
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="category">Category</FormLabel>
+                                <FormInputEnum id="category"
+                                               disabled="@IsLoading"
+                                               @bind-Value="Package.Category"
+                                               Options="@(Enum.GetValues<Category>())"
+                                               required/>
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="description">Description</FormLabel>
+                                <FormInputText id="description"
+                                               disabled="@IsLoading"
+                                               @bind-Value="@Package.Description"
+                                               placeholder="Enter description"
+                                               required/>
+                                <FormInvalidFeedback For="@(() => Package.Description)"/>
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="web-address">Website address</FormLabel>
+                                <FormInputText id="web-address"
+                                               disabled="@IsLoading"
+                                               @bind-Value="@Package.WebsiteAddress"
+                                               placeholder="Enter web address"
+                                               type="url"
+                                               required/>
+                                <FormInvalidFeedback For="@(() => Package.WebsiteAddress)"/>
+                            </FormField>
+                        </InlineFormFieldContainer>
+
+                        <InlineFormFieldContainer class="sm:grid-cols-2 md:grid-cols-4">
+                            <FormField>
+                                <FormLabel for="retail-price">Retail price</FormLabel>
+                                <FormInputMoney Id="retail-price"
+                                                disabled="@IsLoading"
+                                                @bind-Value="@Package.RetailPrice"
+                                                required/>
+                                <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="item-count">Item Count</FormLabel>
+                                <InputNumber id="item-count"
+                                             disabled="@IsLoading"
+                                             class="@FormInputText.BaseClass"
+                                             @bind-Value="@Package.ItemCount"
+                                             required/>
+                                <FormInvalidFeedback For="@(() => Package.ItemCount)"/>
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="invoice">Invoice</FormLabel>
+                                // invoice here
+                            </FormField>
+
+                            <FormField>
+                                <FormLabel for="house-delivery">House delivery</FormLabel>
+                                <Switch id="house-delivery"
+                                        disabled="@IsLoading"
+                                        Value="@Package.HouseDelivery"
+                                        ValueExpression="@(() => Package.HouseDelivery)"
+                                />
+                            </FormField>
+                        </InlineFormFieldContainer>
+                    </AppForm>
+
+                    @* <span>@Package.Owner</span> *@
+                    @* *@
+                    @* <span>@Package.Dimensions</span> *@
+                    @* <span>@Package.WeightGrams</span> *@
+                    @* *@
+                    @* // from which, volumetric (if any) *@
+                    @* <span>@Package.ShippingPrice</span> *@
+                    @* *@
+                    @* <span>@Package.Race</span> *@
+                    @* <span>@Package.Statuses</span> *@
+                </TabContent>
+            </Tabs>
+        </Content>
+
+        <Footer class="text-sm text-muted-foreground">
+            Package ID: @Id
+        </Footer>
+    </Card>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = null!;
+
+    public PackageId? PackageId => Domain.Aggregates.PackageId.TryParse(Id, null, out var id) ? id : null;
+    public Package? Package { get; set; }
+    public string? InvoiceUrl { get; set; }
+    public string? PictureUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Package = await DbContext.Packages
+            .Include(x => x.Statuses)
+            .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
+    }
+
+    private async Task Update()
+    {
+        await DbContext.SaveChangesAsync(CancellationToken);
+    }
+}

@@ -14,13 +14,18 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public const decimal PricePerKg = 8;
     private readonly List<PackageReceptionStatus> _statuses = [];
 
+    // for ef
+    public Package() : this(PackageId.New())
+    {
+    }
+
     // user ordered package and declared the package
     public required TrackingCode TrackingCode { get; init; }
-    public required Category Category { get; init; }
-    public required string Description { get; init; }
-    public required string WebsiteAddress { get; init; }
-    public required Money RetailPrice { get; init; }
-    public required int ItemCount { get; init; }
+    public required Category Category { get; set; }
+    public required string Description { get; set; }
+    public required string WebsiteAddress { get; set; }
+    public required Money RetailPrice { get; set; }
+    public required int ItemCount { get; set; }
     public required bool HouseDelivery { get; init; }
     public string? InvoiceFileKey { get; set; }
     public string? PictureFileKey { get; set; }
@@ -47,6 +52,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public RaceId? RaceId { get; private set; }
     public Race? Race { get; private set; }
 
+    public PackageReceptionStatus CurrentStatus => _statuses.Last();
     public required IEnumerable<PackageReceptionStatus> Statuses
     {
         get => _statuses;

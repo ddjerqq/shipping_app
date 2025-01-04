@@ -26,7 +26,7 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
 {
     public CreatePackageValidator()
     {
-        RuleFor(x => x.TrackingCode).NotNull().MinimumLength(10).MaximumLength(64);
+        RuleFor(x => x.TrackingCode).NotNull().MinimumLength(10).MaximumLength(64).Must(TrackingCode.IsValid).WithMessage("Tracking code is malformed!");
         RuleFor(x => x.Category).NotNull();
         RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.WebsiteAddress).NotNull();

@@ -47,8 +47,4 @@
     <ItemGroup>
       <AdditionalFiles Include="Components\Pages\Auth\PasswordReset\ResetPasswordConfirmation.razor" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Components\Pages\Packages\" />
-    </ItemGroup>
 </Project>

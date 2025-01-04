@@ -38,12 +38,12 @@
 
                     <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
                         <span class="text-xs text-muted-foreground">Status</span>
-                        <span class="font-medium capitalize leading-none">@package.Statuses.Last().Status.GetDisplayName()</span>
+                        <span class="font-medium capitalize leading-none">@package.CurrentStatus.Status.GetDisplayName()</span>
                     </div>
 
                     <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
                         <span class="text-xs text-muted-foreground">Last Update</span>
-                        <span class="font-medium capitalize leading-none">@package.Statuses.Last().Date.ToString("ddd, MMM dd")</span>
+                        <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
                     </div>
                 </Button>
             }

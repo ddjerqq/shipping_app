@@ -7,7 +7,7 @@
 
 <PageHeader Title="Didn't receive an email?" Description="Enter your email, and we'll send you a link to get confirm your email again."/>
 
-<AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync" novalidate class="grid gap-6">
+<AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync">
     <FormField>
         <FormLabel for="email">Email</FormLabel>
         <FormInputText id="email"
