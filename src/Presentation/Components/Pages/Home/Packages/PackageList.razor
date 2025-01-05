@@ -2,53 +2,74 @@
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
+@using Domain.ValueObjects
 @using Presentation.Components.Ui.Avatar
 
 @inject ICurrentUserAccessor CurrentUser
 @inject IFileStore FileStore
 
-<Card>
-    <Header>
-        <Title>My Packages</Title>
-        <Description>You have ordered a total of @Packages.Count() @(Packages.Count() > 1 ? "packages" : "package")</Description>
-    </Header>
-    <Content>
-        <div class="space-y-2 overflow-y-scroll max-h-[600px]">
-            @foreach (var package in Packages)
+<Tabs Value="PackageStatus.Awaiting">
+    <Card>
+        <Header>
+            <Title>My Packages</Title>
+            <Description class="space-y-2">
+                <span>
+                    You have ordered a total of @Packages.Count() @(Packages.Count() > 1 ? "packages" : "package")
+                </span>
+
+                <List>
+                    @foreach (var status in Enum.GetValues<PackageStatus>())
+                    {
+                        var countWithStatus = Packages.Count(x => x.CurrentStatus.Status == status);
+
+                        <Trigger Value="@(status)">
+                            @status.GetDisplayName() (@countWithStatus)
+                        </Trigger>
+                    }
+                </List>
+            </Description>
+        </Header>
+        <Content>
+            @foreach (var status in Enum.GetValues<PackageStatus>())
             {
-                <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg"
-                        class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
-                    <div class="flex gap-4 items-center">
-                        <Avatar class="hidden md:block size-9">
-                            <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
-                            <AvatarFallback>Package image</AvatarFallback>
-                        </Avatar>
+                <TabContent Value="@status" class="space-y-2 overflow-y-scroll max-h-[600px]">
+                    @foreach (var package in Packages.Where(x => x.CurrentStatus.Status == status))
+                    {
+                        <Button Href="@($"packages/{package.Id}")" Variant="outline" Size="lg"
+                                class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 sm:grid-cols-4">
+                            <div class="flex gap-4 items-center">
+                                <Avatar class="hidden md:block size-9">
+                                    <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
+                                    <AvatarFallback>Package image</AvatarFallback>
+                                </Avatar>
 
-                        <div class="flex flex-col gap-1 justify-center">
-                            <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
-                            <span class="max-w-[80px] truncate font-medium capitalize leading-none">@package.Description</span>
-                        </div>
-                    </div>
+                                <div class="flex flex-col gap-1 justify-center">
+                                    <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
+                                    <span class="max-w-[80px] truncate font-medium capitalize leading-none">@package.Description</span>
+                                </div>
+                            </div>
 
-                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Retail Price</span>
-                        <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
-                    </div>
+                            <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                                <span class="text-xs text-muted-foreground">Retail Price</span>
+                                <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
+                            </div>
 
-                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Status</span>
-                        <span class="font-medium capitalize leading-none">@package.CurrentStatus.Status.GetDisplayName()</span>
-                    </div>
+                            <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                                <span class="text-xs text-muted-foreground">Status</span>
+                                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Status.GetDisplayName()</span>
+                            </div>
 
-                    <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Last Update</span>
-                        <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
-                    </div>
-                </Button>
+                            <div class="flex flex-col gap-1 text-start sm:text-center justify-center">
+                                <span class="text-xs text-muted-foreground">Last Update</span>
+                                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
+                            </div>
+                        </Button>
+                    }
+                </TabContent>
             }
-        </div>
-    </Content>
-</Card>
+        </Content>
+    </Card>
+</Tabs>
 
 
 @code {

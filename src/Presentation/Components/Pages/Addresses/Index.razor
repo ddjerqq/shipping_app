@@ -8,12 +8,12 @@
 <PageTitle>Addresses</PageTitle>
 <SectionContent SectionId="HomeLayout.TitleSectionId">My addresses</SectionContent>
 
-<Tabs Value="usa" class="space-y-4">
+<Tabs Value="Country.Usa" class="space-y-4">
     <List>
-        <Trigger Value="usa">United states</Trigger>
-        <Trigger Value="uk">United Kingdom</Trigger>
+        <Trigger Value="Country.Usa">United states</Trigger>
+        <Trigger Value="Country.Uk">United Kingdom</Trigger>
     </List>
-    <TabContent Value="usa" class="space-y-4">
+    <TabContent Value="Country.Usa" class="space-y-4">
         <AddressDisplay
             Rate="@(new Money((Currency)"USD", Package.PricePerKg))"
             Address1="21-A Brookside Dr."
@@ -23,7 +23,7 @@
             Country="United States"
             Phone="+1 302 691 0017"/>
     </TabContent>
-    <TabContent Value="uk" class="space-y-4">
+    <TabContent Value="Country.Uk" class="space-y-4">
         <AddressDisplay
             Rate="@(new Money((Currency)"USD", 9))"
             Address1="13 Oglethorpe Road"
@@ -34,3 +34,12 @@
             Phone="+44 7450 949016"/>
     </TabContent>
 </Tabs>
+
+@code {
+    // TODO move eventually?
+    public enum Country
+    {
+        Usa,
+        Uk,
+    }
+}

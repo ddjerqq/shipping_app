@@ -9,12 +9,16 @@
 </div>
 
 @code {
-    [Parameter]
-    public string Value { get; set; } = null!;
+    [Parameter, EditorRequired]
+    public object Value { get; set; } = null!;
 
-    public void ChangeValue(string value)
+    [Parameter]
+    public EventCallback<object>? ValueChanged { get; set; }
+
+    public void ChangeValue(object value)
     {
         Value = value;
+        InvokeAsync(() => ValueChanged?.InvokeAsync(value) ?? Task.CompletedTask);
         StateHasChanged();
     }
 }
