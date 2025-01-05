@@ -1,11 +1,11 @@
 ﻿@page "/home"
 @layout HomeLayout
-@using Presentation.Components.Layout
+@attribute [StreamRendering]
 @using Presentation.Components.Pages.Home.Packages
 @using Microsoft.AspNetCore.Components.Sections
 
-<PageTitle>My Packages</PageTitle>
-<SectionContent SectionId="HomeLayout.TitleSectionId">My Packages</SectionContent>
+<PageTitle>Dashboard</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">Dashboard</SectionContent>
 
 <UserPaymentStatus/>
 

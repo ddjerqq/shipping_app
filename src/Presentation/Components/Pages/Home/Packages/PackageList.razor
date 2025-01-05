@@ -5,6 +5,7 @@
 @using Domain.ValueObjects
 @using Presentation.Components.Ui.Avatar
 
+@attribute [StreamRendering]
 @inject ICurrentUserAccessor CurrentUser
 @inject IFileStore FileStore
 
@@ -70,7 +71,6 @@
         </Content>
     </Card>
 </Tabs>
-
 
 @code {
     private IEnumerable<Package> Packages { get; set; } = [];

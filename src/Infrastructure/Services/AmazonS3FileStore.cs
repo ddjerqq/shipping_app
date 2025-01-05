@@ -63,6 +63,7 @@ public sealed class AmazonS3FileStore(IAmazonS3 client) : IFileStore
 
     public async Task<string?> GetPresignedFileUrlAsync(string key, CancellationToken ct = default)
     {
+        // TODO Cache the urls here for some time
         await EnsureBucketExists(ct);
 
         var request = new GetObjectRequest
