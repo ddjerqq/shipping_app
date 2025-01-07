@@ -1,4 +1,6 @@
+using System.Net.Security;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using Application;
 using Application.Common;
 using Destructurama;
@@ -7,6 +9,8 @@ using Generated;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Core;
+using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Templates.Themes;
 using SerilogTracing.Expressions;
@@ -30,14 +34,20 @@ public static class LoggingExt
 {
     public static LoggerConfiguration Configure(this LoggerConfiguration config)
     {
-        // SelfLog.Enable(Console.Error);
+        SelfLog.Enable(Console.Error);
+
+        var levelSwitch = new LoggingLevelSwitch();
 
         var seqHost = "SEQ__HOST".FromEnvRequired();
-        var seqPort = "SEQ__PORT".FromEnvRequired();
         var seqApiKey = "SEQ__API_KEY".FromEnvRequired();
 
+        var messageHandler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = ValidateCloudflareOriginCertificate,
+        };
+
         return config
-            .MinimumLevel.Information()
+            .MinimumLevel.ControlledBy(levelSwitch)
             .MinimumLevel.Override("Quartz", LogEventLevel.Warning)
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
@@ -50,9 +60,26 @@ public static class LoggingExt
             .Enrich.WithThreadId()
             .Enrich.WithAssemblyName()
             .WriteTo.Debug()
+            .WriteTo.Seq(seqHost,
+                apiKey: seqApiKey,
+                messageHandler: messageHandler,
+                period: TimeSpan.FromSeconds(10),
+                controlLevelSwitch: levelSwitch)
             .WriteTo.Console(Formatters.CreateConsoleTextFormatter(TemplateTheme.Code));
-        // .WriteTo.Seq($"http://{seqHost}:{seqPort}", apiKey: seqApiKey);
     }
+
+    private static bool ValidateCloudflareOriginCertificate(HttpRequestMessage _, X509Certificate2? cert, X509Chain? __, SslPolicyErrors ___) =>
+        cert is not null
+        // CN=CloudFlare Origin Certificate, OU=CloudFlare Origin CA, O="CloudFlare, Inc."
+        && cert.Subject.Contains("CN=CloudFlare Origin Certificate")
+        && cert.Subject.Contains("OU=CloudFlare Origin CA")
+        && cert.Subject.Contains("O=\"CloudFlare, Inc.\"")
+        // OU=CloudFlare Origin SSL ECC Certificate Authority, O="CloudFlare, Inc.", L=San Francisco, S=California, C=US
+        && cert.Issuer.Contains("OU=CloudFlare Origin SSL ECC Certificate Authority")
+        && cert.Issuer.Contains("O=\"CloudFlare, Inc.\"")
+        && cert.Issuer.Contains("L=San Francisco")
+        && cert.Issuer.Contains("S=California")
+        && cert.Issuer.Contains("C=US");
 
     public static void UseConfiguredSerilogRequestLogging(this IApplicationBuilder app)
     {
