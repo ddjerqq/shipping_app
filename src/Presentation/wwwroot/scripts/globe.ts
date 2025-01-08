@@ -197,3 +197,4 @@ export class GlobeContext {
 const el = document.querySelector("#globe")
 const globe = new GlobeContext(el as HTMLCanvasElement);
 globe.start();
+
