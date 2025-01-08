@@ -1,77 +1,59 @@
-﻿@page "/Account/Manage"
+@page "/auth/manage"
+@using Microsoft.AspNetCore.Components.Sections
 
-@using System.ComponentModel.DataAnnotations
-@using Microsoft.AspNetCore.Identity
-@using Domain.Aggregates
+<PageTitle>Manage account</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">Manage account</SectionContent>
 
-@inject UserManager<User> UserManager
-@inject SignInManager<User> SignInManager
-@inject IdentityUserAccessor UserAccessor
-@inject IdentityRedirectManager RedirectManager
+@* TODO https://next.shadcn-svelte.com/examples/forms *@
 
-<PageTitle>Profile</PageTitle>
+<Tabs Value="ManageSection.Profile" class="space-y-4">
+    <List>
+        <Trigger Value="ManageSection.Profile">Profile</Trigger>
+        <Trigger Value="ManageSection.Account">Account</Trigger>
+        <Trigger Value="ManageSection.Appearance">Appearance</Trigger>
+        <Trigger Value="ManageSection.Notifications">Notifications</Trigger>
+        <Trigger Value="ManageSection.Display">Display</Trigger>
+    </List>
+    <TabContent Value="ManageSection.Profile" class="space-y-4">
+        <div class="grid">
+            <Card>
+                <Header>
+                    <Title>
+                        Manage your profile setting
+                    </Title>
+                    @* <Description class="text-muted-foreground"> *@
+                    @*     Manage your profile here *@
+                    @* </Description> *@
+                </Header>
+                <Content class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
+                    <AuthorizeView>
+                        something here
+                    </AuthorizeView>
+                </Content>
+            </Card>
+        </div>
+    </TabContent>
+    <TabContent Value="ManageSection.Account" class="space-y-4">
 
-<h3>Profile</h3>
-<StatusMessage/>
+    </TabContent>
+    <TabContent Value="ManageSection.Appearance" class="space-y-4">
 
-<div class="row">
-    <div class="col-md-6">
-        <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync">
-            <DataAnnotationsValidator/>
-            <ValidationSummary class="text-danger" role="alert"/>
-            <div class="form-floating mb-3">
-                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled/>
-                <label for="username" class="form-label">Username</label>
-            </div>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label for="phone-number" class="form-label">Phone number</label>
-                <ValidationMessage For="() => Input.PhoneNumber" class="text-danger"/>
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </EditForm>
-    </div>
-</div>
+    </TabContent>
+    <TabContent Value="ManageSection.Notifications" class="space-y-4">
+
+    </TabContent>
+    <TabContent Value="ManageSection.Display" class="space-y-4">
+
+    </TabContent>
+</Tabs>
 
 @code {
-    private User user = null!;
-    private string? username;
-    private string? phoneNumber;
-
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = null!;
-
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
-
-    protected override async Task OnInitializedAsync()
+    public enum ManageSection
     {
-        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
-        username = await UserManager.GetUserNameAsync(user);
-        phoneNumber = await UserManager.GetPhoneNumberAsync(user);
-
-        Input.PhoneNumber ??= phoneNumber;
-    }
-
-    private async Task OnValidSubmitAsync()
-    {
-        if (Input.PhoneNumber != phoneNumber)
-        {
-            var setPhoneResult = await UserManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-            if (!setPhoneResult.Succeeded)
-            {
-                RedirectManager.RedirectToCurrentPageWithStatus("Error: Failed to set phone number.", HttpContext);
-            }
-        }
-
-        await SignInManager.RefreshSignInAsync(user);
-        RedirectManager.RedirectToCurrentPageWithStatus("Your profile has been updated", HttpContext);
-    }
-
-    private sealed class InputModel
-    {
-        [Phone]
-        [Display(Name = "Phone number")]
-        public string? PhoneNumber { get; set; }
+        Profile,
+        Account,
+        Appearance,
+        Notifications,
+        Display,
     }
 }

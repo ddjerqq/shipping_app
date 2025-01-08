@@ -16,10 +16,7 @@ internal sealed class RequestLoggingBehaviour<TRequest, TResponse>(ICurrentUserA
 
         try
         {
-            var result = await next();
-            activity.AddProperty("Result", result, true);
-            activity.Complete();
-            return result;
+            return await next();
         }
         catch (Exception ex)
         {
