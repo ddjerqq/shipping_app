@@ -8,6 +8,15 @@
 </button>
 
 @code {
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; } = [];
+
     private void NavigateToRegister()
     {
         NavigationManager.NavigateTo("auth/register");
