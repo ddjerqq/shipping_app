@@ -119,7 +119,7 @@ export class GlobeContext {
 
     const globeMaterial = globe.globeMaterial();
     // @ts-ignore
-    globeMaterial.color = new THREE.Color('#135c27');
+    globeMaterial.color = new THREE.Color('#21bf73');
     // @ts-ignore
     globeMaterial.emissive = new THREE.Color('#043c29');
     // @ts-ignore
@@ -142,7 +142,7 @@ export class GlobeContext {
     this._camera.lookAt(this._scene.position);
     this._controls.update();
     this._renderer.render(this._scene, this._camera);
-    this._globe.rotation.y -= 0.1;
+    this._globe.rotation.y -= 0.00025;
     requestAnimationFrame(() => this.animate());
   }
 
