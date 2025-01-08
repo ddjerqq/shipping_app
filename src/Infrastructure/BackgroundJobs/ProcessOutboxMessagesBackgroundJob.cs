@@ -46,7 +46,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
                 continue;
             }
 
-            using var activity = Log.Logger.StartActivity("Publish {@DomainEvent}", domainEvent);
+            using var activity = Log.Logger.StartActivity("Publish {DomainEvent}", domainEvent);
 
             try
             {
