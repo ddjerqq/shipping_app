@@ -41,11 +41,6 @@ public static class LoggingExt
         var seqHost = "SEQ__HOST".FromEnvRequired();
         var seqApiKey = "SEQ__API_KEY".FromEnvRequired();
 
-        var messageHandler = new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback = ValidateCloudflareOriginCertificate,
-        };
-
         return config
             .MinimumLevel.ControlledBy(levelSwitch)
             .MinimumLevel.Override("Quartz", LogEventLevel.Warning)
@@ -62,24 +57,9 @@ public static class LoggingExt
             .WriteTo.Debug()
             .WriteTo.Seq(seqHost,
                 apiKey: seqApiKey,
-                messageHandler: messageHandler,
-                period: TimeSpan.FromSeconds(10),
                 controlLevelSwitch: levelSwitch)
             .WriteTo.Console(Formatters.CreateConsoleTextFormatter(TemplateTheme.Code));
     }
-
-    private static bool ValidateCloudflareOriginCertificate(HttpRequestMessage _, X509Certificate2? cert, X509Chain? __, SslPolicyErrors ___) =>
-        cert is not null
-        // CN=CloudFlare Origin Certificate, OU=CloudFlare Origin CA, O="CloudFlare, Inc."
-        && cert.Subject.Contains("CN=CloudFlare Origin Certificate")
-        && cert.Subject.Contains("OU=CloudFlare Origin CA")
-        && cert.Subject.Contains("O=\"CloudFlare, Inc.\"")
-        // OU=CloudFlare Origin SSL ECC Certificate Authority, O="CloudFlare, Inc.", L=San Francisco, S=California, C=US
-        && cert.Issuer.Contains("OU=CloudFlare Origin SSL ECC Certificate Authority")
-        && cert.Issuer.Contains("O=\"CloudFlare, Inc.\"")
-        && cert.Issuer.Contains("L=San Francisco")
-        && cert.Issuer.Contains("S=California")
-        && cert.Issuer.Contains("C=US");
 
     public static void UseConfiguredSerilogRequestLogging(this IApplicationBuilder app)
     {
