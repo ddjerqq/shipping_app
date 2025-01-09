@@ -1,6 +1,9 @@
+@using Domain.Events
 @using Application.Services
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUser
+@inject CookieService Cookie
+@inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
 
 <FormField class="mb-2">
     <FormLabel for="delete-confirmation">Confirmation</FormLabel>
@@ -24,6 +27,16 @@
 
     private async Task Delete()
     {
-        throw new NotImplementedException();
+        var user = (await DbContext.Users.FindAsync(CurrentUser.Id))!;
+        user.AddDomainEvent(new UserDeletedAccount(user.Id));
+        DbContext.Users.Remove(user);
+        await DbContext.SaveChangesAsync();
+
+        ShowSuccess("Your account is scheduled for deletion.");
+        await Task.Delay(2000);
+
+        await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
+        AuthenticationStateProvider.ForceSignOut();
+        NavigationManager.NavigateTo("/auth/delete_confirmation");
     }
 }

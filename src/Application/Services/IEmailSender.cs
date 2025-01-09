@@ -20,7 +20,7 @@ public interface IEmailSender
     /// </summary>
     public Task SendEmailConfirmationAsync(User recipient, string callback, CancellationToken ct = default)
     {
-        var markup = EmailMarkupProvider.GetEmailConfirmationMarkup(recipient, callback, ct);
+        var markup = EmailMarkupProvider.GetEmailConfirmationMarkup(recipient, callback);
         return SendAsync(recipient.Email, "Confirm your email", markup, ct);
     }
 
@@ -29,7 +29,7 @@ public interface IEmailSender
     /// </summary>
     public Task SendWelcomeEmailAsync(User user, CancellationToken ct = default)
     {
-        var markup = EmailMarkupProvider.GetWelcomeEmailMarkup(user, ct);
+        var markup = EmailMarkupProvider.GetWelcomeEmailMarkup(user);
         return SendAsync(user.Email, "Welcome!", markup, ct);
     }
 
@@ -38,7 +38,7 @@ public interface IEmailSender
     /// </summary>
     public Task SendNewLoginLocationNotificationAsync(User user, UserLogin login, CancellationToken ct = default)
     {
-        var markup = EmailMarkupProvider.GetNewLoginLocationNotificationMarkup(user, login, ct);
+        var markup = EmailMarkupProvider.GetNewLoginLocationNotificationMarkup(user, login);
         return SendAsync(user.Email, "New login location detected", markup, ct);
     }
 
@@ -47,7 +47,7 @@ public interface IEmailSender
     /// </summary>
     public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
     {
-        var markup = EmailMarkupProvider.GetPasswordResetMarkup(user, callback, ct);
+        var markup = EmailMarkupProvider.GetPasswordResetMarkup(user, callback);
         return SendAsync(user.Email, "Reset your password", markup, ct);
     }
 
@@ -56,7 +56,16 @@ public interface IEmailSender
     /// </summary>
     public Task SendPasswordChangedAsync(User user, CancellationToken ct = default)
     {
-        var markup = EmailMarkupProvider.GetPasswordChangedNotificationMarkup(user, ct);
+        var markup = EmailMarkupProvider.GetPasswordChangedNotificationMarkup(user);
         return SendAsync(user.Email, "Password changed", markup, ct);
+    }
+
+    /// <summary>
+    /// Sends a notification to the user about their account being deleted
+    /// </summary>
+    public Task SendDeleteAccountConfirmation(User user, CancellationToken ct = default)
+    {
+        var markup = EmailMarkupProvider.GetDeleteAccountConfirmationMarkup(user);
+        return SendAsync(user.Email, "Account deleted!", markup, ct);
     }
 }

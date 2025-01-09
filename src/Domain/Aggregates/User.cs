@@ -1,5 +1,6 @@
 using System.Globalization;
 using Domain.Abstractions;
+using Domain.Attributes;
 using Domain.Entities;
 using Domain.Events;
 using Domain.ValueObjects;
@@ -8,6 +9,7 @@ using Generated;
 namespace Domain.Aggregates;
 
 [StrongId]
+[SoftDelete]
 public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 {
     public const int MaxAccessFailedCount = 5;

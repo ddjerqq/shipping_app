@@ -5,9 +5,10 @@ namespace Application.Services;
 
 public interface IEmailMarkupProvider
 {
-    public string GetEmailConfirmationMarkup(User recipient, string callback, CancellationToken ct = default);
-    public string GetWelcomeEmailMarkup(User user, CancellationToken ct = default);
-    public string GetNewLoginLocationNotificationMarkup(User user, UserLogin login, CancellationToken ct = default);
-    public string GetPasswordResetMarkup(User user, string callback, CancellationToken ct = default);
-    public string GetPasswordChangedNotificationMarkup(User user, CancellationToken ct = default);
+    public string GetEmailConfirmationMarkup(User recipient, string callback);
+    public string GetWelcomeEmailMarkup(User user);
+    public string GetNewLoginLocationNotificationMarkup(User user, UserLogin login);
+    public string GetPasswordResetMarkup(User user, string callback);
+    public string GetPasswordChangedNotificationMarkup(User user);
+    public string GetDeleteAccountConfirmationMarkup(User user);
 }
