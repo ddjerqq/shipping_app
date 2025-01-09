@@ -1,0 +1,42 @@
+@using Domain.Events
+@using Application.Services
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
+@inject CookieService Cookie
+@inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
+
+<FormField class="mb-2">
+    <FormLabel for="delete-confirmation">Confirmation</FormLabel>
+    <input id="delete-confirmation"
+           class="@FormInputText.BaseClass"
+           @bind-value="@DeleteConfirmation"
+           placeholder="Type 'delete' to confirm"
+           type="text"/>
+    <FormDescription class="text-destructive">
+        This action is irreversible. All your data will be lost. You will have a 30 day grace period to recover your account.<br/>
+        To recover your account, just login with your email and password.
+    </FormDescription>
+</FormField>
+
+<Button Variant="destructive" disabled="@(DeleteConfirmation != "delete")" @onclick="Delete">
+    Delete account
+</Button>
+
+@code {
+    private string DeleteConfirmation { get; set; } = null!;
+
+    private async Task Delete()
+    {
+        var user = (await DbContext.Users.FindAsync(CurrentUser.Id))!;
+        user.AddDomainEvent(new UserDeletedAccount(user.Id));
+        DbContext.Users.Remove(user);
+        await DbContext.SaveChangesAsync();
+
+        ShowSuccess("Your account is scheduled for deletion.");
+        await Task.Delay(2000);
+
+        await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
+        AuthenticationStateProvider.ForceSignOut();
+        NavigationManager.NavigateTo("/auth/delete_confirmation");
+    }
+}

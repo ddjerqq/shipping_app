@@ -1,13 +1,23 @@
 namespace Domain.ValueObjects;
 
-public abstract record AbstractAddress(string? Country = null);
+public abstract record AbstractAddress;
 
 public sealed record NoAddress : AbstractAddress;
+public sealed record FullAddress(string Country, string State, string City, string ZipCode, string Address) : AbstractAddress;
 
-[Obsolete("remove this safely later")]
-public sealed record AirportAddress(string Country, string AirportCode) : AbstractAddress(Country);
+public static class AbstractAddressExt
+{
+    public static string AddressToString(this AbstractAddress address) => address switch
+    {
+        NoAddress => "not-specified",
+        FullAddress fullAddress => $"full {fullAddress.Country} {fullAddress.State} {fullAddress.City} {fullAddress.ZipCode} {fullAddress.Address}",
+        _ => throw new ArgumentException("Address type not supported yet"),
+    };
 
-[Obsolete("remove this safely later")]
-public sealed record ZipCodeAddress(string Country, int ZipCode) : AbstractAddress(Country);
-
-public sealed record UserHouseAddress(string Country, string State, string City, string ZipCode, string Address) : AbstractAddress(Country);
+    public static AbstractAddress AddressFromString(string address) => address.Split(' ') switch
+    {
+        ["not-specified"] => new NoAddress(),
+        ["full", var country, var state, var city, var zipCode, .. var rest] => new FullAddress(country, state, city, zipCode, string.Join(' ', rest)),
+        _ => throw new ArgumentException("Address type not supported yet"),
+    };
+}

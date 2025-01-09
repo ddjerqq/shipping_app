@@ -71,7 +71,17 @@ internal sealed class LoginCommandHandler(
             return null;
         }
 
+        // if user logged in
+        user.AccessFailedCount = 0;
+
+        if (user.Deleted is not null)
+        {
+            user.Deleted = null;
+            user.DeletedBy = null;
+        }
+
         await UpdateLoginAsync(user, request.TimeZoneInfo, ct);
+        await dbContext.SaveChangesAsync(ct);
 
         var token = jwtGenerator.GenerateToken(user);
         return (false, token, user);
@@ -109,7 +119,5 @@ internal sealed class LoginCommandHandler(
         }
 
         user.TimeZone = timeZoneInfo;
-
-        await dbContext.SaveChangesAsync(ct);
     }
 }
