@@ -41,6 +41,11 @@ public static class LoggingExt
         var seqHost = "SEQ__HOST".FromEnvRequired();
         var seqApiKey = "SEQ__API_KEY".FromEnvRequired();
 
+        if (!string.IsNullOrWhiteSpace(seqHost) && !string.IsNullOrWhiteSpace(seqApiKey))
+            config = config.WriteTo.Seq(seqHost,
+                apiKey: seqApiKey,
+                controlLevelSwitch: levelSwitch);
+
         return config
             .MinimumLevel.ControlledBy(levelSwitch)
             .MinimumLevel.Override("Quartz", LogEventLevel.Warning)
@@ -55,9 +60,6 @@ public static class LoggingExt
             .Enrich.WithThreadId()
             .Enrich.WithAssemblyName()
             .WriteTo.Debug()
-            .WriteTo.Seq(seqHost,
-                apiKey: seqApiKey,
-                controlLevelSwitch: levelSwitch)
             .WriteTo.Console(Formatters.CreateConsoleTextFormatter(TemplateTheme.Code));
     }
 
@@ -70,8 +72,10 @@ public static class LoggingExt
             options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000}ms";
             options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
             {
-                diagnosticContext.Set("UserId", httpContext.User.FindFirstValue(ClaimsPrincipalExt.IdClaimType) ?? "unauthenticated");
-                diagnosticContext.Set("ClientAddress", httpContext.Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
+                diagnosticContext.Set("UserId",
+                    httpContext.User.FindFirstValue(ClaimsPrincipalExt.IdClaimType) ?? "unauthenticated");
+                diagnosticContext.Set("ClientAddress",
+                    httpContext.Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
                 diagnosticContext.Set("ClientUserAgent", (string?)httpContext.Request.Headers.UserAgent);
                 diagnosticContext.Set("TraceIdentifier", httpContext.TraceIdentifier);
             };
