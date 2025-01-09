@@ -1,0 +1,29 @@
+@using Application.Services
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
+
+<FormField class="mb-2">
+    <FormLabel for="delete-confirmation">Confirmation</FormLabel>
+    <input id="delete-confirmation"
+           class="@FormInputText.BaseClass"
+           @bind-value="@DeleteConfirmation"
+           placeholder="Type 'delete' to confirm"
+           type="text"/>
+    <FormDescription class="text-destructive">
+        This action is irreversible. All your data will be lost. You will have a 30 day grace period to recover your account.<br/>
+        To recover your account, just login with your email and password.
+    </FormDescription>
+</FormField>
+
+<Button Variant="destructive" disabled="@(DeleteConfirmation != "delete")" @onclick="Delete">
+    Delete account
+</Button>
+
+@code {
+    private string DeleteConfirmation { get; set; } = null!;
+
+    private async Task Delete()
+    {
+        throw new NotImplementedException();
+    }
+}

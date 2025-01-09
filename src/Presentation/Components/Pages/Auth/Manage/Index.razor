@@ -4,56 +4,49 @@
 <PageTitle>Manage account</PageTitle>
 <SectionContent SectionId="HomeLayout.TitleSectionId">Manage account</SectionContent>
 
-@* TODO https://next.shadcn-svelte.com/examples/forms *@
-
-<Tabs Value="ManageSection.Profile" class="space-y-4">
+<Tabs Value="ManageSection.PersonalInfo" class="space-y-4">
     <List>
-        <Trigger Value="ManageSection.Profile">Profile</Trigger>
-        <Trigger Value="ManageSection.Account">Account</Trigger>
-        <Trigger Value="ManageSection.Appearance">Appearance</Trigger>
+        <Trigger Value="ManageSection.PersonalInfo">Personal Info</Trigger>
+        <Trigger Value="ManageSection.ChangePassword">Change Password</Trigger>
+        <Trigger Value="ManageSection.MyAddress">My Address</Trigger>
         <Trigger Value="ManageSection.Notifications">Notifications</Trigger>
-        <Trigger Value="ManageSection.Display">Display</Trigger>
+        <Trigger Value="ManageSection.AccountDeletion" class="text-destructive data-[state=active]:text-destructive">Delete account
+        </Trigger>
     </List>
-    <TabContent Value="ManageSection.Profile" class="space-y-4">
-        <div class="grid">
-            <Card>
-                <Header>
-                    <Title>
-                        Manage your profile setting
-                    </Title>
-                    @* <Description class="text-muted-foreground"> *@
-                    @*     Manage your profile here *@
-                    @* </Description> *@
-                </Header>
-                <Content class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
-                    <AuthorizeView>
-                        something here
-                    </AuthorizeView>
-                </Content>
-            </Card>
-        </div>
+    <TabContent Value="ManageSection.PersonalInfo" class="space-y-4">
+        <ManageTabWrapper Title="Manage your personal info">
+            <ManageAccount/>
+        </ManageTabWrapper>
     </TabContent>
-    <TabContent Value="ManageSection.Account" class="space-y-4">
-
+    <TabContent Value="ManageSection.ChangePassword" class="space-y-4">
+        <ManageTabWrapper Title="Change your password">
+            <ChangePassword/>
+        </ManageTabWrapper>
     </TabContent>
-    <TabContent Value="ManageSection.Appearance" class="space-y-4">
-
+    <TabContent Value="ManageSection.MyAddress" class="space-y-4">
+        <ManageTabWrapper Title="Manage your addresses">
+            <MyAddresses/>
+        </ManageTabWrapper>
     </TabContent>
     <TabContent Value="ManageSection.Notifications" class="space-y-4">
-
+        <ManageTabWrapper Title="Manage notifications">
+            <ManageNotifications/>
+        </ManageTabWrapper>
     </TabContent>
-    <TabContent Value="ManageSection.Display" class="space-y-4">
-
+    <TabContent Value="ManageSection.AccountDeletion" class="space-y-4">
+        <ManageTabWrapper Title="Delete account">
+            <DeleteAccount/>
+        </ManageTabWrapper>
     </TabContent>
 </Tabs>
 
 @code {
     public enum ManageSection
     {
-        Profile,
-        Account,
-        Appearance,
+        PersonalInfo,
+        ChangePassword,
+        MyAddress,
         Notifications,
-        Display,
+        AccountDeletion,
     }
 }

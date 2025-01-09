@@ -1,0 +1,66 @@
+@using Application.Services
+@using Domain.Aggregates
+@inject ICurrentUserAccessor CurrentUser
+@inject IAppDbContext DbContext
+
+<AppForm @bind-Model="User" OnValidSubmit="UpdateUser">
+    <FormField>
+        <FormLabel for="full-name">Full Name</FormLabel>
+        <FormInputText id="full-name"
+                       Class="capitalize"
+                       Value="@User.Username"
+                       ValueExpression="@(() => User.Username)"
+                       type="text"
+                       disabled/>
+    </FormField>
+
+    <FormField>
+        <FormLabel for="personal-id">Personal id</FormLabel>
+        <FormInputText id="personal-id"
+                       Value="@User.PersonalId"
+                       ValueExpression="@(() => User.PersonalId)"
+                       type="text"
+                       disabled/>
+    </FormField>
+
+    <FormField>
+        <FormLabel for="email">Email address</FormLabel>
+        <FormInputText id="email"
+                       Value="@User.Email"
+                       ValueExpression="@(() => User.Email)"
+                       type="text"
+                       disabled/>
+    </FormField>
+
+    <FormField>
+        <FormLabel for="phone">Phone</FormLabel>
+        <FormInputText id="phone"
+                       Value="@User.PhoneNumber"
+                       ValueExpression="@(() => User.PhoneNumber)"
+                       type="tel"
+                       disabled/>
+    </FormField>
+
+    @* <Button type="submit" disabled="@IsLoading"> *@
+    @*     @if (IsLoading) *@
+    @*     { *@
+    @*         <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/> *@
+    @*     } *@
+    @*     Update your info *@
+    @* </Button> *@
+</AppForm>
+
+@code {
+    private User User { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+    }
+
+    private async Task UpdateUser()
+    {
+        DbContext.Users.Update(User);
+        await DbContext.SaveChangesAsync(CancellationToken);
+    }
+}

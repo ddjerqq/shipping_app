@@ -1,0 +1,106 @@
+@using Application.Cqrs.Users.Commands
+@using Application.Services
+@using Domain.ValueObjects
+@using Domain.Aggregates
+@inject ICurrentUserAccessor CurrentUser
+@inject IAppDbContext DbContext
+
+<AppForm @bind-Model="User" OnValidSubmit="AddAddress">
+    <InlineFormFieldContainer>
+        <FormField>
+            <FormLabel for="country">Country</FormLabel>
+            <FormInputText
+                id="country"
+                @bind-Value="@Command.Country"
+                required
+                autocomplete="address-level2"
+                disabled="@IsLoading"/>
+            <FormInvalidFeedback For="@(() => Command.Country)"/>
+        </FormField>
+
+        <FormField>
+            <FormLabel for="state">State</FormLabel>
+            <input
+                id="state"
+                class="@FormInputText.BaseClass"
+                autocomplete="address-level1"
+                placeholder="State unavailable in Georgia"
+                disabled/>
+            <FormInvalidFeedback For="@(() => Command.State)"/>
+        </FormField>
+    </InlineFormFieldContainer>
+
+    <InlineFormFieldContainer>
+        <FormField>
+            <FormLabel for="city">City</FormLabel>
+            <FormInputText
+                id="city"
+                @bind-Value="@Command.City"
+                required
+                autocomplete="address-level2"
+                disabled="@IsLoading"/>
+            <FormInvalidFeedback For="@(() => Command.City)"/>
+        </FormField>
+
+        <FormField>
+            <FormLabel for="zip">Zip Code</FormLabel>
+            <FormInputText
+                id="zip"
+                @bind-Value="@Command.ZipCode"
+                type="number"
+                step="1"
+                min="0"
+                max="99999"
+                required
+                autocomplete="postal-code"
+                disabled="@IsLoading"/>
+            <FormInvalidFeedback For="@(() => Command.ZipCode)"/>
+        </FormField>
+    </InlineFormFieldContainer>
+
+    <FormField>
+        <FormLabel for="street-address">Street address</FormLabel>
+        <FormInputText
+            id="street-address"
+            @bind-Value="@Command.Address"
+            required
+            autocomplete="street-address"
+            disabled="@IsLoading"/>
+        <FormInvalidFeedback For="@(() => Command.Address)"/>
+    </FormField>
+
+    <Button type="submit" disabled="@IsLoading">
+        @if (IsLoading)
+        {
+            <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+        }
+        Update address
+    </Button>
+</AppForm>
+
+@code {
+    private User User { get; set; } = null!;
+    private AddAddressCommand Command { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+        if (User.AddressInfo is FullAddress address)
+        {
+            Command = new AddAddressCommand
+            {
+                Country = address.Country,
+                State = address.State,
+                City = address.City,
+                ZipCode = address.ZipCode,
+                Address = address.Address,
+            };
+        }
+    }
+
+    private async Task AddAddress()
+    {
+        await SendCommandAsync(Command);
+        ShowSuccess("Address updated successfully!");
+    }
+}

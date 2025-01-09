@@ -18,9 +18,9 @@
             <FormInputText id="full-name"
                            @bind-Value="@Command.FullName"
                            placeholder="Enter full name"
-                           type="full-name"
+                           type="text"
                            required
-                           autocomplete="cc-name"
+                           autocomplete="name"
                            disabled="@IsLoading"/>
 
             <FormInvalidFeedback For="@(() => Command.FullName)"/>
