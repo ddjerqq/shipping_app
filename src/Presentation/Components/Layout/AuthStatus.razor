@@ -53,6 +53,6 @@
     {
         await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
         AuthenticationStateProvider.ForceSignOut();
-        NavigationManager.NavigateTo("auth/login");
+        NavigationManager.NavigateTo("/auth/login");
     }
 }

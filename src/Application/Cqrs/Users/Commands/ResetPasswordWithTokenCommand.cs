@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Cqrs.Users.Commands;
 
-public sealed record ResetPasswordCommand : IRequest
+public sealed record ResetPasswordWithTokenCommand : IRequest
 {
     [LogMasked]
     public string NewPassword { get; set; } = null!;
@@ -16,9 +16,9 @@ public sealed record ResetPasswordCommand : IRequest
     public string Token { get; set; } = null!;
 }
 
-public sealed class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>
+public sealed class ResetPasswordWithTokenValidator : AbstractValidator<ResetPasswordWithTokenCommand>
 {
-    public ResetPasswordValidator(IJwtGenerator jwtGenerator)
+    public ResetPasswordWithTokenValidator(IJwtGenerator jwtGenerator)
     {
         RuleFor(x => x.NewPassword)
             .NotEmpty().MinimumLength(12);
@@ -34,9 +34,9 @@ public sealed class ResetPasswordValidator : AbstractValidator<ResetPasswordComm
     }
 }
 
-internal sealed class ResetPasswordHandler(IAppDbContext dbContext, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResetPasswordCommand>
+internal sealed class ResetPasswordWithTokenHandler(IAppDbContext dbContext, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResetPasswordWithTokenCommand>
 {
-    public async Task Handle(ResetPasswordCommand request, CancellationToken ct)
+    public async Task Handle(ResetPasswordWithTokenCommand request, CancellationToken ct)
     {
         var result = tokenGenerator.ValidateToken(IUserVerificationTokenGenerator.ResetPasswordPurpose, request.Token);
         if (result is null)

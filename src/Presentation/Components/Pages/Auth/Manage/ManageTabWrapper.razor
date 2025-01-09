@@ -1,0 +1,19 @@
+@inherits UiComponentBase
+
+<div class="grid" @attributes="@AdditionalAttributes">
+    <Card>
+        <Header>
+            <Title>
+                @Title
+            </Title>
+        </Header>
+        <Content>
+            @ChildContent
+        </Content>
+    </Card>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = null!;
+}

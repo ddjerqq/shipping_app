@@ -1,5 +1,6 @@
 using System.Globalization;
 using Domain.Abstractions;
+using Domain.Attributes;
 using Domain.Entities;
 using Domain.Events;
 using Domain.ValueObjects;
@@ -8,6 +9,7 @@ using Generated;
 namespace Domain.Aggregates;
 
 [StrongId]
+[SoftDelete]
 public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 {
     public const int MaxAccessFailedCount = 5;
@@ -17,14 +19,15 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Username { get; init; }
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
-    // TODO give users multiple addresses, this will be generated? or ? do we even collect the address info unless its a UserHouseAddress
-    public AbstractAddress? AddressInfo { get; init; }
+    public AbstractAddress AddressInfo { get; set; } = new NoAddress();
     public CultureInfo CultureInfo { get; init; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public int RoomCode { get; init; } = Random.Shared.Next(1_000_000, 9_999_999);
 
     public bool EmailConfirmed { get; private set; }
+    // this could be a Type later on but for now its okay.
+    public bool NotifyBySms { get; set; }
 
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
