@@ -10,7 +10,7 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddHttpClient();
-        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
         services.AddHttpContextAccessor();
 
         services.AddScoped<BrowserInternalizationProvider>();

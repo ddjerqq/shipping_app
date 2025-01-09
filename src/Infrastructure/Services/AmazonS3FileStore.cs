@@ -3,10 +3,12 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Application.Services;
 using Domain.Common;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-public sealed class AmazonS3FileStore(IAmazonS3 client) : IFileStore
+public sealed class AmazonS3FileStore(IAmazonS3 client, ILogger<AmazonS3FileStore> logger, IDistributedCache cache) : IFileStore
 {
     private static string BucketName => "AWS_BUCKET_NAME".FromEnvRequired();
 
@@ -63,7 +65,13 @@ public sealed class AmazonS3FileStore(IAmazonS3 client) : IFileStore
 
     public async Task<string?> GetPresignedFileUrlAsync(string key, CancellationToken ct = default)
     {
-        // TODO Cache the urls here for some time
+        var url = await cache.GetStringAsync(key, ct);
+        if (url is not null)
+        {
+            logger.LogDebug("cache hit on key {Key}", key);
+            return url;
+        }
+
         await EnsureBucketExists(ct);
 
         var request = new GetObjectRequest
@@ -77,9 +85,17 @@ public sealed class AmazonS3FileStore(IAmazonS3 client) : IFileStore
         {
             BucketName = BucketName,
             Key = result.Key,
-            Expires = DateTime.UtcNow.AddMinutes(5),
+            Expires = DateTime.UtcNow.AddMinutes(10),
         };
 
-        return await client.GetPreSignedURLAsync(urlRequest);
+        var presignedUrl = await client.GetPreSignedURLAsync(urlRequest);
+
+        await cache.SetStringAsync(key, presignedUrl, new DistributedCacheEntryOptions
+        {
+            SlidingExpiration = TimeSpan.FromMinutes(1),
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+        }, ct);
+
+        return presignedUrl;
     }
 }
