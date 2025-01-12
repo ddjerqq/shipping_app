@@ -111,3 +111,14 @@ h1:focus {
   background: transparent;
 }
 
+
+
+#stat-three {
+  border-left: none;
+}
+
+@media (min-width: 1024px) {
+  #stat-three {
+    border-left: 1px solid #e5e7eb;
+  }
+}

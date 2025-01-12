@@ -1,7 +1,7 @@
 @page "/"
 @inject IJSRuntime Js
 
-<div class="flex flex-col lg:flex-row items-center justify-between w-full h-screen p-4 lg:p-8 relative mt-12">
+<div style="height: calc(100vh - (56px + 96px));" class="flex flex-col lg:flex-row items-center justify-between w-full p-4 lg:p-8 relative pt-24 lg-pt-0">
     <div class="flex flex-col justify-center items-center lg:items-start w-full lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
         <h1 class="text-4xl lg:text-6xl font-bold mb-8">No. 1 <span class="text-[#21bf73]">Shipping</span> Company from U.S.A to Georgia</h1>
         <p class="mb-8 text-sm max-w-3xl mx-auto">
@@ -18,55 +18,63 @@
     </div>
 </div>
 
-<div class="my-8 lg:my-16 flex flex-col lg:flex-row items-center justify-between py-8 px-4 lg:px-16">
+<div class="my-8 lg:my-16 flex flex-col lg:flex-row items-start justify-between py-8 px-4 lg:px-16">
     <div class="w-full lg:w-1/2 text-center lg:text-left overflow-visible">
         <div style="font-size: 12px; margin-bottom: 48px; margin-top: 16px;" class="bg-gray-100 text-[#21bf73] rounded-full uppercase px-4 py-1 inline-block shadow-md">
             we're the best
         </div>
         <h2 class="text-2xl lg:text-4xl font-semibold mb-8">Why Us</h2>
         <div class="text-sm mb-8">
-            <div class="flex items-center mb-4">
-                <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                <span>We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time.</span>
-            </div>
-            <div class="flex items-center mb-4">
-                <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                <span>With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe.</span>
-            </div>
-            <div class="flex items-center mb-4">
-                <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                <span>Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination.</span>
+            <div class="relative flex lg:flex-row">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
+                        <span>We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time.</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
+                        <span>With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe.</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
+                        <span>Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination.</span>
+                    </div>
+                </div>
+                <div class="hidden lg:block lg:absolute lg:left-full lg:top-1/2 lg:-translate-y-1/2 lg:ml-8 lg:w-[450px]">
+                    <img
+                        src="images/truck1.webp"
+                        alt="Delivery Truck"
+                        class="object-cover h-[450px] mx-auto drop-shadow-md"
+                        />
+                </div>
             </div>
         </div>
         <CtaButton class="mx-auto">Get Started</CtaButton>
-    </div>
-
-    <div class="w-full lg:w-1/2 flex justify-center items-center mb-8 mt-8 lg:mt-0 lg:mb-0">
-        <div class="flex flex-col justify-center" style="height: 100%;">
+        <div class="block lg:hidden mt-8">
             <img
-                src="images/boxes.webp"
+                src="images/truck1.webp"
                 alt="Delivery Truck"
-                class="object-cover h-[300px] lg:h-[300px] mx-auto"
+                class="object-cover h-[400px] mx-auto"
             />
         </div>
     </div>
 </div>
 
 <div class="my-8 lg:my-16">
-    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:flex-row lg:gap-8">
-        <div class="text-center p-4 lg:p-6 rounded">
+    <div class="grid grid-cols-2 gap-0 lg:grid-cols-4 lg:flex-row lg:gap-8 bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8 lg:divide-y-0 divide-y divide-x">
+        <div class="text-center p-4 lg:p-6 ">
             <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">200+</h3>
             <p class="text-sm">Parcels from U.S.A</p>
         </div>
-        <div class="text-center p-4 lg:p-6 rounded">
+        <div style="border-top: none;" class="text-center p-4 lg:p-6 ">
             <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">500+</h3>
             <p class="text-sm">Parcels from Georgia</p>
         </div>
-        <div class="text-center p-4 lg:p-6 rounded">
+        <div id="stat-three" class="text-center p-4 lg:p-6">
             <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">1400+</h3>
             <p class="text-sm">Storage Items</p>
         </div>
-        <div class="text-center p-4 lg:p-6 rounded">
+        <div class="text-center p-4 lg:p-6">
             <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">15</h3>
             <p class="text-sm">Moving Items</p>
         </div>
