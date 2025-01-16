@@ -14,7 +14,6 @@ internal sealed class UserLoggedInFromNewDeviceEventHandler(
     public async Task Handle(UserLoggedInFromNewDevice notification, CancellationToken ct)
     {
         var user = await dbContext.Users
-                       .Include(x => x.Logins)
                        .FirstOrDefaultAsync(x => x.Id == notification.UserId, ct)
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 

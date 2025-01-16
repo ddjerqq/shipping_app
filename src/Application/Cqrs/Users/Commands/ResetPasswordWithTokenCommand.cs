@@ -2,6 +2,7 @@ using Application.Services;
 using Destructurama.Attributed;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Cqrs.Users.Commands;
 
@@ -44,7 +45,7 @@ internal sealed class ResetPasswordWithTokenHandler(IAppDbContext dbContext, IUs
 
         var (_, securityStamp, userId) = result.Value;
 
-        var user = await dbContext.Users.FindAsync([userId], ct);
+        var user = await dbContext.Users.IgnoreQueryFilters().FirstOrDefaultAsync(x => x.Id == userId, ct);
         if (user is null)
             throw new InvalidOperationException($"User with id {userId} not found.");
 

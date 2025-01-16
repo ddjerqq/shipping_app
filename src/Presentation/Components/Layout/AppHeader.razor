@@ -1,4 +1,9 @@
-﻿<header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+﻿@using Application.Services
+@using Domain.Entities
+@inject ICurrentUserAccessor CurrentUser
+@inject IAppDbContext DbContext
+
+<header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
             <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/">

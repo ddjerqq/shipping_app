@@ -18,5 +18,6 @@ internal class RoleConfiguration : IEntityTypeConfiguration<Role>
             .HasForeignKey(rc => rc.RoleId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+        builder.Navigation(role => role.Claims).AutoInclude();
     }
 }

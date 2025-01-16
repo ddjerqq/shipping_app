@@ -20,13 +20,8 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
             return null;
 
         var user = await dbContext.Users
-            .Include(x => x.Claims)
-            .Include(x => x.Logins)
-            .Include(x => x.Roles)
-            .ThenInclude(uc => uc.Role)
-            .ThenInclude(r => r.Claims)
             .Include(u => u.Packages)
-            .ThenInclude(p => p.Statuses)
+            .ThenInclude(package => package.Statuses)
             .AsSplitQuery()
             .Where(u => u.Id == id)
             .FirstOrDefaultAsync(ct);

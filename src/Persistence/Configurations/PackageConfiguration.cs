@@ -35,12 +35,14 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
             .WithMany(race => race.Packages)
             .HasForeignKey(package => package.RaceId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.Navigation(package => package.Race).AutoInclude();
 
         builder.HasMany(package => package.Statuses)
             .WithOne(status => status.Package)
             .HasForeignKey(status => status.PackageId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+        builder.Navigation(package => package.Statuses).AutoInclude();
     }
 
     private static string? VecToString(Vector3? vec) => vec is { X: var x, Y: var y, Z: var z } ? $"{x}:{y}:{z}" : null;

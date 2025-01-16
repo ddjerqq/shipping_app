@@ -219,7 +219,9 @@
                     </FormField>
                 }
 
-                <Button type="submit">Save</Button>
+                <Button type="submit" class="col-span-1 sm:col-span-2 lg:col-span-4">
+                    Save
+                </Button>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
@@ -242,10 +244,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Package = await DbContext.Packages
-            .Include(x => x.Statuses)
-            .Include(x => x.Race)
-            .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
+        Package = await DbContext.Packages.FindAsync([PackageId], CancellationToken);
 
         if (Package is null || Package.OwnerId != CurrentUser.Id)
         {

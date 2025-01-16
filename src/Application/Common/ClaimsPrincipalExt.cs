@@ -29,9 +29,9 @@ public static class ClaimsPrincipalExt
     public static string? GetSecurityStamp(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == SecurityStampClaimType)?.Value;
     public static string? GetRoomCode(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == RoomCodeClaimType)?.Value;
 
-    public static IEnumerable<RoleId> GetRoleIds(this ClaimsPrincipal principal) =>
+    public static IEnumerable<string> GetRoleNames(this ClaimsPrincipal principal) =>
         principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value
-            .Split(';').Select(x => RoleId.Parse(x)) ?? [];
+            .Split(',') ?? [];
 
     public static IEnumerable<Claim> GetAllClaims(this User user)
     {
@@ -42,8 +42,7 @@ public static class ClaimsPrincipalExt
             new Claim(UsernameClaimType, user.Username),
             new Claim(EmailClaimType, user.Email),
             new Claim(PhoneClaimType, user.PhoneNumber),
-            // TODO handle roles differently, with require claim maybe?
-            new Claim(RoleClaimType, string.Join(';', user.Roles.Select(role => role.RoleId))),
+            new Claim(RoleClaimType, string.Join(',', user.Roles.Select(role => role.Role.Name))),
             new Claim(SecurityStampClaimType, user.SecurityStamp),
             new Claim(RoomCodeClaimType, user.RoomCode.ToString()),
         };

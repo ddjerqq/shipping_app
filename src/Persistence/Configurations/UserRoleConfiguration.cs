@@ -27,16 +27,17 @@ internal class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
         builder.HasKey(role => new { role.UserId, role.RoleId });
 
-        builder.HasOne(role => role.User)
+        builder.HasOne(ur => ur.User)
             .WithMany(user => user.Roles)
-            .HasForeignKey(role => role.UserId)
+            .HasForeignKey(ur => ur.UserId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
-        builder.HasOne(role => role.Role)
+        builder.HasOne(ur => ur.Role)
             .WithMany()
-            .HasForeignKey(role => role.RoleId)
+            .HasForeignKey(ur => ur.RoleId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+        builder.Navigation(ur => ur.Role).AutoInclude();
     }
 }
