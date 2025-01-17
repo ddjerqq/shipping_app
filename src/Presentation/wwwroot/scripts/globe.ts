@@ -62,11 +62,11 @@ export class GlobeContext {
     // init controls
     this._controls = new OrbitControls(this._camera, this._renderer.domElement);
     this._controls.enableDamping = true;
-    this._controls.dampingFactor = 0.05;
+    this._controls.dampingFactor = 0.001;
     this._controls.enableRotate = true;
     this._controls.enableZoom = false;
     this._controls.enablePan = false;
-    this._controls.rotateSpeed = 0.5;
+    this._controls.rotateSpeed = 0.03;
     this._controls.minPolarAngle = Math.PI / 4;
     this._controls.maxPolarAngle = Math.PI / 2;
 
@@ -81,37 +81,37 @@ export class GlobeContext {
       waitForGlobeReady: true,
       animateIn: true,
     })
-      .hexPolygonsData(countryData.features)
-      .hexPolygonResolution(4)
-      .hexPolygonMargin(0.7)
-      .showAtmosphere(true)
-      .atmosphereColor("#80cfb4")
-      .atmosphereAltitude(0.25)
-      .hexPolygonColor((e: any) => ["USA", "GEO"].includes(e.properties.ISO_A3) ? "rgba(255,255,255, 1)" : "rgba(255,255,255, 0.5)");
+        .hexPolygonsData(countryData.features)
+        .hexPolygonResolution(4)
+        .hexPolygonMargin(0.7)
+        .showAtmosphere(true)
+        .atmosphereColor("#80cfb4")
+        .atmosphereAltitude(0.25)
+        .hexPolygonColor((e: any) => ["USA", "GEO"].includes(e.properties.ISO_A3) ? "rgba(255,255,255, 1)" : "rgba(255,255,255, 0.5)");
 
     setTimeout(() => {
       globe.arcsData(flightData.flights)
-        .arcColor(() => "#ac36d3")
-        .arcAltitude(0.05)
-        .arcStroke(0.3)
-        .arcDashLength(0.9)
-        .arcDashGap(4)
-        .arcDashAnimateTime(1000)
-        .arcsTransitionDuration(1000)
-        .arcDashInitialGap((e: { order: number }) => e.order)
-        .labelsData(airportData.airports)
-        .labelColor(() => "#ffffff")
-        .labelDotOrientation("bottom")
-        .labelDotRadius(0.3)
-        .labelSize((e: { size: number }) => e.size)
-        .labelText("city")
-        .labelResolution(6)
-        .labelAltitude(0.01)
-        .pointsData(airportData.airports)
-        .pointColor(() => "#ffffff")
-        .pointsMerge(true)
-        .pointAltitude(0.07)
-        .pointRadius(0.05);
+          .arcColor(() => "#ac36d3")
+          .arcAltitude(0.05)
+          .arcStroke(0.3)
+          .arcDashLength(0.9)
+          .arcDashGap(4)
+          .arcDashAnimateTime(1000)
+          .arcsTransitionDuration(1000)
+          .arcDashInitialGap((e: { order: number }) => e.order)
+          .labelsData(airportData.airports)
+          .labelColor(() => "#ffffff")
+          .labelDotOrientation("bottom")
+          .labelDotRadius(0.3)
+          .labelSize((e: { size: number }) => e.size)
+          .labelText("city")
+          .labelResolution(6)
+          .labelAltitude(0.01)
+          .pointsData(airportData.airports)
+          .pointColor(() => "#ffffff")
+          .pointsMerge(true)
+          .pointAltitude(0.07)
+          .pointRadius(0.05);
     }, 1000);
 
     globe.rotateY(-Math.PI * (5 / 9));
@@ -142,7 +142,7 @@ export class GlobeContext {
     this._camera.lookAt(this._scene.position);
     this._controls.update();
     this._renderer.render(this._scene, this._camera);
-    this._globe.rotation.y -= 0.00025;
+    this._globe.rotation.y -= 0.005;
     requestAnimationFrame(() => this.animate());
   }
 
