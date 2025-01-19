@@ -163,11 +163,11 @@
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="weight">Weight</FormLabel>
+                        <FormLabel for="weight">Weight (Kg)</FormLabel>
                         <input id="weight"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@(Package.WeightGrams)"/>
+                               value="@((Package.WeightGrams / 1000)?.ToString("F1"))"/>
                     </FormField>
 
                     <FormField>
@@ -177,12 +177,15 @@
                                         Value="@(new Money("USD", Package.ShippingPrice))"/>
                     </FormField>
 
-                    <FormField>
-                        <FormLabel for="volumetric-price">Volumetric weight price</FormLabel>
-                        <FormInputMoney Id="volumetric-price"
-                                        disabled
-                                        Value="@(new Money("USD", Package.GetVolumetricWeightPrice()))"/>
-                    </FormField>
+                    if (Package.ShouldCalculateVolumetricWeight())
+                    {
+                        <FormField>
+                            <FormLabel for="volumetric-price">Volumetric weight price</FormLabel>
+                            <FormInputMoney Id="volumetric-price"
+                                            disabled
+                                            Value="@(new Money("USD", Package.GetVolumetricWeightPrice()))"/>
+                        </FormField>
+                    }
                 }
 
                 @if (Package.CurrentStatus.Status >= PackageStatus.InTransit)

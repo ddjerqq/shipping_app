@@ -31,19 +31,6 @@
 
             <InlineFormFieldContainer class="mt-2 sm:grid-cols-3">
                 <FormField>
-                    <FormLabel for="x">Length (cm)</FormLabel>
-                    <InputNumber id="x"
-                                 class="@FormInputText.BaseClass"
-                                 @bind-Value="@Command.Length"
-                                 type="number"
-                                 step="0.1"
-                                 min="0"
-                                 max="100"
-                                 disabled="@IsLoading"/>
-                    <FormInvalidFeedback For="@(() => Command.Length)"/>
-                </FormField>
-
-                <FormField>
                     <FormLabel for="y">Width (cm)</FormLabel>
                     <InputNumber id="y"
                                  class="@FormInputText.BaseClass"
@@ -67,6 +54,19 @@
                                  max="100"
                                  disabled="@IsLoading"/>
                     <FormInvalidFeedback For="@(() => Command.Height)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="x">Length (cm)</FormLabel>
+                    <InputNumber id="x"
+                                 class="@FormInputText.BaseClass"
+                                 @bind-Value="@Command.Length"
+                                 type="number"
+                                 step="0.1"
+                                 min="0"
+                                 max="100"
+                                 disabled="@IsLoading"/>
+                    <FormInvalidFeedback For="@(() => Command.Length)"/>
                 </FormField>
 
                 <FormDescription class="col-span-3">

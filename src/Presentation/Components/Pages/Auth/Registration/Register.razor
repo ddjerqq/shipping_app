@@ -151,7 +151,7 @@
     [CascadingParameter]
     private CultureInfo BrowserLocale { get; set; } = null!;
 
-        private RegisterCommand Command { get; set; } = new();
+    private RegisterCommand Command { get; set; } = new();
     private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task RegisterUser(EditContext editContext)

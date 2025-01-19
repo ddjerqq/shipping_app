@@ -1,3 +1,4 @@
+using Domain.Aggregates;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -11,7 +12,7 @@ internal class PackageReceptionStatusConfiguration : IEntityTypeConfiguration<Pa
         // status
         // date
 
-        builder.HasOne(status => status.Package)
+        builder.HasOne<Package>()
             .WithMany(package => package.Statuses)
             .HasForeignKey(status => status.PackageId)
             .OnDelete(DeleteBehavior.Cascade)
@@ -19,7 +20,7 @@ internal class PackageReceptionStatusConfiguration : IEntityTypeConfiguration<Pa
 
         builder.Ignore(x => x.UserIsNull);
 
-        builder.HasOne(package => package.User)
+        builder.HasOne<User>()
             .WithMany()
             .HasForeignKey(package => package.UserId)
             .OnDelete(DeleteBehavior.Cascade);

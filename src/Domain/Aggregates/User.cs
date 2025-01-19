@@ -38,9 +38,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public ICollection<Package> Packages { get; init; } = [];
     public ICollection<UserClaim> Claims { get; init; } = [];
     public ICollection<UserLogin> Logins { get; init; } = [];
-    public ICollection<UserRole> Roles { get; init; } = [];
-
-    public bool IsInRole(string roleName) => Roles.Any(role => role.Role.Name == roleName);
+    public Role Role { get; init; } = Role.User;
 
     public void SetPassword(string newPassword, bool isInitial = false)
     {

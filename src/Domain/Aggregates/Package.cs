@@ -23,7 +23,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public required TrackingCode TrackingCode { get; init; }
     public required Category Category { get; set; }
     public required string Description { get; set; }
-    public required string WebsiteAddress { get; set; }
+    public string? WebsiteAddress { get; set; }
     public required Money RetailPrice { get; set; }
     public required int ItemCount { get; set; }
     public required bool HouseDelivery { get; init; }
@@ -39,6 +39,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
     /// <summary>
     /// gets the dimensions in centimeters
+    /// width, height and length
     /// </summary>
     public Vector3? Dimensions { get; private set; }
     public float? WeightGrams { get; private set; }
@@ -52,7 +53,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public RaceId? RaceId { get; private set; }
     public Race? Race { get; private set; }
 
-    public PackageReceptionStatus CurrentStatus => _statuses.Last();
+    public PackageReceptionStatus CurrentStatus => Statuses.Last();
     public required IEnumerable<PackageReceptionStatus> Statuses
     {
         get => _statuses.OrderBy(x => x.Status);
@@ -73,7 +74,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     /// <summary>
     /// Creates the package, generating the tracking code if null, and adds it to the user's packages.
     /// </summary>
-    public static Package Create(TrackingCode? trackingCode, Category category, string description, string websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner)
+    public static Package Create(TrackingCode? trackingCode, Category category, string description, string? websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner)
     {
         var packageId = PackageId.New();
         var package = new Package(packageId)
@@ -109,12 +110,12 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
-    public void ArrivedAtWarehouse(User receivedBy, Vector3 dimensions, float weightGrams, DateTimeOffset date)
+    public void ArrivedAtWarehouse(User receiver, Vector3 dimensions, float weightGrams, DateTimeOffset date)
     {
         Dimensions = dimensions;
         WeightGrams = weightGrams;
-        UpdateStatus(PackageReceptionStatus.AtWarehouse(this, receivedBy, date));
-        AddDomainEvent(new PackageArrivedAtOrigin(Id, receivedBy.Id, date));
+        UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, receiver.Id, date));
+        AddDomainEvent(new PackageArrivedAtWarehouse(Id, receiver.Id, date));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.InTransit"/>
@@ -125,21 +126,21 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
         race.Packages.Add(this);
 
-        UpdateStatus(PackageReceptionStatus.InTransit(this, sentBy, date));
+        UpdateStatus(PackageReceptionStatus.InTransit(Id, sentBy.Id, date));
         AddDomainEvent(new PackageSentToDestination(Id, sentBy.Id, race.Id, date));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtDestination"/>
     public void ArrivedAtDestination(User receivedBy, DateTimeOffset date)
     {
-        UpdateStatus(PackageReceptionStatus.AtDestination(this, receivedBy, date));
+        UpdateStatus(PackageReceptionStatus.AtDestination(Id, receivedBy.Id, date));
         AddDomainEvent(new PackageArrivedAtDestination(Id, receivedBy.Id, date));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.Delivered"/>
     public void Delivered(DateTimeOffset date)
     {
-        UpdateStatus(PackageReceptionStatus.Delivered(this, date));
+        UpdateStatus(PackageReceptionStatus.Delivered(Id, date));
         AddDomainEvent(new PackageDelivered(Id, date));
     }
 }

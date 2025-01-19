@@ -51,7 +51,7 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
     }
 }
 
-internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> logger, ISender sender, IAppDbContext dbContext)
+internal sealed class RegisterCommandHandler(ILogger<RegisterCommandHandler> logger, IAppDbContext dbContext)
     : IRequestHandler<RegisterCommand, bool>
 {
     public async Task<bool> Handle(RegisterCommand request, CancellationToken ct)

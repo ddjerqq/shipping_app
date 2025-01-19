@@ -12,10 +12,12 @@ public sealed class PackageReceptionStatus(PackageReceptionStatusId id) : Entity
     public DateTimeOffset Date { get; private init; }
 
     public PackageId PackageId { get; private init; }
-    public Package? Package { get; private init; }
     public bool UserIsNull => Status is PackageStatus.Awaiting or PackageStatus.Delivered;
+
+    /// <summary>
+    /// The user? who performed the action: received, sent, or delivered the package.
+    /// </summary>
     public UserId? UserId { get; private init; }
-    public User? User { get; private init; }
 
     /// <summary>
     /// Creates a new reception status indicating that the package is awaiting arrival to warehouse.
@@ -30,50 +32,43 @@ public sealed class PackageReceptionStatus(PackageReceptionStatusId id) : Entity
     /// <summary>
     /// Creates a new reception status indicating that the package has been received at the origin warehouse by the specified staff user.
     /// </summary>
-    public static PackageReceptionStatus AtWarehouse(Package package, User receivedBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
+    public static PackageReceptionStatus AtWarehouse(PackageId packageId, UserId receivedById, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
         Status = PackageStatus.InWarehouse,
-        PackageId = package.Id,
-        Package = package,
-        UserId = receivedBy.Id,
-        User = receivedBy,
+        PackageId = packageId,
+        UserId = receivedById,
         Date = date,
     };
 
     /// <summary>
     /// Creates a new reception status indicating that the package has been sent to the destination warehouse by the specified staff user.
     /// </summary>
-    public static PackageReceptionStatus InTransit(Package package, User sentBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
+    public static PackageReceptionStatus InTransit(PackageId packageId, UserId sentById, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
         Status = PackageStatus.InTransit,
-        PackageId = package.Id,
-        Package = package,
-        UserId = sentBy.Id,
-        User = sentBy,
+        PackageId = packageId,
+        UserId = sentById,
         Date = date,
     };
 
     /// <summary>
     /// Creates a new reception status indicating that the package has arrived at the destination warehouse. and collected by the specified staff user.
     /// </summary>
-    public static PackageReceptionStatus AtDestination(Package package, User receivedBy, DateTimeOffset date) => new(PackageReceptionStatusId.New())
+    public static PackageReceptionStatus AtDestination(PackageId packageId, UserId receivedById, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
         Status = PackageStatus.Arrived,
-        PackageId = package.Id,
-        Package = package,
-        UserId = receivedBy.Id,
-        User = receivedBy,
+        PackageId = packageId,
+        UserId = receivedById,
         Date = date,
     };
 
     /// <summary>
     /// Creates a new reception status indicating that the package has been delivered to the recipient.
     /// </summary>
-    public static PackageReceptionStatus Delivered(Package package, DateTimeOffset date) => new(PackageReceptionStatusId.New())
+    public static PackageReceptionStatus Delivered(PackageId packageId, DateTimeOffset date) => new(PackageReceptionStatusId.New())
     {
         Status = PackageStatus.Delivered,
-        PackageId = package.Id,
-        Package = package,
+        PackageId = packageId,
         Date = date,
     };
 

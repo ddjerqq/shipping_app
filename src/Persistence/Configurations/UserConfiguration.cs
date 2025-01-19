@@ -76,13 +76,5 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
         builder.Navigation(user => user.Logins).AutoInclude();
-
-        builder.HasMany(user => user.Roles)
-            .WithOne(ur => ur.User)
-            .HasForeignKey(ur => ur.UserId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
-        builder.Navigation(user => user.Roles).AutoInclude();
     }
-
 }

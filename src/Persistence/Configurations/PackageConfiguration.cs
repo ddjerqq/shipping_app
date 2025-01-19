@@ -38,7 +38,7 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.Navigation(package => package.Race).AutoInclude();
 
         builder.HasMany(package => package.Statuses)
-            .WithOne(status => status.Package)
+            .WithOne()
             .HasForeignKey(status => status.PackageId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();

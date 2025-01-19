@@ -42,14 +42,13 @@ public static class ClaimsPrincipalExt
             new Claim(UsernameClaimType, user.Username),
             new Claim(EmailClaimType, user.Email),
             new Claim(PhoneClaimType, user.PhoneNumber),
-            new Claim(RoleClaimType, string.Join(',', user.Roles.Select(role => role.Role.Name))),
+            new Claim(RoleClaimType, user.Role.ToString()),
             new Claim(SecurityStampClaimType, user.SecurityStamp),
             new Claim(RoomCodeClaimType, user.RoomCode.ToString()),
         };
         var userClaims = user.Claims.Select(uc => uc.Claim);
-        var roleClaims = user.Roles.SelectMany(ur => ur.Role.Claims.Select(rc => rc.Claim));
 
-        return claims.Concat(userClaims).Concat(roleClaims);
+        return claims.Concat(userClaims);
     }
 
     public static string GetDefaultAvatar(string? username = null)

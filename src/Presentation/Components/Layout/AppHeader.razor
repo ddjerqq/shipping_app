@@ -6,22 +6,36 @@
 <header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
-            <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/">
+            @{
+                var url = CurrentUser.Id is not null ? "/user_dashboard" : "/";
+            }
+
+            <a class="mr-4 flex items-center gap-2 lg:mr-6" href="@url">
                 <Blazicon Svg="@Icons.Truck" class="!size-8"/>
                 <span class="hidden font-bold lg:inline-block">SanGoWay</span>
             </a>
 
             <nav class="flex items-center text-sm gap-4 sm:gap-6">
-                <AuthorizeView>
+                <AuthorizeView Roles="User">
                     <Authorized>
-                        <HeaderNavLink Href="home" Title="Dashboard"/>
-                        <HeaderNavLink Href="addresses" Title="Addresses"/>
-                        <HeaderNavLink Href="track_package" Title="Track Package"/>
+                        <HeaderNavLink Href="/user_dashboard" Title="Dashboard"/>
+                        <HeaderNavLink Href="/addresses" Title="Addresses"/>
+                        <HeaderNavLink Href="/track_package" Title="Track Package"/>
                     </Authorized>
+                </AuthorizeView>
+
+                <AuthorizeView Roles="Staff">
+                    <Authorized>
+                        <HeaderNavLink Href="/add_package" Title="Receive package at warehouse"/>
+                        <HeaderNavLink Href="/create/package" Title="Create Package"/>
+                    </Authorized>
+                </AuthorizeView>
+
+                <AuthorizeView>
                     <NotAuthorized>
-                        <HeaderNavLink Href="about" Title="About us"/>
-                        <HeaderNavLink Href="faq" Title="Faq"/>
-                        <HeaderNavLink Href="calculate" Title="Calculator"/>
+                        <HeaderNavLink Href="/about" Title="About us"/>
+                        <HeaderNavLink Href="/faq" Title="Faq"/>
+                        <HeaderNavLink Href="/calculate" Title="Calculator"/>
                     </NotAuthorized>
                 </AuthorizeView>
             </nav>
