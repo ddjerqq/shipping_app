@@ -3,12 +3,15 @@
 @implements IDisposable
 @typeparam TValue
 
-<div @attributes="@AdditionalAttributes" class="@(Merge("text-xs text-destructive space-y-2"))">
-    @foreach (var message in EditContext.GetValidationMessages(_fieldIdentifier))
-    {
-        <p>@message</p>
-    }
-</div>
+@if (EditContext.GetValidationMessages(_fieldIdentifier).ToList() is { Count: > 0 } validationMessages)
+{
+    <div @attributes="@AdditionalAttributes" class="@(Merge("text-xs text-destructive space-y-2"))">
+        @foreach (var message in validationMessages)
+        {
+            <p>@message</p>
+        }
+    </div>
+}
 
 @code {
     private FieldIdentifier _fieldIdentifier;

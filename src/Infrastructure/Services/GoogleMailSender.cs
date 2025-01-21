@@ -12,7 +12,7 @@ public sealed class GoogleMailSender : IEmailSender
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;
 
-    public GoogleMailSender(ILogger<GoogleMailSender> logger, IAuthEmailMarkupProvider markupProvider)
+    public GoogleMailSender(ILogger<GoogleMailSender> logger, IEmailMarkupProvider markupProvider)
     {
         _logger = logger;
         _username = "GOOGLE__USERNAME".FromEnvRequired();
@@ -27,10 +27,10 @@ public sealed class GoogleMailSender : IEmailSender
             Timeout = 20_000,
         };
 
-        AuthEmailMarkupProvider = markupProvider;
+        EmailMarkupProvider = markupProvider;
     }
 
-    public IAuthEmailMarkupProvider AuthEmailMarkupProvider { get; }
+    public IEmailMarkupProvider EmailMarkupProvider { get; }
 
     public async Task SendAsync(string recipient, string subject, string body, CancellationToken ct = default)
     {
@@ -43,7 +43,7 @@ public sealed class GoogleMailSender : IEmailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-        _logger.LogInformation("sending email to {recipient}", recipient);
+        _logger.LogInformation("sending email to {recipient}", recipient[3..]);
 
         try
         {

@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 
 namespace Application.Services;
 
-public interface IAuthEmailMarkupProvider
+public interface IEmailMarkupProvider
 {
     public string GetEmailConfirmationMarkup(User user, string callback);
     public string GetWelcomeEmailMarkup(User user);

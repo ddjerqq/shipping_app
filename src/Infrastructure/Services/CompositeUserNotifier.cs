@@ -8,17 +8,11 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 {
     public async Task SendEmailConfirmationAsync(User user, string callback, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.SendEmailConfirmationAsync(user, callback, ct);
-
         await emailNotifier.SendEmailConfirmationAsync(user, callback, ct);
     }
 
     public async Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.SendWelcomeAsync(user, ct);
-
         await emailNotifier.SendWelcomeAsync(user, ct);
     }
 
@@ -32,25 +26,16 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.SendPasswordResetAsync(user, callback, ct);
-
         await emailNotifier.SendPasswordResetAsync(user, callback, ct);
     }
 
     public async Task SendPasswordChangedAsync(User user, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.SendPasswordChangedAsync(user, ct);
-
         await emailNotifier.SendPasswordChangedAsync(user, ct);
     }
 
     public async Task SendDeleteAccountConfirmationAsync(User user, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.SendDeleteAccountConfirmationAsync(user, ct);
-
         await emailNotifier.SendDeleteAccountConfirmationAsync(user, ct);
     }
 

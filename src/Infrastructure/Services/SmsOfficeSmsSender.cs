@@ -62,7 +62,7 @@ public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpC
         var balance = await GetRemainingSmsBalance(ct);
         if (balance < 10)
         {
-            logger.LogError("Sms sender balance less than 10 ({Balance}). Will not send {Recipient} {Content}", balance, number, content);
+            logger.LogError("Sms sender balance less than 10 ({Balance}). Will not send ***{Recipient} {Content}", balance, number[^2..], content);
             return;
         }
 
@@ -72,7 +72,7 @@ public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpC
 
         if (apiResponse is not { Success: true })
         {
-            logger.LogError("Error sending text to {Number}: {@ApiResponse}", number[^2..], apiResponse);
+            logger.LogError("Error sending text to ***{Number}: {@ApiResponse}", number[^2..], apiResponse);
         }
     }
 }

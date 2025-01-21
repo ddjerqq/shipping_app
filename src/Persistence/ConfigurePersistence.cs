@@ -34,7 +34,9 @@ public class ConfigurePersistence : ConfigurationBase
                 directory.Create();
 
             builder.AddDataProtectionInterceptors();
-            builder.UseSqlite($"Data Source={dbFilePath}");
+            builder.UseSqlite(
+                $"Data Source={dbFilePath}",
+                sqliteOptions => sqliteOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
         });
 
         services.AddDatabaseDeveloperPageExceptionFilter();

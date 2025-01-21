@@ -2,11 +2,12 @@ using Application.Services;
 using BlazorTemplater;
 using Domain.Aggregates;
 using Domain.Entities;
+using Domain.ValueObjects;
 using Presentation.Components.EmailTemplates;
 
 namespace Presentation.Services;
 
-public sealed class RazorAuthEmailMarkupProvider : IAuthEmailMarkupProvider
+public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
 {
     public string GetEmailConfirmationMarkup(User recipient, string callback) =>
         new ComponentRenderer<VerifyEmail>()
@@ -40,23 +41,31 @@ public sealed class RazorAuthEmailMarkupProvider : IAuthEmailMarkupProvider
             .Set(c => c.User, user)
             .Render();
 
-    public string GetPackageArrivedAtWarehouseMarkup(User user, Package package)
-    {
-        throw new NotImplementedException();
-    }
+    public string GetPackageArrivedAtWarehouseMarkup(User user, Package package) =>
+        new ComponentRenderer<PackageStatusUpdatedEmail>()
+        .Set(c => c.Status, PackageStatus.InWarehouse)
+            .Set(c => c.User, user)
+            .Set(c => c.Package, package)
+            .Render();
 
-    public string GetPackageSentToDestinationMarkup(User user, Package package)
-    {
-        throw new NotImplementedException();
-    }
+    public string GetPackageSentToDestinationMarkup(User user, Package package) =>
+        new ComponentRenderer<PackageStatusUpdatedEmail>()
+        .Set(c => c.Status, PackageStatus.InTransit)
+            .Set(c => c.User, user)
+            .Set(c => c.Package, package)
+            .Render();
 
-    public string GetPackageArrivedAtDestinationMarkup(User user, Package package)
-    {
-        throw new NotImplementedException();
-    }
+    public string GetPackageArrivedAtDestinationMarkup(User user, Package package) =>
+        new ComponentRenderer<PackageStatusUpdatedEmail>()
+        .Set(c => c.Status, PackageStatus.Arrived)
+            .Set(c => c.User, user)
+            .Set(c => c.Package, package)
+            .Render();
 
-    public string GetPackageDeliveredMarkup(User user, Package package)
-    {
-        throw new NotImplementedException();
-    }
+    public string GetPackageDeliveredMarkup(User user, Package package) =>
+        new ComponentRenderer<PackageStatusUpdatedEmail>()
+        .Set(c => c.Status, PackageStatus.Delivered)
+            .Set(c => c.User, user)
+            .Set(c => c.Package, package)
+            .Render();
 }

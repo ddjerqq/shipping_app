@@ -1,0 +1,46 @@
+@layout EmailLayout
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Your package @StatusText
+</SectionContent>
+
+<hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
+
+<EmailParagraph>
+    Your package with the tracking code: <br/>
+    @Package.TrackingCode<br/>
+    has @StatusText <br/>
+    on @(Package.Statuses
+               .First(x => x.Status == Status)
+               .Date.ToString("dddd, dd MMMM yyyy, HH:mm UTCzzz", User.CultureInfo))
+</EmailParagraph>
+
+<EmailCta Href="@($"https://{WebAppDomain}/packages/{Package.Id}")" Title="Your package" target="_blank"/>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+
+    private string StatusText => Status switch
+    {
+        PackageStatus.Awaiting => "is awaiting arrival in our warehouse",
+        PackageStatus.InWarehouse => "has arrived at our warehouse",
+        PackageStatus.InTransit => "has been sent to Georgia",
+        PackageStatus.Arrived => "has arrived in Georgia",
+        PackageStatus.Delivered => "has been delivered",
+        _ => throw new ArgumentOutOfRangeException(),
+    };
+
+    [Parameter]
+    public PackageStatus Status { get; set; }
+
+    [Parameter]
+    public User User { get; set; } = null!;
+
+    [Parameter]
+    public Package Package { get; set; } = null!;
+}
