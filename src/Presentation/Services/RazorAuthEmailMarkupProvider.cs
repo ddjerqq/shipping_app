@@ -6,7 +6,7 @@ using Presentation.Components.EmailTemplates;
 
 namespace Presentation.Services;
 
-public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
+public sealed class RazorAuthEmailMarkupProvider : IAuthEmailMarkupProvider
 {
     public string GetEmailConfirmationMarkup(User recipient, string callback) =>
         new ComponentRenderer<VerifyEmail>()
@@ -39,4 +39,24 @@ public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
         new ComponentRenderer<DeleteAccountEmail>()
             .Set(c => c.User, user)
             .Render();
+
+    public string GetPackageArrivedAtWarehouseMarkup(User user, Package package)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GetPackageSentToDestinationMarkup(User user, Package package)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GetPackageArrivedAtDestinationMarkup(User user, Package package)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GetPackageDeliveredMarkup(User user, Package package)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -45,7 +45,7 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
         RuleFor(x => x.FullName).NotEmpty().MinimumLength(5).MaximumLength(32);
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().MinimumLength(12).MaximumLength(256);
-        RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(10).MaximumLength(15);
+        RuleFor(x => x.PhoneNumber).NotEmpty().Matches(@"\d{3}\d{9}").WithMessage("Please enter international standard phone number (eg. 995599123123)");
         RuleFor(x => x.PersonalId).NotEmpty().Matches(@"(\d{11}|\d{3}\-\d{4}\-\d{3})").WithMessage("Must be 11 digit georgian ID or 3-4-3 digits american SSN");
         RuleFor(x => x.AgreeToTerms).Equal(true).WithMessage("You must agree to terms in order to register.");
     }

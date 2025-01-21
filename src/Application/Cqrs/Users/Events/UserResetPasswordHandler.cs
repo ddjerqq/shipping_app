@@ -8,7 +8,7 @@ namespace Application.Cqrs.Users.Events;
 internal sealed class UserResetPasswordHandler(
     ILogger<UserResetPasswordHandler> logger,
     IAppDbContext dbContext,
-    IEmailSender emailSender) : INotificationHandler<UserResetPassword>
+    IUserNotifier notifier) : INotificationHandler<UserResetPassword>
 {
     public async Task Handle(UserResetPassword notification, CancellationToken ct)
     {
@@ -16,6 +16,6 @@ internal sealed class UserResetPasswordHandler(
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 
         logger.LogInformation("User {UserId} reset their password", user.Id);
-        await emailSender.SendPasswordChangedAsync(user,  ct);
+        await notifier.SendPasswordChangedAsync(user,  ct);
     }
 }

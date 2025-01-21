@@ -22,7 +22,7 @@ public sealed class ForgotPasswordValidator : AbstractValidator<ForgotPasswordCo
     }
 }
 
-internal sealed class ForgotPasswordCommandHandler(IAppDbContext dbContext, IEmailSender emailSender, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ForgotPasswordCommand>
+internal sealed class ForgotPasswordCommandHandler(IAppDbContext dbContext, IUserNotifier notifier, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ForgotPasswordCommand>
 {
     public async Task Handle(ForgotPasswordCommand request, CancellationToken ct)
     {
@@ -32,6 +32,6 @@ internal sealed class ForgotPasswordCommandHandler(IAppDbContext dbContext, IEma
             return;
 
         var callbackUrl = tokenGenerator.GeneratePasswordResetCallbackUrl(user);
-        await emailSender.SendPasswordResetAsync(user, callbackUrl, ct);
+        await notifier.SendPasswordResetAsync(user, callbackUrl, ct);
     }
 }

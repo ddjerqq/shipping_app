@@ -9,7 +9,7 @@ internal sealed class UserRegisteredEventHandler(
     ILogger<UserRegisteredEventHandler> logger,
     IUserVerificationTokenGenerator tokenGenerator,
     IAppDbContext dbContext,
-    IEmailSender emailSender)
+    IUserNotifier notifier)
     : INotificationHandler<UserRegistered>
 {
     public async Task Handle(UserRegistered notification, CancellationToken ct)
@@ -19,6 +19,6 @@ internal sealed class UserRegisteredEventHandler(
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
         logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
-        await emailSender.SendEmailConfirmationAsync(user, callbackUrl, ct);
+        await notifier.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }

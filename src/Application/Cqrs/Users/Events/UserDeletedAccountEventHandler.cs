@@ -8,7 +8,7 @@ namespace Application.Cqrs.Users.Events;
 internal sealed class UserDeletedAccountEventHandler(
     ILogger<UserDeletedAccountEventHandler> logger,
     IAppDbContext dbContext,
-    IEmailSender emailSender)
+    IUserNotifier notifier)
     : INotificationHandler<UserDeletedAccount>
 {
     public async Task Handle(UserDeletedAccount notification, CancellationToken ct)
@@ -17,6 +17,6 @@ internal sealed class UserDeletedAccountEventHandler(
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 
         logger.LogInformation("User {UserId} deleted their account", user.Id);
-        await emailSender.SendDeleteAccountConfirmation(user, ct);
+        await notifier.SendDeleteAccountConfirmationAsync(user, ct);
     }
 }

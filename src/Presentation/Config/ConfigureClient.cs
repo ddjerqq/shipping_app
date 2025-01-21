@@ -18,6 +18,6 @@ public sealed class ConfigureClient : ConfigurationBase
         services.AddBlazoredModal();
         services.AddBlazoredToast();
 
-        services.AddScoped<IEmailMarkupProvider, RazorEmailMarkupProvider>();
+        services.AddScoped<IAuthEmailMarkupProvider, RazorAuthEmailMarkupProvider>();
     }
 }

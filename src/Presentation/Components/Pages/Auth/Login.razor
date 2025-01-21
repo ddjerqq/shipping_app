@@ -7,7 +7,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <Redirect To="/home"/>
+        <Redirect To="/user_dashboard"/>
     </Authorized>
 </AuthorizeView>
 
@@ -32,7 +32,7 @@
                 Password
             </FormLabel>
 
-            <Link Href="auth/forgot_password" Title="Forgot password?" class="ml-auto text-sm"/>
+            <Link Href="/auth/forgot_password" Title="Forgot password?" class="ml-auto text-sm"/>
         </div>
 
         <FormInputText id="password"
@@ -103,11 +103,11 @@
     <div class="space-y-3 text-muted-foreground text-sm">
         <div class="text-center">
             Don't have an account?
-            <Link Href="auth/register" Title="Register"/>
+            <Link Href="/auth/register" Title="Register"/>
         </div>
 
         <div class="text-center">
-            <Link Href="auth/resend_email_confirmation" Title="Resend email confirmation"/>
+            <Link Href="/auth/resend_email_confirmation" Title="Resend email confirmation"/>
         </div>
     </div>
 </AppForm>
@@ -142,11 +142,11 @@
                 ShowError("Invalid credentials.");
                 return;
             case (true, _, _):
-                NavigationManager.NavigateTo("auth/lockout");
+                NavigationManager.NavigateTo("/auth/lockout");
                 return;
             default:
                 await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-                NavigationManager.NavigateTo("/home", true);
+                NavigationManager.NavigateTo("/user_dashboard", true);
                 break;
         }
     }

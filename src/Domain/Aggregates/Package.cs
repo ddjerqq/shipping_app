@@ -115,7 +115,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         Dimensions = dimensions;
         WeightGrams = weightGrams;
         UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, receiver.Id, date));
-        AddDomainEvent(new PackageArrivedAtWarehouse(Id, receiver.Id, date));
+        AddDomainEvent(new PackageArrivedAtWarehouse(Id, OwnerId, receiver.Id, date));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.InTransit"/>

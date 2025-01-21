@@ -9,7 +9,7 @@ namespace Application.Cqrs.Users.Events;
 internal sealed class UserLoggedInFromNewDeviceEventHandler(
     ILogger<UserLoggedInFromNewDeviceEventHandler> logger,
     IAppDbContext dbContext,
-    IEmailSender emailSender) : INotificationHandler<UserLoggedInFromNewDevice>
+    IUserNotifier notifier) : INotificationHandler<UserLoggedInFromNewDevice>
 {
     public async Task Handle(UserLoggedInFromNewDevice notification, CancellationToken ct)
     {
@@ -21,6 +21,6 @@ internal sealed class UserLoggedInFromNewDeviceEventHandler(
             ?? throw new InvalidOperationException($"Failed to load the user login from the database, login with id: {notification.UserLoginId} not found");
 
         logger.LogInformation("User {UserId} logged in from a new location. {LoginId}", user.Id, notification.UserLoginId);
-        await emailSender.SendNewLoginLocationNotificationAsync(user, login, ct);
+        await notifier.SendNewLoginLocationAsync(user, login, ct);
     }
 }

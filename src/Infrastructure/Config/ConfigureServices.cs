@@ -16,10 +16,16 @@ public sealed class ConfigureInfrastructure : ConfigurationBase
         services.AddScoped<BrowserInternalizationProvider>();
         services.AddScoped<CookieService>();
 
-        services.AddScoped<IEmailSender, GoogleMailSender>();
         services.AddScoped<IRecaptchaVerifier, GoogleRecaptchaVerifier>();
         services.AddScoped<ICurrentUserAccessor, HttpContextCurrentUserAccessor>();
         services.AddScoped<IUserVerificationTokenGenerator, JwtUserVerificationTokenGenerator>();
         services.AddScoped<IIpGeoLocator, IpInfoIpGeoLocator>();
+
+        services.AddScoped<IEmailSender, GoogleMailSender>();
+        services.AddScoped<ISmsSender, SmsOfficeSmsSender>();
+
+        services.AddScoped<SmsUserNotifier>();
+        services.AddScoped<EmailUserNotifier>();
+        services.AddScoped<IUserNotifier, CompositeUserNotifier>();
     }
 }

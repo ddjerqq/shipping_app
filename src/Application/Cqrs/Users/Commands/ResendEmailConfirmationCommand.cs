@@ -23,7 +23,11 @@ public sealed class ResendEmailConfirmationValidator : AbstractValidator<ResendE
     }
 }
 
-internal sealed class ResendEmailConfirmationHandler(IAppDbContext dbContext, ILogger<ResendEmailConfirmationHandler> logger, IEmailSender emailSender, IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResendEmailConfirmationCommand>
+internal sealed class ResendEmailConfirmationHandler(
+    IAppDbContext dbContext,
+    ILogger<ResendEmailConfirmationHandler> logger,
+    IUserNotifier notifier,
+    IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResendEmailConfirmationCommand>
 {
     public async Task Handle(ResendEmailConfirmationCommand request, CancellationToken ct)
     {
@@ -35,6 +39,6 @@ internal sealed class ResendEmailConfirmationHandler(IAppDbContext dbContext, IL
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
         logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
-        await emailSender.SendEmailConfirmationAsync(user, callbackUrl, ct);
+        await notifier.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }
