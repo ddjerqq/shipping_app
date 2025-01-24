@@ -1,14 +1,15 @@
-import type {Config} from 'tailwindcss';
 import {fontFamily} from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
-const config: Config = {
+module.exports = {
   content: [
     './Components/**/*.{html,cs,js,razor}',
-    './Layout/**/*.{html,cs,js,razor}',
-    './Pages/**/*.{html,cs,js,razor}',
+    './Components/Pages/**/*.{html,cs,js,razor}',
+    './Components/Shared/**/*.{html,cs,js,razor}',
+    './Components/Ui/**/*.{html,cs,js,razor}',
+    './Components/Layout/**/*.{html,cs,js,razor}',
   ],
-  darkMode: 'selector',
+  darkMode: "class",
   theme: {
     container: {
       center: true,
@@ -88,4 +89,3 @@ const config: Config = {
   ],
 };
 
-export default config;

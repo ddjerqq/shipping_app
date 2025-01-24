@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
 @using Blazored.Toast
 @using Blazored.Toast.Configuration
+@implements IAsyncDisposable
 @inject NavigationManager Nav
 @inject IJSRuntime Js
 @inject BrowserInternalizationProvider BrowserInternalizationProvider
@@ -40,6 +41,7 @@
     RemoveToastsOnNavigation="false"/>
 
 @code {
+    private IJSObjectReference? _themeModule;
     public TimeZoneInfo BrowserTimeZone { get; set; } = TimeZoneInfo.Utc;
     public CultureInfo BrowserCultureInfo { get; set; } = CultureInfo.InvariantCulture;
 
@@ -53,6 +55,31 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            await Js.InvokeVoidAsync("window.initFlowbite");
+        {
+            _themeModule = await Js.InvokeAsync<IJSObjectReference>(
+                "import",
+                CancellationToken,
+                "./Components/Shared/ThemeToggle.razor.js");
+
+            await Js.InvokeVoidAsync("window.initFlowbite", CancellationToken);
+
+            var theme = await _themeModule.InvokeAsync<string>("getTheme", CancellationToken);
+            await _themeModule.InvokeVoidAsync("setTheme", CancellationToken, theme);
+        }
+    }
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_themeModule is not null)
+        {
+            try
+            {
+                await _themeModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
     }
 }

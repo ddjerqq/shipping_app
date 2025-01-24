@@ -26,8 +26,13 @@
 
                 <AuthorizeView Roles="Staff">
                     <Authorized>
-                        <HeaderNavLink Href="/add_package" Title="Receive package at warehouse"/>
-                        <HeaderNavLink Href="/create/package" Title="Create Package"/>
+                        <HeaderNavLink Href="/add_package" Title="Receive"/>
+                    </Authorized>
+                </AuthorizeView>
+
+                <AuthorizeView Roles="Admin">
+                    <Authorized>
+                        <HeaderNavLink Href="/add_package" Title="Receive"/>
                     </Authorized>
                 </AuthorizeView>
 
@@ -41,6 +46,9 @@
             </nav>
         </div>
 
-        <AuthStatus/>
+        <div class="flex align-middle space-x-2">
+            <ThemeToggle/>
+            <AuthStatus/>
+        </div>
     </div>
 </header>
