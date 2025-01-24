@@ -1,0 +1,44 @@
+<div class="@Button.BaseClass">
+    <Button Size="icon"
+            Variant="outline"
+            @onclick="@(async () => await ChangePage(-1))"
+            disabled="@(State.Page == 0)">
+        <Blazicon Svg="@Lucide.ChevronLeft"/>
+    </Button>
+
+    <span>@(State.Page + 1)</span>
+    <span>of</span>
+    <span>@(State.Total / State.PerPage)</span>
+
+    <Button Size="icon"
+            Variant="outline"
+            @onclick="@(async () => await ChangePage(1))"
+            disabled="@(State.Page == State.Total / State.PerPage)">
+        <Blazicon Svg="@Lucide.ChevronRight"/>
+    </Button>
+</div>
+
+@code {
+    public sealed class PaginatorState(int page, int total, int perPerPage = 25)
+    {
+        public int Page { get; set; } = page;
+        public int Total { get; set; } = total;
+        public int PerPage { get; set; } = perPerPage;
+
+        public int Skip => Page * PerPage;
+    }
+
+    private async Task ChangePage(int page)
+    {
+        State.Page += page;
+
+        if (StateChanged.HasDelegate)
+            await StateChanged.InvokeAsync();
+    }
+
+    [Parameter, EditorRequired]
+    public PaginatorState State { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public EventCallback<PaginatorState> StateChanged { get; set; }
+}

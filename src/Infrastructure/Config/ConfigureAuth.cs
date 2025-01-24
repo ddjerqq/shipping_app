@@ -36,9 +36,6 @@ public sealed class ConfigureAuth : ConfigurationBase
                 options.TokenValidationParameters.RoleClaimType = ClaimsPrincipalExt.RoleClaimType;
             });
 
-        services.AddScoped<IdentityUserAccessor>();
-        services.AddScoped<IdentityRedirectManager>();
-
         services.AddAuthorizationBuilder()
             .AddDefaultPolicy("default", policy => policy.RequireAuthenticatedUser())
             .AddPolicy("is_elon", policy => policy.RequireClaim(ClaimsPrincipalExt.UsernameClaimType, "elon"));

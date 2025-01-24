@@ -6,33 +6,55 @@
 <header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
-            @{
-                var url = CurrentUser.Id is not null ? "/user_dashboard" : "/";
-            }
+            <AuthorizeView Roles="User">
+                <Authorized>
+                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/user_dashboard">
+                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
+                    </a>
+                </Authorized>
+            </AuthorizeView>
 
-            <a class="mr-4 flex items-center gap-2 lg:mr-6" href="@url">
-                <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                <span class="hidden font-bold lg:inline-block">SanGoWay</span>
-            </a>
+            <AuthorizeView Roles="Staff,Admin">
+                <Authorized>
+                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/staff_dashboard">
+                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
+                    </a>
+                </Authorized>
+            </AuthorizeView>
+
+            <AuthorizeView>
+                <NotAuthorized>
+                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/">
+                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                        <span class="hidden font-bold lg:inline-block">Home</span>
+                    </a>
+                </NotAuthorized>
+            </AuthorizeView>
 
             <nav class="flex items-center text-sm gap-4 sm:gap-6">
                 <AuthorizeView Roles="User">
                     <Authorized>
-                        <HeaderNavLink Href="/user_dashboard" Title="Dashboard"/>
-                        <HeaderNavLink Href="/addresses" Title="Addresses"/>
+                        <HeaderNavLink Href="/addresses" Title="My Addresses"/>
                         <HeaderNavLink Href="/track_package" Title="Track Package"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView Roles="Staff">
                     <Authorized>
-                        <HeaderNavLink Href="/add_package" Title="Receive"/>
+                        <HeaderNavLink Href="/packages/all" Title="Packages"/>
+                        @* <HeaderNavLink Href="/packages/add" Title="Receive pkg"/> *@
+                        @* <HeaderNavLink Href="/packages/send" Title="Send pkg"/> *@
+
+                        <HeaderNavLink Href="/races/all" Title="Races"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView Roles="Admin">
                     <Authorized>
-                        <HeaderNavLink Href="/add_package" Title="Receive"/>
+                        <HeaderNavLink Href="/users/all" Title="Manage users"/>
+                        <HeaderNavLink Href="/users/all" Title="Manage packages"/>
                     </Authorized>
                 </AuthorizeView>
 

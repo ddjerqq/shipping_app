@@ -22,7 +22,20 @@
         <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
             <div class="px-4 py-3 text-sm">
                 <div>@context.User.GetUsername()?.CapitalizeName()</div>
-                <div class="font-medium text-xs text-muted-foreground truncate">@context.User.GetEmail()</div>
+                <div class="font-medium text-xs text-muted-foreground truncate">
+                    @context.User.GetEmail()
+                </div>
+
+                <div class="font-medium text-xs text-muted-foreground truncate">
+                    @if (context.User.GetRole() == "User")
+                    {
+                        @:Room code: @context.User.GetRoomCode()
+                    }
+                    else
+                    {
+                        @:Role: @context.User.GetRole()
+                    }
+                </div>
             </div>
 
             <nav class="py-2 text-sm">

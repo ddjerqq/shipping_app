@@ -1,4 +1,4 @@
-@page "/add_package"
+@page "/packages/add"
 @using Application.Cqrs.Packages.Commands
 
 <PageTitle>Add Package</PageTitle>
@@ -19,7 +19,7 @@
                                    @bind-Value="@Command.TrackingCode"
                                    placeholder="Enter tracking code"
                                    required/>
-
+                    <FormDescription>The tracking code, as present on the package</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.TrackingCode)"/>
                 </FormField>
 
@@ -29,6 +29,7 @@
                                    disabled="@IsLoading"
                                    @bind-Value="Command.Address2"
                                    placeholder="Enter room code (address 2)"/>
+                    <FormDescription>Address 2, as present on the package</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.Address2)"/>
                 </FormField>
             </InlineFormFieldContainer>

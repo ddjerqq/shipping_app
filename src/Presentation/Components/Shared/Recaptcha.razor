@@ -33,9 +33,16 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            await Js.InvokeVoidAsync("renderGoogleRecaptcha", DotNetObjectReference.Create(this), "recaptcha", RecaptchaSiteKey);
-
-        await base.OnAfterRenderAsync(firstRender);
+        {
+            try
+            {
+                await Js.InvokeVoidAsync("renderGoogleRecaptcha", DotNetObjectReference.Create(this), "recaptcha", RecaptchaSiteKey);
+            }
+            catch (JSException)
+            {
+                ShowWarning("Error with google reCAPTCHA, please reload");
+            }
+        }
     }
 
     [JSInvokable]

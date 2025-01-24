@@ -1,0 +1,81 @@
+@page "/races/all"
+@layout HomeLayout
+@using Application.Common
+@using Application.Services
+@using Domain.Entities
+@using Microsoft.AspNetCore.Components.Sections
+@using Microsoft.EntityFrameworkCore
+@inject IAppDbContext DbContext
+@attribute [Authorize(Roles = "Staff,Admin")]
+
+<PageTitle>All races</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">All Races</SectionContent>
+
+<Card>
+    <Header>
+        <Title class="flex w-full justify-between px-1">
+            <span>All races</span>
+            <Button Href="/races/new" class="ms-2">
+                <Blazicon Svg="Lucide.Plus"/>
+                Create
+            </Button>
+        </Title>
+    </Header>
+    <Content>
+        <div class="space-y-2 overflow-y-scroll max-h-[600px]">
+            @foreach (var race in Races)
+            {
+                <Button Href="@($"/races/{race.Id}")" Variant="outline" Size="lg"
+                        class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
+                    <div class="flex gap-4 items-center">
+                        <div class="flex flex-col gap-1 justify-center">
+                            <span class="text-xs text-muted-foreground">code</span>
+                            <span class="truncate font-medium capitalize leading-none">@race.QualifiedName</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Takeoff</span>
+                        <span class="font-medium capitalize leading-none">@race.Start.ToString("dd MMM yyyy")</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Landing</span>
+                        <span class="font-medium capitalize leading-none">@race.Arrival.ToString("dd MMM yyyy")</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                        <span class="text-xs text-muted-foreground">Packages</span>
+                        <span class="font-medium capitalize leading-none">@race.Packages.Count</span>
+                    </div>
+                </Button>
+            }
+        </div>
+    </Content>
+    <Footer>
+        <Paginator State="@PaginatorState" StateChanged="@FetchData"/>
+    </Footer>
+</Card>
+
+@code {
+    private IEnumerable<Race> Races { get; set; } = [];
+    private Paginator.PaginatorState PaginatorState { get; set; } = new(1, 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var totalRaces = await DbContext.Races.CountAsync();
+        PaginatorState = new Paginator.PaginatorState(0, totalRaces);
+
+        await FetchData();
+    }
+
+    private async Task FetchData()
+    {
+        Races = await DbContext.Races
+            .Include(race => race.Packages)
+            .OrderBy(x => x.Id)
+            .Skip(PaginatorState.Skip)
+            .Take(PaginatorState.PerPage)
+            .ToListAsync(CancellationToken);
+    }
+}

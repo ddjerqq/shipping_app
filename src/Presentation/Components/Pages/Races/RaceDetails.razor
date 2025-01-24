@@ -1,0 +1,110 @@
+@page "/races/{Id}"
+@using Application.Services
+@using Domain.Entities
+@using Microsoft.AspNetCore.Components.Sections
+@layout HomeLayout
+@inject IAppDbContext DbContext
+@attribute [StreamRendering]
+@attribute [Authorize(Roles = "Staff,Admin")]
+
+<PageTitle>Race details</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">Race details</SectionContent>
+
+@if (Race is not null)
+{
+    <Card>
+        <Header>
+            <Title>@Race.QualifiedName</Title>
+        </Header>
+        <Content>
+            <AppForm @bind-Model="Race" OnValidSubmit="Update">
+                <FormField>
+                    <FormLabel for="name">Name</FormLabel>
+                    <FormInputText id="name"
+                                   disabled="@IsLoading"
+                                   @bind-Value="@Race.Name"
+                                   placeholder="Enter flight code"
+                                   required/>
+                    <FormDescription>The flight code (eg. US1001)</FormDescription>
+                    <FormInvalidFeedback For="@(() => Race.Name)"/>
+                </FormField>
+
+                <InlineFormFieldContainer>
+                    <FormField>
+                        <FormLabel for="origin">Origin</FormLabel>
+                        <FormInputText id="origin"
+                                       disabled="@IsLoading"
+                                       @bind-Value="@Race.Origin"
+                                       placeholder="Enter origin"
+                                       required/>
+                        <FormDescription>The airport name (eg. New York)</FormDescription>
+                        <FormInvalidFeedback For="@(() => Race.Origin)"/>
+                    </FormField>
+
+                    <FormField>
+                        <FormLabel for="destination">Destination</FormLabel>
+                        <FormInputText id="destination"
+                                       disabled="@IsLoading"
+                                       @bind-Value="@Race.Destination"
+                                       placeholder="Enter destination"
+                                       required/>
+                        <FormDescription>The airport name (eg. Tbilisi)</FormDescription>
+                        <FormInvalidFeedback For="@(() => Race.Destination)"/>
+                    </FormField>
+                </InlineFormFieldContainer>
+
+                <InlineFormFieldContainer>
+                    <FormField>
+                        <FormLabel for="takeoff">Takeoff date</FormLabel>
+                        <InputDate id="takeoff"
+                                   class="@FormInputText.BaseClass"
+                                   Type="InputDateType.Date"
+                                   @bind-Value="@Race.Start"
+                                   required/>
+                        <FormInvalidFeedback For="@(() => Race.Start)"/>
+                    </FormField>
+
+                    <FormField>
+                        <FormLabel for="landing">Landing</FormLabel>
+                        <InputDate id="landing"
+                                   class="@FormInputText.BaseClass"
+                                   Type="InputDateType.Date"
+                                   @bind-Value="@Race.Arrival"
+                                   required/>
+                        <FormInvalidFeedback For="@(() => Race.Arrival)"/>
+                    </FormField>
+                </InlineFormFieldContainer>
+
+                <Button type="submit">
+                    @if (IsLoading)
+                    {
+                        <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+                    }
+                    Save
+                </Button>
+            </AppForm>
+        </Content>
+        <Footer class="text-sm text-muted-foreground">
+            Race ID: @Id
+        </Footer>
+    </Card>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = null!;
+
+    private RaceId? RaceId => Domain.Entities.RaceId.TryParse(Id, null, out var id) ? id : null;
+    private Race? Race { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Race = await DbContext.Races.FindAsync([RaceId], CancellationToken);
+    }
+
+    private async Task Update()
+    {
+        await DbContext.SaveChangesAsync(CancellationToken);
+        ShowSuccess("Race updated successfully");
+    }
+}

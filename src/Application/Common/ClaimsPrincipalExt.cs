@@ -29,9 +29,8 @@ public static class ClaimsPrincipalExt
     public static string? GetSecurityStamp(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == SecurityStampClaimType)?.Value;
     public static string? GetRoomCode(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == RoomCodeClaimType)?.Value;
 
-    public static IEnumerable<string> GetRoleNames(this ClaimsPrincipal principal) =>
-        principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value
-            .Split(',') ?? [];
+    public static string? GetRole(this ClaimsPrincipal principal) =>
+        principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value;
 
     public static IEnumerable<Claim> GetAllClaims(this User user)
     {
