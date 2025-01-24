@@ -1,21 +1,29 @@
-<div class="@Button.BaseClass">
-    <Button Size="icon"
-            Variant="outline"
-            @onclick="@(async () => await ChangePage(-1))"
-            disabled="@(State.Page == 0)">
-        <Blazicon Svg="@Lucide.ChevronLeft"/>
-    </Button>
+<div class="flex flex-col gap-2 items-center justify-center">
+    <div class="flex gap-2 items-center">
+        <Button Size="icon"
+                Variant="outline"
+                @onclick="@(async () => await ChangePage(-1))"
+                disabled="@(State.Page == 0)">
+            <Blazicon Svg="@Lucide.ChevronLeft"/>
+        </Button>
 
-    <span>@(State.Page + 1)</span>
-    <span>of</span>
-    <span>@(State.Total / State.PerPage)</span>
+        <div class="text-sm">
+            <span>Page @(State.Page + 1)</span>
+            <span>of</span>
+            <span>@(State.PageCount)</span>
+        </div>
 
-    <Button Size="icon"
-            Variant="outline"
-            @onclick="@(async () => await ChangePage(1))"
-            disabled="@(State.Page == State.Total / State.PerPage)">
-        <Blazicon Svg="@Lucide.ChevronRight"/>
-    </Button>
+        <Button Size="icon"
+                Variant="outline"
+                @onclick="@(async () => await ChangePage(1))"
+                disabled="@(State.Page == State.Total / State.PerPage)">
+            <Blazicon Svg="@Lucide.ChevronRight"/>
+        </Button>
+    </div>
+
+    <span class="text-muted-foreground text-sm">
+        Showing @(State.Skip + 1) through @(State.Skip + State.PerPage). Total: @State.Total
+    </span>
 </div>
 
 @code {
@@ -26,6 +34,7 @@
         public int PerPage { get; set; } = perPerPage;
 
         public int Skip => Page * PerPage;
+        public int PageCount => Total / PerPage is var cnt && cnt == 0 ? 1 : cnt;
     }
 
     private async Task ChangePage(int page)

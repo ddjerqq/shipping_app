@@ -1,43 +1,58 @@
-﻿@using Application.Common
+@page "/packages/all"
+@layout HomeLayout
+@using Application.Common
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
 @using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
+@using Microsoft.EntityFrameworkCore
 @using Presentation.Components.Ui.Avatar
-
-@attribute [StreamRendering]
-@attribute [Obsolete("use AllPackages.razor")]
-@inject ICurrentUserAccessor CurrentUser
+@using Serilog
+@inject IAppDbContext DbContext
 @inject IFileStore FileStore
+@attribute [StreamRendering]
+@attribute [Authorize(Roles = "Staff,Admin")]
 
-<Tabs Value="PackageStatus.Awaiting">
+<PageTitle>All packages</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">All Packages</SectionContent>
+
+@{
+    var onSelectedTabChanged = new EventCallbackFactory().Create<object>(this, newStatus =>
+    {
+        SelectedStatus = (PackageStatus)newStatus;
+        InvokeAsync(FetchData);
+    });
+}
+
+<Tabs Value="SelectedStatus" ValueChanged="@onSelectedTabChanged">
     <Card>
         <Header>
-            <Title>My Packages</Title>
-            <Description class="flex flex-col items-start gap-2">
-                <span>
-                    You have ordered a total of @Packages.Count() @(Packages.Count() > 1 ? "packages" : "package")
-                </span>
-
+            <Title class="flex flex-col w-full justify-center content-around px-1 gap-2">
+                <div class="flex justify-between">
+                <span>All packages</span>
+                <Button Href="/packages/new" class="ms-2">
+                <Blazicon Svg="@Lucide.Plus"/>
+                Create
+                </Button>
+                </div>
+                <Description class="flex flex-col items-start gap-2">
                 <List>
-                    @foreach (var status in Enum.GetValues<PackageStatus>())
-                    {
-                        var countWithStatus = Packages.Count(x => x.CurrentStatus.Status == status);
-
-                        <Trigger Value="@(status)">
-                            @status.GetDisplayName() (@countWithStatus)
-                        </Trigger>
-                    }
+                @foreach (var status in Enum.GetValues<PackageStatus>())
+                {
+                    <Trigger Value="@(status)">@status.GetDisplayName()</Trigger>
+                }
                 </List>
-            </Description>
+                </Description>
+            </Title>
         </Header>
         <Content>
             @foreach (var status in Enum.GetValues<PackageStatus>())
             {
                 <TabContent Value="@status" class="space-y-2 overflow-y-scroll max-h-[600px]">
-                    @foreach (var package in Packages.OrderBy(x => x.CurrentStatus.Date).Where(x => x.CurrentStatus.Status == status))
+                    @foreach (var package in Packages.Where(x => x.CurrentStatus.Status == status))
                     {
-                        <Button Href="@($"/packages/{package.Id}")" Variant="outline" Size="lg"
+                        <Button Href="@($"/packages/{package.Id}")" Variant="outline" Size="lg" @key="@package.Id"
                                 class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
                             <div class="flex gap-4 items-center">
                                 <Avatar class="hidden md:block size-9">
@@ -70,17 +85,45 @@
                 </TabContent>
             }
         </Content>
+        <Footer>
+            <Paginator State="@PaginatorState" StateChanged="@FetchData"/>
+        </Footer>
     </Card>
 </Tabs>
 
 @code {
+    // TODO a switch (or auto user accessor flag) forUser to hide the top header and only include own packages.
+
     private IEnumerable<Package> Packages { get; set; } = [];
+    private int TotalPackages { get; set; } = 0;
     private Dictionary<PackageId, string> PictureUrls { get; set; } = [];
+
+    private PackageStatus SelectedStatus { get; set; } = PackageStatus.Awaiting;
+    private Paginator.PaginatorState PaginatorState { get; set; } = new(1, 0);
 
     protected override async Task OnInitializedAsync()
     {
-        var currentUser = await CurrentUser.GetCurrentUserAsync();
-        Packages = currentUser.Packages;
+        await FetchData();
+        StateHasChanged();
+    }
+
+    private async Task FetchData()
+    {
+        // TODO this is not working for first renders
+        Log.Logger.Information("Fetching package data for {status}", SelectedStatus);
+
+        TotalPackages = await DbContext.Packages
+            .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
+            .CountAsync();
+
+        Packages = await DbContext.Packages
+            .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
+            .OrderByDescending(x => x.Id)
+            .Skip(PaginatorState.Skip)
+            .Take(PaginatorState.PerPage)
+            .ToListAsync(CancellationToken);
+
+        PaginatorState = new Paginator.PaginatorState(0, TotalPackages);
 
         foreach (var package in Packages)
         {

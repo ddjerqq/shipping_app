@@ -29,7 +29,7 @@
                         class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
                     <div class="flex gap-4 items-center">
                         <div class="flex flex-col gap-1 justify-center">
-                            <span class="text-xs text-muted-foreground">code</span>
+                            <span class="text-xs text-muted-foreground">Name</span>
                             <span class="truncate font-medium capitalize leading-none">@race.QualifiedName</span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
     {
         Races = await DbContext.Races
             .Include(race => race.Packages)
-            .OrderBy(x => x.Id)
+            .OrderByDescending(x => x.Id)
             .Skip(PaginatorState.Skip)
             .Take(PaginatorState.PerPage)
             .ToListAsync(CancellationToken);
