@@ -15,10 +15,18 @@
     <Header>
         <CardTitle class="flex w-full justify-between px-1">
             <span>All races</span>
-            <Button Href="/races/new" class="ms-2">
-                <Blazicon Svg="Lucide.Plus"/>
-                Create
-            </Button>
+
+            <div class="space-x-2">
+                <Button Href="/races/add_package" class="ms-2">
+                    <Blazicon Svg="Lucide.Box"/>
+                    Add package to race
+                </Button>
+
+                <Button Href="/races/new" class="ms-2">
+                    <Blazicon Svg="Lucide.Plus"/>
+                    Create
+                </Button>
+            </div>
         </CardTitle>
     </Header>
     <Content>
@@ -28,6 +36,8 @@
                 <Button Href="@($"/races/{race.Id}")" Variant="outline" Size="lg"
                         class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
                     <div class="flex gap-4 items-center">
+                        <Blazicon Svg="@Lucide.Plane" class="hidden md:block !size-9"/>
+
                         <div class="flex flex-col gap-1 justify-center">
                             <span class="text-xs text-muted-foreground">Name</span>
                             <span class="truncate font-medium capitalize leading-none">@race.QualifiedName</span>

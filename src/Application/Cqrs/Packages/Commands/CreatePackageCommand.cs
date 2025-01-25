@@ -2,6 +2,7 @@ using Application.Services;
 using Domain.Aggregates;
 using Domain.ValueObjects;
 using FluentValidation;
+using IPinfo.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -9,6 +10,8 @@ namespace Application.Cqrs.Packages.Commands;
 
 public sealed record CreatePackageCommand : IRequest<Package>
 {
+    public User Owner { get; set; } = null!;
+
     public string TrackingCode { get; set; } = null!;
     public Category Category { get; set; } = Category.OtherConsumerProducts;
 
@@ -26,7 +29,7 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
 {
     public CreatePackageValidator()
     {
-        // TODO ensure does not exist
+        // TODO async rule ensure does not exist
         RuleFor(x => x.TrackingCode).NotNull().MinimumLength(10).MaximumLength(64).Must(TrackingCode.IsValid).WithMessage("Tracking code is malformed!");
         RuleFor(x => x.Category).NotNull();
         RuleFor(x => x.Description).NotEmpty();
@@ -50,8 +53,7 @@ internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, ICurr
 {
     public async Task<Package> Handle(CreatePackageCommand request, CancellationToken ct)
     {
-        var owner = await currentUser.GetCurrentUserAsync(ct);
-
+        // TODO not working ?
         var package = Package.Create(
             (TrackingCode)request.TrackingCode,
             request.Category,
@@ -60,7 +62,7 @@ internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, ICurr
             request.RetailPrice,
             request.ItemCount,
             request.HouseDelivery,
-            owner);
+            request.Owner);
 
         if (request.InvoiceFile is not null)
         {

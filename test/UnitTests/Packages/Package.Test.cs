@@ -49,8 +49,8 @@ public sealed class PackageTests
             CultureInfo = CultureInfo.CurrentCulture,
         };
 
-        var originTime = new DateTimeOffset(2024, 11, 11, 0, 0, 0, TimeSpan.FromHours(-5));
-        var destTime = new DateTimeOffset(2024, 11, 11, 0, 0, 0, TimeSpan.FromHours(4));
+        var originTime = new DateTime(2024, 11, 11, 0, 0, 0, DateTimeKind.Utc);
+        var destTime = new DateTime(2024, 11, 11, 0, 0, 0, DateTimeKind.Utc);
 
         var race = new Race(RaceId.New())
         {

@@ -20,10 +20,10 @@ public interface IUserNotifier
 
     #region package
 
-    public Task NotifyPackageArrivedAtWarehouse(User user, Package package, CancellationToken ct = default);
-    public Task NotifyPackageSentToDestination(User user, Package package, CancellationToken ct = default);
-    public Task NotifyPackageArrivedAtDestination(User user, Package package, CancellationToken ct = default);
-    public Task NotifyPackageDelivered(User user, Package package, CancellationToken ct = default);
+    public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default);
+    public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default);
+    public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default);
+    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default);
 
     #endregion
 }

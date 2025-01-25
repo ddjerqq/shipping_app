@@ -1,15 +1,12 @@
 @page "/packages/all"
 @layout HomeLayout
-@using Application.Common
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
 @using Domain.ValueObjects
 @using Microsoft.AspNetCore.Components.Sections
 @using Microsoft.EntityFrameworkCore
-@using Presentation.Components.Ui.Avatar
 @inject IAppDbContext DbContext
-@inject IFileStore FileStore
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Staff,Admin")]
 
@@ -61,39 +58,8 @@
         <Content>
             @foreach (var status in Enum.GetValues<PackageStatus>())
             {
-                <TabContent Value="@status" class="space-y-2 overflow-y-scroll max-h-[600px]">
-                    @foreach (var package in Packages.Where(x => x.CurrentStatus.Status == status))
-                    {
-                        <Button Href="@($"/packages/{package.Id}")" Variant="outline" Size="lg" @key="@package.Id"
-                                class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
-                            <div class="flex gap-4 items-center">
-                                <Avatar class="hidden md:block size-9">
-                                    <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
-                                    <AvatarFallback>Package image</AvatarFallback>
-                                </Avatar>
-
-                                <div class="flex flex-col gap-1 justify-center">
-                                    <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
-                                    <span class="max-w-[120px] truncate font-medium capitalize leading-none">@package.Description</span>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                                <span class="text-xs text-muted-foreground">Retail Price</span>
-                                <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
-                            </div>
-
-                            <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                                <span class="text-xs text-muted-foreground">Status</span>
-                                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Status.GetDisplayName()</span>
-                            </div>
-
-                            <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                                <span class="text-xs text-muted-foreground">Last Update</span>
-                                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
-                            </div>
-                        </Button>
-                    }
+                <TabContent Value="@status">
+                    <PackageList Packages="@(Packages.Where(x => x.CurrentStatus.Status == status))"/>
                 </TabContent>
             }
         </Content>
@@ -106,7 +72,6 @@
 @code {
     private IEnumerable<Package> Packages { get; set; } = [];
     private int TotalPackages { get; set; } = 0;
-    private Dictionary<PackageId, string> PictureUrls { get; set; } = [];
 
     [SupplyParameterFromQuery(Name = "status")]
     public string? BoundStatus { get; set; }
@@ -133,20 +98,15 @@
         PaginatorState = new Paginator.PaginatorState(0, TotalPackages);
 
         Packages = await DbContext.Packages
+            .Include(package => package.Statuses)
+            .ThenInclude(status => status.Staff)
+            .AsSplitQuery()
+
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .OrderByDescending(x => x.Id)
             .Skip(PaginatorState.Skip)
             .Take(PaginatorState.PerPage)
             .ToListAsync(CancellationToken);
-
-        foreach (var package in Packages)
-        {
-            var url = !string.IsNullOrWhiteSpace(package.PictureFileKey)
-                ? await FileStore.GetPresignedFileUrlAsync(package.PictureFileKey)
-                : ClaimsPrincipalExt.GetDefaultAvatar();
-
-            PictureUrls.Add(package.Id, url!);
-        }
 
         StateHasChanged();
     }

@@ -26,7 +26,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public string? WebsiteAddress { get; set; }
     public required Money RetailPrice { get; set; }
     public required int ItemCount { get; set; }
-    public required bool HouseDelivery { get; init; }
+    public required bool HouseDelivery { get; set; }
     public string? InvoiceFileKey { get; set; }
     public string? PictureFileKey { get; set; }
 
@@ -90,7 +90,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
             OwnerId = owner.Id,
             Owner = owner,
 
-            Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTimeOffset.Now)],
+            Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTime.Now)],
         };
 
         owner.Packages.Add(package);
@@ -110,35 +110,35 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
-    public void ArrivedAtWarehouse(User receiver, Vector3 dimensions, float weightGrams, DateTimeOffset date)
+    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, float weightGrams, DateTime date)
     {
         Dimensions = dimensions;
         WeightGrams = weightGrams;
-        UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, receiver.Id, date));
-        AddDomainEvent(new PackageArrivedAtWarehouse(Id, OwnerId, receiver.Id, date));
+        UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, staff.Id, date));
+        AddDomainEvent(new PackageArrivedAtWarehouse(Id, date, staff.Id));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.InTransit"/>
-    public void SentToDestination(User sentBy, Race race, DateTimeOffset date)
+    public void SentToDestination(User staff, Race race, DateTime date)
     {
         RaceId = race.Id;
         Race = race;
 
-        race.Packages.Add(this);
+        race.AddPackage(this);
 
-        UpdateStatus(PackageReceptionStatus.InTransit(Id, sentBy.Id, date));
-        AddDomainEvent(new PackageSentToDestination(Id, sentBy.Id, race.Id, date));
+        UpdateStatus(PackageReceptionStatus.InTransit(Id, staff.Id, date));
+        AddDomainEvent(new PackageSentToDestination(Id, race.Id, date, staff.Id));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtDestination"/>
-    public void ArrivedAtDestination(User receivedBy, DateTimeOffset date)
+    public void ArrivedAtDestination(User staff, DateTime date)
     {
-        UpdateStatus(PackageReceptionStatus.AtDestination(Id, receivedBy.Id, date));
-        AddDomainEvent(new PackageArrivedAtDestination(Id, receivedBy.Id, date));
+        UpdateStatus(PackageReceptionStatus.AtDestination(Id, staff.Id, date));
+        AddDomainEvent(new PackageArrivedAtDestination(Id, date, staff.Id));
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.Delivered"/>
-    public void Delivered(DateTimeOffset date)
+    public void Delivered(DateTime date)
     {
         UpdateStatus(PackageReceptionStatus.Delivered(Id, date));
         AddDomainEvent(new PackageDelivered(Id, date));

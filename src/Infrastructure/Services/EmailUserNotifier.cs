@@ -42,27 +42,27 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
         return sender.SendAsync(user.Email, "Your account is scheduled for deletion", markup, ct);
     }
 
-    public Task NotifyPackageArrivedAtWarehouse(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageArrivedAtWarehouseMarkup(user, package);
-        return sender.SendAsync(user.Email, "Your package has arrived at our warehouse!", markup, ct);
+        var markup = emailMarkupProvider.GetPackageArrivedAtWarehouseMarkup(staff, package);
+        return sender.SendAsync(staff.Email, "Your package has arrived at our warehouse!", markup, ct);
     }
 
-    public Task NotifyPackageSentToDestination(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageSentToDestinationMarkup(user, package);
-        return sender.SendAsync(user.Email, "Your package is on it's way", markup, ct);
+        var markup = emailMarkupProvider.GetPackageSentToDestinationMarkup(staff, package);
+        return sender.SendAsync(staff.Email, "Your package is on it's way", markup, ct);
     }
 
-    public Task NotifyPackageArrivedAtDestination(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageArrivedAtDestinationMarkup(user, package);
-        return sender.SendAsync(user.Email, "Your package has arrived", markup, ct);
+        var markup = emailMarkupProvider.GetPackageArrivedAtDestinationMarkup(staff, package);
+        return sender.SendAsync(staff.Email, "Your package has arrived", markup, ct);
     }
 
-    public Task NotifyPackageDelivered(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageDeliveredMarkup(user, package);
-        return sender.SendAsync(user.Email, "Your package has been delivered", markup, ct);
+        var markup = emailMarkupProvider.GetPackageDeliveredMarkup(staff, package);
+        return sender.SendAsync(staff.Email, "Your package has been delivered", markup, ct);
     }
 }

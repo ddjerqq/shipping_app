@@ -32,7 +32,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
-    public DateTimeOffset? LockoutEnd { get; set; }
+    public DateTime? LockoutEnd { get; set; }
     public int AccessFailedCount { get; set; }
 
     public ICollection<Package> Packages { get; init; } = [];

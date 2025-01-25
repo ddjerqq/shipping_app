@@ -39,35 +39,35 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
         await emailNotifier.SendDeleteAccountConfirmationAsync(user, ct);
     }
 
-    public async Task NotifyPackageArrivedAtWarehouse(User user, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.NotifyPackageArrivedAtWarehouse(user, package, ct);
+        if (staff.NotifyBySms)
+            await smsNotifier.NotifyPackageArrivedAtWarehouse(staff, package, ct);
 
-        await emailNotifier.NotifyPackageArrivedAtWarehouse(user, package, ct);
+        await emailNotifier.NotifyPackageArrivedAtWarehouse(staff, package, ct);
     }
 
-    public async Task NotifyPackageSentToDestination(User user, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.NotifyPackageSentToDestination(user, package, ct);
+        if (staff.NotifyBySms)
+            await smsNotifier.NotifyPackageSentToDestination(staff, package, ct);
 
-        await emailNotifier.NotifyPackageSentToDestination(user, package, ct);
+        await emailNotifier.NotifyPackageSentToDestination(staff, package, ct);
     }
 
-    public async Task NotifyPackageArrivedAtDestination(User user, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.NotifyPackageArrivedAtDestination(user, package, ct);
+        if (staff.NotifyBySms)
+            await smsNotifier.NotifyPackageArrivedAtDestination(staff, package, ct);
 
-        await emailNotifier.NotifyPackageArrivedAtDestination(user, package, ct);
+        await emailNotifier.NotifyPackageArrivedAtDestination(staff, package, ct);
     }
 
-    public async Task NotifyPackageDelivered(User user, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
     {
-        if (user.NotifyBySms)
-            await smsNotifier.NotifyPackageDelivered(user, package, ct);
+        if (staff.NotifyBySms)
+            await smsNotifier.NotifyPackageDelivered(staff, package, ct);
 
-        await emailNotifier.NotifyPackageDelivered(user, package, ct);
+        await emailNotifier.NotifyPackageDelivered(staff, package, ct);
     }
 }

@@ -4,4 +4,4 @@ using Domain.Entities;
 
 namespace Domain.Events;
 
-public sealed record PackageSentToDestination(PackageId PackageId, UserId SentById, RaceId RaceId, DateTimeOffset Date) : IDomainEvent;
+public sealed record PackageSentToDestination(PackageId PackageId, RaceId RaceId, DateTime Date, UserId StaffId) : IDomainEvent;

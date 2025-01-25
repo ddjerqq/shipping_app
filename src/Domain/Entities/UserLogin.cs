@@ -13,7 +13,7 @@ public sealed partial class UserLogin(UserLoginId id) : Entity<UserLoginId>(id)
     public required string UserAgent { get; init; }
     public required string Location { get; init; }
     public required string IpAddress { get; init; }
-    public required DateTimeOffset LastActive { get; set; }
+    public required DateTime LastActive { get; set; }
 
     public string DeviceType
     {

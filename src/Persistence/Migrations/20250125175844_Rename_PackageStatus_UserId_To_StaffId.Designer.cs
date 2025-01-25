@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -10,9 +11,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250125175844_Rename_PackageStatus_UserId_To_StaffId")]
+    partial class Rename_PackageStatus_UserId_To_StaffId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -237,7 +240,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("last_modified_by");
 
-                    b.Property<DateTime?>("LockoutEnd")
+                    b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT")
                         .HasColumnName("lockout_end");
 
@@ -341,7 +344,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTimeOffset>("Date")
                         .HasColumnType("TEXT")
                         .HasColumnName("date");
 
@@ -392,7 +395,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("Arrival")
+                    b.Property<DateTimeOffset>("Arrival")
                         .HasColumnType("TEXT")
                         .HasColumnName("arrival");
 
@@ -439,7 +442,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("origin");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<DateTimeOffset>("Start")
                         .HasColumnType("TEXT")
                         .HasColumnName("start");
 
@@ -538,7 +541,7 @@ namespace Persistence.Migrations
                         .HasColumnName("ip_address")
                         .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsEncrypted", true);
 
-                    b.Property<DateTime>("LastActive")
+                    b.Property<DateTimeOffset>("LastActive")
                         .HasColumnType("TEXT")
                         .HasColumnName("last_active");
 

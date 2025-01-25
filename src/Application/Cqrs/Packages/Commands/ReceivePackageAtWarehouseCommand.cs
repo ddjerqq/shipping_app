@@ -85,7 +85,6 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
             : package?.Owner;
 
         var receiver = await currentUser.GetCurrentUserAsync(ct);
-        var time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, receiver.TimeZone);
 
         if (package is null)
         {
@@ -101,7 +100,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
                 request.Height,
                 request.Length,
                 request.WeightKg * 1000,
-                time);
+                DateTime.UtcNow);
             await sender.Send(createPackageCommand, ct);
 
             return user is null
@@ -112,7 +111,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
         if (package.Statuses.Any(packageStatus => packageStatus.Status == PackageStatus.InWarehouse))
             return ReceivePackageAtWarehouseResult.PackageAlreadyInWarehouse;
 
-        package.ArrivedAtWarehouse(receiver, new Vector3(request.Width, request.Height, request.Length), request.WeightKg, time);
+        package.ArrivedAtWarehouse(receiver, new Vector3(request.Width, request.Height, request.Length), request.WeightKg * 1000, DateTime.UtcNow);
 
         await dbContext.SaveChangesAsync(ct);
         return ReceivePackageAtWarehouseResult.Success;

@@ -12,8 +12,8 @@ public sealed record CreateRaceCommand : IRequest<Race>
     public string Origin { get; set; } = "New York";
     public string Destination { get; set; } = "Tbilisi";
 
-    public DateTimeOffset TakeOff { get; set; } = DateTimeOffset.UtcNow;
-    public DateTimeOffset Landing { get; set; } = DateTimeOffset.UtcNow;
+    public DateTime TakeOff { get; set; } = DateTime.UtcNow;
+    public DateTime Landing { get; set; } = DateTime.UtcNow;
 }
 
 public sealed class CreateRaceValidator : AbstractValidator<CreateRaceCommand>
@@ -25,11 +25,11 @@ public sealed class CreateRaceValidator : AbstractValidator<CreateRaceCommand>
 
         RuleFor(x => x.Destination).MaximumLength(16);
         RuleFor(x => x.TakeOff)
-            .Must(date => date >= DateTimeOffset.UtcNow.Date)
+            .Must(date => date >= DateTime.UtcNow.Date)
             .WithMessage("Takeoff must be in the future");
 
         RuleFor(x => x.Landing)
-            .Must(date => date >= DateTimeOffset.UtcNow.Date)
+            .Must(date => date >= DateTime.UtcNow.Date)
             .WithMessage("Landing date must be in the future")
             .Must((command, date) => date > command.TakeOff)
             .WithMessage("Landing date date must be after takeoff time");

@@ -1,12 +1,17 @@
+@page "/packages/new"
 @using Application.Cqrs.Packages.Commands
 @using Application.Services
+@using Domain.Aggregates
+@using Domain.Common
+@using Microsoft.EntityFrameworkCore
 @using Domain.ValueObjects
 
 @inject IFileStore FileStore
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
 
-@{
-    // TODO: Implement the logic to send the command to the server
-}
+<PageTitle>Declare new package</PageTitle>
+<PageHeader Title="Declare new package"/>
 
 <Card>
     <Header>
@@ -15,6 +20,24 @@
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
+            <AuthorizeView Roles="Staff,Admin">
+                <FormField>
+                    <FormLabel for="owner-id">Owner Id</FormLabel>
+
+                    <select id="owner-id"
+                            @onchange="@(args => Command.Owner = Users.FirstOrDefault(u => u.Id == UserId.Parse(args.Value?.ToString()!))!)"
+                            class="@FormInputText.BaseClass"
+                            required>
+                        <option value="null" disabled selected>-- select option --</option>
+
+                        @foreach (var user in Users)
+                        {
+                            <option value="@user.Id">@(user.Username.CapitalizeName())</option>
+                        }
+                    </select>
+                </FormField>
+            </AuthorizeView>
+
             <InlineFormFieldContainer>
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
@@ -125,6 +148,21 @@
 
 @code {
     private CreatePackageCommand Command { get; set; } = new();
+    private IEnumerable<User> Users { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (CurrentUser.Role is Role.Staff or Role.Admin)
+        {
+            Users = await DbContext.Users
+                .Where(user => user.Role == Role.User)
+                .ToListAsync(CancellationToken);
+        }
+        else
+        {
+            Command.Owner = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+        }
+    }
 
     private async Task OnValidSubmit()
     {

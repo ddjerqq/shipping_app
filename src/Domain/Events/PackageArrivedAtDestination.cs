@@ -5,4 +5,4 @@ namespace Domain.Events;
 
 // if not paid notify user to pay
 // if no declaration exists on our end, notify the user?
-public sealed record PackageArrivedAtDestination(PackageId PackageId, UserId ReceivedById, DateTimeOffset Date) : IDomainEvent;
+public sealed record PackageArrivedAtDestination(PackageId PackageId, DateTime Date, UserId StaffId) : IDomainEvent;

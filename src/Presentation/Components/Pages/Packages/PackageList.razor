@@ -1,0 +1,80 @@
+@using Application.Common
+@using Application.Services
+@using Domain.Common
+@using Domain.Aggregates
+@using Domain.ValueObjects
+@using Presentation.Components.Ui.Avatar
+@inject IFileStore FileStore
+
+<div class="space-y-2 overflow-y-scroll max-h-[600px]">
+    @foreach (var package in Packages)
+    {
+        <Button Href="@($"/packages/{package.Id}")" Variant="outline" Size="lg" @key="@package.Id"
+                class="p-4 h-auto justify-center grid grid-cols-2 gap-y-6 md:grid-cols-4">
+            <div class="flex gap-4 items-center">
+                <Avatar class="hidden md:block size-9">
+                    <AvatarImage Src="@(PictureUrls.GetValueOrDefault(package.Id))" Alt="Package image"/>
+                    <AvatarFallback>Package image</AvatarFallback>
+                </Avatar>
+
+                <div class="flex flex-col gap-1 justify-center">
+                    <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
+                    <span class="max-w-[120px] truncate font-medium capitalize leading-none">@package.Description</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                <span class="text-xs text-muted-foreground">Retail Price</span>
+                <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
+            </div>
+
+            @if (package.CurrentStatus.Status == PackageStatus.Awaiting)
+            {
+                <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                    <span class="text-xs text-muted-foreground">Website address</span>
+                    <span class="font-medium capitalize leading-none">@(package.WebsiteAddress)</span>
+                </div>
+            }
+
+            @if (package.CurrentStatus.Status == PackageStatus.InWarehouse)
+            {
+                <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                    <span class="text-xs text-muted-foreground">Weight</span>
+                    <span class="font-medium capitalize leading-none">@($"{package.WeightGrams / 1000:F2}")</span>
+                </div>
+            }
+
+            @if (package.CurrentStatus.Status == PackageStatus.InTransit)
+            {
+                <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                    <span class="text-xs text-muted-foreground">Race</span>
+                    <span class="font-medium capitalize leading-none">@(package.Race?.QualifiedName)</span>
+                </div>
+            }
+
+            <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                <span class="text-xs text-muted-foreground">Last Update</span>
+                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
+            </div>
+        </Button>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public IEnumerable<Package> Packages { get; set; } = [];
+
+    private Dictionary<PackageId, string> PictureUrls { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        foreach (var package in Packages)
+        {
+            var url = !string.IsNullOrWhiteSpace(package.PictureFileKey)
+                ? await FileStore.GetPresignedFileUrlAsync(package.PictureFileKey)
+                : ClaimsPrincipalExt.GetDefaultAvatar("na");
+
+            PictureUrls.Add(package.Id, url!);
+        }
+    }
+}

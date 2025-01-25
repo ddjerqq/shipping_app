@@ -1,0 +1,126 @@
+@page "/races/add_package"
+@using Application.Cqrs.Races.Commands
+@using Application.Services
+@using Domain.Aggregates
+@using Microsoft.EntityFrameworkCore
+@using Domain.ValueObjects
+@using Domain.Entities
+@inject IAppDbContext DbContext
+
+<PageTitle>Add package to race</PageTitle>
+<PageHeader Title="Add package to race"/>
+
+<Card>
+    <Header>
+        <CardTitle>Add package to race</CardTitle>
+        <Description>Add a package to a race</Description>
+    </Header>
+    <Content>
+        <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
+            <InlineFormFieldContainer>
+                <FormField>
+                    <FormLabel for="race-id">Race Id</FormLabel>
+
+                    <select id="race-id"
+                            @onchange="@SetRaceId"
+                            class="@FormInputText.BaseClass"
+                            required
+                            disabled="@(!string.IsNullOrWhiteSpace(RaceId))">
+                        <option value="null" disabled selected>-- select option --</option>
+
+                        @foreach (var race in Races)
+                        {
+                            <option value="@race.Id">@(race.QualifiedName)</option>
+                        }
+                    </select>
+                    <FormInvalidFeedback For="@(() => Command.RaceId)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="package-id">Package Id</FormLabel>
+
+                    <select id="package-id"
+                            @onchange="@SetPackageId"
+                            class="@FormInputText.BaseClass"
+                            required
+                            disabled="@(!string.IsNullOrWhiteSpace(PackageId))">
+                        <option value="null" disabled selected>-- select option --</option>
+
+                        @foreach (var package in Packages)
+                        {
+                            <option value="@package.Id">@($"{package.TrackingCode} - {package.Description}")</option>
+                        }
+                    </select>
+                    <FormInvalidFeedback For="@(() => Command.PackageId)"/>
+                </FormField>
+            </InlineFormFieldContainer>
+
+            <Button type="submit" disabled="@IsLoading">
+                @if (IsLoading)
+                {
+                    <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+                }
+                Add package to race
+            </Button>
+        </AppForm>
+    </Content>
+</Card>
+
+@code {
+    [SupplyParameterFromQuery(Name = "race")]
+    public string? RaceId { get; set; }
+
+    [SupplyParameterFromQuery(Name = "package")]
+    public string? PackageId { get; set; }
+
+    private AddPackageToRaceCommand Command { get; set; } = new();
+
+    private IEnumerable<Race> Races { get; set; } = [];
+    private IEnumerable<Package> Packages { get; set; } = [];
+
+    protected override void OnParametersSet()
+    {
+        Command = new AddPackageToRaceCommand
+        {
+            RaceId = RaceId ?? string.Empty,
+            PackageId = PackageId ?? string.Empty,
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // fetch races only if it is not already set
+        if (RaceId is null)
+        {
+            Races = await DbContext.Races
+                .Where(race => race.Start > DateTime.UtcNow)
+                .ToListAsync(CancellationToken);
+        }
+
+        // fetch packages only if it is not already set
+        if (PackageId is null)
+        {
+            Packages = await DbContext.Packages
+                .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == PackageStatus.InWarehouse)
+                .ToListAsync(CancellationToken);
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        await SendCommandAsync(Command);
+        ShowSuccess("The package has been added to the race");
+        await Task.Delay(1000);
+        NavigationManager.Refresh(true);
+    }
+
+    private void SetRaceId(ChangeEventArgs obj)
+    {
+        Command.RaceId = obj.Value?.ToString() ?? string.Empty;
+    }
+
+    private void SetPackageId(ChangeEventArgs obj)
+    {
+        Command.PackageId = obj.Value?.ToString() ?? string.Empty;
+    }
+}

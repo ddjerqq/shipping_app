@@ -42,27 +42,27 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
         return sender.SendAsync(user.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageArrivedAtWarehouse(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has arrived at our warehouse (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        return sender.SendAsync(staff.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageSentToDestination(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package is on it's way (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        return sender.SendAsync(staff.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageArrivedAtDestination(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has arrived (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        return sender.SendAsync(staff.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageDelivered(User user, Package package, CancellationToken ct = default)
+    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has been delivered (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        return sender.SendAsync(staff.PhoneNumber, content, ct);
     }
 }

@@ -30,7 +30,12 @@
                     <ul>
                         @foreach (var status in Package.Statuses)
                         {
-                            <li>@status.Status.GetDisplayName(): @status.Date.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")</li>
+                            <li>
+                                @status.Status.GetDisplayName() on @status.Date.ToString("dd MMM, yyyy")
+                                <AuthorizeView Roles="Staff,Admin">
+                                    by @(status.Staff?.Username.CapitalizeName() ?? "-")
+                                </AuthorizeView>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -45,16 +50,39 @@
                         }
                     </List>
 
-                    @if (CurrentUser.Role is not Role.User)
-                    {
-                        if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
+                    <AuthorizeView Roles="Staff,Admin">
+                        @if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
                         {
                             <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")">
                                 <Blazicon Svg="@Lucide.Inbox"/>
                                 Receive at warehouse
                             </Button>
                         }
-                    }
+
+                        @if (Package.CurrentStatus.Status == PackageStatus.InWarehouse)
+                        {
+                            <Button Href="@($"/races/add_package/?package={Package.Id}")">
+                                <Blazicon Svg="@Lucide.Plane"/>
+                                Add to race
+                            </Button>
+                        }
+
+                        @if (Package.CurrentStatus.Status == PackageStatus.InTransit)
+                        {
+                            <Button Href="@($"/packages/arrived/?package={Package.Id}")">
+                                <Blazicon Svg="@Lucide.Inbox"/>
+                                Receive at destination
+                            </Button>
+                        }
+
+                        @if (Package.CurrentStatus.Status == PackageStatus.Arrived)
+                        {
+                            <Button Href="@($"/packages/deliver/?package={Package.Id}")">
+                                <Blazicon Svg="@Lucide.Check"/>
+                                Mark delivered
+                            </Button>
+                        }
+                    </AuthorizeView>
                 </Tabs>
             </div>
 
@@ -172,8 +200,7 @@
                     <FormLabel for="house-delivery">House delivery</FormLabel>
                     <Switch id="house-delivery"
                             disabled="@IsLoading"
-                            Value="@Package.HouseDelivery"
-                            ValueExpression="@(() => Package.HouseDelivery)"/>
+                            @bind-Value="@Package.HouseDelivery"/>
                 </FormField>
 
                 @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
@@ -218,17 +245,17 @@
                 @if (Package.CurrentStatus.Status >= PackageStatus.InTransit)
                 {
                     <FormField>
-                        <FormLabel for="flight-code">Flight Code</FormLabel>
-                        <input id="flight-code"
+                        <FormLabel for="flight-name">Flight name</FormLabel>
+                        <input id="flight-name"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@Package.Race!.Name"/>
+                               value="@Package.Race!.QualifiedName"/>
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="copy-flight-code">Copy flight Code</FormLabel>
-                        <CopyButton Variant="outline" Content="@Package.Race!.Name">
-                            Copy flight code
+                        <FormLabel for="copy-flight-name">Copy flight name</FormLabel>
+                        <CopyButton Variant="outline" Content="@Package.Race!.QualifiedName">
+                            Copy flight name
                         </CopyButton>
                     </FormField>
 
@@ -237,7 +264,7 @@
                         <input id="start"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@Package.Race!.Start.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")"/>
+                               value="@Package.Race!.Start.ToString("dd, MMM, yyyy")"/>
                     </FormField>
 
                     <FormField>
@@ -245,7 +272,7 @@
                         <input id="arrival"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@Package.Race!.Arrival.ToString("dddd, dd-MMM-yyyy, HH:mm UTCzzz")"/>
+                               value="@Package.Race!.Arrival.ToString("dd MMM, yyyy")"/>
                     </FormField>
                 }
 

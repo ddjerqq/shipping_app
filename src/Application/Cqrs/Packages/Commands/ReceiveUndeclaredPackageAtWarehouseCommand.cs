@@ -19,27 +19,25 @@ internal sealed record ReceiveUndeclaredPackageAtWarehouse(
     float Height,
     float Length,
     float Weight,
-    DateTimeOffset ReceivedAt) : IRequest;
+    DateTime ReceivedAt) : IRequest;
 
 internal sealed class ReceiveUndeclaredPackageAtWarehouseHandler(IAppDbContext dbContext) : IRequestHandler<ReceiveUndeclaredPackageAtWarehouse>
 {
     public async Task Handle(ReceiveUndeclaredPackageAtWarehouse request, CancellationToken ct)
     {
-        // create the package, add the warehouse status, and add it to the user,
-        // then add an event to the receiver that they received the package
-
         var package = Package.Create(
             (TrackingCode)request.TrackingCode,
             Category.OtherConsumerProducts,
-            "added by staff",
-            "missing",
+            "-",
+            "-",
             new Money("USD", 1),
             1,
             false,
             request.Owner);
-        package.ArrivedAtWarehouse(request.Receiver, new Vector3(request.Width, request.Height, request.Length), request.Weight, request.ReceivedAt);
 
+        package.ArrivedAtWarehouse(request.Receiver, new Vector3(request.Width, request.Height, request.Length), request.Weight, request.ReceivedAt);
         request.Owner.Packages.Add(package);
+
         await dbContext.SaveChangesAsync(ct);
     }
 }
