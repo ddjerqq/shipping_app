@@ -1,11 +1,14 @@
 using Application.Exceptions;
 using Domain.Aggregates;
+using Domain.ValueObjects;
 
 namespace Application.Services;
 
 public interface ICurrentUserAccessor
 {
     public UserId? Id { get; }
+
+    public Role? Role { get; }
 
     public Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default);
 

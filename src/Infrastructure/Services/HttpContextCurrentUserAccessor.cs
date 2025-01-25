@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
+using Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
     private ClaimsPrincipal? User => httpContextAccessor.HttpContext?.User;
 
     public UserId? Id => User?.GetId();
+
+    public Role? Role => Enum.TryParse<Role>(User?.GetRole(), out var role) ? role : null;
 
     public async Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default)
     {

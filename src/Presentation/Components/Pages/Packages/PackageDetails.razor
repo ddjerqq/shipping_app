@@ -2,6 +2,7 @@
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
+@using Domain.Entities
 @using Domain.ValueObjects
 @using Microsoft.AspNetCore.Components.Sections
 @using Microsoft.EntityFrameworkCore
@@ -19,7 +20,7 @@
     <Card class="mx-auto mt-4">
         <Header class="flex-row justify-between">
             <div class="space-y-2">
-                <Title class="text-2xl">Package</Title>
+                <CardTitle class="text-2xl">Package</CardTitle>
 
                 <div class="text-muted-foreground text-sm">
                     <span class="text-base">
@@ -34,7 +35,7 @@
                     </ul>
                 </div>
 
-                <Tabs Value="@Package.CurrentStatus.Status">
+                <Tabs Value="@Package.CurrentStatus.Status" class="flex items-center">
                     <List>
                         @foreach (var status in Enum.GetValues<PackageStatus>())
                         {
@@ -43,6 +44,17 @@
                             </Trigger>
                         }
                     </List>
+
+                    @if (CurrentUser.Role is not Role.User)
+                    {
+                        if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
+                        {
+                            <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")" class="ml-4">
+                                <Blazicon Svg="@Lucide.Inbox"/>
+                                Receive
+                            </Button>
+                        }
+                    }
                 </Tabs>
             </div>
 
@@ -247,18 +259,24 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Package = await DbContext.Packages.FindAsync([PackageId], CancellationToken);
+        Package = await DbContext.Packages
+            .Include(x => x.Owner)
+            .AsSingleQuery()
+            .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
 
         if (Package is null || Package.OwnerId != CurrentUser.Id)
         {
-            NavigationManager.NavigateTo("/404");
-            return;
+            if (CurrentUser.Role is Role.User)
+            {
+                NavigationManager.NavigateTo("/404");
+                return;
+            }
         }
 
-        if (Package.InvoiceFileKey is not null)
+        if (Package?.InvoiceFileKey is not null)
             InvoiceUrl = await FileStore.GetPresignedFileUrlAsync(Package.InvoiceFileKey, CancellationToken);
 
-        if (Package.PictureFileKey is not null)
+        if (Package?.PictureFileKey is not null)
             PictureUrl = await FileStore.GetPresignedFileUrlAsync(Package.PictureFileKey, CancellationToken);
     }
 

@@ -11,6 +11,7 @@ namespace Infrastructure.Services;
 public sealed class AmazonS3FileStore(IAmazonS3 client, ILogger<AmazonS3FileStore> logger, IDistributedCache cache) : IFileStore
 {
     private static string BucketName => "AWS_BUCKET_NAME".FromEnvRequired();
+    private static readonly TimeSpan Expiration = TimeSpan.FromMinutes(5);
 
     private async Task EnsureBucketExists(CancellationToken ct = default)
     {
@@ -85,15 +86,15 @@ public sealed class AmazonS3FileStore(IAmazonS3 client, ILogger<AmazonS3FileStor
         {
             BucketName = BucketName,
             Key = result.Key,
-            Expires = DateTime.UtcNow.AddMinutes(10),
+            Expires = DateTime.UtcNow.Add(Expiration),
         };
 
         var presignedUrl = await client.GetPreSignedURLAsync(urlRequest);
 
         await cache.SetStringAsync(key, presignedUrl, new DistributedCacheEntryOptions
         {
-            SlidingExpiration = TimeSpan.FromMinutes(1),
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+            SlidingExpiration = TimeSpan.FromMinutes(5),
+            AbsoluteExpirationRelativeToNow = Expiration,
         }, ct);
 
         return presignedUrl;

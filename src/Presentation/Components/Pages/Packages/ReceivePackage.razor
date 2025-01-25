@@ -1,4 +1,4 @@
-@page "/packages/add"
+@page "/packages/receive"
 @using Application.Cqrs.Packages.Commands
 
 <PageTitle>Add Package</PageTitle>
@@ -6,7 +6,7 @@
 
 <Card>
     <Header>
-        <Title>Add Package</Title>
+        <CardTitle>Add Package</CardTitle>
         <Description>When you receive a package at the warehouse, declare them here.</Description>
     </Header>
     <Content>
@@ -109,7 +109,22 @@
 </Card>
 
 @code {
+    [SupplyParameterFromQuery(Name = "code")]
+    public string? TrackingCode { get; set; }
+
+    [SupplyParameterFromQuery(Name = "room")]
+    public string? RoomCode { get; set; }
+
     private ReceivePackageAtWarehouseCommand Command { get; set; } = new();
+
+    protected override void OnParametersSet()
+    {
+        Command = new ReceivePackageAtWarehouseCommand
+        {
+            TrackingCode = TrackingCode ?? string.Empty,
+            Address2 = RoomCode ?? string.Empty,
+        };
+    }
 
     private async Task OnValidSubmit()
     {
