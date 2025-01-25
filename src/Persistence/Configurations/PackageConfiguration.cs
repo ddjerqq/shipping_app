@@ -25,6 +25,7 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
             .HasForeignKey(package => package.OwnerId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+        builder.Navigation(package => package.Owner).AutoInclude();
 
         builder.Property(x => x.Dimensions)
             .HasConversion(x => VecToString(x), x => StringToVec(x));

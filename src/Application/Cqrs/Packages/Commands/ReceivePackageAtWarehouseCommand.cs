@@ -76,10 +76,14 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
 {
     public async Task<ReceivePackageAtWarehouseResult> Handle(ReceivePackageAtWarehouseCommand request, CancellationToken ct)
     {
-        var package = await dbContext.Packages.FirstOrDefaultAsync(x => x.TrackingCode == request.TrackingCode, ct);
+        var package = await dbContext.Packages
+            .Include(x => x.Owner)
+            .FirstOrDefaultAsync(x => x.TrackingCode == request.TrackingCode, ct);
+
         var user = int.TryParse(request.Address2, out var roomCode)
             ? await dbContext.Users.FirstOrDefaultAsync(x => x.RoomCode == roomCode, ct)
-            : null;
+            : package?.Owner;
+
         var receiver = await currentUser.GetCurrentUserAsync(ct);
         var time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, receiver.TimeZone);
 

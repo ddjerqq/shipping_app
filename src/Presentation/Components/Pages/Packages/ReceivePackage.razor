@@ -1,12 +1,12 @@
 @page "/packages/receive"
 @using Application.Cqrs.Packages.Commands
 
-<PageTitle>Add Package</PageTitle>
-<PageHeader Title="Add Package"/>
+<PageTitle>Receive Package</PageTitle>
+<PageHeader Title="Receive Package"/>
 
 <Card>
     <Header>
-        <CardTitle>Add Package</CardTitle>
+        <CardTitle>Receive Package</CardTitle>
         <Description>When you receive a package at the warehouse, declare them here.</Description>
     </Header>
     <Content>
@@ -15,7 +15,7 @@
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
                     <FormInputText id="tracking-code"
-                                   disabled="@IsLoading"
+                                   disabled="@(ParametersSuppliedFromQuery || IsLoading)"
                                    @bind-Value="@Command.TrackingCode"
                                    placeholder="Enter tracking code"
                                    required/>
@@ -24,9 +24,9 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="room-code">Address2</FormLabel>
+                    <FormLabel for="room-code">Address 2 (Room code)</FormLabel>
                     <FormInputText id="room-code"
-                                   disabled="@IsLoading"
+                                   disabled="@(ParametersSuppliedFromQuery || IsLoading)"
                                    @bind-Value="Command.Address2"
                                    placeholder="Enter room code (address 2)"/>
                     <FormDescription>Address 2, as present on the package</FormDescription>
@@ -73,11 +73,6 @@
                                  disabled="@IsLoading"/>
                     <FormInvalidFeedback For="@(() => Command.Length)"/>
                 </FormField>
-
-                <FormDescription class="col-span-3">
-                    To find out more about volumetric weight and how it's calculated please visit our
-                    <Link Href="/faq" Title="FAQ"/>
-                </FormDescription>
             </InlineFormFieldContainer>
 
             <FormField>
@@ -115,6 +110,8 @@
     [SupplyParameterFromQuery(Name = "room")]
     public string? RoomCode { get; set; }
 
+    private bool ParametersSuppliedFromQuery => !string.IsNullOrWhiteSpace(TrackingCode) && !string.IsNullOrWhiteSpace(RoomCode);
+
     private ReceivePackageAtWarehouseCommand Command { get; set; } = new();
 
     protected override void OnParametersSet()
@@ -134,6 +131,12 @@
         {
             case ReceivePackageAtWarehouseResult.Success:
                 ShowSuccess("The package is saved in the system!");
+                // return the user to the all packages page after a delay
+                if (ParametersSuppliedFromQuery)
+                {
+                    await Task.Delay(1000, CancellationToken);
+                    NavigationManager.NavigateTo("/packages/all");
+                }
                 break;
             case ReceivePackageAtWarehouseResult.NoOwnerFound:
                 ShowWarning("No owner found for this package. The Package has been added to your name. The user will have to ask for the package later.");

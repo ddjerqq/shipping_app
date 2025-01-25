@@ -35,7 +35,7 @@
                     </ul>
                 </div>
 
-                <Tabs Value="@Package.CurrentStatus.Status" class="flex items-center">
+                <Tabs Value="@Package.CurrentStatus.Status" class="flex flex-col items-start gap-2">
                     <List>
                         @foreach (var status in Enum.GetValues<PackageStatus>())
                         {
@@ -49,9 +49,9 @@
                     {
                         if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
                         {
-                            <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")" class="ml-4">
+                            <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")">
                                 <Blazicon Svg="@Lucide.Inbox"/>
-                                Receive
+                                Receive at warehouse
                             </Button>
                         }
                     }
@@ -67,6 +67,22 @@
         </Header>
         <Content>
             <AppForm @bind-Model="Package" OnValidSubmit="Update" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <FormField class="col-span-1 sm:col-span-2">
+                    <FormLabel for="owner-id">Owner Id</FormLabel>
+                    <input id="owner-id"
+                           class="@FormInputText.BaseClass"
+                           disabled
+                           value="@Package.OwnerId"/>
+                </FormField>
+
+                <FormField class="col-span-1 sm:col-span-2">
+                    <FormLabel for="owner-name">Owner Name</FormLabel>
+                    <input id="owner-name"
+                           class="@FormInputText.BaseClass"
+                           disabled
+                           value="@(Package.Owner.Username.CapitalizeName())"/>
+                </FormField>
+
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
                     <input id="tracking-code"
@@ -157,8 +173,7 @@
                     <Switch id="house-delivery"
                             disabled="@IsLoading"
                             Value="@Package.HouseDelivery"
-                            ValueExpression="@(() => Package.HouseDelivery)"
-                    />
+                            ValueExpression="@(() => Package.HouseDelivery)"/>
                 </FormField>
 
                 @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
@@ -260,9 +275,7 @@
     protected override async Task OnInitializedAsync()
     {
         Package = await DbContext.Packages
-            .Include(x => x.Owner)
-            .AsSingleQuery()
-            .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
+            .FindAsync([PackageId], CancellationToken);
 
         if (Package is null || Package.OwnerId != CurrentUser.Id)
         {

@@ -124,6 +124,8 @@
 
     private async Task FetchData()
     {
+        // TODO filter if user, only own packages
+
         TotalPackages = await DbContext.Packages
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .CountAsync();
@@ -145,5 +147,7 @@
 
             PictureUrls.Add(package.Id, url!);
         }
+
+        StateHasChanged();
     }
 }
