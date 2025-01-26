@@ -5,11 +5,14 @@ using FluentValidation;
 using IPinfo.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Cqrs.Packages.Commands;
 
 public sealed record CreatePackageCommand : IRequest<Package>
 {
+    public const long MaxFileSizeBytes = 1_000_000;
+
     public User Owner { get; set; } = null!;
 
     public string TrackingCode { get; set; } = null!;
@@ -27,9 +30,8 @@ public sealed record CreatePackageCommand : IRequest<Package>
 
 public sealed class CreatePackageValidator : AbstractValidator<CreatePackageCommand>
 {
-    public CreatePackageValidator()
+    public CreatePackageValidator(IAppDbContext dbContext)
     {
-        // TODO async rule ensure does not exist
         RuleFor(x => x.TrackingCode).NotNull().MinimumLength(10).MaximumLength(64).Must(TrackingCode.IsValid).WithMessage("Tracking code is malformed!");
         RuleFor(x => x.Category).NotNull();
         RuleFor(x => x.Description).NotEmpty();
@@ -38,14 +40,25 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
         RuleFor(x => x.ItemCount).NotNull().GreaterThanOrEqualTo(1);
 
         RuleFor(x => x.InvoiceFile)
-            .Must(x => x!.Size <= 1_000_000).WithMessage("The file is too big")
+            .Must(x => x!.Size <= CreatePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
             .Must(x => Path.GetExtension(x!.Name) is ".pdf").WithMessage("The file must be a .pdf format")
             .When(command => command.InvoiceFile is not null);
 
         RuleFor(x => x.PictureFile)
-            .Must(x => x!.Size <= 1_000_000).WithMessage("The file is too big")
+            .Must(x => x!.Size <= CreatePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
             .Must(x => Path.GetExtension(x!.Name) is ".jpg" or ".jpeg" or ".png").WithMessage("The file must be a .jpg, .jpeg, or .png format")
             .When(command => command.PictureFile is not null);
+
+        RuleSet("async", () =>
+        {
+            RuleFor(x => x.TrackingCode)
+                .MustAsync(async (_, code, ct) =>
+                {
+                    var packagesWithCode = await dbContext.Packages.CountAsync(x => x.TrackingCode == code, ct);
+                    return packagesWithCode == 0;
+                })
+                .WithMessage("A package with that tracking code already exists");
+        });
     }
 }
 
@@ -53,7 +66,6 @@ internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, ICurr
 {
     public async Task<Package> Handle(CreatePackageCommand request, CancellationToken ct)
     {
-        // TODO not working ?
         var package = Package.Create(
             (TrackingCode)request.TrackingCode,
             request.Category,
@@ -66,13 +78,13 @@ internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, ICurr
 
         if (request.InvoiceFile is not null)
         {
-            await using var fileStream = request.InvoiceFile.OpenReadStream(cancellationToken: ct);
+            await using var fileStream = request.InvoiceFile.OpenReadStream(CreatePackageCommand.MaxFileSizeBytes, ct);
             package.InvoiceFileKey = await fileStore.CreateFileAsync(fileStream, Path.GetExtension(request.InvoiceFile.Name), ct);
         }
 
         if (request.PictureFile is not null)
         {
-            await using var fileStream = request.PictureFile.OpenReadStream(cancellationToken: ct);
+            await using var fileStream = request.PictureFile.OpenReadStream(CreatePackageCommand.MaxFileSizeBytes, ct);
             package.PictureFileKey = await fileStore.CreateFileAsync(fileStream, Path.GetExtension(request.PictureFile.Name), ct);
         }
 

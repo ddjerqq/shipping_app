@@ -1,4 +1,5 @@
 ﻿@using Application.Services
+@using Domain.ValueObjects
 @using Domain.Entities
 @inject ICurrentUserAccessor CurrentUser
 @inject IAppDbContext DbContext
@@ -6,23 +7,10 @@
 <header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
-            <AuthorizeView Roles="User">
-                <Authorized>
-                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/user_dashboard">
-                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
-                    </a>
-                </Authorized>
-            </AuthorizeView>
-
-            <AuthorizeView Roles="Staff,Admin">
-                <Authorized>
-                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/staff_dashboard">
-                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
-                    </a>
-                </Authorized>
-            </AuthorizeView>
+            <a class="mr-4 flex items-center gap-2 lg:mr-6" href="@HomeUrl">
+                <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                <span class="hidden font-bold lg:inline-block">Dashboard</span>
+            </a>
 
             <AuthorizeView>
                 <NotAuthorized>
@@ -74,3 +62,13 @@
         </div>
     </div>
 </header>
+
+@code {
+    private string HomeUrl => CurrentUser.Role switch
+    {
+        Role.User => "/user_dashboard",
+        Role.Staff => "/staff_dashboard",
+        Role.Admin => "/admin_dashboard",
+        _ => "/",
+    };
+}

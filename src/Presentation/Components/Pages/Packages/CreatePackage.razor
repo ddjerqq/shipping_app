@@ -19,7 +19,7 @@
         <Description>Please pre-declare your packages so that there aren't any delays when shipping it</Description>
     </Header>
     <Content>
-        <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
+        <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate>
             <AuthorizeView Roles="Staff,Admin">
                 <FormField>
                     <FormLabel for="owner-id">Owner Id</FormLabel>

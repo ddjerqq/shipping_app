@@ -1,6 +1,9 @@
 ﻿@page "/auth/login"
 @using Application.Cqrs.Users.Commands
+@using Domain.ValueObjects
+@using Application.Services
 @inject CookieService Cookie
+@inject ICurrentUserAccessor CurrentUser
 
 <PageTitle>Log in</PageTitle>
 <PageHeader Title="Welcome back!" Description="Login to your account"/>
@@ -146,7 +149,14 @@
                 return;
             default:
                 await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-                NavigationManager.NavigateTo("/user_dashboard", true);
+                var redirectUrl = CurrentUser.Role switch
+                {
+                    Role.User => "/user_dashboard",
+                    Role.Staff => "/staff_dashboard",
+                    Role.Admin => "/admin_dashboard",
+                    _ => "/",
+                };
+                NavigationManager.NavigateTo(redirectUrl, true);
                 break;
         }
     }

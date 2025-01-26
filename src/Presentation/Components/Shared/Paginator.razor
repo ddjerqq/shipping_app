@@ -27,7 +27,7 @@
 </div>
 
 @code {
-    public sealed class PaginatorState(int page, int total, int perPerPage = 25)
+    public sealed class PaginatorState(int page, int total, int perPerPage = 10)
     {
         public int Page { get; set; } = page;
         public int Total { get; set; } = total;

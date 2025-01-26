@@ -1,22 +1,22 @@
 @inject IJSRuntime Js
 @implements IAsyncDisposable
 
-<Button Variant="outline" Size="icon" class="relative" data-dropdown-toggle="theme-dropdown">
-    <Blazicon Svg="Icons.Sun" class="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
-    <Blazicon Svg="Icons.Moon" class="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
+<Button Variant="outline" Size="icon" class="!size-9 relative" data-dropdown-toggle="theme-dropdown">
+    <Blazicon Svg="Icons.Sun" class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
+    <Blazicon Svg="Icons.Moon" class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
 </Button>
 
 <div id="theme-dropdown" class="z-10 hidden  divide-background-100 rounded-lg shadow w-36 border bg-background">
     <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(async () => await SetTheme("light"))">
-        <Blazicon Svg="Icons.Sun" class="h-6 w-6"/>
+        <Blazicon Svg="Icons.Sun"/>
         Light
     </Button>
     <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(async () => await SetTheme("dark"))">
-        <Blazicon Svg="Icons.Moon" class="h-6 w-6"/>
+        <Blazicon Svg="Icons.Moon"/>
         Dark
     </Button>
     <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(async () => await SetTheme("system"))">
-        <Blazicon Svg="Icons.Monitor" class="h-6 w-6"/>
+        <Blazicon Svg="Icons.Monitor"/>
         System
     </Button>
 </div>
