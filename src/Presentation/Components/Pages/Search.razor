@@ -1,11 +1,9 @@
 @page "/search"
 @layout HomeLayout
 @using Application.Cqrs.Staff.Queries
-@using Application.Services
 @using Domain.Common
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Staff,Admin")]
-@inject IFileStore FileStore
 
 <PageTitle>Search</PageTitle>
 <PageHeader Title="Search"/>
