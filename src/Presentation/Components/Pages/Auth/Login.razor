@@ -52,7 +52,6 @@
     <FormField>
         <div class="flex flex-row items-center gap-2">
             <Switch id="show" @bind-Value="ShowPassword"/>
-            @* <FormInputCheckbox id="show" @bind-Value="ShowPassword"/> *@
             <FormLabel for="show">
                 Show password
             </FormLabel>
@@ -122,7 +121,7 @@
     [SupplyParameterFromForm]
     private LoginCommand Command { get; set; } = new();
 
-        private bool ShowPassword { get; set; }
+    private bool ShowPassword { get; set; }
     private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task LoginUser()

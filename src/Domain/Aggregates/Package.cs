@@ -42,7 +42,11 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     /// width, height and length
     /// </summary>
     public Vector3? Dimensions { get; private set; }
-    public float? WeightGrams { get; private set; }
+
+    /// <summary>
+    /// Gets the weight in KiloGrams
+    /// </summary>
+    public float? Weight { get; private set; }
 
     public decimal ShippingPrice => this.GetTotalPrice();
 
@@ -110,10 +114,10 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
-    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, float weightGrams, DateTime date)
+    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, float weight, DateTime date)
     {
         Dimensions = dimensions;
-        WeightGrams = weightGrams;
+        Weight = weight;
         UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, staff.Id, date));
         AddDomainEvent(new PackageArrivedAtWarehouse(Id, date, staff.Id));
     }

@@ -1,8 +1,4 @@
-﻿using Domain.Abstractions;
-using Domain.Aggregates;
-using Domain.Entities;
-
-namespace Application.Services;
+﻿namespace Application.Services;
 
 public interface IEmailSender
 {

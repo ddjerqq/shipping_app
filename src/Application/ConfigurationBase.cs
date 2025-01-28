@@ -31,9 +31,8 @@ public abstract class ConfigurationBase
             .ForEach(hostingStartup =>
             {
                 var name = hostingStartup.GetType().Name.Replace("Configure", "");
-                Console.WriteLine($"[{DateTime.Now:dd-MM-yyyy hh:mm:ss.fff} INF] Configuring {name}");
+                Console.WriteLine($"[{DateTime.Now:hh:mm:ss} INF] ? Configuring {name}");
                 hostingStartup.ConfigureServices(services);
-                Console.WriteLine($"[{DateTime.Now:dd-MM-yyyy hh:mm:ss.fff} INF] Configured  {name}");
             });
     }
 }

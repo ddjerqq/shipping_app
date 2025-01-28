@@ -99,7 +99,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
                 request.Width,
                 request.Height,
                 request.Length,
-                request.WeightKg * 1000,
+                request.WeightKg,
                 DateTime.UtcNow);
             await sender.Send(createPackageCommand, ct);
 

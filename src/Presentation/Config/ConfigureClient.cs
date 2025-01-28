@@ -19,5 +19,6 @@ public sealed class ConfigureClient : ConfigurationBase
         services.AddBlazoredToast();
 
         services.AddScoped<IEmailMarkupProvider, RazorEmailMarkupProvider>();
+        services.AddScoped<HtmlSectionPrinterService>();
     }
 }

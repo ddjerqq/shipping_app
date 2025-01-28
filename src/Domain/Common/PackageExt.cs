@@ -16,7 +16,7 @@ public static class PackageExt
         package.Dimensions is { X: var x, Y: var y, Z: var z } ? GetVolumetricWeightPrice(x, y, z) : 0;
 
     public static decimal GetWeightPrice(float weight) => RoundUp((decimal)weight * Package.PricePerKg);
-    public static decimal GetWeightPrice(this Package package) => GetWeightPrice(package.WeightGrams ?? 0);
+    public static decimal GetWeightPrice(this Package package) => GetWeightPrice(package.Weight ?? 0);
 
     /// <summary>
     /// Gets the total price of a package
@@ -30,7 +30,7 @@ public static class PackageExt
         GetWeightPrice(weight) + GetVolumetricWeightPrice(x, y, z) + (isHouseDelivery ? 4 : 1);
 
     public static decimal GetTotalPrice(this Package package) =>
-        package is { Dimensions: { X: var x, Y: var y, Z: var z }, WeightGrams: { } weightGrams }
-            ? GetTotalPrice(x, y, z, weightGrams / 1000, package.HouseDelivery)
+        package is { Dimensions: { X: var x, Y: var y, Z: var z }, Weight: { } weightGrams }
+            ? GetTotalPrice(x, y, z, weightGrams, package.HouseDelivery)
             : 0;
 }

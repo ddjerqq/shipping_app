@@ -1,6 +1,5 @@
 using Domain.Abstractions;
 using Domain.Aggregates;
-using Domain.Events;
 using Domain.ValueObjects;
 using Generated;
 

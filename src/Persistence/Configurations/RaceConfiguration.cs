@@ -1,8 +1,6 @@
 using Domain.Entities;
-using EntityFrameworkCore.DataProtection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.ValueConverters;
 
 namespace Persistence.Configurations;
 

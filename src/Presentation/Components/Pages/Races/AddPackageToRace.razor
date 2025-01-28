@@ -93,6 +93,8 @@
         if (RaceId is null)
         {
             Races = await DbContext.Races
+                .AsNoTracking()
+                .IgnoreAutoIncludes()
                 .Where(race => race.Start > DateTime.UtcNow)
                 .ToListAsync(CancellationToken);
         }
@@ -101,6 +103,8 @@
         if (PackageId is null)
         {
             Packages = await DbContext.Packages
+                .AsNoTracking()
+                .IgnoreAutoIncludes()
                 .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == PackageStatus.InWarehouse)
                 .ToListAsync(CancellationToken);
         }
@@ -110,8 +114,7 @@
     {
         await SendCommandAsync(Command);
         ShowSuccess("The package has been added to the race");
-        await Task.Delay(1000);
-        NavigationManager.Refresh(true);
+        NavigationManager.NavigateTo($"/packages/label/{Command.PackageId}");
     }
 
     private void SetRaceId(ChangeEventArgs obj)

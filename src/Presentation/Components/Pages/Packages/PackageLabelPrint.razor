@@ -1,0 +1,119 @@
+@page "/packages/label/{Id}"
+@using Application.Services
+@using Domain.ValueObjects
+@using Microsoft.EntityFrameworkCore
+@using Domain.Common
+@using Presentation.Services
+@using Domain.Aggregates
+@attribute [Authorize(Roles = "Staff,Admin")]
+@attribute [StreamRendering]
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
+@inject HtmlSectionPrinterService Printer
+
+<PageTitle>
+    sangoway_label_@Package?.TrackingCode
+</PageTitle>
+
+@if (Package is not null)
+{
+    <Card id="label" class="max-w-xl flex flex-col text-center border-dashed font-mono">
+        <Header class="border-b border-dashed pb-2">
+            <CardTitle class="text-2xl">SanGoWay</CardTitle>
+            <Description>Package label</Description>
+        </Header>
+        <Content class="w-full flex flex-col items-center p-0">
+            <div class="w-full p-6 px-16">
+                <h2 class="text-start text-lg font-bold">Owner</h2>
+                <div class="flex justify-between">
+                    <span>ID:</span>
+                    <span>@Package.Owner.Id</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Name:</span>
+                    <span>@Package.Owner.Username.CapitalizeName()</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Phone:</span>
+                    <span>@Package.Owner.PhoneNumber</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>EMail:</span>
+                    <span>@Package.Owner.Email</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Address:</span>
+                    <span>@Package.Owner.AddressInfo.AddressToString()</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Address 2:</span>
+                    <span>@Package.Owner.RoomCode</span>
+                </div>
+            </div>
+
+            <hr class="w-full border-dashed py-2"/>
+
+            <div class="p-6">
+                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode}")" alt="@Package.TrackingCode"/>
+            </div>
+
+            <hr class="w-full border-dashed py-2"/>
+
+            <div class="w-full p-6 px-16">
+                <div class="flex justify-between">
+                    <span>Weight (kg):</span>
+                    <span>@Package.Weight?.ToString("N2")</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Dimensions (w, h, l) cm:</span>
+                    <span>@Package.Dimensions</span>
+                </div>
+            </div>
+        </Content>
+        <Footer class="pt-4 border-t border-dashed text-sm text-muted-foreground">
+            <div class="w-full">
+                <div class="flex justify-between">
+                    <span>Label created at:</span>
+                    <span>@TimeZoneInfo.ConvertTime(DateTime.UtcNow, User?.TimeZone ?? TimeZoneInfo.Utc).ToString("yyyy-MM-dd HH:mm:ss UTCzzz")</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Label created by:</span>
+                    <span>@User?.Id</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Package ID:</span>
+                    <span>@Id</span>
+                </div>
+            </div>
+        </Footer>
+    </Card>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = null!;
+
+    private PackageId? PackageId => Domain.Aggregates.PackageId.TryParse(Id, null, out var id) ? id : null;
+    private Package? Package { get; set; }
+    private User? User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+        Package = await DbContext.Packages
+            .Include(package => package.Owner)
+            .FirstOrDefaultAsync(x => x.Id == PackageId, CancellationToken);
+
+        ShowInfo("The label will be printed shortly");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Printer.Print("#label", CancellationToken);
+            await Task.Delay(1500);
+            NavigationManager.NavigateTo("/packages/all/?status=InWarehouse");
+        }
+    }
+}

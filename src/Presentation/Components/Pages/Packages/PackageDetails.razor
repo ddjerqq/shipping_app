@@ -2,10 +2,8 @@
 @using Application.Services
 @using Domain.Aggregates
 @using Domain.Common
-@using Domain.Entities
 @using Domain.ValueObjects
 @using Microsoft.AspNetCore.Components.Sections
-@using Microsoft.EntityFrameworkCore
 @layout HomeLayout
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUser
@@ -221,7 +219,7 @@
                         <input id="weight"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@((Package.WeightGrams / 1000)?.ToString("F1"))"/>
+                               value="@(Package.Weight?.ToString("F1"))"/>
                     </FormField>
 
                     <FormField>

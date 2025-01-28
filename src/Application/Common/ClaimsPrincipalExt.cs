@@ -2,7 +2,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using Domain.Aggregates;
-using Domain.Entities;
 
 namespace Application.Common;
 

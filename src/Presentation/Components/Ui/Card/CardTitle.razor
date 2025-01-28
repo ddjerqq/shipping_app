@@ -1,15 +1,7 @@
-﻿@using System.ComponentModel.DataAnnotations
-@inherits UiComponentBase
+﻿@inherits UiComponentBase
 
-<div aria-level="@Level"
-     role="heading"
+<div role="heading"
      @attributes="@AdditionalAttributes"
      class="@(Merge("text-lg font-semibold leading-none tracking-tight"))">
     @ChildContent
 </div>
-
-@code {
-    [Parameter]
-    [AllowedValues("1", "2", "3", "4", "5", "6")]
-    public string Level { get; set; } = "3";
-}
