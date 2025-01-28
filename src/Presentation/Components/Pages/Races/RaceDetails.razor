@@ -2,6 +2,7 @@
 @using Application.Services
 @using Domain.Entities
 @using Microsoft.AspNetCore.Components.Sections
+@using Presentation.Components.Pages.Packages
 @layout HomeLayout
 @inject IAppDbContext DbContext
 @attribute [StreamRendering]
@@ -83,10 +84,8 @@
                     Save
                 </Button>
 
-
-                @{
-                    // TODO: package list here for this race?
-                }
+                <h1>Packages</h1>
+                <PackageList Packages="@Race.Packages"/>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
