@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Klean.EntityFrameworkCore.DataProtection" Version="1.2.0" />
+        <PackageReference Include="Klean.EntityFrameworkCore.DataProtection" Version="1.2.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">

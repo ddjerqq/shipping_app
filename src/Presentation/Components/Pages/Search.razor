@@ -1,0 +1,96 @@
+@page "/search"
+@layout HomeLayout
+@using Application.Cqrs.Staff.Queries
+@using Application.Services
+@using Domain.Common
+@attribute [StreamRendering]
+@attribute [Authorize(Roles = "Staff,Admin")]
+@inject IFileStore FileStore
+
+<PageTitle>Search</PageTitle>
+<PageHeader Title="Search"/>
+
+<Card>
+    <Header>
+        <CardTitle class="text-2xl">Search</CardTitle>
+    </Header>
+    <Content class="space-y-6">
+        <div>
+            <FormField>
+                <FormLabel>Query</FormLabel>
+                <input class="@FormInputText.BaseClass"
+                       id="query"
+                       value="@Command.Value"
+                       @oninput="@ValueChanged"/>
+                <FormDescription>
+                    You can search for Users, Packages and races here.
+                </FormDescription>
+            </FormField>
+        </div>
+
+        @if (Results.Any())
+        {
+            <h2>Results:</h2>
+        }
+
+        <div class="flex flex-col gap-2">
+            @foreach (var result in Results)
+            {
+                switch (result)
+                {
+                    case GenericSearchResult.RaceSearchResult { Value: var race }:
+                        <a href="/races/@race.Id"
+                           class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
+                            <Blazicon Svg="@Lucide.Plane" class="!size-10"/>
+                            <div class="flex flex-col">
+                                <span>@race.Name</span>
+                                <span class="text-muted-foreground">@race.Origin - @race.Destination</span>
+                            </div>
+                        </a>
+                        break;
+                    case GenericSearchResult.PackageSearchResult { Value: var package }:
+                        <a href="/packages/@package.Id"
+                           class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
+                            <Blazicon Svg="@Lucide.Package" class="!size-10"/>
+                            <div class="flex flex-col">
+                                <span>@package.TrackingCode</span>
+                                <span class="text-muted-foreground">@package.Owner?.Username</span>
+                            </div>
+                        </a>
+                        break;
+                    case GenericSearchResult.UserSearchResult { Value: var user }:
+                        <a href="/users/@user.Id"
+                           class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
+                            <Blazicon Svg="@Lucide.User" class="!size-10"/>
+                            <div class="flex flex-col">
+                                <span>@user.Username.CapitalizeName()</span>
+                                <span class="text-muted-foreground">@user.Email</span>
+                            </div>
+                        </a>
+                        break;
+                }
+            }
+        </div>
+    </Content>
+</Card>
+
+
+@code {
+    private GenericSearchQuery Command { get; set; } = new(null!);
+    private IEnumerable<GenericSearchResult> Results { get; set; } = [];
+
+    private async Task FetchData()
+    {
+        Results = await SendCommandAsync(Command);
+    }
+
+    private async Task ValueChanged(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            Command = new GenericSearchQuery(value);
+            await FetchData();
+        }
+    }
+}

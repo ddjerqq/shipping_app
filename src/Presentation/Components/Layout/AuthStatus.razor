@@ -6,20 +6,20 @@
 
 <AuthorizeView>
     <Authorized>
-        <Button Variant="outline" class="px-3 !h-9 flex-shrink-0" data-dropdown-toggle="dropdown">
-            <span class="max-w-[120px] text-nowrap truncate">
-                @context.User.GetUsername()?.CapitalizeName()
-            </span>
-
+        <Button Variant="outline" class="px-3 !h-9 flex-shrink-0" data-dropdown-toggle="auth-dropdown">
             <Avatar class="size-6">
-                <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar())" Alt="@(context.User.GetUsername())"/>
+                <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar(context.User.GetUsername()))" Alt="@(context.User.GetUsername())"/>
                 <AvatarFallback>
                     @context.User.GetUsername()?.Initials()
                 </AvatarFallback>
             </Avatar>
+
+            <span class="max-w-[120px] text-nowrap truncate">
+                @context.User.GetUsername()?.CapitalizeName()
+            </span>
         </Button>
 
-        <div id="dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
+        <div id="auth-dropdown" class="z-10 hidden divide-y divide-background-100 rounded-lg shadow w-44 border bg-background">
             <div class="px-4 py-3 text-sm">
                 <div>@context.User.GetUsername()?.CapitalizeName()</div>
                 <div class="font-medium text-xs text-muted-foreground truncate">

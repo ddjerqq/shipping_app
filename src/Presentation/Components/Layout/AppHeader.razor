@@ -6,12 +6,13 @@
 <header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
-            <a class="mr-4 flex items-center gap-2 lg:mr-6" href="@HomeUrl">
-                <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                <span class="hidden font-bold lg:inline-block">Dashboard</span>
-            </a>
-
             <AuthorizeView>
+                <Authorized>
+                    <a class="mr-4 flex items-center gap-2 lg:mr-6" href="@HomeUrl">
+                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
+                    </a>
+                </Authorized>
                 <NotAuthorized>
                     <a class="mr-4 flex items-center gap-2 lg:mr-6" href="/">
                         <Blazicon Svg="@Icons.Truck" class="!size-8"/>
@@ -31,17 +32,15 @@
                 <AuthorizeView Roles="Staff">
                     <Authorized>
                         <HeaderNavLink Href="/packages/all" Title="Packages"/>
-                        @* <HeaderNavLink Href="/packages/add" Title="Receive pkg"/> *@
-                        @* <HeaderNavLink Href="/packages/send" Title="Send pkg"/> *@
-
                         <HeaderNavLink Href="/races/all" Title="Races"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView Roles="Admin">
                     <Authorized>
-                        <HeaderNavLink Href="/users/all" Title="Manage users"/>
-                        <HeaderNavLink Href="/users/all" Title="Manage packages"/>
+                        <HeaderNavLink Href="/packages/all" Title="Packages"/>
+                        <HeaderNavLink Href="/races/all" Title="Races"/>
+                        <HeaderNavLink Href="/users/all" Title="Users"/>
                     </Authorized>
                 </AuthorizeView>
 
@@ -57,6 +56,7 @@
 
         <div class="flex align-middle space-x-2">
             <ThemeToggle/>
+            <Search/>
             <AuthStatus/>
         </div>
     </div>

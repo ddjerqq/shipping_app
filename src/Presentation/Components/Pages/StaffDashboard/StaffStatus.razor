@@ -1,0 +1,54 @@
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <Card>
+        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle>Transportation</CardTitle>
+            <Blazicon Svg="@Icons.Truck" class="text-muted-foreground size-4"/>
+        </Header>
+        <Content>
+            <div class="text-2xl font-bold">@(45_231.89.ToString("C"))</div>
+            <p class="text-muted-foreground text-xs">
+                +10% from last month
+            </p>
+        </Content>
+    </Card>
+
+    <Card>
+        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle>Your balance</CardTitle>
+            <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground size-4"/>
+        </Header>
+        <Content>
+            <div class="text-2xl font-bold">@(2_350.00.ToString("C"))</div>
+            <p class="text-muted-foreground text-xs">
+                +10% from last month
+            </p>
+        </Content>
+    </Card>
+
+    <Card>
+        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle>Amount due</CardTitle>
+            <Blazicon Svg="@Icons.Minus" class="text-muted-foreground size-4"/>
+        </Header>
+        <Content>
+            @* destructive if positive *@
+            <div class="text-2xl text-destructive font-bold">@(350.35.ToString("C"))</div>
+            <p class="text-muted-foreground text-xs">
+                +10% from last month
+            </p>
+        </Content>
+    </Card>
+
+    <Card>
+        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle>Top up balance</CardTitle>
+            <Blazicon Svg="@Icons.CreditCard" class="text-muted-foreground size-4"/>
+        </Header>
+        <Content>
+            <Button>Top up using stripe</Button>
+            <p class="text-muted-foreground text-xs">
+                Your payment info is secure
+            </p>
+        </Content>
+    </Card>
+</div>

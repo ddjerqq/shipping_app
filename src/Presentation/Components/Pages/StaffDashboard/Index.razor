@@ -1,0 +1,15 @@
+@page "/staff_dashboard"
+@layout HomeLayout
+@attribute [StreamRendering]
+@using Presentation.Components.Pages.Packages
+@using Microsoft.AspNetCore.Components.Sections
+
+<PageTitle>Staff dashboard</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">Staff dashboard</SectionContent>
+
+<StaffStatus/>
+
+<div class="grid gap-4 lg:grid-cols-2">
+    <CreatePackage/>
+    <AllPackages/>
+</div>

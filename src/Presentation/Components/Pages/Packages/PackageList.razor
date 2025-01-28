@@ -72,7 +72,7 @@
         {
             var url = !string.IsNullOrWhiteSpace(package.PictureFileKey)
                 ? await FileStore.GetPresignedFileUrlAsync(package.PictureFileKey)
-                : ClaimsPrincipalExt.GetDefaultAvatar("na");
+                : ClaimsPrincipalExt.GetDefaultAvatar();
 
             PictureUrls.Add(package.Id, url!);
         }
