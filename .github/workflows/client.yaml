@@ -43,8 +43,6 @@ jobs:
       - name: Restore packages 📦
         run: dotnet restore --verbosity minimal
 
-#      TODO replace with NPM, because of daisyUI
-
       - name: Setup Tailwind 🎨
         run: |
           wget https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 -O /usr/local/bin/tailwindcss

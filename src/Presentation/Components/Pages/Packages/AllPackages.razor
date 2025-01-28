@@ -7,6 +7,7 @@
 @using Microsoft.AspNetCore.Components.Sections
 @using Microsoft.EntityFrameworkCore
 @inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Staff,Admin")]
 
@@ -75,6 +76,7 @@
 
     [SupplyParameterFromQuery(Name = "status")]
     public string? BoundStatus { get; set; }
+
     private PackageStatus SelectedStatus { get; set; }
 
     private Paginator.PaginatorState PaginatorState { get; set; } = new(1, 0);
@@ -89,9 +91,8 @@
 
     private async Task FetchData()
     {
-        // TODO filter if user, only own packages
-
         TotalPackages = await DbContext.Packages
+            .WhereIf(CurrentUser.Role is Role.User, package => package.OwnerId == CurrentUser.Id)
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .CountAsync();
 
@@ -101,7 +102,7 @@
             .Include(package => package.Statuses)
             .ThenInclude(status => status.Staff)
             .AsSplitQuery()
-
+            .WhereIf(CurrentUser.Role is Role.User, package => package.OwnerId == CurrentUser.Id)
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .OrderByDescending(x => x.Id)
             .Skip(PaginatorState.Skip)
