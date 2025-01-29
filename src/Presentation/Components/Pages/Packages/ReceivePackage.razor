@@ -1,4 +1,5 @@
 @page "/packages/receive"
+@attribute [Authorize(Roles = "Staff,Admin")]
 @using Application.Cqrs.Packages.Commands
 
 <PageTitle>Receive Package</PageTitle>

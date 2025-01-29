@@ -1,0 +1,223 @@
+@page "/users/new"
+@attribute [Authorize(Roles = "Admin")]
+@using System.Globalization
+@using Application.Cqrs.Users.Commands
+@using Domain.ValueObjects
+
+<PageTitle>Create new User</PageTitle>
+
+<Card>
+    <Header>
+        <CardTitle>Create new User</CardTitle>
+    </Header>
+    <Content>
+        <AppForm @bind-Model="CreateUserCommand" OnValidSubmit="OnValidSubmit">
+            <InlineFormFieldContainer>
+                <FormField>
+                    <FormLabel for="full-name">Full name</FormLabel>
+                    <FormInputText id="full-name"
+                                   @bind-Value="@CreateUserCommand.FullName"
+                                   placeholder="Enter full name"
+                                   type="text"
+                                   required
+                                   autocomplete="name"
+                                   disabled="@IsLoading"/>
+
+                    <FormInvalidFeedback For="@(() => CreateUserCommand.FullName)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="email">Email</FormLabel>
+                    <FormInputText id="email"
+                                   @bind-Value="@CreateUserCommand.Email"
+                                   placeholder="Enter email"
+                                   type="email"
+                                   required
+                                   autocomplete="email"
+                                   disabled="@IsLoading"/>
+
+                    <FormInvalidFeedback For="@(() => CreateUserCommand.Email)"/>
+                </FormField>
+            </InlineFormFieldContainer>
+
+            <InlineFormFieldContainer>
+                <FormField>
+                    <FormLabel for="phone">Phone number</FormLabel>
+                    <FormInputText id="phone"
+                                   @bind-Value="@CreateUserCommand.PhoneNumber"
+                                   placeholder="955599123123"
+                                   type="phone"
+                                   required
+                                   autocomplete="tel mobile"
+                                   disabled="@IsLoading"/>
+
+                    <FormInvalidFeedback For="@(() => CreateUserCommand.PhoneNumber)"/>
+                </FormField>
+
+                <FormField>
+                    <FormLabel for="personal-id">Personal Id</FormLabel>
+                    <FormInputText id="personal-id"
+                                   @bind-Value="@CreateUserCommand.PersonalId"
+                                   placeholder="Id or SSN"
+                                   type="email"
+                                   required
+                                   autocomplete="personal-id"
+                                   disabled="@IsLoading"/>
+
+                    <FormInvalidFeedback For="@(() => CreateUserCommand.PersonalId)"/>
+                </FormField>
+            </InlineFormFieldContainer>
+
+            <FormField>
+                <FormLabel for="role">Role</FormLabel>
+                <FormInputEnum TEnum="Role" @bind-Value="CreateUserCommand.Role" Options="@(Enum.GetValues<Role>())"/>
+                <FormInvalidFeedback For="@(() => CreateUserCommand.Role)"/>
+            </FormField>
+
+            <FormField>
+                <FormLabel for="password">Password</FormLabel>
+                <FormInputText id="password"
+                               @bind-Value="@CreateUserCommand.Password"
+                               placeholder="Enter password"
+                               type="@(ShowPassword ? "text" : "password")"
+                               required
+                               autocomplete="new-password"
+                               disabled="@IsLoading"/>
+
+                <FormDescription class="w-full flex justify-between">
+                    Password must contain at least 12 characters
+                </FormDescription>
+
+                <FormInvalidFeedback For="@(() => CreateUserCommand.Password)"/>
+            </FormField>
+
+            <FormField>
+                <div class="flex flex-row items-center gap-2">
+                    <Switch id="show-password" @bind-Value="ShowPassword"/>
+                    <FormLabel for="show-password">
+                        Show password
+                    </FormLabel>
+                </div>
+            </FormField>
+
+            <FormDescription>Address</FormDescription>
+
+            <FormField>
+                <div class="flex flex-row items-center gap-2">
+                    <Switch id="add-address" @bind-Value="AddAddress"/>
+                    <FormLabel for="add-address">
+                        Add address
+                    </FormLabel>
+                </div>
+            </FormField>
+
+            @if (AddAddress)
+            {
+                <InlineFormFieldContainer>
+                    <FormField>
+                        <FormLabel for="country">Country</FormLabel>
+                        <FormInputText
+                            id="country"
+                            @bind-Value="@AddAddressCommand.Country"
+                            required
+                            placeholder="Enter country"
+                            autocomplete="address-level2"
+                            disabled="@IsLoading"/>
+                        <FormInvalidFeedback For="@(() => AddAddressCommand.Country)"/>
+                    </FormField>
+
+                    <FormField>
+                        <FormLabel for="state">State</FormLabel>
+                        <input
+                            id="state"
+                            class="@FormInputText.BaseClass"
+                            autocomplete="address-level1"
+                            placeholder="State unavailable in Georgia"
+                            disabled/>
+                        <FormInvalidFeedback For="@(() => AddAddressCommand.State)"/>
+                    </FormField>
+                </InlineFormFieldContainer>
+
+                <InlineFormFieldContainer>
+                    <FormField>
+                        <FormLabel for="city">City</FormLabel>
+                        <FormInputText
+                            id="city"
+                            @bind-Value="@AddAddressCommand.City"
+                            required
+                            placeholder="Enter city"
+                            autocomplete="address-level2"
+                            disabled="@IsLoading"/>
+                        <FormInvalidFeedback For="@(() => AddAddressCommand.City)"/>
+                    </FormField>
+
+                    <FormField>
+                        <FormLabel for="zip">Zip Code</FormLabel>
+                        <FormInputText
+                            id="zip"
+                            @bind-Value="@AddAddressCommand.ZipCode"
+                            type="number"
+                            step="1"
+                            min="0"
+                            max="99999"
+                            required
+                            placeholder="Enter zip code"
+                            autocomplete="postal-code"
+                            disabled="@IsLoading"/>
+                        <FormInvalidFeedback For="@(() => AddAddressCommand.ZipCode)"/>
+                    </FormField>
+                </InlineFormFieldContainer>
+
+                <FormField>
+                    <FormLabel for="street-address">Street address</FormLabel>
+                    <FormInputText
+                        id="street-address"
+                        @bind-Value="@AddAddressCommand.Address"
+                        required
+                        placeholder="Enter full street address"
+                        autocomplete="street-address"
+                        disabled="@IsLoading"/>
+                    <FormInvalidFeedback For="@(() => AddAddressCommand.Address)"/>
+                </FormField>
+            }
+
+            <Button type="submit" disabled="@IsLoading">
+                @if (IsLoading)
+                {
+                    <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+                }
+                Create
+            </Button>
+        </AppForm>
+    </Content>
+</Card>
+
+@code {
+    [CascadingParameter]
+    private TimeZoneInfo BrowserTimeZone { get; set; } = null!;
+
+    [CascadingParameter]
+    private CultureInfo BrowserLocale { get; set; } = null!;
+
+    private bool ShowPassword { get; set; } = true;
+    private bool AddAddress { get; set; } = false;
+    private CreateUserCommand CreateUserCommand { get; set; } = new();
+    private AddAddressCommand AddAddressCommand { get; set; } = new();
+
+    private async Task OnValidSubmit()
+    {
+        CreateUserCommand.TimeZoneInfo = BrowserTimeZone;
+        CreateUserCommand.CultureInfo = BrowserLocale;
+
+        var user = await SendCommandAsync(CreateUserCommand);
+
+        if (AddAddress)
+        {
+            AddAddressCommand.User = user;
+            await SendCommandAsync(AddAddressCommand);
+        }
+
+        ShowSuccess("User has been successfully created!");
+        CreateUserCommand = new CreateUserCommand();
+    }
+}

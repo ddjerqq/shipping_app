@@ -1,11 +1,10 @@
 @using Application.Cqrs.Users.Commands
 @using Application.Services
 @using Domain.ValueObjects
-@using Domain.Aggregates
 @inject ICurrentUserAccessor CurrentUser
 @inject IAppDbContext DbContext
 
-<AppForm @bind-Model="User" OnValidSubmit="AddAddress">
+<AppForm @bind-Model="Command" OnValidSubmit="AddAddress">
     <InlineFormFieldContainer>
         <FormField>
             <FormLabel for="country">Country</FormLabel>
@@ -13,6 +12,7 @@
                 id="country"
                 @bind-Value="@Command.Country"
                 required
+                placeholder="Enter country"
                 autocomplete="address-level2"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.Country)"/>
@@ -37,6 +37,7 @@
                 id="city"
                 @bind-Value="@Command.City"
                 required
+                placeholder="Enter city"
                 autocomplete="address-level2"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.City)"/>
@@ -52,6 +53,7 @@
                 min="0"
                 max="99999"
                 required
+                placeholder="Enter zip code"
                 autocomplete="postal-code"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.ZipCode)"/>
@@ -64,6 +66,7 @@
             id="street-address"
             @bind-Value="@Command.Address"
             required
+            placeholder="Enter full street address"
             autocomplete="street-address"
             disabled="@IsLoading"/>
         <FormInvalidFeedback For="@(() => Command.Address)"/>
@@ -79,13 +82,12 @@
 </AppForm>
 
 @code {
-    private User User { get; set; } = null!;
     private AddAddressCommand Command { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
-        User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
-        if (User.AddressInfo is FullAddress address)
+        Command.User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+        if (Command.User.AddressInfo is FullAddress address)
         {
             Command = new AddAddressCommand
             {

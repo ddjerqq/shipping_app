@@ -12,6 +12,12 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
         return sender.SendAsync(user.Email, "Confirm your EMail", markup, ct);
     }
 
+    public Task SendYourAccountHasBeenAddedAsync(User user, string password, CancellationToken ct = default)
+    {
+        var markup = emailMarkupProvider.GetYourAccountHasBeenAddedByAdminMarkup(user, password);
+        return sender.SendAsync(user.Email, "Welcome", markup, ct);
+    }
+
     public Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetWelcomeEmailMarkup(user);

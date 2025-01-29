@@ -1,0 +1,56 @@
+@using Application.Common
+@using Application.Services
+@using Domain.Common
+@using Domain.Aggregates
+@using Presentation.Components.Ui.Avatar
+@inject IFileStore FileStore
+
+<div class="space-y-2 overflow-y-scroll max-h-[600px]">
+    @foreach (var user in Users)
+    {
+        <Button Href="@($"/users/{user.Id}")" Variant="outline" Size="lg" @key="@user.Id"
+                class="p-4 h-auto justify-center gap-y-4 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+            <div class="flex gap-4 items-center">
+                <Avatar class="hidden md:block size-9">
+                    <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar(user.Username))" Alt="@user.Username"/>
+                    <AvatarFallback>User image</AvatarFallback>
+                </Avatar>
+
+                <div class="flex flex-col gap-1 justify-center">
+                    <span class="text-xs text-muted-foreground">@user.PersonalId</span>
+                    <span class="max-w-[120px] truncate font-medium leading-none">@user.Username.CapitalizeName()</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex flex-col gap-1 text-start justify-center">
+                <span class="text-xs text-muted-foreground">Role</span>
+                <span class="font-medium leading-none">@(user.Role.GetDisplayName())</span>
+            </div>
+
+            <div class="flex flex-col gap-1 text-start justify-center">
+                <span class="text-xs text-muted-foreground">Email</span>
+                <span class="flex gap-2 font-medium leading-none" title="@(user.EmailConfirmed ? "email confirmed" : "email not confirmed")">
+                    <Blazicon Svg="@(user.EmailConfirmed ? Lucide.Check : Lucide.X)" class="!size-4"/>
+                    <Link class="text-primary hover:font-semibold" Href="@($"mailto:{user.Email}")" Title="@user.Email"/>
+                </span>
+            </div>
+
+            <div class="flex flex-col gap-1 text-start justify-center">
+                <span class="text-xs text-muted-foreground">Phone</span>
+                <span class="font-medium leading-none">
+                    <Link class="text-primary hover:font-semibold" Href="@($"tel:{user.PhoneNumber}")" Title="@user.PhoneNumber"/>
+                </span>
+            </div>
+
+            <div class="hidden lg:flex flex-col gap-1 text-start justify-center">
+                <span class="text-xs text-muted-foreground">Created at</span>
+                <span class="font-medium leading-none">@user.Created.ToString("u")</span>
+            </div>
+        </Button>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public IEnumerable<User> Users { get; set; } = [];
+}

@@ -15,6 +15,12 @@ public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
             .Set(c => c.CallbackUrl, callback)
             .Render();
 
+    public string GetYourAccountHasBeenAddedByAdminMarkup(User user, string password) =>
+        new ComponentRenderer<YourAccountHasBeenAddedByAnAdmin>()
+            .Set(c => c.User, user)
+            .Set(c => c.Password, password)
+            .Render();
+
     public string GetWelcomeEmailMarkup(User user) =>
         new ComponentRenderer<WelcomeEmail>()
             .Render();

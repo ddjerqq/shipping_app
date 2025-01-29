@@ -11,6 +11,11 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
         await emailNotifier.SendEmailConfirmationAsync(user, callback, ct);
     }
 
+    public async Task SendYourAccountHasBeenAddedAsync(User user, string password, CancellationToken ct = default)
+    {
+        await emailNotifier.SendYourAccountHasBeenAddedAsync(user, password, ct);
+    }
+
     public async Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
         await emailNotifier.SendWelcomeAsync(user, ct);

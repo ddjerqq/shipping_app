@@ -2,23 +2,11 @@ namespace Domain.Common;
 
 public static class StringExt
 {
-    public static (string First, string Last)? SplitName(this string name) => name.Split(' ') switch
-    {
-        [var first, var last] => (first, last),
-        _ => null,
-    };
+    public static string Capitalize(this string str) => str[..1].ToUpper() + str[1..].ToLower();
 
-    public static string? Initials(this string name) => name.SplitName() switch
-    {
-        var (first, last) => $"{first[0]}{last[0]}",
-        _ => null,
-    };
+    public static string Initials(this string name) => string.Join(string.Empty, name.Split(' ').Select(part => part[0]));
 
-    public static string? CapitalizeName(this string name) => name.SplitName() switch
-    {
-        var (first, last) => $"{char.ToUpper(first[0])}{first[1..]} {char.ToUpper(last[0])}{last[1..]}",
-        _ => null,
-    };
+    public static string CapitalizeName(this string name) => string.Join(" ", name.Split(' ').Select(part => part.Capitalize()));
 
     public static string? FromEnv(this string key)
     {

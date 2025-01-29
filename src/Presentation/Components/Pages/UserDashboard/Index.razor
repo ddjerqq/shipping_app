@@ -1,6 +1,7 @@
 ﻿@page "/user_dashboard"
 @layout HomeLayout
 @attribute [StreamRendering]
+@attribute [Authorize(Roles = "User")]
 @using Presentation.Components.Pages.Packages
 @using Microsoft.AspNetCore.Components.Sections
 

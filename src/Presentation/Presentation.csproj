@@ -47,4 +47,17 @@
     <ItemGroup>
       <None Include="wwwroot\scripts\HtmlSectionPrinterService.js" />
     </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\CookieSettings.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\CreateAccount.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\DemoContainer.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\Github.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\Index.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\Notifications.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\PaymentMethod.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\ReportIssue.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\Share.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\Cards\TeamMembers.razor" />
+    </ItemGroup>
 </Project>

@@ -5,12 +5,6 @@
 <PageTitle>Register</PageTitle>
 <PageHeader Title="Create an account"/>
 
-<AuthorizeView>
-    <Authorized>
-        <Redirect To="/home"/>
-    </Authorized>
-</AuthorizeView>
-
 <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser">
     <InlineFormFieldContainer>
         <FormField>
@@ -139,7 +133,7 @@
     <div class="space-y-3 text-muted-foreground text-sm">
         <div class="text-center">
             Already have an account?
-            <Link Href="auth/login" Title="Login"/>
+            <Link Href="/auth/login" Title="Login"/>
         </div>
     </div>
 </AppForm>
@@ -165,14 +159,7 @@
         Command.TimeZoneInfo = BrowserTimeZone;
         Command.CultureInfo = BrowserLocale;
 
-        var result = await SendCommandAsync(Command);
-
-        if (result is false)
-        {
-            ShowError("The email, phone number, or personal Id is already in use by another user. Try logging in");
-            return;
-        }
-
-        NavigationManager.NavigateTo("auth/register_confirmation");
+        await SendCommandAsync(Command);
+        NavigationManager.NavigateTo("/auth/register_confirmation");
     }
 }

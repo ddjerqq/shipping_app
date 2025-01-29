@@ -1,0 +1,61 @@
+@page "/users/all"
+@layout HomeLayout
+@using Application.Services
+@using Domain.Aggregates
+@using Microsoft.EntityFrameworkCore
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUser
+@attribute [StreamRendering]
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>All users</PageTitle>
+
+<Card>
+    <Header>
+        <CardTitle class="flex flex-col w-full justify-center content-around px-1 gap-2">
+            <div class="flex items-center justify-between">
+                <span>All users</span>
+
+                <div class="space-x-2">
+                    <Button Href="/users/new" class="ms-2">
+                        <Blazicon Svg="@Lucide.UserPlus"/>
+                        Add
+                    </Button>
+                </div>
+            </div>
+        </CardTitle>
+    </Header>
+    <Content>
+        <UserList Users="@Users"/>
+    </Content>
+    <Footer>
+        <Paginator State="@PaginatorState" StateChanged="@FetchData"/>
+    </Footer>
+</Card>
+
+@code {
+    private IEnumerable<User> Users { get; set; } = [];
+    private int TotalUsers { get; set; } = 0;
+    private Paginator.PaginatorState PaginatorState { get; set; } = new(1, 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+        StateHasChanged();
+    }
+
+    private async Task FetchData()
+    {
+        TotalUsers = await DbContext.Users.CountAsync();
+
+        PaginatorState = new Paginator.PaginatorState(0, TotalUsers);
+
+        Users = await DbContext.Users
+            .OrderByDescending(x => x.Id)
+            .Skip(PaginatorState.Skip)
+            .Take(PaginatorState.PerPage)
+            .ToListAsync(CancellationToken);
+
+        StateHasChanged();
+    }
+}

@@ -8,14 +8,17 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
 {
     public Task SendEmailConfirmationAsync(User user, string callback, CancellationToken ct = default)
     {
-        var content = $"Confirm your EMail {callback}";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        throw new NotImplementedException("Sms user notifier does not support the following method");
+    }
+
+    public Task SendYourAccountHasBeenAddedAsync(User user, string password, CancellationToken ct = default)
+    {
+        throw new NotImplementedException("Sms user notifier does not support the following method");
     }
 
     public Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
-        var content = "Welcome to our service";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        throw new NotImplementedException("Sms user notifier does not support the following method");
     }
 
     public Task SendNewLoginLocationAsync(User user, UserLogin login, CancellationToken ct = default)
@@ -26,8 +29,7 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
 
     public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
     {
-        var content = $"Reset your password here: {callback}";
-        return sender.SendAsync(user.PhoneNumber, content, ct);
+        throw new NotImplementedException("Sms user notifier does not support the following method");
     }
 
     public Task SendPasswordChangedAsync(User user, CancellationToken ct = default)
