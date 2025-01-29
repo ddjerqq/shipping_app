@@ -9,7 +9,7 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
 {
     public void Configure(EntityTypeBuilder<Package> builder)
     {
-        builder.Property(x => x.TrackingCode).HasMaxLength(32);
+        builder.ComplexProperty(x => x.TrackingCode);
         builder.HasIndex(x => x.TrackingCode).IsUnique();
 
         // category

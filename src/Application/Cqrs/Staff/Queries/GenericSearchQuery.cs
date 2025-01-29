@@ -33,7 +33,7 @@ internal sealed class GenericSearchQueryHandler(IAppDbContext dbContext) : IRequ
         var packages = await dbContext.Packages
             .IgnoreAutoIncludes()
             .Include(package => package.Owner)
-            .Where(package => ((string)package.TrackingCode).Contains(query))
+            .Where(package => package.TrackingCode.Value.Contains(query))
             .Select(package => new GenericSearchResult.PackageSearchResult(package))
             .ToListAsync(ct);
 
