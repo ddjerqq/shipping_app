@@ -1,7 +1,6 @@
 @page "/races/{Id}"
 @using Application.Services
 @using Domain.Entities
-@using Microsoft.AspNetCore.Components.Sections
 @using Presentation.Components.Pages.Packages
 @layout HomeLayout
 @inject IAppDbContext DbContext
@@ -9,13 +8,12 @@
 @attribute [Authorize(Roles = "Staff,Admin")]
 
 <PageTitle>Race details</PageTitle>
-<SectionContent SectionId="HomeLayout.TitleSectionId">Race details</SectionContent>
 
 @if (Race is not null)
 {
     <Card>
         <Header>
-            <CardTitle>@Race.QualifiedName</CardTitle>
+            <CardTitle>Race details for @Race.QualifiedName</CardTitle>
         </Header>
         <Content>
             <AppForm @bind-Model="Race" OnValidSubmit="Update">

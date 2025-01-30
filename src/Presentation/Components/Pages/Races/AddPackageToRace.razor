@@ -10,12 +10,10 @@
 @inject IAppDbContext DbContext
 
 <PageTitle>Add package to race</PageTitle>
-<PageHeader Title="Add package to race"/>
 
 <Card>
     <Header>
         <CardTitle>Add package to race</CardTitle>
-        <Description>Add a package to a race</Description>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">

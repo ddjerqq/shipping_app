@@ -1,0 +1,14 @@
+@page "/admin_dashboard"
+@layout HomeLayout
+@attribute [StreamRendering]
+@attribute [Authorize(Roles = "Admin")]
+@using Presentation.Components.Pages.Packages
+
+<PageTitle>Admin dashboard</PageTitle>
+
+<AdminStatus/>
+
+<div class="grid gap-4 lg:grid-cols-2">
+    <CreatePackage/>
+    <AllPackages/>
+</div>

@@ -1,11 +1,9 @@
 @page "/races/new"
 @layout HomeLayout
 @using Application.Cqrs.Races.Commands
-@using Microsoft.AspNetCore.Components.Sections
 @attribute [Authorize(Roles = "Staff,Admin")]
 
 <PageTitle>Create race</PageTitle>
-<SectionContent SectionId="HomeLayout.TitleSectionId">Create race</SectionContent>
 
 <Card>
     <Header>
