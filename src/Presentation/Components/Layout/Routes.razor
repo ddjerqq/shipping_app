@@ -14,19 +14,26 @@
 
     <CascadingValue Value="BrowserTimeZone">
         <CascadingValue Value="BrowserCultureInfo">
-            <Router AppAssembly="@typeof(Program).Assembly">
-                <Found Context="routeData">
-                    <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
-                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                        <NotAuthorized>
-                            <Redirect To="/auth/login" Force/>
-                        </NotAuthorized>
-                    </AuthorizeRouteView>
-                </Found>
-                <NotFound>
-                    <Redirect To="/404" Force/>
-                </NotFound>
-            </Router>
+            <ErrorBoundary @ref="ErrorBoundary" Context="exception">
+                <ChildContent>
+                    <Router AppAssembly="@typeof(Program).Assembly">
+                        <Found Context="routeData">
+                            <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+                            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                                <NotAuthorized>
+                                    <Redirect To="/auth/login" Force/>
+                                </NotAuthorized>
+                            </AuthorizeRouteView>
+                        </Found>
+                        <NotFound>
+                            <Redirect To="/404" Force/>
+                        </NotFound>
+                    </Router>
+                </ChildContent>
+                <ErrorContent>
+                    <Error Exception="exception" ErrorBoundary="ErrorBoundary"/>
+                </ErrorContent>
+            </ErrorBoundary>
         </CascadingValue>
     </CascadingValue>
 </CascadingBlazoredModal>
@@ -42,6 +49,7 @@
 
 @code {
     private IJSObjectReference? _themeModule;
+    private ErrorBoundary ErrorBoundary { get; set; } = null!;
     public TimeZoneInfo BrowserTimeZone { get; set; } = TimeZoneInfo.Utc;
     public CultureInfo BrowserCultureInfo { get; set; } = CultureInfo.InvariantCulture;
 

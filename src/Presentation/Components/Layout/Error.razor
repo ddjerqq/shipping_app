@@ -1,0 +1,51 @@
+@inject ILogger<Error> Logger
+@attribute [AllowAnonymous]
+
+<div class="w-full h-full flex justify-center items-center px-4 py-12">
+    <Card>
+        <Header>
+            <CardTitle class="text-2xl">Detected an error</CardTitle>
+            <Description>To continue using the website please reload</Description>
+        </Header>
+        <Content>
+            @Exception.Message
+        </Content>
+        <Footer class="flex flex-col gap-1">
+            <Button class="w-full" @onclick="Reload">
+                <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
+                Reload
+            </Button>
+
+            <span class="text-sm text-muted-foreground">
+                If the issue persists, Please
+                <Link Href="https://t.me/tenxdeveloper" Title="contact"/>
+                our dev team! Thank you!
+            </span>
+        </Footer>
+    </Card>
+</div>
+
+@code
+{
+    [Parameter, EditorRequired]
+    public Exception Exception { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public ErrorBoundary ErrorBoundary { get; set; } = null!;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Logger.LogError(Exception, "Detected an error in a component");
+            ShowError($"Detected an error in a component - {Exception.Message}");
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void Reload()
+    {
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
+    }
+}
