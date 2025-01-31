@@ -151,7 +151,7 @@
                 var redirectUrl = CurrentUser.Role switch
                 {
                     Role.User => "/user_dashboard",
-                    Role.Staff => "/staff_dashboard",
+                    Role.Staff => "/packages/all",
                     Role.Admin => "/admin_dashboard",
                     _ => "/",
                 };

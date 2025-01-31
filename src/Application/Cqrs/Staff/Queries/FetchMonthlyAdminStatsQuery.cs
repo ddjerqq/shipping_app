@@ -1,80 +1,147 @@
+using System.Text.Json;
 using Application.Services;
+using Domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Application.Cqrs.Staff.Queries;
 
 public sealed record MonthlyAdminStats(
     int PackagesThisMonth,
     int PackagesLastMonth,
-    float TotalRevenueThisMonth,
-    float TotalRevenueLastMonth,
-    int TotalPackagesThisMonth,
-    int TotalPackagesLastMonth,
-    int TotalUsersThisMonth,
-    int TotalUsersLastMonth)
+    float ShippingRevenueThisMonth,
+    float ShippingRevenueLastMonth,
+    int TotalRaces,
+    int RacesThisMonth,
+    int RacesLastMonth,
+    int TotalUsers,
+    int UsersThisMonth,
+    int UsersLastMonth)
 {
-    public float MonthlyPackageChangePercentage => (PackagesThisMonth - PackagesLastMonth) / (float)PackagesLastMonth * 100;
-    public float MonthlyRevenueChangePercentage => (TotalRevenueThisMonth - TotalRevenueLastMonth) / TotalRevenueLastMonth * 100;
-    public float MonthlyPackageCountChangePercentage => (TotalPackagesThisMonth - TotalPackagesLastMonth) / (float)TotalPackagesLastMonth * 100;
-    public float MonthlyUserCountChangePercentage => (TotalUsersThisMonth - TotalUsersLastMonth) / (float)TotalUsersLastMonth * 100;
+    public float MonthlyPackageChange => (PackagesThisMonth - PackagesLastMonth) / ((float)PackagesLastMonth == 0 ? 1 : (float)PackagesLastMonth) * 100;
+    public float MonthlyRevenueChange => (ShippingRevenueThisMonth - ShippingRevenueLastMonth) / (ShippingRevenueLastMonth == 0 ? 1 : ShippingRevenueLastMonth) * 100;
+    public float MonthlyRaceChange => (RacesThisMonth - RacesLastMonth) / ((float)RacesLastMonth == 0 ? 1 : (float)RacesLastMonth) * 100;
+    public float MonthlyUserChange => (UsersThisMonth - UsersLastMonth) / ((float)UsersLastMonth == 0 ? 1 : (float)UsersLastMonth) * 100;
 }
 
-public sealed record FetchMonthlyAdminStatsQuery: IRequest<MonthlyAdminStats>;
+public sealed record FetchMonthlyAdminStatsQuery : IRequest<MonthlyAdminStats>;
 
-internal sealed class FetchMonthlyAdminStatsQueryHandler(IAppDbContext dbContext) : IRequestHandler<FetchMonthlyAdminStatsQuery, MonthlyAdminStats>
+internal sealed class FetchMonthlyAdminStatsQueryHandler(IAppDbContext dbContext, IDistributedCache cache) : IRequestHandler<FetchMonthlyAdminStatsQuery, MonthlyAdminStats>
 {
+    private const string CacheKey = nameof(FetchMonthlyAdminStatsQueryHandler);
+
+    private static readonly int NowYear = DateTime.UtcNow.Year;
+    private static readonly int NowMonth = DateTime.UtcNow.Month;
+
+    private static readonly int LastYear = NowMonth == 1 ? NowYear - 1 : NowYear;
+    private static readonly int LastMonth = NowMonth == 1 ? 12 : NowMonth - 1;
+
+    private async Task<(int ThisMonth, int LastMonth)> GetMonthlyPackageCounts(CancellationToken ct)
+    {
+        var packages = await dbContext.Packages
+            .Where(p =>
+                (p.Created.Year == NowYear && p.Created.Month == NowMonth) ||
+                (p.Created.Year == LastYear && p.Created.Month == LastMonth))
+            .Select(p => p.Created)
+            .ToListAsync(ct);
+
+        var packagesThisMonth = packages.Count(packageDate => packageDate.Year == NowYear && packageDate.Month == NowMonth);
+        var packagesLastMonth = packages.Count(packageDate => packageDate.Year == LastYear && packageDate.Month == LastMonth);
+
+        return (packagesThisMonth, packagesLastMonth);
+    }
+
+    private async Task<(decimal ThisMonth, decimal LastMonth)> GetPackageShippingRevenuesSums(CancellationToken ct)
+    {
+        var packageData = await dbContext.Packages
+            .Where(p =>
+                p.Weight != null && p.Dimensions != null &&
+                ((p.Created.Year == NowYear && p.Created.Month == NowMonth) ||
+                 (p.Created.Year == LastYear && p.Created.Month == LastMonth))
+            )
+            .Select(p => new
+            {
+                p.Created,
+                p.Dimensions,
+                p.Weight,
+                p.HouseDelivery,
+            })
+            .ToListAsync(ct);
+
+        var shippingRevenueThisMonth = packageData
+            .Where(p => p.Created.Year == NowYear && p.Created.Month == NowMonth)
+            .Sum(p => PackageExt.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery));
+
+        var shippingRevenueLastMonth = packageData
+            .Where(p => p.Created.Year == LastYear && p.Created.Month == LastMonth)
+            .Sum(p => PackageExt.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery));
+
+        return (shippingRevenueThisMonth, shippingRevenueLastMonth);
+    }
+
+    private async Task<(int Total, int ThisMonth, int LastMont)> GetRaceCounts(CancellationToken ct)
+    {
+        var totalRaces = await dbContext.Races.CountAsync(ct);
+        var raceDates = await dbContext.Races
+            .Where(r =>
+                (r.Created.Year == NowYear && r.Created.Month == NowMonth) ||
+                (r.Created.Year == LastYear && r.Created.Month == LastMonth))
+            .Select(r => r.Created)
+            .ToListAsync(ct);
+
+        var racesThisMonth = raceDates.Count(raceDate => raceDate.Year == NowYear && raceDate.Month == NowMonth);
+        var racesLastMonth = raceDates.Count(raceDate => raceDate.Year == LastYear && raceDate.Month == LastMonth);
+
+        return (totalRaces, racesThisMonth, racesLastMonth);
+    }
+
+    private async Task<(int Total, int ThisMonth, int LastMonth)> GetUserCounts(CancellationToken ct)
+    {
+        var totalUsers = await dbContext.Users.CountAsync(ct);
+
+        var users = await dbContext.Users
+            .Where(u =>
+                (u.Created.Year == NowYear && u.Created.Month == NowMonth) ||
+                (u.Created.Year == LastYear && u.Created.Month == LastMonth))
+            .ToListAsync(ct);
+
+        var usersThisMonth = users.Count(u => u.Created.Year == NowYear && u.Created.Month == NowMonth);
+        var usersLastMonth = users.Count(u => u.Created.Year == LastYear && u.Created.Month == LastMonth);
+
+        return (totalUsers, usersThisMonth, usersLastMonth);
+    }
+
     public async Task<MonthlyAdminStats> Handle(FetchMonthlyAdminStatsQuery request, CancellationToken ct)
     {
-        var now = DateTime.UtcNow;
-        var nowYear = now.Year;
-        var nowMonth = now.Month;
+        var value = await cache.GetStringAsync(CacheKey, ct);
+        if (value is not null)
+            return JsonSerializer.Deserialize<MonthlyAdminStats>(value)!;
 
-        var lastYear = nowMonth == 1 ? nowYear - 1 : nowYear;
-        var lastMonth = nowMonth == 1 ? 12 : nowMonth - 1;
+        var (packagesThisMonth, packagesLastMonth) = await GetMonthlyPackageCounts(ct);
+        var (shippingRevenueThisMonth, shippingRevenueLastMonth) = await GetPackageShippingRevenuesSums(ct);
+        var (totalRaces, racesThisMonth, racesLastMonth) = await GetRaceCounts(ct);
+        var (totalUsers, usersThisMonth, usersLastMonth) = await GetUserCounts(ct);
 
-        var packagesThisMonth = await dbContext.Packages
-            .Where(p => p.Created.Year >= nowYear && p.Created.Month == nowMonth)
-            .CountAsync(ct);
-
-        var packagesLastMonth = await dbContext.Packages
-            .Where(p => p.Created.Year >= lastYear && p.Created.Month == lastMonth)
-            .CountAsync(ct);
-
-        var totalRevenueThisMonth = dbContext.Packages
-            .Where(p => p.Created.Year >= nowYear && p.Created.Month == nowMonth)
-            .AsEnumerable()
-            .Sum(p => p.ShippingPrice);
-
-        var totalRevenueLastMonth = dbContext.Packages
-            .Where(p => p.Created.Year >= lastYear && p.Created.Month == lastMonth)
-            .AsEnumerable()
-            .Sum(p => p.ShippingPrice);
-
-        var totalPackagesThisMonth = await dbContext.Packages
-            .Where(p => p.Created.Year >= nowYear && p.Created.Month == nowMonth)
-            .CountAsync(ct);
-
-        var totalPackagesLastMonth = await dbContext.Packages
-            .Where(p => p.Created.Year >= lastYear && p.Created.Month == lastMonth)
-            .CountAsync(ct);
-
-        var totalUsersThisMonth = await dbContext.Users
-            .Where(u => u.Created.Year >= nowYear && u.Created.Month == nowMonth)
-            .CountAsync(ct);
-
-        var totalUsersLastMonth = await dbContext.Users
-            .Where(u => u.Created.Year >= lastYear && u.Created.Month == lastMonth)
-            .CountAsync(ct);
-
-        return new MonthlyAdminStats(
+        var stats = new MonthlyAdminStats(
             packagesThisMonth,
             packagesLastMonth,
-            (float)totalRevenueThisMonth,
-            (float)totalRevenueLastMonth,
-            totalPackagesThisMonth,
-            totalPackagesLastMonth,
-            totalUsersThisMonth,
-            totalUsersLastMonth);
+            (float)shippingRevenueThisMonth,
+            (float)shippingRevenueLastMonth,
+            totalRaces,
+            racesThisMonth,
+            racesLastMonth,
+            totalUsers,
+            usersThisMonth,
+            usersLastMonth);
+
+        var payload = JsonSerializer.Serialize(stats);
+        var options = new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+        };
+        await cache.SetStringAsync(CacheKey, payload, options, ct);
+
+        return stats;
     }
 }

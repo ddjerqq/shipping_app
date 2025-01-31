@@ -6,54 +6,63 @@
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
             <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Packages received this month</CardTitle>
-                <Blazicon Svg="@Icons.Truck" class="text-muted-foreground size-4"/>
+                <CardTitle>Packages processed</CardTitle>
+                <Blazicon Svg="@Icons.Package" class="text-muted-foreground !size-7"/>
             </Header>
-            <Content>
+            <Content class="space-y-2 pt-0">
                 <div class="text-2xl font-bold">@Stats.PackagesThisMonth</div>
                 <p class="text-muted-foreground text-xs">
-                    @(Stats.MonthlyPackageChangePercentage > 0 ? "+" : "-")
-                    @(Stats.MonthlyPackageChangePercentage.ToString("P"))
+                    @(Stats.MonthlyPackageChange > 0 ? "+" : "-")
+                    @(Stats.MonthlyPackageChange.ToString("N2"))%
                     from last month
                 </p>
             </Content>
         </Card>
 
-        @* <Card> *@
-        @*     <Header class="flex flex-row items-center justify-between space-y-0 pb-2"> *@
-        @*         <CardTitle>Total revenue</CardTitle> *@
-        @*         <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground size-4"/> *@
-        @*     </Header> *@
-        @*     <Content> *@
-        @*         <div class="text-2xl font-bold">@(2_350.00.ToString("C"))</div> *@
-        @*         <p class="text-muted-foreground text-xs"> *@
-        @*             +10% from last month *@
-        @*         </p> *@
-        @*     </Content> *@
-        @* </Card> *@
-        @* *@
-        @* <Card> *@
-        @*     <Header class="flex flex-row items-center justify-between space-y-0 pb-2"> *@
-        @*         <CardTitle>Total Users</CardTitle> *@
-        @*         <Blazicon Svg="@Icons.Users" class="text-muted-foreground size-4"/> *@
-        @*     </Header> *@
-        @*     <Content> *@
-        @*         <div class="text-2xl text-destructive font-bold">@(UserCount)</div> *@
-        @*     </Content> *@
-        @* </Card> *@
-        @* *@
-        @* <Card> *@
-        @*     <Header class="flex flex-row items-center justify-between space-y-0 pb-2"> *@
-        @*         <CardTitle>Total users</CardTitle> *@
-        @*         <Blazicon Svg="@Icons.CreditCard" class="text-muted-foreground size-4"/> *@
-        @*     </Header> *@
-        @*     <Content> *@
-        @*         <Button>Top up using stripe</Button> *@
-        @*         <p class="text-muted-foreground text-xs"> *@
-        @*             Your payment info is secure *@
-        @*         </p> *@
-        @*     </Content> *@
-        @* </Card> *@
+        <Card>
+            <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle>Shipping Revenue</CardTitle>
+                <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground !size-7"/>
+            </Header>
+            <Content class="space-y-2 pt-0">
+                <div class="text-2xl font-bold">@Stats.ShippingRevenueThisMonth</div>
+                <p class="text-muted-foreground text-xs">
+                    @(Stats.MonthlyRevenueChange > 0 ? "+" : "-")
+                    @(Stats.MonthlyRevenueChange.ToString("N2"))%
+                    from last month
+                </p>
+            </Content>
+        </Card>
+
+        <Card>
+            <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle>Races</CardTitle>
+                <Blazicon Svg="@Icons.Plane" class="text-muted-foreground !size-7"/>
+            </Header>
+            <Content class="space-y-2 pt-0">
+                <div class="text-2xl font-bold">@Stats.TotalRaces</div>
+                <p class="text-muted-foreground text-xs">
+                    @(Stats.MonthlyRaceChange > 0 ? "+" : "-")
+                    @(Stats.MonthlyRaceChange.ToString("N2"))%
+                    from last month
+                </p>
+            </Content>
+        </Card>
+
+        <Card>
+            <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle>Users</CardTitle>
+                <Blazicon Svg="@Icons.Users" class="text-muted-foreground !size-7"/>
+            </Header>
+            <Content class="space-y-2 pt-0">
+                <div class="text-2xl font-bold">@Stats.TotalUsers</div>
+                <p class="text-muted-foreground text-xs">
+                    @(Stats.MonthlyUserChange > 0 ? "+" : "-")
+                    @(Stats.MonthlyUserChange.ToString("N2"))%
+                    from last month
+                </p>
+            </Content>
+        </Card>
     </div>
 }
 

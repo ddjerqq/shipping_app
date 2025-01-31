@@ -1,3 +1,4 @@
+@using Application.Cqrs.Users.Commands
 @using Domain.Events
 @using Application.Services
 @inject IAppDbContext DbContext
@@ -27,11 +28,7 @@
 
     private async Task Delete()
     {
-        var user = (await DbContext.Users.FindAsync(CurrentUser.Id))!;
-        user.AddDomainEvent(new UserDeletedAccount(user.Id));
-        DbContext.Users.Remove(user);
-        await DbContext.SaveChangesAsync();
-
+        await SendCommandAsync(new DeleteUserAccountCommand(CurrentUser.Id!.Value));
         ShowSuccess("Your account is scheduled for deletion.");
         await Task.Delay(2000);
 

@@ -1,0 +1,36 @@
+﻿@using Blazored.Modal.Services
+
+<Card>
+    <Header>
+        <CardTitle>
+            Please confirm your actions
+        </CardTitle>
+    </Header>
+    <Content>
+        @Text
+    </Content>
+    <Footer>
+        <Button Variant="default" @onclick="@Yes">
+            <Blazicon Svg="@Lucide.Check"/>
+            Yes
+        </Button>
+
+        <Button Variant="outline" @onclick="@No">
+
+            <Blazicon Svg="@Lucide.X"/>
+            No
+        </Button>
+    </Footer>
+</Card>
+
+@code
+{
+    [CascadingParameter]
+    public BlazoredModalInstance BlazoredModal { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public MarkupString Text { get; set; }
+
+    private async Task No() => await BlazoredModal.CancelAsync();
+    private async Task Yes() => await BlazoredModal.CloseAsync(ModalResult.Ok());
+}

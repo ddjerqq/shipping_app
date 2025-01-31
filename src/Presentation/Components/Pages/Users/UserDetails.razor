@@ -1,9 +1,16 @@
 @page "/users/{Id}"
+@using Application.Cqrs.Users.Commands
 @using Application.Services
+@using Blazored.Modal.Services
 @using Domain.Aggregates
+@using Presentation.Services
+@using Domain.ValueObjects
 @using Domain.Common
 @layout HomeLayout
 @inject IAppDbContext DbContext
+@inject IModalService ModalService
+@inject IJwtGenerator JwtGenerator
+@inject CookieService Cookies
 @attribute [Authorize(Roles = "Admin")]
 @attribute [StreamRendering]
 
@@ -15,11 +22,23 @@
         <Header class="flex-row justify-between">
             <div class="space-y-2">
                 <CardTitle class="text-2xl">@User.Username.CapitalizeName()</CardTitle>
-                @* // TODO delete user from here through a confirmation modal *@
             </div>
         </Header>
         <Content>
             <AppForm @bind-Model="User" OnValidSubmit="OnValidSubmit">
+                <InlineFormFieldContainer>
+                    <Button @onclick="LoginAsUser" Variant="outline" disabled="@IsLoading">
+                        <Blazicon Svg="Icons.LogIn"/>
+                        Login as this user
+                    </Button>
+
+                    <Button @onclick="DeleteUser" Variant="destructive"
+                            disabled="@IsLoading">
+                        <Blazicon Svg="Icons.Trash"/>
+                        Delete
+                    </Button>
+                </InlineFormFieldContainer>
+
                 <FormField>
                     <FormLabel for="full-name">Full Name</FormLabel>
                     <FormInputText id="full-name"
@@ -57,13 +76,17 @@
                                    disabled/>
                 </FormField>
 
-                @* <Button type="submit" disabled="@IsLoading"> *@
-                @*     @if (IsLoading) *@
-                @*     { *@
-                @*         <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/> *@
-                @*     } *@
-                @*     Update your info *@
-                @* </Button> *@
+                <FormField>
+                    <FormLabel for="role">Role</FormLabel>
+                    <FormInputEnum Value="@User.Role" ValueExpression="@(() => User.Role)"
+                                   Options="@(Enum.GetValues<Role>())" disabled />
+                </FormField>
+
+                <Button type="submit" Variant="default"
+                        disabled title="Updating users is disabled for now, because changing their data is not yet supported">
+                    <Blazicon Svg="Icons.Save"/>
+                    Save changes
+                </Button>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
@@ -78,11 +101,6 @@
 
     private UserId? UserId => Domain.Aggregates.UserId.TryParse(Id, null, out var id) ? id : null;
     private User? User { get; set; }
-    private string? InvoiceUrl { get; set; }
-    private string? PictureUrl { get; set; }
-
-    private IBrowserFile? InvoiceFile { get; set; }
-    private IBrowserFile? PictureFile { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -94,5 +112,34 @@
     {
         await DbContext.SaveChangesAsync(CancellationToken);
         ShowSuccess("User updated successfully");
+    }
+
+    private async Task DeleteUser()
+    {
+        var modal = ModalService.ShowConfirmationModal((MarkupString)$"Are you sure you want to delete {User!.Username}?<br/> Their account will be deleted after 30 days.");
+        var result = await modal.Result;
+
+        if (result.Cancelled) return;
+
+        await SendCommandAsync(new DeleteUserAccountCommand(User.Id));
+        ShowSuccess("User account is scheduled for deletion.");
+        NavigationManager.NavigateTo("/users/all");
+    }
+
+    private async Task LoginAsUser()
+    {
+        if (User is null)
+            throw new InvalidOperationException("User is null");
+
+        var token = JwtGenerator.GenerateToken(User, TimeSpan.FromDays(1));
+        await Cookies.SetCookieAsync(Infrastructure.Services.JwtGenerator.CookieName, token);
+        var redirectUrl = User.Role switch
+        {
+            Role.User => "/user_dashboard",
+            Role.Staff => "/packages/all",
+            Role.Admin => "/admin_dashboard",
+            _ => "/",
+        };
+        NavigationManager.NavigateTo(redirectUrl, true);
     }
 }
