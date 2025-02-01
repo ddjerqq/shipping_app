@@ -82,8 +82,8 @@ export class GlobeContext {
       animateIn: true,
     })
         .hexPolygonsData(countryData.features)
-        .hexPolygonResolution(4)
-        .hexPolygonMargin(0.7)
+        .hexPolygonResolution(3)
+        .hexPolygonMargin(0.4)
         .showAtmosphere(true)
         .atmosphereColor("#80cfb4")
         .atmosphereAltitude(0.25)
@@ -142,7 +142,7 @@ export class GlobeContext {
     this._camera.lookAt(this._scene.position);
     this._controls.update();
     this._renderer.render(this._scene, this._camera);
-    this._globe.rotation.y -= 0.005;
+    this._globe.rotation.y -= 0.0005;
     requestAnimationFrame(() => this.animate());
   }
 
