@@ -79,7 +79,7 @@
                 <FormLabel for="weight">Weight (Kg)</FormLabel>
                 <InputNumber id="weight"
                              class="@FormInputText.BaseClass"
-                             @bind-Value="@Command.WeightKg"
+                             @bind-Value="@Command.WeightKiloGrams"
                              type="number"
                              min="0"
                              step="0.1"
@@ -89,7 +89,7 @@
                 <FormDescription class="text-xs">
                     Please keep in mind, the weight will get rounded up to the nearest 100 grams.
                 </FormDescription>
-                <FormInvalidFeedback For="@(() => Command.WeightKg)"/>
+                <FormInvalidFeedback For="@(() => Command.WeightKiloGrams)"/>
             </FormField>
 
             <Button type="submit" disabled="@IsLoading">

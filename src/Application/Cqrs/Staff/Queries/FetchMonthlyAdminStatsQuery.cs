@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Application.Services;
-using Domain.Common;
+using Domain.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -71,11 +71,11 @@ internal sealed class FetchMonthlyAdminStatsQueryHandler(IAppDbContext dbContext
 
         var shippingRevenueThisMonth = packageData
             .Where(p => p.Created.Year == NowYear && p.Created.Month == NowMonth)
-            .Sum(p => PackageExt.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery));
+            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery).Amount);
 
         var shippingRevenueLastMonth = packageData
             .Where(p => p.Created.Year == LastYear && p.Created.Month == LastMonth)
-            .Sum(p => PackageExt.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery));
+            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery).Amount);
 
         return (shippingRevenueThisMonth, shippingRevenueLastMonth);
     }

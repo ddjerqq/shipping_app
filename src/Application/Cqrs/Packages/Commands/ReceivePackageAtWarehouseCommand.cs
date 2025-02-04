@@ -41,7 +41,7 @@ public sealed record ReceivePackageAtWarehouseCommand : IRequest<ReceivePackageA
     /// <summary>
     /// kilo grams
     /// </summary>
-    public float WeightKg { get; set; }
+    public float WeightKiloGrams { get; set; }
 
     /// <summary>
     /// x centimeters
@@ -99,7 +99,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
                 request.Width,
                 request.Height,
                 request.Length,
-                request.WeightKg,
+                request.WeightKiloGrams,
                 DateTime.UtcNow);
             await sender.Send(createPackageCommand, ct);
 
@@ -111,7 +111,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
         if (package.Statuses.Any(packageStatus => packageStatus.Status == PackageStatus.InWarehouse))
             return ReceivePackageAtWarehouseResult.PackageAlreadyInWarehouse;
 
-        package.ArrivedAtWarehouse(receiver, new Vector3(request.Width, request.Height, request.Length), request.WeightKg * 1000, DateTime.UtcNow);
+        package.ArrivedAtWarehouse(receiver, new Vector3(request.Width, request.Height, request.Length), (long)(request.WeightKiloGrams * 1000), DateTime.UtcNow);
 
         await dbContext.SaveChangesAsync(ct);
         return ReceivePackageAtWarehouseResult.Success;

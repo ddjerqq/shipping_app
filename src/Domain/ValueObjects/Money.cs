@@ -3,9 +3,9 @@
 public readonly record struct Money
 {
     public Currency Currency { get; }
-    public decimal Amount { get; }
+    public long Amount { get; }
 
-    public Money(Currency currency, decimal amount)
+    public Money(Currency currency, long amount)
     {
         if (Amount < 0)
             throw new InvalidOperationException("Amount cannot be negative.");
@@ -14,7 +14,19 @@ public readonly record struct Money
         Amount = amount;
     }
 
-    public Money(string currency, decimal amount) : this(new Currency(currency), amount) { }
+    public Money(string currency, long amount) : this(new Currency(currency), amount)
+    {
+    }
+
+    public void Deconstruct(out Currency currency, out long amount)
+    {
+        currency = Currency;
+        amount = Amount;
+    }
+
+    public static Money operator +(Money @this, Money other) => @this.Currency == other.Currency
+        ? new Money(@this.Currency, @this.Amount + other.Amount)
+        : throw new InvalidOperationException("Cannot add money with different currencies. Convert the currencies first");
 
     public static Money Parse(string value)
     {
@@ -22,12 +34,12 @@ public readonly record struct Money
 
         return parts switch
         {
-            [var currency, var amount] => new Money(new Currency(currency), decimal.Parse(amount)),
+            [var currency, var amount] => new Money(new Currency(currency), long.Parse(amount)),
             _ => throw new FormatException("Invalid money format."),
         };
     }
 
-    public string FormatedValue => $"{Currency.Symbol}{Amount:N}";
+    public string FormatedValue => $"{Currency.Symbol}{Amount / 100:F2}";
 
     public override string ToString() => $"{Currency}-{Amount}";
 }

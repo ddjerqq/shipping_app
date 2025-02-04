@@ -1,6 +1,5 @@
 using System.Numerics;
 using Domain.Abstractions;
-using Domain.Common;
 using Domain.Entities;
 using Domain.Events;
 using Domain.ValueObjects;
@@ -11,7 +10,6 @@ namespace Domain.Aggregates;
 [StrongId]
 public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 {
-    public const decimal PricePerKg = 8;
     private readonly List<PackageReceptionStatus> _statuses = [];
 
     // for ef
@@ -44,13 +42,16 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public Vector3? Dimensions { get; private set; }
 
     /// <summary>
-    /// Gets the weight in KiloGrams
+    /// Gets the weight in Grams
     /// </summary>
-    public float? Weight { get; private set; }
+    public long? Weight { get; private set; }
 
-    public decimal ShippingPrice => this.GetTotalPrice();
+    public PackagePrice? Price => this is { Dimensions: {X: var x, Y: var y, Z: var z}, Weight: {} weight }
+        ? new PackagePrice(x, y, z, weight, HouseDelivery)
+        : null;
 
     // TODO payment method and receipt here. comes from stripe api?
+    // need receipt id, object, stripe BOG or TBC
     public bool IsPaid { get; init; }
 
     // sent to destination
@@ -114,10 +115,10 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
-    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, float weight, DateTime date)
+    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, long weightGrams, DateTime date)
     {
         Dimensions = dimensions;
-        Weight = weight;
+        Weight = weightGrams;
         UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, staff.Id, date));
         AddDomainEvent(new PackageArrivedAtWarehouse(Id, date, staff.Id));
     }

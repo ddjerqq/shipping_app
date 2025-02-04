@@ -1,4 +1,3 @@
-using Domain.Common;
 using Domain.ValueObjects;
 
 namespace Application.Cqrs.Packages.Commands;
@@ -15,7 +14,7 @@ public sealed class CalculatePriceCommand
 
     public bool IsHouseDelivery { get; set; }
 
-    public bool VolumetricApplied => PackageExt.ShouldCalculateVolumetricWeight(Length, Width, Height);
-    public Money VolumetricPrice => new("USD", PackageExt.GetVolumetricWeightPrice(Length, Width, Height));
-    public Money Price => new("USD", PackageExt.GetTotalPrice(Length, Width, Height, WeightKiloGrams, IsHouseDelivery));
+    public bool VolumetricApplied => PackagePrice.ShouldCalculateVolumetricWeight(Length, Width, Height);
+    public Money VolumetricPrice => PackagePrice.GetVolumetricWeightPrice(Length, Width, Height);
+    public Money Price => PackagePrice.GetTotalPrice(Length, Width, Height, (long)(WeightKiloGrams / 1000), IsHouseDelivery);
 }

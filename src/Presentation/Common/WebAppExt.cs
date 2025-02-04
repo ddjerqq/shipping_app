@@ -70,6 +70,8 @@ public static class WebAppExt
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode();
 
+        app.MapControllers();
+
         app.MapFallback(ctx =>
         {
             // catch requests that dont really exist?

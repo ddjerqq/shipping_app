@@ -1,0 +1,10 @@
+@page "/payments/success"
+
+<h3>Success</h3>
+
+<p>@SessionId</p>
+
+@code {
+    [SupplyParameterFromQuery(Name = "session_id")]
+    public string SessionId { get; set; } = null!;
+}

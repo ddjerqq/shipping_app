@@ -49,5 +49,7 @@ public sealed class ConfigureWebApi : ConfigurationBase
             o.Providers.Add<GzipCompressionProvider>();
             o.Providers.Add<BrotliCompressionProvider>();
         });
+
+        services.AddControllers();
     }
 }

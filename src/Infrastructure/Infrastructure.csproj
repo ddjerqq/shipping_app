@@ -15,12 +15,14 @@
         <PackageReference Include="AWSSDK.Core" Version="3.7.400.70" />
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
         <PackageReference Include="AWSSDK.S3" Version="3.7.410.12" />
+        <PackageReference Include="Blake3" Version="2.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0"/>
         <PackageReference Include="Microsoft.OpenApi" Version="1.6.22" />
         <PackageReference Include="Quartz" Version="3.13.1" />
         <PackageReference Include="Quartz.Extensions.Hosting" Version="3.13.1" />
+        <PackageReference Include="Stripe.net" Version="47.3.0" />
     </ItemGroup>
 
     <ItemGroup Label="Logging">

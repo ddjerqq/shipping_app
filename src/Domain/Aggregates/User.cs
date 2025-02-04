@@ -29,6 +29,8 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     // this could be a Type later on but for now its okay.
     public bool NotifyBySms { get; set; }
 
+    public Money Balance { get; private set; }
+
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
@@ -39,6 +41,15 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public ICollection<UserClaim> Claims { get; init; } = [];
     public ICollection<UserLogin> Logins { get; init; } = [];
     public Role Role { get; init; } = Role.User;
+
+    public void AddBalance(Money amount)
+    {
+        if (amount.Currency != Balance.Currency)
+            throw new InvalidOperationException("Cannot add money with different currencies. Convert the currencies first");
+
+        Balance += amount;
+        AddDomainEvent(new UserBalanceTopUp(Id, amount));
+    }
 
     public void SetPassword(string newPassword, bool isInitial = false)
     {

@@ -217,23 +217,23 @@
                         <input id="weight"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@(Package.Weight?.ToString("F1"))"/>
+                               value="@((Package.Weight / 1000)?.ToString("F1"))"/>
                     </FormField>
 
                     <FormField>
                         <FormLabel for="shipping-price">Shipping price</FormLabel>
                         <FormInputMoney Id="shipping-price"
                                         disabled
-                                        Value="@(new Money("USD", Package.ShippingPrice))"/>
+                                        Value="@(Package.Price!.TotalPrice)"/>
                     </FormField>
 
-                    if (Package.ShouldCalculateVolumetricWeight())
+                    if (Package.Price!.IsCalculatingVolumetricWeight)
                     {
                         <FormField>
                             <FormLabel for="volumetric-price">Volumetric weight price</FormLabel>
                             <FormInputMoney Id="volumetric-price"
                                             disabled
-                                            Value="@(new Money("USD", Package.GetVolumetricWeightPrice()))"/>
+                                            Value="@(Package.Price.VolumetricWeightPrice)"/>
                         </FormField>
                     }
                 }

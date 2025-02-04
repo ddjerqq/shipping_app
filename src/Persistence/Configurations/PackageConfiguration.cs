@@ -33,7 +33,7 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.Property(x => x.Dimensions)
             .HasConversion(x => VecToString(x), x => StringToVec(x));
         // weight grams
-        builder.Ignore(x => x.ShippingPrice);
+        builder.Ignore(x => x.Price);
 
         builder.HasOne(package => package.Race)
             .WithMany(race => race.Packages)

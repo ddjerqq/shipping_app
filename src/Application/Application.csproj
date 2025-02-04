@@ -24,6 +24,7 @@
         <PackageReference Include="QuickForm" Version="2.1.0" />
         <PackageReference Include="SerilogTracing" Version="2.3.0" />
         <PackageReference Include="SerilogTracing.Expressions" Version="2.3.0" />
+        <PackageReference Include="Stripe.net" Version="47.3.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
         <Using Include="BCrypt.Net.BCrypt" Alias="BC" />
     </ItemGroup>
