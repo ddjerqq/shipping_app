@@ -1,12 +1,7 @@
-@page "/search"
-@layout HomeLayout
 @using Application.Cqrs.Staff.Queries
+@using Blazored.Modal.Services
 @using Domain.Common
 @attribute [StreamRendering]
-@attribute [Authorize(Roles = "Staff,Admin")]
-
-<PageTitle>Search</PageTitle>
-<PageHeader Title="Search"/>
 
 <Card>
     <Header>
@@ -74,6 +69,15 @@
 
 
 @code {
+    [CascadingParameter]
+    public BlazoredModalInstance BlazoredModal { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public MarkupString Text { get; set; }
+
+    private async Task No() => await BlazoredModal.CancelAsync();
+    private async Task Yes() => await BlazoredModal.CloseAsync(ModalResult.Ok());
+
     private GenericSearchQuery Command { get; set; } = new(null!);
     private IEnumerable<GenericSearchResult> Results { get; set; } = [];
 

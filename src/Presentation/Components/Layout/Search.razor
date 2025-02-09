@@ -1,7 +1,18 @@
-﻿<AuthorizeView Roles="Staff,Admin">
+﻿@using Blazored.Modal.Services
+@inject IModalService Modal
+
+<AuthorizeView Roles="Staff,Admin">
     <Authorized>
-        <Button Size="icon" Variant="outline" class="w-9 h-9" Href="/search">
+        <Button Size="icon" Variant="outline" class="w-9 h-9" @onclick="OpenSearchModal">
             <Blazicon Svg="@Lucide.Search"/>
         </Button>
     </Authorized>
 </AuthorizeView>
+
+@code {
+    private async Task OpenSearchModal()
+    {
+        var modal = Modal.Show<SearchModal>();
+        await modal.Result;
+    }
+}
