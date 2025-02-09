@@ -29,7 +29,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     // this could be a Type later on but for now its okay.
     public bool NotifyBySms { get; set; }
 
-    public Money Balance { get; private set; }
+    public Money Balance { get; private set; } = new("USD", 0);
 
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
