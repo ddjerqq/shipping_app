@@ -9,23 +9,33 @@
 <AdminStatus />
 
 <ul class="grid gap-4 grid-cols-1 md:grid-cols-2">
-    <Button class="h-14" Href="/packages/receive" Variant="outline">
-        <Blazicon Svg="@Lucide.PackagePlus"/>
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/receive" Variant="outline">
+        <Blazicon Svg="@Lucide.PackagePlus" clas s="!size-6"/>
         Receive package
     </Button>
 
-    <Button class="h-14" Href="/races/add_package" Variant="outline">
-        <Blazicon Svg="@Lucide.PlaneTakeoff"/>
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/races/add_package" Variant="outline">
+        <Blazicon Svg="@Lucide.PlaneTakeoff" class="!size-6"/>
         Add package to race
     </Button>
 
-    <Button class="h-14" Href="/packages/arrived" Variant="outline">
-        <Blazicon Svg="@Lucide.PlaneLanding"/>
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/arrived" Variant="outline">
+        <Blazicon Svg="@Lucide.PlaneLanding" class="!size-6"/>
         Mark package as arrived
     </Button>
 
-    <Button class="h-14" Href="/packages/deliver" Variant="outline">
-        <Blazicon Svg="@Lucide.PackageOpen"/>
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/deliver" Variant="outline">
+        <Blazicon Svg="@Lucide.PackageOpen" clas s="!size-6"/>
         Mark package as delivered to user
+    </Button>
+
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/races/new" Variant="outline">
+        <Blazicon Svg="@Lucide.Plane" class="!size-6"/>
+        Add Race
+    </Button>
+
+    <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/new" Variant="outline">
+        <Blazicon Svg="@Lucide.PackagePlus" class="!size-6"/>
+        Add Package
     </Button>
 </ul>
