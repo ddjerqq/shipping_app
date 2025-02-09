@@ -46,7 +46,7 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
-        if (staff.NotifyBySms)
+        if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageArrivedAtWarehouse(staff, package, ct);
 
         await emailNotifier.NotifyPackageArrivedAtWarehouse(staff, package, ct);
@@ -54,7 +54,7 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
-        if (staff.NotifyBySms)
+        if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageSentToDestination(staff, package, ct);
 
         await emailNotifier.NotifyPackageSentToDestination(staff, package, ct);
@@ -62,17 +62,17 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
-        if (staff.NotifyBySms)
+        if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageArrivedAtDestination(staff, package, ct);
 
         await emailNotifier.NotifyPackageArrivedAtDestination(staff, package, ct);
     }
 
-    public async Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
-        if (staff.NotifyBySms)
-            await smsNotifier.NotifyPackageDelivered(staff, package, ct);
+        if (package.Owner.NotifyBySms)
+            await smsNotifier.NotifyPackageDelivered(package, ct);
 
-        await emailNotifier.NotifyPackageDelivered(staff, package, ct);
+        await emailNotifier.NotifyPackageDelivered(package, ct);
     }
 }

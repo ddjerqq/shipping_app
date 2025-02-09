@@ -17,7 +17,7 @@
     has @StatusText <br/>
     on @(Package.Statuses
                .First(x => x.Status == Status)
-               .Date.ToString("dddd, dd MMMM yyyy, HH:mm UTCzzz", User.CultureInfo))
+               .Date.ToString("dddd, dd MMMM yyyy, HH:mm UTCzzz", Package.Owner.CultureInfo))
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/packages/{Package.Id}")" Title="Your package" target="_blank"/>
@@ -37,9 +37,6 @@
 
     [Parameter]
     public PackageStatus Status { get; set; }
-
-    [Parameter]
-    public User User { get; set; } = null!;
 
     [Parameter]
     public Package Package { get; set; } = null!;

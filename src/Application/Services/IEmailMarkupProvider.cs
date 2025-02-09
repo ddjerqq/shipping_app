@@ -13,8 +13,8 @@ public interface IEmailMarkupProvider
     public string GetPasswordChangedNotificationMarkup(User user);
     public string GetDeleteAccountConfirmationMarkup(User user);
 
-    public string GetPackageArrivedAtWarehouseMarkup(User user, Package package);
-    public string GetPackageSentToDestinationMarkup(User user, Package package);
-    public string GetPackageArrivedAtDestinationMarkup(User user, Package package);
-    public string GetPackageDeliveredMarkup(User user, Package package);
+    public string GetPackageArrivedAtWarehouseMarkup(Package package);
+    public string GetPackageSentToDestinationMarkup(Package package);
+    public string GetPackageArrivedAtDestinationMarkup(Package package);
+    public string GetPackageDeliveredMarkup(Package package);
 }

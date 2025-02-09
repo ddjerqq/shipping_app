@@ -47,24 +47,24 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
     public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has arrived at our warehouse (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(staff.PhoneNumber, content, ct);
+        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
     }
 
     public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package is on it's way (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(staff.PhoneNumber, content, ct);
+        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
     }
 
     public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
-        var content = $"Your package has arrived (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(staff.PhoneNumber, content, ct);
+        var content = $"Your package has arrived (tracking code: {package.TrackingCode}). Please pay for shipping as soon as possible!";
+        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
+    public Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
         var content = $"Your package has been delivered (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(staff.PhoneNumber, content, ct);
+        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
     }
 }

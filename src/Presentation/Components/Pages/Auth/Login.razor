@@ -3,14 +3,13 @@
 @using Domain.ValueObjects
 @using Application.Services
 @inject CookieService Cookie
-@inject ICurrentUserAccessor CurrentUser
 
 <PageTitle>Log in</PageTitle>
 <PageHeader Title="Welcome back!" Description="Login to your account"/>
 
 <AuthorizeView>
     <Authorized>
-        <Redirect To="/user_dashboard"/>
+        <Redirect To="/"/>
     </Authorized>
 </AuthorizeView>
 
@@ -148,14 +147,7 @@
                 return;
             default:
                 await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-                var redirectUrl = CurrentUser.Role switch
-                {
-                    Role.User => "/user_dashboard",
-                    Role.Staff => "/packages/all",
-                    Role.Admin => "/admin_dashboard",
-                    _ => "/",
-                };
-                NavigationManager.NavigateTo(redirectUrl, true);
+                NavigationManager.NavigateTo("/", true);
                 break;
         }
     }

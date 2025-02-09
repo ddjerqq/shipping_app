@@ -64,7 +64,7 @@ public interface IUserNotifier
     /// <summary>
     /// Notifies a user that their package has been delivered
     /// </summary>
-    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default);
+    public Task NotifyPackageDelivered(Package package, CancellationToken ct = default);
 
     #endregion
 }

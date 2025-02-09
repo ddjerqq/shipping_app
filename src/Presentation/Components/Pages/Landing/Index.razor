@@ -1,198 +1,27 @@
 @page "/"
-@inject IJSRuntime Js
+@using Domain.ValueObjects
+@using Application.Services
+@inject ICurrentUserAccessor CurrentUser
 
-<div style="height: calc(100vh - (56px + 96px));" class="flex flex-col lg:flex-row items-center justify-between w-full p-4 lg:p-8 relative pt-24 lg-pt-0">
-    <div class="flex flex-col justify-center items-center lg:items-start w-full lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
-        <h1 class="text-4xl lg:text-6xl font-bold mb-8">No. 1 <span class="text-[#21bf73]">Shipping</span> Company from U.S.A to Georgia</h1>
-        <p class="mb-8 text-sm max-w-3xl mx-auto">
-            We are the leaders in the shipping industry, offering reliable, fast, and affordable services worldwide.
-            Our mission is to revolutionize logistics by providing cutting-edge solutions that meet the demands of modern global trade.
-        </p>
-        <CtaButton>
-            Get Started
-        </CtaButton>
-    </div>
-
-    <div class="flex justify-center items-center w-full lg:w-1/2">
-        <canvas id="globe" class="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]"></canvas>
-    </div>
-</div>
-
-<div class="mt-96 lg:mt-8 my-8 lg:my-16 flex flex-col lg:flex-row items-start justify-between py-8 px-4 lg:px-16">
-    <div class="w-full lg:w-1/2 text-center lg:text-left overflow-visible">
-        <div style="font-size: 12px; margin-bottom: 48px; margin-top: 16px;" class="bg-gray-100 text-[#21bf73] rounded-full uppercase px-4 py-1 inline-block shadow-md">
-            we're the best
-        </div>
-        <h2 class="text-2xl lg:text-4xl font-semibold mb-8">Why Us</h2>
-        <div class="text-sm mb-8">
-            <div class="relative flex lg:flex-row">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                        <span>We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time.</span>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                        <span>With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe.</span>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <img src="/images/refixed.webp" class="w-5 h-5 mr-3 sm:w-6 sm:h-6 lg:w-8 lg:h-8 shrink-0" alt="tick">
-                        <span>Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination.</span>
-                    </div>
-                </div>
-                <div class="hidden lg:block lg:absolute lg:left-full lg:top-1/2 lg:-translate-y-1/2 lg:ml-8 lg:w-[450px]">
-                    <img
-                        src="images/truck1.webp"
-                        alt="Delivery Truck"
-                        class="object-cover h-[450px] mx-auto drop-shadow-md"
-                        />
-                </div>
-            </div>
-        </div>
-        <CtaButton class="mx-auto">Get Started</CtaButton>
-        <div class="block lg:hidden mt-8">
-            <img
-                src="images/truck1.webp"
-                alt="Delivery Truck"
-                class="object-cover h-[400px] mx-auto"
-            />
-        </div>
-    </div>
-</div>
-
-<div class="my-8 lg:my-16">
-    <div class="grid grid-cols-2 gap-0 lg:grid-cols-4 lg:flex-row lg:gap-8 bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8 lg:divide-y-0 divide-y divide-x">
-        <div class="text-center p-4 lg:p-6 ">
-            <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">200+</h3>
-            <p class="text-sm">Parcels from U.S.A</p>
-        </div>
-        <div style="border-top: none;" class="text-center p-4 lg:p-6 ">
-            <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">500+</h3>
-            <p class="text-sm">Parcels from Georgia</p>
-        </div>
-        <div id="stat-three" class="text-center p-4 lg:p-6">
-            <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">1400+</h3>
-            <p class="text-sm">Storage Items</p>
-        </div>
-        <div class="text-center p-4 lg:p-6">
-            <h3 class="text-3xl lg:text-4xl font-bold text-[#21bf73]">15</h3>
-            <p class="text-sm">Moving Items</p>
-        </div>
-    </div>
-</div>
-
-
-<div class="py-8 lg:py-16 my-8 relative">
-    <div class="text-center">
-        <div style="font-size: 12px; margin-bottom: 48px; margin-top: 16px;" class="bg-gray-100 text-[#21bf73] rounded-full uppercase px-4 py-1 inline-block shadow-md">
-            Why wait?
-        </div>
-    </div>
-
-    <h2 class="text-center text-2xl lg:text-4xl font-semibold mb-8">3 Simple Steps</h2>
-
-    <div class="flex flex-col lg:flex-row justify-center gap-4 lg:gap-8 mx-auto max-w-screen-lg">
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8 text-left w-full">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/image%20(1).webp" alt="register" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-center">Step 1: Register</h3>
-            <p class="text-sm text-gray-600 mb-6 text-center">Create an account to start shipping with us. It's quick and easy.</p>
-        </div>
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8 text-left w-full">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/location.webp" alt="details" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-center">Step 2: Fill Out Details</h3>
-            <p class="text-sm text-gray-600 mb-6 text-center">Provide your shipping details, including package information and destination.</p>
-        </div>
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8 text-left w-full">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/loc.webp" alt="location" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <h3 class="text-xl lg:text-2xl font-semibold mb-4 text-center">Step 3: Ship Your Package</h3>
-            <p class="text-sm text-gray-600 mb-6 text-center">Leave the rest to us! We’ll ensure your package is delivered on time.</p>
-        </div>
-    </div>
-    <div class="text-center mt-8">
-        <CtaButton class="mx-auto">
-            Get Started
-        </CtaButton>
-    </div>
-</div>
-
-<div class="py-8 lg:py-16 my-8 relative">
-    
-    <div class="text-center">
-        <div style="font-size: 12px; margin-bottom: 48px; margin-top: 16px;" class="bg-gray-100 text-[#21bf73] rounded-full uppercase px-4 py-1 inline-block shadow-md mb-6">
-            Hear from our users!
-        </div>
-    </div>
-
-    <h2 class="text-center text-2xl lg:text-4xl font-semibold mb-8">What Our Customers Are Saying</h2>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mx-auto max-w-screen-lg">
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/testimonial.webp" alt="testimonial" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <p class="text-gray-700">"This platform has transformed how I work. Highly recommended!"</p>
-            <div class="mt-4 text-right">
-                <span class="font-bold text-gray-800 mb-6">- Sarah A.</span>
-            </div>
-        </div>
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/testimonial.webp" alt="testimonial" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <p class="text-gray-700">"The best decision I made this year. Incredible support and features!"</p>
-            <div class="mt-4 text-right">
-                <span class="font-bold text-gray-800 mb-6">- Mark T.</span>
-            </div>
-        </div>
-        <div class="bg-white border border-[#f0f2f4] rounded-lg p-4 lg:p-8">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/testimonial.webp" alt="testimonial" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <p class="text-gray-700">"Outstanding quality and attention to detail. They truly care!"</p>
-            <div class="mt-4 text-right">
-                <span class="font-bold text-gray-800 mb-6">- Emily R.</span>
-            </div>
-        </div>
-        <div class="bg-white border border-[#f0f2f4]  rounded-lg p-4 lg:p-8">
-            <div class="flex justify-center mb-4">
-                <div class="shadow-md p-2 rounded-full">
-                    <img src="images/testimonial.webp" alt="testimonial" class="h-10 w-10 text-white"/>
-                </div>
-            </div>
-            <p class="text-gray-700">"I can't imagine going back to how things were before this service."</p>
-            <div class="mt-4 text-right">
-                <span class="font-bold text-gray-800 mb-6">- James L.</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center mt-8">
-        <CtaButton class="mx-auto">Join Our Happy Customers!</CtaButton>
-    </div>
-</div>
+<Hero />
+<WhyUs />
+<HowItWorks />
+<Testimonials />
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-            await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
+        if (CurrentUser.Role is not null)
+        {
+            var url = CurrentUser.Role switch
+            {
+                Role.User => "/user_dashboard",
+                Role.Staff => "/staff_dashboard",
+                Role.Admin => "/admin_dashboard",
+                _ => throw new ArgumentOutOfRangeException(),
+            };
+
+            NavigationManager.NavigateTo(url, true);
+        }
     }
 }

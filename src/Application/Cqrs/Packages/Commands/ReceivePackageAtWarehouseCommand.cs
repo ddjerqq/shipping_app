@@ -11,7 +11,7 @@ namespace Application.Cqrs.Packages.Commands;
 public enum ReceivePackageAtWarehouseResult
 {
     /// <summary>
-    /// Package succesfully registered as received
+    /// Package successfully registered as received
     /// </summary>
     Success,
 
@@ -78,7 +78,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
     {
         var package = await dbContext.Packages
             .Include(x => x.Owner)
-            .FirstOrDefaultAsync(x => x.TrackingCode == request.TrackingCode, ct);
+            .FirstOrDefaultAsync(x => x.TrackingCode.Value == request.TrackingCode, ct);
 
         var user = int.TryParse(request.Address2, out var roomCode)
             ? await dbContext.Users.FirstOrDefaultAsync(x => x.RoomCode == roomCode, ct)
@@ -89,7 +89,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
         if (package is null)
         {
             if (user is null)
-                logger.LogWarning("Orphan package received: {TrackingCode}. Will add the package to the receiver {ReceiverId}.", request.TrackingCode, receiver.Id);
+                logger.LogWarning("Orphan package received at warehouse: {TrackingCode}. Will add the package to the receiver {ReceiverId}.", request.TrackingCode, receiver.Id);
 
             // create the package, and add it to the user.
             var createPackageCommand = new ReceiveUndeclaredPackageAtWarehouse(

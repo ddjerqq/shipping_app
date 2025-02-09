@@ -47,31 +47,27 @@ public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
             .Set(c => c.User, user)
             .Render();
 
-    public string GetPackageArrivedAtWarehouseMarkup(User user, Package package) =>
+    public string GetPackageArrivedAtWarehouseMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
         .Set(c => c.Status, PackageStatus.InWarehouse)
-            .Set(c => c.User, user)
             .Set(c => c.Package, package)
             .Render();
 
-    public string GetPackageSentToDestinationMarkup(User user, Package package) =>
+    public string GetPackageSentToDestinationMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
         .Set(c => c.Status, PackageStatus.InTransit)
-            .Set(c => c.User, user)
             .Set(c => c.Package, package)
             .Render();
 
-    public string GetPackageArrivedAtDestinationMarkup(User user, Package package) =>
+    public string GetPackageArrivedAtDestinationMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
         .Set(c => c.Status, PackageStatus.Arrived)
-            .Set(c => c.User, user)
             .Set(c => c.Package, package)
             .Render();
 
-    public string GetPackageDeliveredMarkup(User user, Package package) =>
+    public string GetPackageDeliveredMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
         .Set(c => c.Status, PackageStatus.Delivered)
-            .Set(c => c.User, user)
             .Set(c => c.Package, package)
             .Render();
 }

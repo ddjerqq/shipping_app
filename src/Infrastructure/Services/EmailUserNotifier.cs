@@ -50,25 +50,25 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
 
     public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageArrivedAtWarehouseMarkup(staff, package);
-        return sender.SendAsync(staff.Email, "Your package has arrived at our warehouse!", markup, ct);
+        var markup = emailMarkupProvider.GetPackageArrivedAtWarehouseMarkup(package);
+        return sender.SendAsync(package.Owner.Email, "Your package has arrived at our warehouse!", markup, ct);
     }
 
     public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageSentToDestinationMarkup(staff, package);
-        return sender.SendAsync(staff.Email, "Your package is on it's way", markup, ct);
+        var markup = emailMarkupProvider.GetPackageSentToDestinationMarkup(package);
+        return sender.SendAsync(package.Owner.Email, "Your package is on it's way", markup, ct);
     }
 
     public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageArrivedAtDestinationMarkup(staff, package);
-        return sender.SendAsync(staff.Email, "Your package has arrived", markup, ct);
+        var markup = emailMarkupProvider.GetPackageArrivedAtDestinationMarkup(package);
+        return sender.SendAsync(package.Owner.Email, "Your package has arrived - Please pay for shipping!", markup, ct);
     }
 
-    public Task NotifyPackageDelivered(User staff, Package package, CancellationToken ct = default)
+    public Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
-        var markup = emailMarkupProvider.GetPackageDeliveredMarkup(staff, package);
-        return sender.SendAsync(staff.Email, "Your package has been delivered", markup, ct);
+        var markup = emailMarkupProvider.GetPackageDeliveredMarkup(package);
+        return sender.SendAsync(package.Owner.Email, "Your package has been delivered", markup, ct);
     }
 }

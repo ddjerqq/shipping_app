@@ -52,6 +52,14 @@
                 </div>
             }
 
+            @if (package.CurrentStatus.Status == PackageStatus.Arrived)
+            {
+                <div class="flex flex-col gap-1 text-start md:text-center justify-center">
+                    <span class="text-xs text-muted-foreground">Is paid?</span>
+                    <span class="font-medium capitalize leading-none">@(package.IsPaid ? "yes" : "no")</span>
+                </div>
+            }
+
             <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                 <span class="text-xs text-muted-foreground">Last Update</span>
                 <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>

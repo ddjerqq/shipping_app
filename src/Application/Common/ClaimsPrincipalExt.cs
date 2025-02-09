@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using Domain.Aggregates;
+using Domain.ValueObjects;
 
 namespace Application.Common;
 
@@ -28,8 +29,10 @@ public static class ClaimsPrincipalExt
     public static string? GetSecurityStamp(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == SecurityStampClaimType)?.Value;
     public static string? GetRoomCode(this ClaimsPrincipal principal) => principal.Claims.FirstOrDefault(c => c.Type == RoomCodeClaimType)?.Value;
 
-    public static string? GetRole(this ClaimsPrincipal principal) =>
-        principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value;
+    public static Role? GetRole(this ClaimsPrincipal principal) =>
+        Enum.TryParse<Role>(principal.Claims.FirstOrDefault(c => c.Type == RoleClaimType)?.Value, out var role)
+            ? role
+            : null;
 
     public static IEnumerable<Claim> GetAllClaims(this User user)
     {

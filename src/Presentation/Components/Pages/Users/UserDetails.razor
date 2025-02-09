@@ -133,13 +133,6 @@
 
         var token = JwtGenerator.GenerateToken(User, TimeSpan.FromDays(1));
         await Cookies.SetCookieAsync(Infrastructure.Services.JwtGenerator.CookieName, token);
-        var redirectUrl = User.Role switch
-        {
-            Role.User => "/user_dashboard",
-            Role.Staff => "/packages/all",
-            Role.Admin => "/admin_dashboard",
-            _ => "/",
-        };
-        NavigationManager.NavigateTo(redirectUrl, true);
+        NavigationManager.NavigateTo("/", true);
     }
 }

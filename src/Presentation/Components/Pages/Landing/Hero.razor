@@ -1,0 +1,30 @@
+@inject IJSRuntime Js
+
+<div style="height: calc(100vh - (56px + 96px));"
+     class="flex flex-col lg:flex-row items-center justify-between w-full p-4 lg:p-8 relative pt-24 lg-pt-0">
+    <div class="flex flex-col justify-center items-center lg:items-start w-full lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
+        <h1 class="text-4xl lg:text-6xl font-bold mb-8">
+            No. 1 <span class="text-[#21bf73]">Shipping</span> Company from USA to Georgia
+        </h1>
+
+        <p class="mb-8 text-sm max-w-3xl mx-auto">
+            We are the a new company in the shipping industry, offering reliable, fast, and affordable services worldwide.
+        </p>
+
+        <CtaButton>
+            Get Started
+        </CtaButton>
+    </div>
+
+    <div class="flex justify-center items-center w-full lg:w-1/2">
+        <canvas id="globe" class="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]"></canvas>
+    </div>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
+    }
+}

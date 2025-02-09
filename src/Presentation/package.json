@@ -3,7 +3,8 @@
   "scripts": {
     "tw:build": "tailwindcss -i ./wwwroot/styles/app.css -o ./wwwroot/styles/app.min.css -c ./tailwind.config.cjs --minify",
     "tw:watch": "tailwindcss -i ./wwwroot/styles/app.css -o ./wwwroot/styles/app.min.css -c ./tailwind.config.cjs --minify --watch",
-    "pack": "webpack --config=webpack.config.js"
+    "pack": "webpack --config=webpack.config.js",
+    "stripe:forward": "stripe listen --forward-to https://localhost/webhook --skip-verify"
   },
   "dependencies": {
     "three": "^0.171.0",

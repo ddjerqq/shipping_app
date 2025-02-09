@@ -10,13 +10,13 @@
         <Content>
             @Exception.Message
         </Content>
-        <Footer class="flex flex-col gap-1">
+        <Footer class="flex flex-col gap-2">
             <Button class="w-full" @onclick="Reload">
                 <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
                 Reload
             </Button>
 
-            <span class="text-sm text-muted-foreground">
+            <span class="text-xs text-muted-foreground">
                 If the issue persists, Please
                 <Link Href="https://t.me/tenxdeveloper" Title="contact"/>
                 our dev team! Thank you!

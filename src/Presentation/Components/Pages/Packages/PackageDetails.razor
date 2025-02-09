@@ -57,7 +57,7 @@
 
                         @if (Package.CurrentStatus.Status == PackageStatus.InWarehouse)
                         {
-                            <Button Href="@($"/races/add_package/?package={Package.Id}")">
+                            <Button Href="@($"/races/add_package/?package_id={Package.Id}")">
                                 <Blazicon Svg="@Lucide.Plane"/>
                                 Add to race
                             </Button>
@@ -65,7 +65,7 @@
 
                         @if (Package.CurrentStatus.Status == PackageStatus.InTransit)
                         {
-                            <Button Href="@($"/packages/arrived/?package={Package.Id}")">
+                            <Button Href="@($"/packages/arrived/?code={Package.TrackingCode}")">
                                 <Blazicon Svg="@Lucide.Inbox"/>
                                 Receive at destination
                             </Button>
@@ -73,7 +73,7 @@
 
                         @if (Package.CurrentStatus.Status == PackageStatus.Arrived)
                         {
-                            <Button Href="@($"/packages/deliver/?package={Package.Id}")">
+                            <Button Href="@($"/packages/deliver/?code={Package.TrackingCode}")">
                                 <Blazicon Svg="@Lucide.Check"/>
                                 Mark delivered
                             </Button>
@@ -118,7 +118,7 @@
                 <FormField>
                     <FormLabel for="category">Category</FormLabel>
                     <FormInputEnum id="category"
-                                   disabled="@IsLoading"
+                                   disabled="@DisableForm"
                                    @bind-Value="Package.Category"
                                    Options="@(Enum.GetValues<Category>())"
                                    required/>
@@ -127,7 +127,7 @@
                 <FormField>
                     <FormLabel for="description">Description</FormLabel>
                     <FormInputText id="description"
-                                   disabled="@IsLoading"
+                                   disabled="@DisableForm"
                                    @bind-Value="@Package.Description"
                                    placeholder="Enter description"
                                    required/>
@@ -137,7 +137,7 @@
                 <FormField>
                     <FormLabel for="web-address">Website address</FormLabel>
                     <FormInputText id="web-address"
-                                   disabled="@IsLoading"
+                                   disabled="@DisableForm"
                                    @bind-Value="@Package.WebsiteAddress"
                                    placeholder="Enter web address"
                                    type="url"
@@ -148,7 +148,7 @@
                 <FormField>
                     <FormLabel for="retail-price">Retail price</FormLabel>
                     <FormInputMoney Id="retail-price"
-                                    disabled="@IsLoading"
+                                    disabled="@DisableForm"
                                     @bind-Value="@Package.RetailPrice"
                                     required/>
                     <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
@@ -157,7 +157,7 @@
                 <FormField>
                     <FormLabel for="item-count">Item Count</FormLabel>
                     <InputNumber id="item-count"
-                                 disabled="@IsLoading"
+                                 disabled="@DisableForm"
                                  class="@FormInputText.BaseClass"
                                  @bind-Value="@Package.ItemCount"
                                  required/>
@@ -173,7 +173,7 @@
                     else
                     {
                         <InputFile id="invoice"
-                                   disabled="@IsLoading"
+                                   disabled="@DisableForm"
                                    class="@FormInputText.BaseClass"
                                    accept=".pdf,.doc,.docx"
                                    OnChange="UploadInvoice"/>
@@ -185,7 +185,7 @@
                     <FormField>
                         <FormLabel for="picture">Picture</FormLabel>
                         <InputFile id="picture"
-                                   disabled="@IsLoading"
+                                   disabled="@DisableForm"
                                    class="@FormInputText.BaseClass"
                                    accept=".jpg,.jpeg,.png"
                                    OnChange="UploadPicture"/>
@@ -195,7 +195,7 @@
                 <FormField>
                     <FormLabel for="house-delivery">House delivery</FormLabel>
                     <Switch id="house-delivery"
-                            disabled="@IsLoading"
+                            disabled="@DisableForm"
                             @bind-Value="@Package.HouseDelivery"/>
                 </FormField>
 
@@ -251,12 +251,12 @@
                     <FormField>
                         <FormLabel for="copy-flight-name">Copy flight name</FormLabel>
                         <CopyButton Variant="outline" Content="@Package.Race!.QualifiedName">
-                            Copy flight name
+                            @Package.Race!.QualifiedName
                         </CopyButton>
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="start">Takeoff</FormLabel>
+                        <FormLabel for="start">Flight Takeoff</FormLabel>
                         <input id="start"
                                class="@FormInputText.BaseClass"
                                disabled
@@ -264,7 +264,7 @@
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="arrival">Arrival</FormLabel>
+                        <FormLabel for="arrival">Flight Arrival</FormLabel>
                         <input id="arrival"
                                class="@FormInputText.BaseClass"
                                disabled
@@ -272,9 +272,23 @@
                     </FormField>
                 }
 
-                <Button type="submit" class="col-span-1 sm:col-span-2 lg:col-span-4">
-                    Save
-                </Button>
+                @if (Package.CurrentStatus.Status >= PackageStatus.Arrived)
+                {
+                    <FormField>
+                        <FormLabel for="is-paid">Is paid?</FormLabel>
+                        <Switch id="is-paid"
+                                disabled
+                                Value="@Package.IsPaid"
+                                ValueExpression="@(() => Package.IsPaid)"/>
+                    </FormField>
+                }
+
+                @if (!DisableForm)
+                {
+                    <Button type="submit" class="col-span-1 sm:col-span-2 lg:col-span-4">
+                        Save
+                    </Button>
+                }
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
@@ -294,6 +308,8 @@
 
     private IBrowserFile? InvoiceFile { get; set; }
     private IBrowserFile? PictureFile { get; set; }
+
+    private bool DisableForm => IsLoading || Package?.CurrentStatus.Status >= PackageStatus.Arrived;
 
     protected override async Task OnInitializedAsync()
     {
@@ -366,6 +382,12 @@
 
     private async Task Update()
     {
+        if (Package?.CurrentStatus.Status >= PackageStatus.Arrived)
+        {
+            ShowError("Cannot update status for this package, as it has already arrived at the destination!");
+            return;
+        }
+
         if (InvoiceFile is not null)
         {
             await using var fileStream = InvoiceFile.OpenReadStream(cancellationToken: CancellationToken);

@@ -15,7 +15,7 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
 
     public UserId? Id => User?.GetId();
 
-    public Role? Role => Enum.TryParse<Role>(User?.GetRole(), out var role) ? role : null;
+    public Role? Role => User?.GetRole();
 
     public async Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default)
     {

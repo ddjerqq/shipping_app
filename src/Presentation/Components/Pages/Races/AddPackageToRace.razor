@@ -67,10 +67,10 @@
 </Card>
 
 @code {
-    [SupplyParameterFromQuery(Name = "race")]
+    [SupplyParameterFromQuery(Name = "race_id")]
     public string? RaceId { get; set; }
 
-    [SupplyParameterFromQuery(Name = "package")]
+    [SupplyParameterFromQuery(Name = "package_id")]
     public string? PackageId { get; set; }
 
     private AddPackageToRaceCommand Command { get; set; } = new();

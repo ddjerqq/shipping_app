@@ -1,0 +1,61 @@
+@page "/packages/deliver"
+@using Application.Cqrs.Packages.Commands
+@attribute [Authorize(Roles = "Staff,Admin")]
+
+<PageTitle>Package delivered to user</PageTitle>
+
+<Card>
+    <Header>
+        <CardTitle>Package delivered to user</CardTitle>
+    </Header>
+    <Content>
+        <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
+            <FormField>
+                <FormLabel for="tracking-code">Tracking code</FormLabel>
+                <FormInputText id="tracking-code"
+                               disabled="@(ParametersSuppliedFromQuery || IsLoading)"
+                               @bind-Value="@Command.TrackingCode"
+                               placeholder="Enter tracking code"
+                               required/>
+                <FormDescription>The tracking code, as present on the package</FormDescription>
+                <FormInvalidFeedback For="@(() => Command.TrackingCode)"/>
+            </FormField>
+
+            <Button type="submit" disabled="@IsLoading">
+                <Blazicon Svg="Icons.Check" class="mr-2 size-4"/>
+                Mark as arrived
+            </Button>
+        </AppForm>
+    </Content>
+</Card>
+
+@code {
+    [SupplyParameterFromQuery(Name = "code")]
+    public string? TrackingCode { get; set; }
+
+    private bool ParametersSuppliedFromQuery => !string.IsNullOrWhiteSpace(TrackingCode);
+
+    private DeliverPackageCommand Command { get; set; } = new();
+
+    protected override void OnParametersSet()
+    {
+        Command = new DeliverPackageCommand
+        {
+            TrackingCode = TrackingCode ?? string.Empty,
+        };
+    }
+
+    private async Task OnValidSubmit()
+    {
+        await SendCommandAsync(Command);
+        ShowSuccess("The package has been marked as delivered!");
+
+        if (ParametersSuppliedFromQuery)
+        {
+            await Task.Delay(1000, CancellationToken);
+            NavigationManager.NavigateTo("/packages/all?status=Arrived");
+        }
+
+        Command = new DeliverPackageCommand();
+    }
+}

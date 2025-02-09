@@ -1,5 +1,6 @@
 ﻿@using Application.Common
 @using Domain.Common
+@using Domain.ValueObjects
 @using Presentation.Components.Ui.Avatar
 @inject CookieService Cookie
 @inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
@@ -27,7 +28,7 @@
                 </div>
 
                 <div class="font-medium text-xs text-muted-foreground truncate">
-                    @if (context.User.GetRole() == "User")
+                    @if (context.User.GetRole() == Role.User)
                     {
                         @:Room code: @context.User.GetRoomCode()
                     }
