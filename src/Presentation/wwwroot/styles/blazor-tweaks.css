@@ -151,3 +151,7 @@
   --toast-text-color: #991b1b;
   --toast-border-color: #450a0a;
 }
+
+.bm-header {
+  display: none !important;
+}

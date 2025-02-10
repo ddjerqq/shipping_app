@@ -3,20 +3,21 @@
 @using Domain.Common
 @attribute [StreamRendering]
 
-<Card>
+<Card class="w-full text-start">
     <Header>
         <CardTitle class="text-2xl">Search</CardTitle>
     </Header>
-    <Content class="space-y-6">
+    <Content class="space-y-4">
         <div>
             <FormField>
                 <FormLabel>Query</FormLabel>
                 <input class="@FormInputText.BaseClass"
                        id="query"
+                       placeholder="Enter query..."
                        value="@Command.Value"
                        @oninput="@ValueChanged"/>
                 <FormDescription>
-                    You can search for Users, Packages and races here.
+                    You can search for Users, Packages and Races here.
                 </FormDescription>
             </FormField>
         </div>
@@ -26,7 +27,7 @@
             <h2>Results:</h2>
         }
 
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 text-sm max-h-[450px] sm:max-h-80 overflow-y-scroll">
             @foreach (var result in Results)
             {
                 switch (result)
@@ -34,7 +35,7 @@
                     case GenericSearchResult.RaceSearchResult { Value: var race }:
                         <a href="/races/@race.Id"
                            class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
-                            <Blazicon Svg="@Lucide.Plane" class="!size-10"/>
+                            <Blazicon Svg="@Lucide.Plane" class="!size-8"/>
                             <div class="flex flex-col">
                                 <span>@race.Name</span>
                                 <span class="text-muted-foreground">@race.Origin - @race.Destination</span>
@@ -44,7 +45,7 @@
                     case GenericSearchResult.PackageSearchResult { Value: var package }:
                         <a href="/packages/@package.Id"
                            class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
-                            <Blazicon Svg="@Lucide.Package" class="!size-10"/>
+                            <Blazicon Svg="@Lucide.Package" class="!size-8"/>
                             <div class="flex flex-col">
                                 <span>@package.TrackingCode</span>
                                 <span class="text-muted-foreground">@package.Owner?.Username</span>
@@ -54,7 +55,7 @@
                     case GenericSearchResult.UserSearchResult { Value: var user }:
                         <a href="/users/@user.Id"
                            class="flex justify-start items-center gap-4 bg-card text-card-foreground rounded-lg border shadow-sm p-4">
-                            <Blazicon Svg="@Lucide.User" class="!size-10"/>
+                            <Blazicon Svg="@Lucide.User" class="!size-8"/>
                             <div class="flex flex-col">
                                 <span>@user.Username.CapitalizeName()</span>
                                 <span class="text-muted-foreground">@user.Email</span>
@@ -67,16 +68,12 @@
     </Content>
 </Card>
 
-
 @code {
     [CascadingParameter]
     public BlazoredModalInstance BlazoredModal { get; set; } = null!;
 
     [Parameter, EditorRequired]
     public MarkupString Text { get; set; }
-
-    private async Task No() => await BlazoredModal.CancelAsync();
-    private async Task Yes() => await BlazoredModal.CloseAsync(ModalResult.Ok());
 
     private GenericSearchQuery Command { get; set; } = new(null!);
     private IEnumerable<GenericSearchResult> Results { get; set; } = [];

@@ -28,6 +28,7 @@ internal sealed class GenericSearchQueryHandler(IAppDbContext dbContext) : IRequ
             .IgnoreAutoIncludes()
             .Where(race => race.Name.Contains(query.ToUpperInvariant()))
             .Select(race => new GenericSearchResult.RaceSearchResult(race))
+            .Take(20)
             .ToListAsync(ct);
 
         var packages = await dbContext.Packages
@@ -35,6 +36,7 @@ internal sealed class GenericSearchQueryHandler(IAppDbContext dbContext) : IRequ
             .Include(package => package.Owner)
             .Where(package => package.TrackingCode.Value.Contains(query))
             .Select(package => new GenericSearchResult.PackageSearchResult(package))
+            .Take(20)
             .ToListAsync(ct);
 
         var roomCode = int.TryParse(query, out var x) ? x : 0;
@@ -49,6 +51,7 @@ internal sealed class GenericSearchQueryHandler(IAppDbContext dbContext) : IRequ
                 EF.Property<string>(user, $"{nameof(User.PersonalId)}ShadowHash") == hash ||
                 user.RoomCode == roomCode)
             .Select(user => new GenericSearchResult.UserSearchResult(user))
+            .Take(20)
             .ToListAsync(ct);
 
         return races.Concat(packages).Concat(users);
