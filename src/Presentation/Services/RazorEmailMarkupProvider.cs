@@ -71,6 +71,11 @@ public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
             .Set(c => c.Package, package)
             .Render();
 
+    public string GetPackageIsDeemedProhibitedMarkup(Package package) =>
+        new ComponentRenderer<PackageIsProhibitedEmail>()
+            .Set(c => c.Package, package)
+            .Render();
+
     public string GetTopUpSuccessMarkup(User user, Money amount, PaymentMethod paymentMethod, object paymentSession) =>
         new ComponentRenderer<TopUpSuccessEmail>()
             .Set(c => c.User, user)

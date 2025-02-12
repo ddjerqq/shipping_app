@@ -69,6 +69,14 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
         return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
     }
 
+    public async Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
+    {
+        var content = $"Your package has been deemed prohibited (tracking code: {package.TrackingCode}). \n" +
+                      $"Please contact our support team for more information! support@sangoway.com \n" +
+                      $"For a full list of prohibited items please see: https://www.rs.ge/OnlineOrders?cat=3&tab=1";
+        await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+    }
+
     public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
     {
         var content = $"Your balance has been topped up by {amount.FormatedValue}. Payment method: {paymentMethod}. Thank you for using our services!";

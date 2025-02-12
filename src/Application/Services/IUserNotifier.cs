@@ -68,6 +68,11 @@ public interface IUserNotifier
     /// </summary>
     public Task NotifyPackageDelivered(Package package, CancellationToken ct = default);
 
+    /// <summary>
+    /// Notifies a user that their package has been deemed prohibited
+    /// </summary>
+    public Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default);
+
     #endregion
 
     #region payments

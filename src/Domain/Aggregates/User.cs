@@ -57,7 +57,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
             throw new InvalidOperationException($"The current user does not have enough balance to pay for the package. Balance: {Balance.FormatedValue} - Price: {package.Price.TotalPrice.FormatedValue}");
 
         Balance -= package.Price!.TotalPrice;
-        package.IsPaid = true;
+        package.MarkPaid();
 
         AddDomainEvent(new UserPaidForPackage(package.Id));
     }

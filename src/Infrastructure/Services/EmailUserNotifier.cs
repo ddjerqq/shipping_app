@@ -73,6 +73,12 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
         return sender.SendAsync(package.Owner.Email, "Your package has been delivered", markup, ct);
     }
 
+    public Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
+    {
+        var markup = emailMarkupProvider.GetPackageIsDeemedProhibitedMarkup(package);
+        return sender.SendAsync(package.Owner.Email, "Your package has been deemed prohibited!", markup, ct);
+    }
+
     public Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetTopUpSuccessMarkup(user, amount, paymentMethod, paymentSession);

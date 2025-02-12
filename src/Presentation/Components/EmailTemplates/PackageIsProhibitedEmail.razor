@@ -1,0 +1,27 @@
+@layout EmailLayout
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Urgent attention required!
+</SectionContent>
+
+<EmailParagraph>
+    Your package (tracking code: @Package.TrackingCode) has been deemed to contain prohibited items by our staff!
+</EmailParagraph>
+
+<EmailParagraph>
+    If you think this is a mistake, please contact our support team immediately: <a href="mailto:support@sangoway.com">support@sangoway.com</a>
+</EmailParagraph>
+
+<EmailParagraph>
+    For a full list of prohibited items, please see: <a href="https://www.rs.ge/OnlineOrders?cat=3&tab=1">rs.ge</a>
+</EmailParagraph>
+
+@code {
+    [Parameter]
+    public Package Package { get; set; } = null!;
+}

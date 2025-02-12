@@ -31,10 +31,6 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public required UserId OwnerId { get; init; }
     public required User Owner { get; init; } = null!;
 
-    // arrived at origin.
-    // scan the barcode, go to an address like - /track/{CODE}
-    // set the dimensions and weight of the package
-
     /// <summary>
     /// gets the dimensions in centimeters
     /// width, height and length
@@ -50,7 +46,8 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         ? new PackagePrice(x, y, z, weight, HouseDelivery)
         : null;
 
-    public bool IsPaid { get; set; }
+    public bool IsPaid { get; private set; }
+    public bool IsProhibited { get; private set; }
 
     // sent to destination
     public RaceId? RaceId { get; private set; }
@@ -103,6 +100,9 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
     private void UpdateStatus(PackageReceptionStatus receptionStatus)
     {
+        if (IsProhibited)
+            throw new InvalidOperationException("This package has prohibited content, it's status cannot be changed");
+
         if (CurrentStatus.Status + 1 != receptionStatus.Status)
             throw new InvalidOperationException($"This order ({Id}) is not in the correct status to be set to {receptionStatus}");
 
@@ -145,5 +145,16 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     {
         UpdateStatus(PackageReceptionStatus.Delivered(Id, date));
         AddDomainEvent(new PackageDelivered(Id, date));
+    }
+
+    public void FlagAsProhibited()
+    {
+        IsProhibited = true;
+        AddDomainEvent(new PackageIsDeemedProhibited(Id));
+    }
+
+    public void MarkPaid()
+    {
+        IsPaid = true;
     }
 }

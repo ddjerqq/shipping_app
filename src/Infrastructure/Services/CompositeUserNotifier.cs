@@ -77,6 +77,14 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
         await emailNotifier.NotifyPackageDelivered(package, ct);
     }
 
+    public async Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
+    {
+        if (package.Owner.NotifyBySms)
+            await smsNotifier.NotifyPackageIsDeemedProhibited(package, ct);
+
+        await emailNotifier.NotifyPackageIsDeemedProhibited(package, ct);
+    }
+
     public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
     {
         if (user.NotifyBySms)

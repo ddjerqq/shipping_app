@@ -49,58 +49,67 @@
                         }
                     </List>
 
-                    <AuthorizeView Roles="User">
-                        @if (Package.CurrentStatus.Status == PackageStatus.Arrived && !Package.IsPaid)
-                        {
-                            <Button Variant="default" @onclick="@PayForShipping">
-                                <Blazicon Svg="@Lucide.DollarSign"/>
-                                Pay for shipping
-                            </Button>
-                        }
-                    </AuthorizeView>
-
-                    <AuthorizeView Roles="Staff,Admin">
-                        @if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
-                        {
-                            <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")">
-                                <Blazicon Svg="@Lucide.Inbox"/>
-                                Receive at warehouse
-                            </Button>
-                        }
-
-                        @if (Package.CurrentStatus.Status == PackageStatus.InWarehouse)
-                        {
-                            <Button Href="@($"/races/add_package/?package_id={Package.Id}")">
-                                <Blazicon Svg="@Lucide.Plane"/>
-                                Add to race
-                            </Button>
-                        }
-
-                        @if (Package.CurrentStatus.Status == PackageStatus.InTransit)
-                        {
-                            <Button Href="@($"/packages/arrived/?code={Package.TrackingCode}")">
-                                <Blazicon Svg="@Lucide.Inbox"/>
-                                Receive at destination
-                            </Button>
-                        }
-
-                        @if (Package.CurrentStatus.Status == PackageStatus.Arrived)
-                        {
-                            if (Package.IsPaid)
+                    @if (!Package.IsProhibited)
+                    {
+                        <AuthorizeView Roles="User">
+                            @if (Package.CurrentStatus.Status == PackageStatus.Arrived && !Package.IsPaid)
                             {
-                                <Button Href="@($"/packages/deliver/?code={Package.TrackingCode}")" disabled>
-                                    <Blazicon Svg="@Lucide.Check"/>
-                                    Mark delivered
+                                <Button Variant="default" @onclick="@PayForShipping">
+                                    <Blazicon Svg="@Lucide.DollarSign"/>
+                                    Pay for shipping
                                 </Button>
                             }
-                            else
+                        </AuthorizeView>
+
+                        <AuthorizeView Roles="Staff,Admin">
+                            @if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
                             {
-                                <p class="text-sm text-red-700 dark:text-red-400">
-                                    This package has not been paid for, unable to deliver
-                                </p>
+                                <Button Href="@($"/packages/receive/?code={Package.TrackingCode}&room={Package.Owner.RoomCode}")">
+                                    <Blazicon Svg="@Lucide.Inbox"/>
+                                    Receive at warehouse
+                                </Button>
                             }
-                        }
-                    </AuthorizeView>
+
+                            @if (Package.CurrentStatus.Status == PackageStatus.InWarehouse)
+                            {
+                                <Button Href="@($"/races/add_package/?package_id={Package.Id}")">
+                                    <Blazicon Svg="@Lucide.Plane"/>
+                                    Add to race
+                                </Button>
+                            }
+
+                            @if (Package.CurrentStatus.Status == PackageStatus.InTransit)
+                            {
+                                <Button Href="@($"/packages/arrived/?code={Package.TrackingCode}")">
+                                    <Blazicon Svg="@Lucide.Inbox"/>
+                                    Receive at destination
+                                </Button>
+                            }
+
+                            @if (Package.CurrentStatus.Status == PackageStatus.Arrived)
+                            {
+                                if (Package.IsPaid)
+                                {
+                                    <Button Href="@($"/packages/deliver/?code={Package.TrackingCode}")" disabled>
+                                        <Blazicon Svg="@Lucide.Check"/>
+                                        Mark delivered
+                                    </Button>
+                                }
+                                else
+                                {
+                                    <p class="text-sm text-red-700 dark:text-red-400">
+                                        This package has not been paid for, unable to deliver
+                                    </p>
+                                }
+                            }
+                        </AuthorizeView>
+                    }
+                    else
+                    {
+                        <p class="text-sm text-red-700 dark:text-red-400">
+                            This package contains prohibited items!
+                        </p>
+                    }
                 </Tabs>
             </div>
 
@@ -331,7 +340,7 @@
     private IBrowserFile? InvoiceFile { get; set; }
     private IBrowserFile? PictureFile { get; set; }
 
-    private bool DisableForm => IsLoading || Package?.CurrentStatus.Status >= PackageStatus.Arrived;
+    private bool DisableForm => IsLoading || Package?.IsProhibited is true || Package?.CurrentStatus.Status >= PackageStatus.Arrived;
 
     protected override async Task OnInitializedAsync()
     {

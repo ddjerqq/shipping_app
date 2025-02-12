@@ -18,6 +18,7 @@ public interface IEmailMarkupProvider
     public string GetPackageSentToDestinationMarkup(Package package);
     public string GetPackageArrivedAtDestinationMarkup(Package package);
     public string GetPackageDeliveredMarkup(Package package);
+    public string GetPackageIsDeemedProhibitedMarkup(Package package);
 
     public string GetTopUpSuccessMarkup(User user, Money amount, PaymentMethod paymentMethod, object paymentSession);
     public string GetPaidForPackageSuccessfully(User user, Package package);
