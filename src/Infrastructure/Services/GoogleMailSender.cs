@@ -43,7 +43,7 @@ public sealed class GoogleMailSender : IEmailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
-        _logger.LogInformation("sending email to recipient");
+        _logger.LogInformation("sending email to {Recipient}", recipient);
 
         try
         {

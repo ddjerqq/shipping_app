@@ -1,0 +1,41 @@
+@layout EmailLayout
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
+@using Stripe.Checkout
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Your balance has been topped up by @Amount.FormatedValue to your account.
+</SectionContent>
+
+<EmailParagraph>
+    Payment method: @PaymentMethod
+</EmailParagraph>
+
+<EmailParagraph>
+    Your current balance is: @User.Balance.FormatedValue
+</EmailParagraph>
+
+<EmailParagraph>
+    Thank you for using our services!
+</EmailParagraph>
+
+<EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+
+    [Parameter]
+    public User User { get; set; } = null!;
+
+    [Parameter]
+    public Money Amount { get; set; }
+
+    [Parameter]
+    public PaymentMethod PaymentMethod { get; set; }
+
+    [Parameter]
+    public object PaymentSession { get; set; } = null!;
+}

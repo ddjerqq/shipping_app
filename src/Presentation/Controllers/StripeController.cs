@@ -1,6 +1,7 @@
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
+using Domain.ValueObjects;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +11,8 @@ namespace Presentation.Controllers;
 
 [ApiController]
 [AllowAnonymous]
-public sealed class StripeController(ICurrentUserAccessor currentUserAccessor, StripePaymentService paymentService) : ControllerBase
+public sealed class StripeController(StripePaymentService paymentService) : ControllerBase
 {
-    [HttpGet("topup")]
-    public async Task<IActionResult> RequestTopUp([FromQuery] long amount, [FromQuery] string currency, CancellationToken ct = default)
-    {
-        var user = await currentUserAccessor.GetCurrentUserAsync(ct);
-        var paymentUrl = await paymentService.CreatePaymentUrl(user, amount, currency, ct);
-        return Redirect(paymentUrl);
-    }
-
     [HttpPost("webhook")]
     public async Task<IActionResult> HandleStripeWebhook(CancellationToken ct = default)
     {

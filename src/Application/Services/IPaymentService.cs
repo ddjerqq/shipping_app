@@ -5,5 +5,5 @@ namespace Application.Services;
 
 public interface IPaymentService
 {
-    public Task<string> CreatePaymentUrl(User user, long amountInCents, Currency currency, CancellationToken ct = default);
+    public Task<string> CreatePaymentUrl(User user, Money money, CancellationToken ct = default);
 }

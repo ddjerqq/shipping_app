@@ -4,4 +4,4 @@ using Domain.ValueObjects;
 
 namespace Domain.Events;
 
-public sealed record UserBalanceTopUp(UserId UserId, Money Amount) : IDomainEvent;
+public sealed record UserBalanceTopUp(UserId UserId, Money Amount, PaymentMethod PaymentMethod, object PaymentSessionId) : IDomainEvent;

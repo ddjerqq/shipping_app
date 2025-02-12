@@ -1,0 +1,46 @@
+@using Application.Services
+@using Blazored.Modal.Services
+@using Domain.Aggregates
+@inject ICurrentUserAccessor CurrentUserAccessor
+
+<Card class="text-start w-full sm:w-[480px]">
+    <Header>
+        <CardTitle class="text-2xl">Pay for shipping</CardTitle>
+    </Header>
+
+    <Content class="grid gap-6">
+        Would you like to pay @Package.Price?.TotalPrice.FormatedValue? <br/>
+        Your balance is: @CurrentUser.Balance.FormatedValue<br/>
+        After this transaction you will have: @((CurrentUser.Balance - Package.Price?.TotalPrice)?.FormatedValue)
+    </Content>
+
+    <Footer class="grid grid-cols-2 gap-4">
+        <Button Variant="outline" type="submit" class="w-full" @onclick="@Cancel" disabled="@(!CanPay)">
+            <Blazicon Svg="@Lucide.X"/>
+            Cancel
+        </Button>
+
+        <Button Variant="default" type="submit" class="w-full" @onclick="@Pay">
+            <Blazicon Svg="@Lucide.DollarSign"/>
+            Pay
+        </Button>
+    </Footer>
+</Card>
+
+@code {
+    [CascadingParameter]
+    public BlazoredModalInstance BlazoredModal { get; set; } = null!;
+
+    private bool CanPay => CurrentUser?.Balance > Package?.Price?.TotalPrice;
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+    private async Task Pay() => await BlazoredModal.CloseAsync(ModalResult.Ok());
+
+    [Parameter, EditorRequired]
+    public Package Package { get; set; } = null!;
+    private User CurrentUser { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await CurrentUserAccessor.GetCurrentUserAsync(CancellationToken);
+    }
+}

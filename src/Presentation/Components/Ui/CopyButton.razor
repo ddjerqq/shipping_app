@@ -9,7 +9,7 @@
         @attributes="AdditionalAttributes">
     @if (Copied)
     {
-        @:Copied <span class="text-muted-foreground text-sm">@Content</span>
+        @:Copied!
     }
     else
     {
@@ -35,7 +35,7 @@
     {
         Copied = true;
         await Js.InvokeVoidAsync("navigator.clipboard.writeText", Content);
-        await Task.Delay(1000);
+        await Task.Delay(750);
         Copied = false;
     }
 }

@@ -1,61 +1,64 @@
 @using Application.Services
+@using Blazored.Modal.Services
 @using Domain.ValueObjects
 @using Domain.Aggregates
 @inject ICurrentUserAccessor CurrentUser
+@inject IModalService Modal
 @attribute [StreamRendering]
 
 <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
-        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Header class="flex flex-row items-center justify-between">
             <CardTitle>Your balance</CardTitle>
             <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground size-4"/>
         </Header>
-        <Content class="space-y-2">
-            <div class="text-2xl font-bold">@(User.Balance.FormatedValue)</div>
-            <p class="text-muted-foreground text-xs">
-                Your balance
-            </p>
+        <Content class="text-2xl font-bold">
+            @User.Balance.FormatedValue
         </Content>
+        <Footer class="text-muted-foreground text-xs">
+            Your balance
+        </Footer>
     </Card>
 
     <Card>
-        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Header class="flex flex-row items-center justify-between">
             <CardTitle>Total amount due</CardTitle>
             <Blazicon Svg="@Icons.Minus" class="text-muted-foreground size-4"/>
         </Header>
-        <Content class="space-y-2">
-            <div class="text-2xl text-destructive font-bold">@(AmountDue.FormatedValue)</div>
-            <p class="text-muted-foreground text-xs">
-                This is the total amount you have to pay, for all your packages
-            </p>
+        <Content class="@("text-2xl font-bold " + (AmountDue.Amount > 0 ? "text-red-700 dark:text-red-400" : ""))">
+            @AmountDue.FormatedValue
         </Content>
+        <Footer class="text-muted-foreground text-xs">
+            Total amount to pay for shipping
+        </Footer>
     </Card>
 
     <Card>
-        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle>Cover shipping prices</CardTitle>
+        <Header class="flex flex-row items-center justify-between">
+            <CardTitle>Your packages</CardTitle>
             <Blazicon Svg="@Icons.Truck" class="text-muted-foreground size-4"/>
         </Header>
-        <Content class="space-y-2">
-            <Button Variant="outline">Pay</Button>
-            <p class="text-muted-foreground text-xs">
-                By pressing this button, you will pay your balance to cover the fees of package shipping
-            </p>
+        <Content class="text-2xl font-bold">
+            @User.Packages.Count
         </Content>
+        <Footer class="text-muted-foreground text-xs">
+            The total amount of packages you have ever ordered
+        </Footer>
     </Card>
 
     <Card>
-        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Header class="flex flex-row items-center justify-between">
             <CardTitle>Top up balance</CardTitle>
             <Blazicon Svg="@Icons.CreditCard" class="text-muted-foreground size-4"/>
         </Header>
-        <Content class="space-y-2">
-            @* TODO redirect to a custom top up page *@
-            <Button Href="@($"/topup?amount={AmountDue.Amount}&currency={AmountDue.Currency}")">Top up @AmountDue.FormatedValue</Button>
-            <p class="text-muted-foreground text-xs">
-                Your payment info is secure
-            </p>
+        <Content>
+            <Button @onclick="@(OpenTopUpModal)">
+                Top up balance
+            </Button>
         </Content>
+        <Footer class="text-muted-foreground text-xs">
+            Your payment info is secure
+        </Footer>
     </Card>
 </div>
 
@@ -63,14 +66,20 @@
     private User User { get; set; } = null!;
 
     private Money AmountDue => new(
-        User.Balance.Currency,
+        PackagePrice.DefaultCurrency,
         User.Packages
             .Where(p => !p.IsPaid)
-            .Where(p => p.CurrentStatus.Status is PackageStatus.InWarehouse or PackageStatus.InTransit or PackageStatus.Arrived)
-            .Sum(p => p.Price?.TotalPrice.Amount ?? 0));
+            .Where(p => p.CurrentStatus.Status is PackageStatus.Arrived)
+            .Sum(p => p.Price!.TotalPrice.Amount));
 
     protected override async Task OnInitializedAsync()
     {
         User = await CurrentUser.GetCurrentUserAsync(CancellationToken);
+    }
+
+    private async Task OpenTopUpModal()
+    {
+        var modal = Modal.Show<TopUpModal>();
+        await modal.Result;
     }
 }

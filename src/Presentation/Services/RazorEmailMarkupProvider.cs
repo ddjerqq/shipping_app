@@ -49,25 +49,39 @@ public sealed class RazorEmailMarkupProvider : IEmailMarkupProvider
 
     public string GetPackageArrivedAtWarehouseMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
-        .Set(c => c.Status, PackageStatus.InWarehouse)
+            .Set(c => c.Status, PackageStatus.InWarehouse)
             .Set(c => c.Package, package)
             .Render();
 
     public string GetPackageSentToDestinationMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
-        .Set(c => c.Status, PackageStatus.InTransit)
+            .Set(c => c.Status, PackageStatus.InTransit)
             .Set(c => c.Package, package)
             .Render();
 
     public string GetPackageArrivedAtDestinationMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
-        .Set(c => c.Status, PackageStatus.Arrived)
+            .Set(c => c.Status, PackageStatus.Arrived)
             .Set(c => c.Package, package)
             .Render();
 
     public string GetPackageDeliveredMarkup(Package package) =>
         new ComponentRenderer<PackageStatusUpdatedEmail>()
-        .Set(c => c.Status, PackageStatus.Delivered)
+            .Set(c => c.Status, PackageStatus.Delivered)
+            .Set(c => c.Package, package)
+            .Render();
+
+    public string GetTopUpSuccessMarkup(User user, Money amount, PaymentMethod paymentMethod, object paymentSession) =>
+        new ComponentRenderer<TopUpSuccessEmail>()
+            .Set(c => c.User, user)
+            .Set(c => c.Amount, amount)
+            .Set(c => c.PaymentMethod, paymentMethod)
+            .Set(c => c.PaymentSession, paymentSession)
+            .Render();
+
+    public string GetPaidForPackageSuccessfully(User user, Package package) =>
+        new ComponentRenderer<ShippingPaidSuccessfullyEmail>()
+            .Set(c => c.User, user)
             .Set(c => c.Package, package)
             .Render();
 }

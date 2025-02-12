@@ -1,5 +1,7 @@
+using Application.Cqrs.Users.Commands;
 using Domain.Aggregates;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Application.Services;
 
@@ -65,6 +67,20 @@ public interface IUserNotifier
     /// Notifies a user that their package has been delivered
     /// </summary>
     public Task NotifyPackageDelivered(Package package, CancellationToken ct = default);
+
+    #endregion
+
+    #region payments
+
+    /// <summary>
+    /// Notifies a user that their payment has been received
+    /// </summary>
+    public Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default);
+
+    /// <summary>
+    /// Notifies a user that their payment has been received
+    /// </summary>
+    public Task NotifyPaidForPackageSuccessfully(User user, Package package, CancellationToken ct = default);
 
     #endregion
 }

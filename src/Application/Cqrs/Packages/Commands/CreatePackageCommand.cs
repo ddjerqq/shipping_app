@@ -48,12 +48,19 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
             .Must(x => Path.GetExtension(x!.Name) is ".jpg" or ".jpeg" or ".png").WithMessage("The file must be a .jpg, .jpeg, or .png format")
             .When(command => command.PictureFile is not null);
 
+        RuleFor(x => x.HouseDelivery)
+            .Must(houseDelivery => houseDelivery == false)
+            .When(command => command.Owner is { AddressInfo: NoAddress } or null)
+            .WithMessage(
+                "You cannot choose house delivery right now, because you do not have a house address added. " +
+                "Please add it by going to your account settings > my address");
+
         RuleSet("async", () =>
         {
             RuleFor(x => x.TrackingCode)
                 .MustAsync(async (_, code, ct) =>
                 {
-                    var packagesWithCode = await dbContext.Packages.CountAsync(x => x.TrackingCode == code, ct);
+                    var packagesWithCode = await dbContext.Packages.CountAsync(x => x.TrackingCode.Value == code, ct);
                     return packagesWithCode == 0;
                 })
                 .WithMessage("A package with that tracking code already exists");

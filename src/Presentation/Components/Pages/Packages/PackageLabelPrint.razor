@@ -62,11 +62,11 @@
             <div class="w-full p-6 px-16">
                 <div class="flex justify-between">
                     <span>Weight (kg):</span>
-                    <span>@Package.Weight?.ToString("N2")</span>
+                    <span>@(((float?)Package.Weight / 1000)?.ToString("N2"))</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Dimensions (w, h, l) cm:</span>
-                    <span>@Package.Dimensions</span>
+                    <span>@(Package.Dimensions is { X: var x, Y: var y, Z: var z } ? $"{x}, {y}, {z}" : "")</span>
                 </div>
             </div>
         </Content>

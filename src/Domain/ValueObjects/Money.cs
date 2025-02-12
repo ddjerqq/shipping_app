@@ -1,6 +1,6 @@
 ﻿namespace Domain.ValueObjects;
 
-public readonly record struct Money
+public readonly record struct Money : IComparable<Money>
 {
     public Currency Currency { get; }
     public long Amount { get; }
@@ -27,6 +27,30 @@ public readonly record struct Money
     public static Money operator +(Money @this, Money other) => @this.Currency == other.Currency
         ? new Money(@this.Currency, @this.Amount + other.Amount)
         : throw new InvalidOperationException("Cannot add money with different currencies. Convert the currencies first");
+
+    public static Money operator -(Money @this, Money other) => @this.Currency == other.Currency
+        ? new Money(@this.Currency, @this.Amount - other.Amount)
+        : throw new InvalidOperationException("Cannot subtract money with different currencies. Convert the currencies first");
+
+    public static bool operator >(Money @this, Money other) => @this.Currency == other.Currency
+        ? @this.Amount > other.Amount
+        : throw new InvalidOperationException("Cannot compare money with different currencies. Convert the currencies first");
+
+    public static bool operator >=(Money @this, Money other) => @this.Currency == other.Currency
+        ? @this.Amount >= other.Amount
+        : throw new InvalidOperationException("Cannot compare money with different currencies. Convert the currencies first");
+
+    public static bool operator <(Money @this, Money other) => @this.Currency == other.Currency
+        ? @this.Amount < other.Amount
+        : throw new InvalidOperationException("Cannot compare money with different currencies. Convert the currencies first");
+
+    public static bool operator <=(Money @this, Money other) => @this.Currency == other.Currency
+        ? @this.Amount <= other.Amount
+        : throw new InvalidOperationException("Cannot compare money with different currencies. Convert the currencies first");
+
+    public int CompareTo(Money other) => Currency == other.Currency
+        ? Amount.CompareTo(other.Amount)
+        : throw new InvalidOperationException("Cannot compare money with different currencies. Convert the currencies first");
 
     public static Money Parse(string value)
     {

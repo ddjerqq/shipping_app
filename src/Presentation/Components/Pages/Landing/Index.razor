@@ -3,13 +3,13 @@
 @using Application.Services
 @inject ICurrentUserAccessor CurrentUser
 
-<Hero />
-<WhyUs />
-<HowItWorks />
-<Testimonials />
+<Hero/>
+<WhyUs/>
+<HowItWorks/>
+<Testimonials/>
 
 @code {
-    protected override void OnInitialized()
+    protected override Task OnParametersSetAsync()
     {
         if (CurrentUser.Role is not null)
         {
@@ -23,5 +23,7 @@
 
             NavigationManager.NavigateTo(url, true);
         }
+
+        return base.OnParametersSetAsync();
     }
 }

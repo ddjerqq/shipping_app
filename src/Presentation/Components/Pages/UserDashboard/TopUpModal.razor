@@ -1,0 +1,85 @@
+@using Application.Cqrs.Users.Commands
+@using Domain.ValueObjects
+
+
+<AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync">
+    <Card class="text-start w-full sm:w-[480px]">
+        <Header>
+            <CardTitle class="text-2xl">Top up balance</CardTitle>
+            <Description>
+                Add a new payment method to your account
+            </Description>
+        </Header>
+        <Content class="grid gap-6">
+            <div class="grid grid-cols-3 gap-4">
+                <FormField>
+                    <input type="radio" id="card" name="payment_method"
+                           @onchange="@(args => Command.PaymentMethod = Enum.Parse<PaymentMethod>((string)args.Value!))"
+                           data-state="@(Command.PaymentMethod == PaymentMethod.Card ? "checked" : "unchecked")"
+                           value="@PaymentMethod.Card" class="peer sr-only" aria-label="Card"/>
+                    <FormLabel
+                        for="card"
+                        data-state="@(Command.PaymentMethod == PaymentMethod.Card ? "checked" : "unchecked")"
+                        class="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                        <Blazicon Svg="@Lucide.CreditCard" class="mb-3 !size-6"/>
+                        Card
+                    </FormLabel>
+                </FormField>
+
+                <FormField>
+                    <input type="radio" id="bog" name="payment_method"
+                           disabled
+                           @onchange="@(args => Command.PaymentMethod = Enum.Parse<PaymentMethod>((string)args.Value!))"
+                           data-state="@(Command.PaymentMethod == PaymentMethod.Bog ? "checked" : "unchecked")"
+                           value="@PaymentMethod.Bog" class="peer sr-only" aria-label="Bog"/>
+                    <FormLabel for="bog"
+                               data-state="@(Command.PaymentMethod == PaymentMethod.Bog ? "checked" : "unchecked")"
+                               class="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                        <Blazicon Svg="@Lucide.Dog" class="mb-3 !size-6"/>
+                        BOG
+                    </FormLabel>
+                </FormField>
+
+                <FormField>
+                    <input type="radio" id="tbc" name="payment_method"
+                           disabled
+                           @onchange="@(args => Command.PaymentMethod = Enum.Parse<PaymentMethod>((string)args.Value!))"
+                           data-state="@(Command.PaymentMethod == PaymentMethod.Tbc ? "checked" : "unchecked")"
+                           value="@PaymentMethod.Tbc" class="peer sr-only" aria-label="Tbc"/>
+                    <FormLabel for="tbc"
+                               data-state="@(Command.PaymentMethod == PaymentMethod.Tbc ? "checked" : "unchecked")"
+                               class="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary ">
+                        <Blazicon Svg="@Lucide.Triangle" class="mb-3 !size-6"/>
+                        TBC
+                    </FormLabel>
+                </FormField>
+            </div>
+
+            <FormField>
+                <FormLabel for="amount">Amount</FormLabel>
+                <FormInputMoney Id="amount" @bind-Value="Command.Amount"/>
+            </FormField>
+
+        </Content>
+
+        <Footer>
+            <Button type="submit" class="w-full">
+                <Blazicon Svg="@Lucide.DollarSign"/>
+                Top up @Command.Amount.FormatedValue using @Command.PaymentMethod
+            </Button>
+        </Footer>
+    </Card>
+</AppForm>
+
+@code {
+    [CascadingParameter]
+    public BlazoredModalInstance BlazoredModal { get; set; } = null!;
+
+    private TopUpBalanceCommand Command { get; set; } = new();
+
+    private async Task OnValidSubmitAsync()
+    {
+        var redirectUrl = await SendCommandAsync(Command);
+        NavigationManager.NavigateTo(redirectUrl);
+    }
+}

@@ -42,13 +42,24 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public ICollection<UserLogin> Logins { get; init; } = [];
     public Role Role { get; init; } = Role.User;
 
-    public void AddBalance(Money amount)
+    public void AddBalance(Money amount, PaymentMethod paymentMethod, object paymentSessionId)
     {
         if (amount.Currency != Balance.Currency)
             throw new InvalidOperationException("Cannot add money with different currencies. Convert the currencies first");
 
         Balance += amount;
-        AddDomainEvent(new UserBalanceTopUp(Id, amount));
+        AddDomainEvent(new UserBalanceTopUp(Id, amount, paymentMethod, paymentSessionId));
+    }
+
+    public void PayForPackage(Package package)
+    {
+        if (Balance < package.Price!.TotalPrice)
+            throw new InvalidOperationException($"The current user does not have enough balance to pay for the package. Balance: {Balance.FormatedValue} - Price: {package.Price.TotalPrice.FormatedValue}");
+
+        Balance -= package.Price!.TotalPrice;
+        package.IsPaid = true;
+
+        AddDomainEvent(new UserPaidForPackage(package.Id));
     }
 
     public void SetPassword(string newPassword, bool isInitial = false)

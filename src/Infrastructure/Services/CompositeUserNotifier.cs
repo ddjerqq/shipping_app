@@ -1,6 +1,7 @@
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Infrastructure.Services;
 
@@ -74,5 +75,21 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
             await smsNotifier.NotifyPackageDelivered(package, ct);
 
         await emailNotifier.NotifyPackageDelivered(package, ct);
+    }
+
+    public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
+    {
+        if (user.NotifyBySms)
+            await smsNotifier.NotifyTopUpSuccess(user, amount, paymentMethod, paymentSession, ct);
+
+        await emailNotifier.NotifyTopUpSuccess(user, amount, paymentMethod, paymentSession, ct);
+    }
+
+    public async Task NotifyPaidForPackageSuccessfully(User user, Package package, CancellationToken ct = default)
+    {
+        if (user.NotifyBySms)
+            await smsNotifier.NotifyPaidForPackageSuccessfully(user, package, ct);
+
+        await emailNotifier.NotifyPaidForPackageSuccessfully(user, package, ct);
     }
 }

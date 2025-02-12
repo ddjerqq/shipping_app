@@ -1,6 +1,7 @@
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Infrastructure.Services;
 
@@ -70,5 +71,17 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
     {
         var markup = emailMarkupProvider.GetPackageDeliveredMarkup(package);
         return sender.SendAsync(package.Owner.Email, "Your package has been delivered", markup, ct);
+    }
+
+    public Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
+    {
+        var markup = emailMarkupProvider.GetTopUpSuccessMarkup(user, amount, paymentMethod, paymentSession);
+        return sender.SendAsync(user.Email, "Your balance has been topped up!", markup, ct);
+    }
+
+    public Task NotifyPaidForPackageSuccessfully(User user, Package package, CancellationToken ct = default)
+    {
+        var markup = emailMarkupProvider.GetPaidForPackageSuccessfully(user, package);
+        return sender.SendAsync(user.Email, "You successfully paid for shipping", markup, ct);
     }
 }

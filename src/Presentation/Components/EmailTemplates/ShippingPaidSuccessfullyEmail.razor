@@ -1,0 +1,37 @@
+@layout EmailLayout
+@using Domain.Aggregates
+@using Domain.Common
+@using Domain.ValueObjects
+@using Microsoft.AspNetCore.Components.Sections
+@using Stripe.Checkout
+@inherits ComponentBase
+
+<SectionContent SectionId="EmailLayout.TitleSectionId">
+    Your package's shipping fee has been paid.
+</SectionContent>
+
+<EmailParagraph>
+    Package:<br/>
+    @Package.TrackingCode<br/>
+    @Package.Description<br/>
+</EmailParagraph>
+
+<EmailParagraph>
+    Your current balance is: @User.Balance.FormatedValue
+</EmailParagraph>
+
+<EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
+
+<SectionContent SectionId="@EmailLayout.FooterSectionId">
+    Package id: @Package.Id
+</SectionContent>
+
+@code {
+    private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
+
+    [Parameter]
+    public User User { get; set; } = null!;
+
+    [Parameter]
+    public Package Package { get; set; } = null!;
+}

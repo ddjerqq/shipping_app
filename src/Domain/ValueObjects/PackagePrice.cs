@@ -25,12 +25,12 @@ public sealed record PackagePrice(float Length, float Width, float Height, long 
     public static bool ShouldCalculateVolumetricWeight(float length, float width, float height) => length + width + height > 150;
 
     public static Money GetVolumetricWeightPrice(float length, float width, float height) => ShouldCalculateVolumetricWeight(length, width, height)
-        ? new Money(DefaultCurrency, RoundUp((long)(length * width * height) / 6000))
+        ? new Money(DefaultCurrency, RoundUp((long)(length * width * height) / 6000) * 100)
         : new Money(DefaultCurrency, 0);
 
     public static Money GetWeightPrice(long weightGrams) => new(
         DefaultCurrency,
-        RoundUp(weightGrams / 1000 * PricePerKiloGram));
+        RoundUp((long)((float)weightGrams / 1000 * PricePerKiloGram)));
 
     public static Money GetTotalPrice(float length, float width, float height, long weightGrams, bool isHouseDelivery) =>
         GetWeightPrice(weightGrams)

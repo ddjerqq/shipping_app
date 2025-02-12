@@ -1,6 +1,7 @@
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Infrastructure.Services;
 
@@ -66,5 +67,17 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
     {
         var content = $"Your package has been delivered (tracking code: {package.TrackingCode})";
         return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+    }
+
+    public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
+    {
+        var content = $"Your balance has been topped up by {amount.FormatedValue}. Payment method: {paymentMethod}. Thank you for using our services!";
+        await sender.SendAsync(user.PhoneNumber, content, ct);
+    }
+
+    public async Task NotifyPaidForPackageSuccessfully(User user, Package package, CancellationToken ct = default)
+    {
+        var content = $"You have successfully paid the shipping prices for package {package.TrackingCode}. Thank you for using our services!";
+        await sender.SendAsync(user.PhoneNumber, content, ct);
     }
 }

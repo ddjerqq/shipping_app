@@ -14,7 +14,9 @@ public sealed class FormInputText : InputBase<string?>
         "file:border-0 file:bg-background file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground " +
         "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm " +
         "[&.valid]:!border-green-700 [&.valid]:!ring-green-700 [&.valid]:!text-green-700 " +
-        "[&.invalid]:!border-destructive [&.invalid]:!ring-destructive [&.invalid]:!text-destructive ";
+        "[&.valid]:dark:!border-green-400 [&.valid]:dark:!ring-green-400 [&.valid]:dark:!text-green-400 " +
+        "[&.invalid]:!border-red-700 [&.invalid]:!ring-red-700 [&.invalid]:!text-red-700 " +
+        "[&.invalid]:dark:!border-red-400 [&.invalid]:dark:!ring-red-400 [&.invalid]:dark:!text-red-400 ";
 
     [Inject]
     public TwMerge Tw { get; set; } = null!;

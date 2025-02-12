@@ -1,5 +1,7 @@
 @page "/packages/{Id}"
+@using Application.Cqrs.Packages.Commands
 @using Application.Services
+@using Blazored.Modal.Services
 @using Domain.Aggregates
 @using Domain.Common
 @using Domain.ValueObjects
@@ -7,6 +9,7 @@
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUser
 @inject IFileStore FileStore
+@inject IModalService Modal
 @attribute [StreamRendering]
 
 <PageTitle>Package details</PageTitle>
@@ -46,6 +49,16 @@
                         }
                     </List>
 
+                    <AuthorizeView Roles="User">
+                        @if (Package.CurrentStatus.Status == PackageStatus.Arrived && !Package.IsPaid)
+                        {
+                            <Button Variant="default" @onclick="@PayForShipping">
+                                <Blazicon Svg="@Lucide.DollarSign"/>
+                                Pay for shipping
+                            </Button>
+                        }
+                    </AuthorizeView>
+
                     <AuthorizeView Roles="Staff,Admin">
                         @if (Package.CurrentStatus.Status == PackageStatus.Awaiting)
                         {
@@ -73,10 +86,19 @@
 
                         @if (Package.CurrentStatus.Status == PackageStatus.Arrived)
                         {
-                            <Button Href="@($"/packages/deliver/?code={Package.TrackingCode}")">
-                                <Blazicon Svg="@Lucide.Check"/>
-                                Mark delivered
-                            </Button>
+                            if (Package.IsPaid)
+                            {
+                                <Button Href="@($"/packages/deliver/?code={Package.TrackingCode}")" disabled>
+                                    <Blazicon Svg="@Lucide.Check"/>
+                                    Mark delivered
+                                </Button>
+                            }
+                            else
+                            {
+                                <p class="text-sm text-red-700 dark:text-red-400">
+                                    This package has not been paid for, unable to deliver
+                                </p>
+                            }
                         }
                     </AuthorizeView>
                 </Tabs>
@@ -217,7 +239,7 @@
                         <input id="weight"
                                class="@FormInputText.BaseClass"
                                disabled
-                               value="@((Package.Weight / 1000)?.ToString("F1"))"/>
+                               value="@(((float?)Package.Weight / 1000)?.ToString("F1"))"/>
                     </FormField>
 
                     <FormField>
@@ -404,5 +426,21 @@
 
         await DbContext.SaveChangesAsync(CancellationToken);
         ShowSuccess("Package updated successfully");
+    }
+
+    private async Task PayForShipping()
+    {
+        var parameters = new ModalParameters()
+            .Add(nameof(ConfirmPaymentForPackage.Package), Package);
+
+        var modal = Modal.Show<ConfirmPaymentForPackage>(parameters);
+        var result = await modal.Result;
+
+        if (result.Cancelled)
+            return;
+
+        var command = new PayForShippingCommand(Package!.Id);
+        await SendCommandAsync(command);
+        ShowSuccess("You have successfully paid for this package's shipping");
     }
 }

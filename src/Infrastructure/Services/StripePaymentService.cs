@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using Stripe.Checkout;
+using PaymentMethod = Domain.ValueObjects.PaymentMethod;
 
 namespace Infrastructure.Services;
 
@@ -25,7 +26,7 @@ public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConve
 
     private readonly SessionService _sessionService = new();
 
-    public async Task<string> CreatePaymentUrl(User user, long amountInCents, Currency currency, CancellationToken ct = default)
+    public async Task<string> CreatePaymentUrl(User user, Money amount, CancellationToken ct = default)
     {
         var options = new SessionCreateOptions
         {
@@ -40,8 +41,8 @@ public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConve
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        Currency = currency.Value.ToLower(),
-                        UnitAmount = amountInCents,
+                        Currency = amount.Currency.Value.ToLower(),
+                        UnitAmount = amount.Amount,
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
                             Name = "Balance top up",
@@ -85,9 +86,8 @@ public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConve
                 if (user is null)
                     throw new InvalidOperationException("User not found");
 
-                // TODO add a list of stripe session ids to track how much they top up and spend and so on.
                 var convertedAmount = await currencyConverter.ConvertToAsync(amountCharged, user.Balance.Currency, ct);
-                user.AddBalance(convertedAmount);
+                user.AddBalance(convertedAmount, PaymentMethod.Card, session.Id);
                 await dbContext.SaveChangesAsync(ct);
 
                 logger.LogInformation("User {UserId} balance topped up by {Amount}. Stripe Session id: {StripeSessionId}", user.Id, convertedAmount, session.Id);

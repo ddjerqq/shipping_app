@@ -50,9 +50,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
         ? new PackagePrice(x, y, z, weight, HouseDelivery)
         : null;
 
-    // TODO payment method and receipt here. comes from stripe api?
-    // need receipt id, object, stripe BOG or TBC
-    public bool IsPaid { get; init; }
+    public bool IsPaid { get; set; }
 
     // sent to destination
     public RaceId? RaceId { get; private set; }
