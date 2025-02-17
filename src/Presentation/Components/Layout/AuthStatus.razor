@@ -7,15 +7,10 @@
 
 <AuthorizeView>
     <Authorized>
-        <Button Variant="outline" class="px-3 !h-9 flex-shrink-0" data-dropdown-toggle="auth-dropdown">
-            <Avatar class="size-6">
-                <AvatarImage Src="@(ClaimsPrincipalExt.GetDefaultAvatar(context.User.GetUsername()))" Alt="@(context.User.GetUsername())"/>
-                <AvatarFallback>
-                    @context.User.GetUsername()?.Initials()
-                </AvatarFallback>
-            </Avatar>
+        <Button Variant="outline" class="px-3 w-9 sm:w-auto !h-9 flex-shrink-0" data-dropdown-toggle="auth-dropdown">
+            <Blazicon Svg="@Lucide.User" class="!size-6"/>
 
-            <span class="max-w-[120px] text-nowrap truncate">
+            <span class="hidden sm:block max-w-[120px] text-nowrap truncate">
                 @context.User.GetUsername()?.CapitalizeName()
             </span>
         </Button>
@@ -57,11 +52,15 @@
 
     <NotAuthorized>
         <div class="space-x-1">
-            <Button Href="/auth/login" Size="sm" Variant="outline" class="hidden sm:block">
+            <Button Href="/auth/login" Size="sm" Variant="default" class="flex sm:hidden">
+                Enter
+            </Button>
+
+            <Button Href="/auth/login" Size="sm" Variant="outline" class="hidden sm:flex">
                 Login
             </Button>
 
-            <Button Href="/auth/register" Size="sm" Variant="default">
+            <Button Href="/auth/register" Size="sm" Variant="default" class="hidden sm:flex">
                 Signup
             </Button>
         </div>
