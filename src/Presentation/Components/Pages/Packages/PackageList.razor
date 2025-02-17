@@ -19,7 +19,12 @@
 
                 <div class="flex flex-col gap-1 justify-center">
                     <span class="text-xs text-muted-foreground">@package.Category.GetDisplayName()</span>
-                    <span class="max-w-[120px] truncate font-medium capitalize leading-none">@package.Description</span>
+
+                    <span
+                        class="max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle">
+                        <Blazicon Svg="@Lucide.ClipboardCheck" class="!size-3"/>
+                        @package.Description
+                    </span>
                 </div>
             </div>
 
@@ -32,7 +37,11 @@
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                     <span class="text-xs text-muted-foreground">Website address</span>
-                    <span class="font-medium capitalize leading-none">@(package.WebsiteAddress)</span>
+                    <span
+                        class="max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle">
+                        <Blazicon Svg="@Lucide.Globe" class="!size-3"/>
+                        @(package.WebsiteAddress)
+                    </span>
                 </div>
             }
 
@@ -40,7 +49,11 @@
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                     <span class="text-xs text-muted-foreground">Weight (Kilo Grams)</span>
-                    <span class="font-medium capitalize leading-none">@($"{package.Weight / 1000:F1}")</span>
+                    <span
+                        class="max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle">
+                        <Blazicon Svg="@Lucide.Weight" class="!size-3"/>
+                        @($"{package.Weight / 1000:F1}")
+                    </span>
                 </div>
             }
 
@@ -48,7 +61,11 @@
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                     <span class="text-xs text-muted-foreground">Race</span>
-                    <span class="font-medium capitalize leading-none">@(package.Race?.QualifiedName)</span>
+                    <span
+                        class="max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle">
+                        <Blazicon Svg="@Lucide.Plane" class="!size-3"/>
+                        @(package.Race?.QualifiedName)
+                    </span>
                 </div>
             }
 
@@ -59,9 +76,9 @@
                         Shipping price
                     </span>
                     <span title="@(package.IsPaid ? "paid" : "not paid")"
-                          class="@("flex justify-center align-middle gap-2 font-medium capitalize underline leading-none " +
+                          class="@("max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle " +
                                    (package.IsPaid ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"))">
-                        <Blazicon Svg="@(package.IsPaid ? Lucide.Check : Lucide.X)"/>
+                        <Blazicon Svg="@(package.IsPaid ? Lucide.Check : Lucide.X)" class="!size-4"/>
 
                         @(package.Price?.TotalPrice.FormatedValue)
                     </span>
@@ -70,7 +87,10 @@
 
             <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                 <span class="text-xs text-muted-foreground">Last Update</span>
-                <span class="font-medium capitalize leading-none">@package.CurrentStatus.Date.ToString("ddd, MMM dd")</span>
+                <span class="max-w-[120px] truncate font-medium capitalize leading-none flex gap-2 justify-start sm:justify-center align-middle">
+                    <Blazicon Svg="@Lucide.Calendar" class="!size-4"/>
+                    @package.CurrentStatus.Date.ToString("ddd, MMM dd")
+                </span>
             </div>
         </Button>
     }

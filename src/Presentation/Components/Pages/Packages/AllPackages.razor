@@ -53,7 +53,9 @@
                     <List>
                         @foreach (var status in Enum.GetValues<PackageStatus>())
                         {
-                            <Trigger Value="@(status)">@status.GetDisplayName()</Trigger>
+                            <Trigger Value="@(status)">
+                                @status.GetDisplayName()
+                            </Trigger>
                         }
                     </List>
                 </Description>
