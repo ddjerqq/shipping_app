@@ -20,5 +20,6 @@ public sealed class ConfigureClient : ConfigurationBase
 
         services.AddScoped<IEmailMarkupProvider, RazorEmailMarkupProvider>();
         services.AddScoped<HtmlSectionPrinterService>();
+        services.AddScoped<FileDownloader>();
     }
 }

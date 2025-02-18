@@ -1,11 +1,15 @@
 @page "/races/{Id}"
 @using Application.Services
+@using Domain.Common
 @using Domain.Entities
+@using Domain.ValueObjects
 @using Presentation.Components.Pages.Packages
+@using Presentation.Services
 @layout HomeLayout
-@inject IAppDbContext DbContext
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Staff,Admin")]
+@inject IAppDbContext DbContext
+@inject FileDownloader FileDownloader
 
 <PageTitle>Race details</PageTitle>
 
@@ -14,6 +18,12 @@
     <Card>
         <Header>
             <CardTitle>Race details for @Race.QualifiedName</CardTitle>
+            <Description>
+                <Button @onclick="@Export">
+                    <Blazicon Svg="@Lucide.Download"/>
+                    Export
+                </Button>
+            </Description>
         </Header>
         <Content>
             <AppForm @bind-Model="Race" OnValidSubmit="Update">
@@ -102,6 +112,36 @@
     protected override async Task OnInitializedAsync()
     {
         Race = await DbContext.Races.FindAsync([RaceId], CancellationToken);
+    }
+
+    private async Task Export()
+    {
+        if (Race is null)
+            throw new InvalidOperationException("Race is null");
+
+        var data = Race.Packages
+            .Select(package => new
+            {
+                tracking_code = package.TrackingCode.Value,
+                owner_name = package.Owner.Username.CapitalizeName(),
+                owner_id = $"#{package.Owner.PersonalId}",
+                owner_phone = package.Owner.PhoneNumber,
+                owner_email = package.Owner.Email,
+                owner_address = package.Owner.AddressInfo.AddressToString(),
+                category = package.Category.GetDisplayName(),
+                home_delivery = package.HouseDelivery ? "yes" : "no",
+                // Office
+                race_name = package.Race?.QualifiedName,
+                weight = (float?)package.Weight / 100,
+                price = package.Price?.TotalPrice.FormatedValue,
+                status = package.CurrentStatus.Status.GetDisplayName(),
+            });
+
+        await using var ms = new MemoryStream();
+        await ExcelSerializer.WriteToStreamAsync("packages", data, ms, CancellationToken);
+        await FileDownloader.DownloadFileAsync($"packages-{Race.QualifiedName}-{DateTime.UtcNow:u}.xlsx", ms, CancellationToken);
+
+        ShowSuccess("data exported successfully");
     }
 
     private async Task Update()

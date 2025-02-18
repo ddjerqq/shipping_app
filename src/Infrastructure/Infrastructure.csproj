@@ -16,6 +16,7 @@
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
         <PackageReference Include="AWSSDK.S3" Version="3.7.410.12" />
         <PackageReference Include="Blake3" Version="2.0.0" />
+        <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0"/>
