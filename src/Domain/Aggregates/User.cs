@@ -20,7 +20,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Email { get; init; }
     public required string PhoneNumber { get; init; }
     public AbstractAddress AddressInfo { get; set; } = new NoAddress();
-    public CultureInfo CultureInfo { get; init; } = CultureInfo.InvariantCulture;
+    public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public int RoomCode { get; init; } = Random.Shared.Next(1_000_000, 9_999_999);

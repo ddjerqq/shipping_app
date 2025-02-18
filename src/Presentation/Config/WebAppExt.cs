@@ -112,12 +112,6 @@ public static class WebAppExt
         });
     }
 
-    // TODO custom middleware here, if the user is authenticated, and the browser sends and Accept-Language header, then set and update the user's culture info accordingly.
-    //     Accept-Language: <language>
-    //     Accept-Language: *
-    //     // Multiple types, weighted with the quality value syntax:
-    //     Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
-
     private static RequestLocalizationOptions GetLocalizationOptions(IConfiguration configuration)
     {
         var cultures = configuration.GetSupportedCultures().Keys.ToArray();
