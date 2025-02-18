@@ -1,4 +1,6 @@
 ﻿
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
 @using Presentation.Components.Layout
 <!DOCTYPE html>
 <html lang="en">
@@ -109,4 +111,16 @@
 @code {
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = null!;
+
+    @code {
+        protected override void OnInitialized()
+        {
+            HttpContext?.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(
+                    new RequestCulture(
+                        CultureInfo.CurrentCulture,
+                        CultureInfo.CurrentUICulture)));
+        }
+    }
 }

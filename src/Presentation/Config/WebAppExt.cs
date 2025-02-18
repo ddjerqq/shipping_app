@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Presentation.Common;
 using Serilog;
 
-namespace Presentation.Common;
+namespace Presentation.Config;
 
 /// <summary>
 ///     Web application extensions
@@ -57,9 +58,9 @@ public static class WebAppExt
 
         app.UseStaticFiles();
 
-        // app.UseRouting();
+        app.UseRouting();
         app.UseRateLimiter();
-        app.UseRequestLocalization();
+        app.UseRequestLocalization(GetLocalizationOptions(app.Configuration));
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -87,10 +88,10 @@ public static class WebAppExt
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
             ctx.Response.Headers.Append("X-Frame-Options", "DENY");
 
-            // // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
             ctx.Response.Headers.Append("X-Content-Type-Options", "nosniff");
 
-            // ctx.Response.Headers.Append("X-Made-By", "tenxdeveloper");
+            ctx.Response.Headers.Append("X-Made-By", "tenxdeveloper <g@nachkebia.dev>");
 
             return next();
         });
@@ -109,5 +110,20 @@ public static class WebAppExt
             // Predicate = _ => true,
             AllowCachingResponses = false,
         });
+    }
+
+    // TODO custom middleware here, if the user is authenticated, and the browser sends and Accept-Language header, then set and update the user's culture info accordingly.
+    //     Accept-Language: <language>
+    //     Accept-Language: *
+    //     // Multiple types, weighted with the quality value syntax:
+    //     Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+
+    private static RequestLocalizationOptions GetLocalizationOptions(IConfiguration configuration)
+    {
+        var cultures = configuration.GetSupportedCultures().Keys.ToArray();
+        return new RequestLocalizationOptions()
+            .SetDefaultCulture(cultures[0])
+            .AddSupportedCultures(cultures)
+            .AddSupportedUICultures(cultures);
     }
 }

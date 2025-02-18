@@ -1,0 +1,44 @@
+@using System.Globalization
+@using Presentation.Common
+@attribute [StreamRendering]
+@inject IConfiguration Configuration
+
+<Button Variant="outline" Size="sm" class="relative hidden sm:flex" data-dropdown-toggle="culture-dropdown">
+    <img class="size-4" src="@($"/images/{CurrentCulture}.svg")" alt="@Cultures[CurrentCulture.Name]"/>
+    @Cultures[CurrentCulture.Name] @Resources.App.HelloWorld
+</Button>
+
+<div id="culture-dropdown" class="z-10 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
+    @foreach (var (culture, cultureName) in Cultures)
+    {
+        <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(() => SetCulture(culture))">
+            <img class="size-4" src="@($"/images/{culture}.svg")" alt="@cultureName"/>
+            @cultureName
+        </Button>
+    }
+</div>
+
+@code {
+    private CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentCulture;
+    private Dictionary<string, string?> Cultures { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        Cultures = Configuration.GetSupportedCultures();
+        CurrentCulture = CultureInfo.CurrentCulture;
+    }
+
+    private void SetCulture(string culture)
+    {
+        CurrentCulture = CultureInfo.GetCultureInfo(culture);
+        CultureInfo.DefaultThreadCurrentCulture = CurrentCulture;
+        CultureInfo.DefaultThreadCurrentUICulture = CurrentCulture;
+
+        var currentUri = new Uri(NavigationManager.Uri)
+            .GetComponents(UriComponents.PathAndQuery, UriFormat.UriEscaped);
+
+        var query = $"?culture={Uri.EscapeDataString(CurrentCulture.Name)}&redirectUri={Uri.EscapeDataString(currentUri)}";
+
+        NavigationManager.NavigateTo("/set-culture" + query, true);
+    }
+}

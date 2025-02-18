@@ -3,6 +3,7 @@ using dotenv.net;
 using FluentValidation;
 using Infrastructure.Config;
 using Presentation.Common;
+using Presentation.Config;
 
 ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
 // for custom languages

@@ -51,5 +51,6 @@ public sealed class ConfigureWebApi : ConfigurationBase
         });
 
         services.AddControllers();
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
     }
 }
