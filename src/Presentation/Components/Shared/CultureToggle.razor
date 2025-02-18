@@ -5,7 +5,7 @@
 
 <Button Variant="outline" Size="sm" class="relative hidden sm:flex" data-dropdown-toggle="culture-dropdown">
     <img class="size-4" src="@($"/images/{CurrentCulture}.svg")" alt="@Cultures[CurrentCulture.Name]"/>
-    @Cultures[CurrentCulture.Name] @Resources.App.HelloWorld
+    @Cultures[CurrentCulture.Name]
 </Button>
 
 <div id="culture-dropdown" class="z-10 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
@@ -30,6 +30,8 @@
 
     private void SetCulture(string culture)
     {
+        // TODO set the CurrentUser.Culture = Culture;
+
         CurrentCulture = CultureInfo.GetCultureInfo(culture);
         CultureInfo.DefaultThreadCurrentCulture = CurrentCulture;
         CultureInfo.DefaultThreadCurrentUICulture = CurrentCulture;
