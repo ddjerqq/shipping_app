@@ -20,10 +20,6 @@
       "short_name": "home",
       "description": "view home page",
       "url": "/home"
-    },
-    {
-      "name": "Tomorrow's agenda",
-      "url": "/tomorrow"
     }
   ],
   "categories": [
@@ -43,6 +39,6 @@
   "short_name": "sangoway",
   "start_url": "https://sangoway.com",
   "id": "https://sangoway.com",
-  "description": "sangoway shipping tracking app",
+  "description": "sangoway shipping app",
   "scope": "https://sangoway.com"
 }
