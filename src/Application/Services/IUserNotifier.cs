@@ -1,4 +1,3 @@
-using Application.Cqrs.Users.Commands;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;

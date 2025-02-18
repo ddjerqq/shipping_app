@@ -1,11 +1,6 @@
-using Application.Services;
-using Domain.Aggregates;
-using Domain.Common;
-using Domain.ValueObjects;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Stripe;
 
 namespace Presentation.Controllers;
 

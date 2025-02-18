@@ -1,5 +1,4 @@
 ﻿@using Application.Services
-@using Domain.ValueObjects
 @inject ICurrentUserAccessor CurrentUser
 @inject IAppDbContext DbContext
 
@@ -8,20 +7,20 @@
         <div class="mr-4 flex">
             <AuthorizeView>
                 <Authorized>
-                    <a class="mr-4 hidden sm:flex items-center gap-2 lg:mr-6" href="/">
+                    <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
                         <Blazicon Svg="@Icons.Truck" class="!size-8"/>
                         <span class="hidden font-bold lg:inline-block">Dashboard</span>
                     </a>
                 </Authorized>
                 <NotAuthorized>
-                    <a class="mr-4 hidden sm:flex items-center gap-2 lg:mr-6" href="/">
+                    <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
                         <Blazicon Svg="@Icons.Truck" class="!size-8"/>
                         <span class="hidden font-bold lg:inline-block">Home</span>
                     </a>
                 </NotAuthorized>
             </AuthorizeView>
 
-            <nav class="flex items-center text-sm gap-4 sm:gap-6">
+            <nav class="flex items-center text-sm gap-2 sm:gap-4 md:gap-6">
                 <AuthorizeView Roles="User">
                     <Authorized>
                         <HeaderNavLink Href="/addresses" Title="My Addresses"/>

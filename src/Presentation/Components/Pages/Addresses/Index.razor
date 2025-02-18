@@ -1,6 +1,5 @@
 ﻿@page "/addresses"
 @layout HomeLayout
-@using Domain.Aggregates
 @using Domain.ValueObjects
 @using Microsoft.AspNetCore.Components.Sections
 
@@ -8,10 +7,12 @@
 <SectionContent SectionId="HomeLayout.TitleSectionId">My addresses</SectionContent>
 
 <Tabs Value="Country.Usa" class="space-y-4">
-    <List>
-        <Trigger Value="Country.Usa">United states</Trigger>
-        <Trigger Value="Country.Uk" disabled>United Kingdom</Trigger>
-    </List>
+    <div class="w-full overflow-x-scroll">
+        <List>
+            <Trigger Value="Country.Usa">United states</Trigger>
+            <Trigger Value="Country.Uk" disabled>United Kingdom</Trigger>
+        </List>
+    </div>
     <TabContent Value="Country.Usa" class="space-y-4">
         <AddressDisplay
             Rate="@(new Money((Currency)"USD", PackagePrice.PricePerKiloGram))"

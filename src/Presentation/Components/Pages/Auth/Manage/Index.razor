@@ -5,14 +5,16 @@
 <SectionContent SectionId="HomeLayout.TitleSectionId">Manage account</SectionContent>
 
 <Tabs Value="ManageSection.PersonalInfo" class="space-y-4">
-    <List>
-        <Trigger Value="ManageSection.PersonalInfo">Personal Info</Trigger>
-        <Trigger Value="ManageSection.ChangePassword">Change Password</Trigger>
-        <Trigger Value="ManageSection.MyAddress">My Address</Trigger>
-        <Trigger Value="ManageSection.Notifications">Notifications</Trigger>
-        <Trigger Value="ManageSection.AccountDeletion" class="text-destructive data-[state=active]:text-destructive">Delete account
-        </Trigger>
-    </List>
+    <div class="w-full overflow-x-scroll">
+        <List>
+            <Trigger Value="ManageSection.PersonalInfo">Personal Info</Trigger>
+            <Trigger Value="ManageSection.ChangePassword">Change Password</Trigger>
+            <Trigger Value="ManageSection.MyAddress">My Address</Trigger>
+            <Trigger Value="ManageSection.Notifications">Notifications</Trigger>
+            <Trigger Value="ManageSection.AccountDeletion" class="text-destructive data-[state=active]:text-destructive">Delete account
+            </Trigger>
+        </List>
+    </div>
     <TabContent Value="ManageSection.PersonalInfo" class="space-y-4">
         <ManageTabWrapper Title="Manage your personal info">
             <ManageAccount/>

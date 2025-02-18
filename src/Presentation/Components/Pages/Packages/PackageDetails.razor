@@ -39,15 +39,14 @@
                     </ul>
                 </div>
 
-                <Tabs Value="@Package.CurrentStatus.Status" class="flex flex-col items-start gap-2">
-                    <List>
-                        @foreach (var status in Enum.GetValues<PackageStatus>())
-                        {
-                            <Trigger Value="@status" disabled="@(status != Package.CurrentStatus.Status)">
-                                @status.GetDisplayName()
+                <div class="w-full flex flex-col items-start gap-2">
+                    <Tabs Value="@Package.CurrentStatus.Status">
+                        <List>
+                            <Trigger Value="@Package.CurrentStatus.Status">
+                                @Package.CurrentStatus.Status.GetDisplayName()
                             </Trigger>
-                        }
-                    </List>
+                        </List>
+                    </Tabs>
 
                     @if (!Package.IsProhibited)
                     {
@@ -110,7 +109,7 @@
                             This package contains prohibited items!
                         </p>
                     }
-                </Tabs>
+                </div>
             </div>
 
             @if (Package.PictureFileKey is not null)
