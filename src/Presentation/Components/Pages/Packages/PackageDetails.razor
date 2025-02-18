@@ -40,7 +40,18 @@
                 </div>
 
                 <div class="w-full flex flex-col items-start gap-2">
-                    <Tabs Value="@Package.CurrentStatus.Status">
+                    <Tabs Value="@Package.CurrentStatus.Status" class="hidden sm:block">
+                        <List>
+                            @foreach (var status in Enum.GetValues<PackageStatus>())
+                            {
+                                <Trigger Value="@status" disabled="@(status != Package.CurrentStatus.Status)">
+                                    @status.GetDisplayName()
+                                </Trigger>
+                            }
+                        </List>
+                    </Tabs>
+
+                    <Tabs Value="@Package.CurrentStatus.Status" class="block sm:hidden">
                         <List>
                             <Trigger Value="@Package.CurrentStatus.Status">
                                 @Package.CurrentStatus.Status.GetDisplayName()
