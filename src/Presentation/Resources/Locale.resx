@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="hello_world" xml:space="preserve">
+        <value>Hello world</value>
+    </data>
+    <data name="reload" xml:space="preserve">
+        <value>Reload</value>
+    </data>
+    <data name="detected_a_networking_issue" xml:space="preserve">
+        <value>Detected a networking issue</value>
+    </data>
+    <data name="this_is_not_a_major_issue" xml:space="preserve">
+        <value>This is not a major issue</value>
+    </data>
+    <data name="to_continue_please_reload" xml:space="preserve">
+        <value>To continue using the website please reload</value>
+    </data>
+    <data name="dashboard" xml:space="preserve">
+        <value>Dashboard</value>
+    </data>
+    <data name="home" xml:space="preserve">
+        <value>Home</value>
+    </data>
+    <data name="my_packages" xml:space="preserve">
+        <value>My Packages</value>
+    </data>
+    <data name="track_package" xml:space="preserve">
+        <value>Track package</value>
+    </data>
+    <data name="packages" xml:space="preserve">
+        <value>Packages</value>
+    </data>
+    <data name="races" xml:space="preserve">
+        <value>Races</value>
+    </data>
+    <data name="users" xml:space="preserve">
+        <value>Users</value>
+    </data>
+    <data name="about_us" xml:space="preserve">
+        <value>About us</value>
+    </data>
+    <data name="faq" xml:space="preserve">
+        <value>Faq</value>
+    </data>
+    <data name="calculator" xml:space="preserve">
+        <value>Calulator</value>
+    </data>
+    <data name="manage_account" xml:space="preserve">
+        <value>Manage Account</value>
+    </data>
+    <data name="sign_out" xml:space="preserve">
+        <value>Sign out</value>
+    </data>
+    <data name="enter" xml:space="preserve">
+        <value>Enter</value>
+    </data>
+    <data name="login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="signup" xml:space="preserve">
+        <value>Sign up</value>
+    </data>
+    <data name="my_addresses" xml:space="preserve">
+        <value>My Addresses</value>
+    </data>
+    <data name="room_code" xml:space="preserve">
+        <value>Room code</value>
+    </data>
+    <data name="role" xml:space="preserve">
+        <value>Role</value>
+    </data>
+    <data name="welcome_back" xml:space="preserve">
+        <value>Welcome back</value>
+    </data>
+    <data name="login_to_your_account" xml:space="preserve">
+        <value>Login to your account</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="forgot_password" xml:space="preserve">
+        <value>Forgot password?</value>
+    </data>
+    <data name="show_password" xml:space="preserve">
+        <value>Show password</value>
+    </data>
+    <data name="dont_have_an_account" xml:space="preserve">
+        <value>Don't have an account?</value>
+    </data>
+    <data name="resend_email_confirmation" xml:space="preserve">
+        <value>Resend email confirmation</value>
+    </data>
+    <data name="captcha_errors" xml:space="preserve">
+        <value>CAPTCHA has errors</value>
+    </data>
+    <data name="google_recaptcha_error_please_reload" xml:space="preserve">
+        <value>CAPTCHA failed to load, please reload the page</value>
+    </data>
+    <data name="captcha_expired_please_do_it_again" xml:space="preserve">
+        <value>CAPTCHA expired, please do it again</value>
+    </data>
+    <data name="full_name" xml:space="preserve">
+        <value>Full name</value>
+    </data>
+    <data name="phone_number" xml:space="preserve">
+        <value>Phone number</value>
+    </data>
+    <data name="personal_id" xml:space="preserve">
+        <value>Personal ID</value>
+    </data>
+    <data name="your_personal_data_is_protected" xml:space="preserve">
+        <value>Your personal data is protected</value>
+    </data>
+    <data name="password_must_contain_at_least_12_characters" xml:space="preserve">
+        <value>Password must contain at least 12 characters</value>
+    </data>
+    <data name="already_have_an_account" xml:space="preserve">
+        <value>Already have an account?</value>
+    </data>
+    <data name="create_an_account" xml:space="preserve">
+        <value>Create an account</value>
+    </data>
+    <data name="please_complete_captcha_before_continuing" xml:space="preserve">
+        <value>Please complete CAPTCHA before continuing</value>
+    </data>
+    <data name="you_must_agree_to_our" xml:space="preserve">
+        <value>You must agree to our</value>
+    </data>
+    <data name="terms" xml:space="preserve">
+        <value>terms</value>
+    </data>
+    <data name="and" xml:space="preserve">
+        <value>and</value>
+    </data>
+    <data name="privacy_policy" xml:space="preserve">
+        <value>privacy policy</value>
+    </data>
+    <data name="learn_more" xml:space="preserve">
+        <value>Learn more</value>
+    </data>
+    <data name="confirm_email" xml:space="preserve">
+        <value>Confirm email</value>
+    </data>
+    <data name="your_account_has_been_confirmed" xml:space="preserve">
+        <value>Your account has been confirmed</value>
+    </data>
+    <data name="welcome_to_our_app" xml:space="preserve">
+        <value>Welcome to the best app ever!</value>
+    </data>
+    <data name="failed_to_validate_token" xml:space="preserve">
+        <value>Failed to validate token</value>
+    </data>
+    <data name="register_confirmation" xml:space="preserve">
+        <value>Register confirmation</value>
+    </data>
+    <data name="email_sent" xml:space="preserve">
+        <value>Email sent</value>
+    </data>
+    <data name="please_check_your_email_and_spam_folder" xml:space="preserve">
+        <value>Please check your email and spam folders</value>
+    </data>
+    <data name="didnt_receive_an_email" xml:space="preserve">
+        <value>Didn't receive an email?</value>
+    </data>
+    <data name="enter_your_email_and_well_send_you_a_new_link" xml:space="preserve">
+        <value>Enter your email, and we'll send you a link.</value>
+    </data>
+    <data name="resend" xml:space="preserve">
+        <value>Resend</value>
+    </data>
+    <data name="access_denied" xml:space="preserve">
+        <value>Access denied</value>
+    </data>
+    <data name="you_do_not_have_access_to_this_resource" xml:space="preserve">
+        <value>You do not have access to this resource</value>
+    </data>
+    <data name="your_account_is_scheduled_for_deletion" xml:space="preserve">
+        <value>Your account is scheduled for deletion</value>
+    </data>
+    <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login" xml:space="preserve">
+        <value>You have a 30 day grace period to recover your account. To recover your account, login with your email and password.</value>
+    </data>
+    <data name="invalid_token" xml:space="preserve">
+        <value>Invalid token</value>
+    </data>
+    <data name="the_token_you_provided_is_invalid" xml:space="preserve">
+        <value>The token you provided is invalid</value>
+    </data>
+    <data name="locked_out" xml:space="preserve">
+        <value>Locked out</value>
+    </data>
+    <data name="this_account_has_been_locked_out_please_try_again_later" xml:space="preserve">
+        <value>This account has been locked out, please try again in 5 minutes</value>
+    </data>
+    <data name="please_check_your_email" xml:space="preserve">
+        <value>Please check your email</value>
+    </data>
+    <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly" xml:space="preserve">
+        <value>If you have a confirmed account with us, a link with the password reset code will be sent to you.</value>
+    </data>
+    <data name="reset" xml:space="preserve">
+        <value>Reset</value>
+    </data>
+    <data name="reset_password" xml:space="preserve">
+        <value>Reset password</value>
+    </data>
+    <data name="new_password" xml:space="preserve">
+        <value>New password</value>
+    </data>
+    <data name="confirm_new_password" xml:space="preserve">
+        <value>Confirm new password</value>
+    </data>
+    <data name="you_successfully_reset_your_password" xml:space="preserve">
+        <value>You successfully reset your password</value>
+    </data>
+    <data name="password_reset_successfully" xml:space="preserve">
+        <value>Password reset successfully</value>
+    </data>
+    <data name="your_password_has_been_reset" xml:space="preserve">
+        <value>Your password has been reset</value>
+    </data>
+    <data name="current_password" xml:space="preserve">
+        <value>Current password</value>
+    </data>
+    <data name="change_password" xml:space="preserve">
+        <value>Change password</value>
+    </data>
+    <data name="account_delete_confirmation" xml:space="preserve">
+        <value>Are you sure you want to delete your account?</value>
+    </data>
+    <data name="type_delete_to_confirm" xml:space="preserve">
+        <value>Type 'delete' to confirm</value>
+    </data>
+    <data name="delete_warning" xml:space="preserve">
+        <value>This action is irreversible. All your data will be lost. You will have a 30 day grace period to recover your account.&lt;br/&gt;
+        To recover your account, just login with your email and password.</value>
+    </data>
+    <data name="delete_account" xml:space="preserve">
+        <value>Delete account</value>
+    </data>
+    <data name="personal_info" xml:space="preserve">
+        <value>Personal info</value>
+    </data>
+    <data name="notification_preferences" xml:space="preserve">
+        <value>Notification preferences</value>
+    </data>
+    <data name="manage_your_personal_info" xml:space="preserve">
+        <value>Manage your personal info</value>
+    </data>
+    <data name="change_your_password" xml:space="preserve">
+        <value>Change your password</value>
+    </data>
+    <data name="manage_your_addresses" xml:space="preserve">
+        <value>Manage your addresses</value>
+    </data>
+    <data name="manage_notifications" xml:space="preserve">
+        <value>Manage notifications</value>
+    </data>
+    <data name="receive_sms_notifications" xml:space="preserve">
+        <value>Receive SMS notifications?</value>
+    </data>
+    <data name="save_preferences" xml:space="preserve">
+        <value>Save preferences</value>
+    </data>
+    <data name="your_preferences_have_been_saved" xml:space="preserve">
+        <value>Your preferences have been saved</value>
+    </data>
+    <data name="country" xml:space="preserve">
+        <value>Country</value>
+    </data>
+    <data name="state" xml:space="preserve">
+        <value>State</value>
+    </data>
+    <data name="city" xml:space="preserve">
+        <value>City</value>
+    </data>
+    <data name="zip_code" xml:space="preserve">
+        <value>Zip code</value>
+    </data>
+    <data name="street_address" xml:space="preserve">
+        <value>Street address</value>
+    </data>
+    <data name="update_address" xml:space="preserve">
+        <value>Update address</value>
+    </data>
+    <data name="address_updated_successfully" xml:space="preserve">
+        <value>Address updated successfully</value>
+    </data>
+    <data name="state_unavailable_for_georgia" xml:space="preserve">
+        <value>State is unavailable in Georgia</value>
+    </data>
+    <data name="newsletter" xml:space="preserve">
+        <value>Newsletter</value>
+    </data>
+    <data name="enter_your_email_to_receive_notifications_about_product_updates" xml:space="preserve">
+        <value>Enter your email to receive notifications about product updates and our newsletter.</value>
+    </data>
+    <data name="subscribe" xml:space="preserve">
+        <value>Subscribe</value>
+    </data>
+    <data name="partner_sites" xml:space="preserve">
+        <value>Partner sites</value>
+    </data>
+    <data name="contact" xml:space="preserve">
+        <value>Contact</value>
+    </data>
+    <data name="all_rights_reserved" xml:space="preserve">
+        <value>All rights reserved</value>
+    </data>
+    <data name="contact_dev_team" xml:space="preserve">
+        <value>Contact dev team</value>
+    </data>
+</root>

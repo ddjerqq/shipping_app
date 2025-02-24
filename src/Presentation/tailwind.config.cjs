@@ -61,6 +61,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['geist', ...fontFamily.sans],
+        "archyedt-bold": ["ArchyEDT-Bold", ...fontFamily.sans],
       },
       keyframes: {
         'accordion-down': {

@@ -7,7 +7,7 @@
     <FormField>
         <div class="flex flex-row items-center gap-2">
             <Switch id="sms" @bind-Value="User.NotifyBySms"/>
-            <FormLabel for="sms">Receive SMS notifications?</FormLabel>
+            <FormLabel for="sms">@Locale.receive_sms_notifications</FormLabel>
         </div>
     </FormField>
 
@@ -16,7 +16,7 @@
         {
             <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
         }
-        Save preferences
+        @Locale.save_preferences
     </Button>
 </AppForm>
 
@@ -32,6 +32,6 @@
     {
         DbContext.Users.Update(User);
         await DbContext.SaveChangesAsync(CancellationToken);
-        ShowSuccess("Your preferences have been saved!");
+        ShowSuccess(Locale.your_preferences_have_been_saved);
     }
 }

@@ -7,24 +7,24 @@
 <AppForm @bind-Model="Command" OnValidSubmit="AddAddress">
     <InlineFormFieldContainer>
         <FormField>
-            <FormLabel for="country">Country</FormLabel>
+            <FormLabel for="country">@Locale.country</FormLabel>
             <FormInputText
                 id="country"
                 @bind-Value="@Command.Country"
                 required
-                placeholder="Enter country"
+                placeholder="@Locale.country"
                 autocomplete="address-level2"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.Country)"/>
         </FormField>
 
         <FormField>
-            <FormLabel for="state">State</FormLabel>
+            <FormLabel for="state">@Locale.state</FormLabel>
             <input
                 id="state"
                 class="@FormInputText.BaseClass"
                 autocomplete="address-level1"
-                placeholder="State unavailable in Georgia"
+                placeholder="@Locale.state_unavailable_for_georgia"
                 disabled/>
             <FormInvalidFeedback For="@(() => Command.State)"/>
         </FormField>
@@ -32,19 +32,19 @@
 
     <InlineFormFieldContainer>
         <FormField>
-            <FormLabel for="city">City</FormLabel>
+            <FormLabel for="city">@Locale.city</FormLabel>
             <FormInputText
                 id="city"
                 @bind-Value="@Command.City"
                 required
-                placeholder="Enter city"
+                placeholder="@Locale.city"
                 autocomplete="address-level2"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.City)"/>
         </FormField>
 
         <FormField>
-            <FormLabel for="zip">Zip Code</FormLabel>
+            <FormLabel for="zip">@Locale.zip_code</FormLabel>
             <FormInputText
                 id="zip"
                 @bind-Value="@Command.ZipCode"
@@ -53,7 +53,7 @@
                 min="0"
                 max="99999"
                 required
-                placeholder="Enter zip code"
+                placeholder="@Locale.zip_code"
                 autocomplete="postal-code"
                 disabled="@IsLoading"/>
             <FormInvalidFeedback For="@(() => Command.ZipCode)"/>
@@ -61,12 +61,12 @@
     </InlineFormFieldContainer>
 
     <FormField>
-        <FormLabel for="street-address">Street address</FormLabel>
+        <FormLabel for="street-address">@Locale.street_address</FormLabel>
         <FormInputText
             id="street-address"
             @bind-Value="@Command.Address"
             required
-            placeholder="Enter full street address"
+            placeholder="@Locale.street_address"
             autocomplete="street-address"
             disabled="@IsLoading"/>
         <FormInvalidFeedback For="@(() => Command.Address)"/>
@@ -77,7 +77,7 @@
         {
             <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
         }
-        Update address
+        @Locale.update_address
     </Button>
 </AppForm>
 
@@ -103,6 +103,6 @@
     private async Task AddAddress()
     {
         await SendCommandAsync(Command);
-        ShowSuccess("Address updated successfully!");
+        ShowSuccess(Locale.address_updated_successfully);
     }
 }

@@ -25,18 +25,18 @@
                 <div class="font-medium text-xs text-muted-foreground truncate">
                     @if (context.User.GetRole() == Role.User)
                     {
-                        @:Room code: @context.User.GetRoomCode()
+                        @:@Locale.room_code: @context.User.GetRoomCode()
                     }
                     else
                     {
-                        @:Role: @context.User.GetRole()
+                        @:@Locale.role: @context.User.GetRole()
                     }
                 </div>
             </div>
 
             <nav class="py-2 text-sm">
                 <Button Href="/auth/manage" Variant="ghost" class="shadow-none justify-start w-full rounded-none">
-                    Manage account
+                    @Locale.manage_account
                 </Button>
             </nav>
 
@@ -44,7 +44,7 @@
                 <Button Variant="ghost" class="justify-start text-destructive hover:text-destructive w-full rounded-none"
                         @onclick="@SignOut">
                     <Blazicon Svg="@Icons.LogOut"/>
-                    Sign out
+                    @Locale.sign_out
                 </Button>
             </div>
         </div>
@@ -53,15 +53,15 @@
     <NotAuthorized>
         <div class="flex align-middle gap-2">
             <Button Href="/auth/login" Size="sm" Variant="default" class="flex sm:hidden">
-                Enter
+                @Locale.enter
             </Button>
 
             <Button Href="/auth/login" Size="sm" Variant="outline" class="hidden sm:flex">
-                Login
+                @Locale.login
             </Button>
 
             <Button Href="/auth/register" Size="sm" Variant="default" class="hidden sm:flex">
-                Signup
+                @Locale.signup
             </Button>
         </div>
     </NotAuthorized>

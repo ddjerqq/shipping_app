@@ -1,13 +1,13 @@
 ﻿@page "/auth/resend_email_confirmation"
 @using Application.Cqrs.Users.Commands
 
-<PageTitle>Resend email confirmation</PageTitle>
+<PageTitle>@Locale.resend_email_confirmation</PageTitle>
 
-<PageHeader Title="Didn't receive an email?" Description="Enter your email, and we'll send you a link to get confirm your email again."/>
+<PageHeader Title="@Locale.didnt_receive_an_email" Description="@Locale.enter_your_email_and_well_send_you_a_new_link"/>
 
 <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync">
     <FormField>
-        <FormLabel for="email">Email</FormLabel>
+        <FormLabel for="email">@Locale.email</FormLabel>
         <FormInputText id="email"
                        @bind-Value="@Command.Email"
                        placeholder="name@example.com"
@@ -26,7 +26,7 @@
         {
             <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
         }
-        Resend
+        @Locale.resend
     </Button>
 </AppForm>
 
@@ -38,7 +38,7 @@
     {
         if (!await RecaptchaComponent.IsValid())
         {
-            ShowWarning("Please complete captcha before continuing");
+            ShowWarning(Locale.please_complete_captcha_before_continuing);
             return;
         }
 

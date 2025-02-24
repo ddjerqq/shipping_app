@@ -5,7 +5,7 @@
 
 <AppForm @bind-Model="User" OnValidSubmit="UpdateUser">
     <FormField>
-        <FormLabel for="full-name">Full Name</FormLabel>
+        <FormLabel for="full-name">@Locale.full_name</FormLabel>
         <FormInputText id="full-name"
                        Class="capitalize"
                        Value="@User.Username"
@@ -15,7 +15,7 @@
     </FormField>
 
     <FormField>
-        <FormLabel for="personal-id">Personal id</FormLabel>
+        <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
         <FormInputText id="personal-id"
                        Value="@User.PersonalId"
                        ValueExpression="@(() => User.PersonalId)"
@@ -24,7 +24,7 @@
     </FormField>
 
     <FormField>
-        <FormLabel for="email">Email address</FormLabel>
+        <FormLabel for="email">@Locale.email</FormLabel>
         <FormInputText id="email"
                        Value="@User.Email"
                        ValueExpression="@(() => User.Email)"
@@ -33,7 +33,7 @@
     </FormField>
 
     <FormField>
-        <FormLabel for="phone">Phone</FormLabel>
+        <FormLabel for="phone">@Locale.phone_number</FormLabel>
         <FormInputText id="phone"
                        Value="@User.PhoneNumber"
                        ValueExpression="@(() => User.PhoneNumber)"

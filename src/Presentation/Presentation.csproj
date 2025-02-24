@@ -50,18 +50,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\App.resx">
+      <EmbeddedResource Update="Resources\Locale.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>App.Designer.cs</LastGenOutput>
+        <LastGenOutput>Locale.Designer.cs</LastGenOutput>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\App.Designer.cs">
+      <Compile Update="Resources\Locale.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>App.resx</DependentUpon>
+        <DependentUpon>Locale.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

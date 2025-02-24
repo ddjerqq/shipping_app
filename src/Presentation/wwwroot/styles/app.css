@@ -1,6 +1,7 @@
 @import 'blazor-tweaks.css';
 @import 'backgrounds.css';
 @import '../fonts/geist/geist.css';
+@import '../fonts/archyedt-bold/archyedt-bold.css';
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +10,10 @@
 html, body {
   width: 100%;
   height: 100%;
+}
+
+html[lang=ka-GE], body[lang=ka-GE] {
+  font-family: ArchyEDT-Bold, sans-serif;
 }
 
 @layer base {

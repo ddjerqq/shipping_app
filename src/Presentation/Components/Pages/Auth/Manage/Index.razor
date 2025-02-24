@@ -1,42 +1,41 @@
 @page "/auth/manage"
 @using Microsoft.AspNetCore.Components.Sections
 
-<PageTitle>Manage account</PageTitle>
-<SectionContent SectionId="HomeLayout.TitleSectionId">Manage account</SectionContent>
+<PageTitle>@Locale.manage_account</PageTitle>
+<SectionContent SectionId="HomeLayout.TitleSectionId">@Locale.manage_account</SectionContent>
 
 <Tabs Value="ManageSection.PersonalInfo" class="space-y-4">
     <div class="w-full overflow-x-scroll">
         <List>
-            <Trigger Value="ManageSection.PersonalInfo">Personal Info</Trigger>
-            <Trigger Value="ManageSection.ChangePassword">Change Password</Trigger>
-            <Trigger Value="ManageSection.MyAddress">My Address</Trigger>
-            <Trigger Value="ManageSection.Notifications">Notifications</Trigger>
-            <Trigger Value="ManageSection.AccountDeletion" class="text-destructive data-[state=active]:text-destructive">Delete account
-            </Trigger>
+            <Trigger Value="ManageSection.PersonalInfo">@Locale.personal_info</Trigger>
+            <Trigger Value="ManageSection.ChangePassword">@Locale.change_password</Trigger>
+            <Trigger Value="ManageSection.MyAddress">@Locale.my_addresses</Trigger>
+            <Trigger Value="ManageSection.Notifications">@Locale.notification_preferences</Trigger>
+            <Trigger Value="ManageSection.AccountDeletion" class="text-destructive data-[state=active]:text-destructive">@Locale.delete_account</Trigger>
         </List>
     </div>
     <TabContent Value="ManageSection.PersonalInfo" class="space-y-4">
-        <ManageTabWrapper Title="Manage your personal info">
+        <ManageTabWrapper Title="@Locale.manage_your_personal_info">
             <ManageAccount/>
         </ManageTabWrapper>
     </TabContent>
     <TabContent Value="ManageSection.ChangePassword" class="space-y-4">
-        <ManageTabWrapper Title="Change your password">
+        <ManageTabWrapper Title="@Locale.change_your_password">
             <ChangePassword/>
         </ManageTabWrapper>
     </TabContent>
     <TabContent Value="ManageSection.MyAddress" class="space-y-4">
-        <ManageTabWrapper Title="Manage your addresses">
+        <ManageTabWrapper Title="@Locale.manage_your_addresses">
             <MyAddresses/>
         </ManageTabWrapper>
     </TabContent>
     <TabContent Value="ManageSection.Notifications" class="space-y-4">
-        <ManageTabWrapper Title="Manage notifications">
+        <ManageTabWrapper Title="@Locale.manage_notifications">
             <ManageNotifications/>
         </ManageTabWrapper>
     </TabContent>
     <TabContent Value="ManageSection.AccountDeletion" class="space-y-4">
-        <ManageTabWrapper Title="Delete account">
+        <ManageTabWrapper Title="@Locale.delete_account">
             <DeleteAccount/>
         </ManageTabWrapper>
     </TabContent>

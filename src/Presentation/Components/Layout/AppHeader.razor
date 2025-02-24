@@ -9,13 +9,13 @@
                 <Authorized>
                     <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
                         <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">Dashboard</span>
+                        <span class="hidden font-bold lg:inline-block">@Locale.dashboard</span>
                     </a>
                 </Authorized>
                 <NotAuthorized>
                     <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
                         <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">Home</span>
+                        <span class="hidden font-bold lg:inline-block">@Locale.home</span>
                     </a>
                 </NotAuthorized>
             </AuthorizeView>
@@ -23,31 +23,31 @@
             <nav class="flex items-center text-sm gap-2 sm:gap-4 md:gap-6">
                 <AuthorizeView Roles="User">
                     <Authorized>
-                        <HeaderNavLink Href="/addresses" Title="My Addresses"/>
-                        <HeaderNavLink Href="/track_package" Title="Track Package"/>
+                        <HeaderNavLink Href="/addresses" Title="@Locale.my_addresses"/>
+                        <HeaderNavLink Href="/track_package" Title="@Locale.track_package"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView Roles="Staff">
                     <Authorized>
-                        <HeaderNavLink Href="/packages/all" Title="Packages"/>
-                        <HeaderNavLink Href="/races/all" Title="Races"/>
+                        <HeaderNavLink Href="/packages/all" Title="@Locale.packages"/>
+                        <HeaderNavLink Href="/races/all" Title="@Locale.races"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView Roles="Admin">
                     <Authorized>
-                        <HeaderNavLink Href="/packages/all" Title="Packages"/>
-                        <HeaderNavLink Href="/races/all" Title="Races"/>
-                        <HeaderNavLink Href="/users/all" Title="Users"/>
+                        <HeaderNavLink Href="/packages/all" Title="@Locale.packages"/>
+                        <HeaderNavLink Href="/races/all" Title="@Locale.races"/>
+                        <HeaderNavLink Href="/users/all" Title="@Locale.users"/>
                     </Authorized>
                 </AuthorizeView>
 
                 <AuthorizeView>
                     <NotAuthorized>
-                        <HeaderNavLink Href="/about" Title="About us"/>
-                        <HeaderNavLink Href="/faq" Title="Faq"/>
-                        <HeaderNavLink Href="/calculate" Title="Calculator"/>
+                        <HeaderNavLink Href="/about" Title="@Locale.about_us"/>
+                        <HeaderNavLink Href="/faq" Title="@Locale.faq"/>
+                        <HeaderNavLink Href="/calculate" Title="@Locale.calculator"/>
                     </NotAuthorized>
                 </AuthorizeView>
             </nav>

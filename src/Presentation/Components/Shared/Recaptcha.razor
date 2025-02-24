@@ -25,7 +25,7 @@
             return true;
 
         Log.Logger.Warning("Recaptcha has errors: {Errors}", string.Join(';', response.ErrorCodes));
-        ShowWarning($"Captcha errors {string.Join(';', response.ErrorCodes)}");
+        ShowWarning($"{Locale.captcha_errors} {string.Join(';', response.ErrorCodes)}");
 
         return false;
     }
@@ -36,11 +36,15 @@
         {
             try
             {
+                // this needs to be delayed because the google recaptcha URL which we use to link the JS
+                // is dynamic (the language in it is dynamic) so more often than i like, it is not loading on time
+                await Task.Delay(500);
                 await Js.InvokeVoidAsync("renderGoogleRecaptcha", DotNetObjectReference.Create(this), "recaptcha", RecaptchaSiteKey);
             }
-            catch (JSException)
+            catch (JSException ex)
             {
-                ShowWarning("Error with google reCAPTCHA, please reload");
+                Log.Logger.Error(ex, "failed to load CAPTCHA");
+                ShowWarning(Locale.google_recaptcha_error_please_reload);
             }
         }
     }
@@ -53,5 +57,5 @@
     }
 
     [JSInvokable]
-    public void OnExpired() => ShowWarning("Captcha request expired, please do it again.");
+    public void OnExpired() => ShowWarning(Locale.captcha_expired_please_do_it_again);
 }

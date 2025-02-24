@@ -1,10 +1,10 @@
 ﻿@page "/auth/confirm_email"
 @using Application.Cqrs.Users.Commands
 
-<PageTitle>Confirm email</PageTitle>
-<PageHeader Title="Your account has been confirmed" Description="Welcome to the best app ever!"/>
+<PageTitle>@Locale.confirm_email</PageTitle>
+<PageHeader Title="@Locale.your_account_has_been_confirmed" Description="@Locale.welcome_to_our_app"/>
 <Button Href="auth/login" class="w-full">
-    Login
+    @Locale.login
 </Button>
 
 @code {
@@ -21,6 +21,6 @@
 
         var user = await Mediator.Send(new ConfirmEmailCommand(Token));
         if (user is null)
-            ShowError("Failed to validate token");
+            ShowError(@Locale.failed_to_validate_token);
     }
 }

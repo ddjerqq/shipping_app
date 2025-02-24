@@ -1,11 +1,11 @@
-﻿
-@using System.Globalization
+﻿@using System.Globalization
 @using Microsoft.AspNetCore.Localization
 @using Presentation.Components.Layout
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@CultureInfo.CurrentCulture.Name">
 <head>
-    <title>ShippingApp</title>
+    <title>SanGoWay</title>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <base href="/">
@@ -18,7 +18,7 @@
 
     <link href="Presentation.styles.css" rel="stylesheet"/>
     <link href="styles/app.min.css" rel="stylesheet"/>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="@($"https://www.google.com/recaptcha/api.js?hl={Language}")"></script>
     <script src="scripts/captchaUtils.js"></script>
     <script src="scripts/util.js"></script>
 
@@ -39,24 +39,24 @@
 
 <Routes @rendermode="InteractiveServer"/>
 
-<div id="blazor-error-ui" class="bg-background text-black">
-    <a href="" class="reload">reload</a>
+<div id="blazor-error-ui" class="bg-background text-primary">
+    <a href="" class="reload">@Locale.reload</a>
     <a class="dismiss">&times;</a>
 </div>
 
 <div id="components-reconnect-modal">
     <Card id="reconnect-show">
         <Header class="space-y-1">
-            <CardTitle class="text-2xl">Detected a networking issue</CardTitle>
-            <Description>This is not a major issue</Description>
+            <CardTitle class="text-2xl">@Locale.detected_a_networking_issue</CardTitle>
+            <Description>@Locale.this_is_not_a_major_issue</Description>
         </Header>
         <Content class="grid gap-6">
-            To continue using the website please reload
+            @Locale.to_continue_please_reload
         </Content>
         <Footer>
             <Button class="w-full" onclick="location.reload()">
                 <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
-                Reload
+                @Locale.reload
             </Button>
         </Footer>
     </Card>
@@ -72,32 +72,32 @@
 
     <Card id="reconnect-failed">
         <Header class="space-y-1">
-            <CardTitle class="text-2xl">Connection dropped</CardTitle>
-            <Description>This is not a major issue</Description>
+            <CardTitle class="text-2xl">@Locale.detected_a_networking_issue</CardTitle>
+            <Description>@Locale.this_is_not_a_major_issue</Description>
         </Header>
         <Content class="grid gap-6">
-            To continue using the website please reload
+            @Locale.to_continue_please_reload
         </Content>
         <Footer>
             <Button class="w-full" onclick="window.Blazor.reconnect()">
                 <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
-                Reload
+                @Locale.reload
             </Button>
         </Footer>
     </Card>
 
     <Card id="reconnect-rejected">
         <Header class="space-y-1">
-            <CardTitle class="text-2xl">Detected a networking issue</CardTitle>
-            <Description>This is not a major issue</Description>
+            <CardTitle class="text-2xl">@Locale.detected_a_networking_issue</CardTitle>
+            <Description>@Locale.this_is_not_a_major_issue</Description>
         </Header>
         <Content class="grid gap-6">
-            To continue using the website please reload
+            @Locale.to_continue_please_reload
         </Content>
         <Footer>
             <Button class="w-full" onclick="location.reload()">
                 <Blazicon Svg="@Lucide.RefreshCcw" class="size-6"/>
-                Reload
+                @Locale.reload
             </Button>
         </Footer>
     </Card>
@@ -112,15 +112,15 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = null!;
 
-    @code {
-        protected override void OnInitialized()
-        {
-            HttpContext?.Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(
-                    new RequestCulture(
-                        CultureInfo.CurrentCulture,
-                        CultureInfo.CurrentUICulture)));
-        }
+    private string Language => CultureInfo.CurrentCulture.Name.Split('-')[0];
+
+    protected override void OnInitialized()
+    {
+        HttpContext?.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
     }
 }

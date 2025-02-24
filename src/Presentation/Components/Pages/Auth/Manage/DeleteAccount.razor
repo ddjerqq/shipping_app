@@ -6,20 +6,19 @@
 @inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
 
 <FormField class="mb-2">
-    <FormLabel for="delete-confirmation">Confirmation</FormLabel>
+    <FormLabel for="delete-confirmation">@Locale.account_delete_confirmation</FormLabel>
     <input id="delete-confirmation"
            class="@FormInputText.BaseClass"
            @bind-value="@DeleteConfirmation"
-           placeholder="Type 'delete' to confirm"
+           placeholder="@Locale.type_delete_to_confirm"
            type="text"/>
     <FormDescription class="text-destructive">
-        This action is irreversible. All your data will be lost. You will have a 30 day grace period to recover your account.<br/>
-        To recover your account, just login with your email and password.
+        @((MarkupString)Locale.delete_warning)
     </FormDescription>
 </FormField>
 
 <Button Variant="destructive" disabled="@(DeleteConfirmation != "delete")" @onclick="Delete">
-    Delete account
+    @Locale.delete_account
 </Button>
 
 @code {
@@ -28,7 +27,7 @@
     private async Task Delete()
     {
         await SendCommandAsync(new DeleteUserAccountCommand(CurrentUser.Id!.Value));
-        ShowSuccess("Your account is scheduled for deletion.");
+        ShowSuccess(Locale.your_account_is_scheduled_for_deletion);
         await Task.Delay(2000);
 
         await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
