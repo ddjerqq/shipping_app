@@ -3,21 +3,23 @@
         <div class="py-4 grid items-start gap-6 sm:gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
             <div class="col-span-1 sm:col-span-2 flex flex-col gap-2 max-w-md">
                 <span class="text-xl font-semibold">
-                    Newsletter
+                    @Locale.newsletter
                 </span>
 
                 <span class="text-muted-foreground text-sm">
-                    Enter your email to receive notifications about product updates and our newsletter.
+                    @Locale.enter_your_email_to_receive_notifications_about_product_updates
                 </span>
 
-                <input class="@FormInputText.BaseClass" placeholder="Enter your email" autocomplete="email"/>
+                <input class="@FormInputText.BaseClass" placeholder="name@example.com" autocomplete="email"/>
 
-                <Button>Subscribe</Button>
+                <Button>
+                    @Locale.subscribe
+                </Button>
             </div>
 
             <div class="flex flex-col gap-2">
                 <span class="text-xl font-semibold">
-                    Partner sites
+                    @Locale.partner_sites
                 </span>
 
                 <ul class="text-sm space-y-1">
@@ -41,7 +43,7 @@
 
             <address class="flex flex-col gap-1 not-italic">
                 <span class="text-xl font-semibold">
-                    Contact
+                    @Locale.contact
                 </span>
 
                 <ul class="text-sm space-y-1">
@@ -77,9 +79,9 @@
         </div>
 
         <div class="w-full text-start pb-4 text-sm leading-loose text-muted-foreground">
-            &copy; 2024-2028 All rights reserved.
+            SanGoWay &copy; 2024-2028 @Locale.all_rights_reserved.
 
-            <Link Href="https://t.me/tenxdeveloper" Title="Contact dev team" target="_blank" rel="noreferrer"/>
+            <Link Href="https://t.me/tenxdeveloper" Title="@Locale.contact_dev_team" target="_blank" rel="noreferrer"/>
         </div>
     </div>
 </footer>
