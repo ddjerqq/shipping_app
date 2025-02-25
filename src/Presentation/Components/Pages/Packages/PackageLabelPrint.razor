@@ -17,14 +17,13 @@
 
 @if (Package is not null)
 {
-    <Card id="label" class="max-w-xl flex flex-col text-center border-dashed font-mono">
-        <Header class="border-b border-dashed pb-2">
+    <Card id="label" class="max-w-xl flex flex-col text-center border-dashed border-black font-mono font-bold">
+        <Header class="border-b border-dashed border-black text-lg">
             <CardTitle class="text-2xl">SanGoWay</CardTitle>
-            <Description>Package label</Description>
         </Header>
         <Content class="w-full flex flex-col items-center p-0">
             <div class="w-full p-6 px-16">
-                <h2 class="text-start text-lg font-bold">Owner</h2>
+                <h2 class="text-start text-xl font-bold">Owner</h2>
                 <div class="flex justify-between">
                     <span>ID:</span>
                     <span>@Package.Owner.Id</span>
@@ -51,18 +50,14 @@
                 </div>
             </div>
 
-            <hr class="w-full border-dashed py-2"/>
-
-            <div class="p-6">
-                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode}")" alt="@Package.TrackingCode"/>
+            <div class="p-6 border border-dashed border-black">
+                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode.Value.ToUpperInvariant()}?dpi=600")" alt="@Package.TrackingCode"/>
             </div>
-
-            <hr class="w-full border-dashed py-2"/>
 
             <div class="w-full p-6 px-16">
                 <div class="flex justify-between">
-                    <span>Weight (kg):</span>
-                    <span>@(((float?)Package.Weight / 1000)?.ToString("N2"))</span>
+                    <span>Weight</span>
+                    <span>@(((float?)Package.Weight / 1000)?.ToString("N2")) kg</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Dimensions (w, h, l) cm:</span>
@@ -70,7 +65,7 @@
                 </div>
             </div>
         </Content>
-        <Footer class="pt-4 border-t border-dashed text-sm text-muted-foreground">
+        <Footer class="pt-4 border-t border-dashed border-black text-lg text-bold text-muted-foreground">
             <div class="w-full">
                 <div class="flex justify-between">
                     <span>Label created at:</span>
@@ -113,7 +108,7 @@
         {
             await Printer.Print("#label", CancellationToken);
             await Task.Delay(1500);
-            NavigationManager.NavigateTo("/packages/all/?status=InWarehouse");
+            // NavigationManager.NavigateTo("/packages/all/?status=InWarehouse");
         }
     }
 }
