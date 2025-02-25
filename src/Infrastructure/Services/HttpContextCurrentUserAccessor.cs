@@ -8,14 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services;
 
-public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpContextAccessor, IAppDbContext dbContext)
-    : ICurrentUserAccessor
+public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpContextAccessor, IAppDbContext dbContext) : ICurrentUserAccessor
 {
     private ClaimsPrincipal? User => httpContextAccessor.HttpContext?.User;
 
     public UserId? Id => User?.GetId();
 
     public Role? Role => User?.GetRole();
+
+    public TimeZoneInfo? TimeZoneInfo => User?.GetTimeZone();
 
     public async Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default)
     {

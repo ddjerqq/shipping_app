@@ -30,9 +30,16 @@
                         @foreach (var status in Package.Statuses)
                         {
                             <li>
-                                @status.Status.GetDisplayName() on @status.Date.ToString("dd MMM, yyyy")
+                                @status.Status.GetDisplayName()
+                                on
+                                <time class="font-semibold">
+                                    @CurrentUser.ConvertTimeToUserTime(status.Date).ToString("dd MMM, yyyy @ hh:mm:ss tt UTCzzz")
+                                </time>
                                 <AuthorizeView Roles="Staff,Admin">
-                                    by @(status.Staff?.Username.CapitalizeName() ?? "-")
+                                    @if (status.Staff?.Username.CapitalizeName() is { } username)
+                                    {
+                                        @:by @username
+                                    }
                                 </AuthorizeView>
                             </li>
                         }

@@ -69,7 +69,7 @@
             <div class="w-full">
                 <div class="flex justify-between">
                     <span>Label created at:</span>
-                    <span>@TimeZoneInfo.ConvertTime(DateTime.UtcNow, User?.TimeZone ?? TimeZoneInfo.Utc).ToString("yyyy-MM-dd HH:mm:ss UTCzzz")</span>
+                    <span>@CurrentUser.ConvertTimeToUserTime(DateTime.UtcNow).ToString("yyyy-MM-dd HH:mm:ss UTCzzz")</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Label created by:</span>

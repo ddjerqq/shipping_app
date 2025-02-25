@@ -16,6 +16,7 @@ public static class ClaimsPrincipalExt
     public const string RoleClaimType = "role";
     public const string SecurityStampClaimType = "security_stamp";
     public const string RoomCodeClaimType = "room_code";
+    public const string TimeZoneClaimType = "time_zone";
 
     public static UserId? GetId(this ClaimsPrincipal principal) => UserId.TryParse(
         principal.Claims.FirstOrDefault(c => c.Type == IdClaimType)?.Value, null, out var id)
@@ -34,6 +35,11 @@ public static class ClaimsPrincipalExt
             ? role
             : null;
 
+    public static TimeZoneInfo? GetTimeZone(this ClaimsPrincipal principal) =>
+        principal.Claims.FirstOrDefault(c => c.Type == TimeZoneClaimType)?.Value is { } tz
+            ? TimeZoneInfo.FindSystemTimeZoneById(tz)
+            : null;
+
     public static IEnumerable<Claim> GetAllClaims(this User user)
     {
         var claims = new[]
@@ -46,6 +52,7 @@ public static class ClaimsPrincipalExt
             new Claim(RoleClaimType, user.Role.ToString()),
             new Claim(SecurityStampClaimType, user.SecurityStamp),
             new Claim(RoomCodeClaimType, user.RoomCode.ToString()),
+            new Claim(TimeZoneClaimType, user.TimeZone.Id),
         };
         var userClaims = user.Claims.Select(uc => uc.Claim);
 
