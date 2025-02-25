@@ -1,8 +1,8 @@
 @page "/faq"
 @attribute [AllowAnonymous]
 
-<PageTitle>Frequently asked questions</PageTitle>
-<PageHeader Title="Frequently asked questions"/>
+<PageTitle>@Locale.faq</PageTitle>
+<PageHeader Title="@Locale.faq"/>
 
 <div class="grid gap-4 mt-4">
     @foreach (var (question, answer) in _questions)
@@ -19,13 +19,13 @@
 </div>
 
 @code {
-    private readonly IEnumerable<(string Question, MarkupString HtmlAnswer)> _questions =
+    private readonly IEnumerable<(string Question, string HtmlAnswer)> _questions =
     [
-        ("What is SanGoWay?", (MarkupString)"<p>SanGoWay is a platform that helps you to calculate the cost of shipping from the USA to Georgia.</p>"),
-        ("How does it work?", (MarkupString)"<p>SanGoWay uses the weight and dimensions of your package to calculate the cost of shipping from the USA to Georgia.</p>"),
-        ("How do I get started?", (MarkupString)"<p>Getting started is easy. Just sign up and start calculating the cost of shipping your package.</p>"),
-        ("How do I pay for shipping?", (MarkupString)"<p>SanGoWay accepts payment via credit card and bank transfer.</p>"),
-        ("How do I track my package?", (MarkupString)"<p>Once your package is shipped, you will receive a tracking number that you can use to track your package.</p>"),
-        ("How do I get my package?", (MarkupString)"<p>Once your package arrives in Georgia, you can pick it up at our office or have it delivered to your address.</p>"),
+        (Locale.faq_1_q, Locale.faq_1_a),
+        (Locale.faq_2_q, Locale.faq_2_a),
+        (Locale.faq_3_q, Locale.faq_3_a),
+        (Locale.faq_4_q, Locale.faq_4_a),
+        (Locale.faq_5_q, Locale.faq_5_a),
+        (Locale.faq_6_q, Locale.faq_6_a),
     ];
 }

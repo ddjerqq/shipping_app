@@ -1,6 +1,6 @@
 <div class="my-32 w-full">
     <h2 class="text-4xl font-semibold mb-8">
-        What our customers are saying
+        @Locale.testimonial_header
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-4 justify-around">
@@ -11,25 +11,10 @@
                 </CardTitle>
             </Header>
             <Content class="flex flex-col gap-4 text-muted-foreground">
-                "This platform has transformed how I work. Highly recommended!"
+                @Locale.testimonial_1
             </Content>
             <Footer>
-                - Tamar Bibileishvili
-            </Footer>
-        </Card>
-
-        <Card>
-            <Header>
-                <CardTitle class="flex items-center gap-2">
-                    <Blazicon Svg="@Lucide.UserRound" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
-
-                </CardTitle>
-            </Header>
-            <Content class="text-muted-foreground">
-                "The best decision I made this year. Incredible support and features!"
-            </Content>
-            <Footer>
-                - Ani Martiashvili
+                - @Locale.testimonial_1_author
             </Footer>
         </Card>
 
@@ -40,10 +25,10 @@
                 </CardTitle>
             </Header>
             <Content class="text-muted-foreground">
-                "Outstanding quality and attention to detail. They truly care!"
+                @Locale.testimonial_2
             </Content>
             <Footer>
-                - Mariam Nikoladze
+                - @Locale.testimonial_2_author
             </Footer>
         </Card>
 
@@ -54,10 +39,24 @@
                 </CardTitle>
             </Header>
             <Content class="text-muted-foreground">
-                "I can't imagine going back to how things were before this service."
+                @Locale.testimonial_3
             </Content>
             <Footer>
-                - Giorgi Bagrationi
+                - @Locale.testimonial_3_author
+            </Footer>
+        </Card>
+
+        <Card>
+            <Header>
+                <CardTitle class="flex items-center gap-2">
+                    <Blazicon Svg="@Lucide.UserRound" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
+                </CardTitle>
+            </Header>
+            <Content class="text-muted-foreground">
+                @Locale.testimonial_4
+            </Content>
+            <Footer>
+                - @Locale.testimonial_4_author
             </Footer>
         </Card>
     </div>

@@ -7,7 +7,7 @@
             <CardTitle class="flex flex-row items-center justify-between">
                 <span>@AddressName</span>
                 <span class="text-muted-foreground">
-                    Rate: @Rate.FormatedValue / KG
+                    @Locale.rate_per_kilo: @Rate.FormatedValue / KG
                 </span>
             </CardTitle>
             @if (!string.IsNullOrWhiteSpace(AddressDescription))

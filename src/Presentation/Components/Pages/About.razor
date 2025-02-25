@@ -2,39 +2,40 @@
 @using Presentation.Components.Ui.Typography
 @attribute [AllowAnonymous]
 
-<PageTitle>About us</PageTitle>
-<PageHeader Title="About us"/>
+<PageTitle>@Locale.about_us</PageTitle>
+<PageHeader Title="@Locale.about_us"/>
 
 <Card class="mx-auto mt-4">
     <Header>
         <Description>
-            Welcome to our shipping service! We pride ourselves on being the most affordable and reliable delivery service for parcels from the USA to Georgia.
+            @Locale.about_description
         </Description>
     </Header>
 
     <Content>
-        <Header2>Our Mission</Header2>
+        <Header2>@Locale.about_mission</Header2>
         <Paragraph>
-            Our goal is to make international shipping affordable and hassle-free. At just <strong>$7 per kilogram</strong>, we ensure that your parcels are delivered safely and on time from the USA to Georgia.
+            @Locale.about_mission_description
         </Paragraph>
 
-        <Header2>Who We Are</Header2>
+        <Header2>@Locale.about_who_are_we</Header2>
         <Paragraph>
-            We are a small business driven by a passion for delivering value to our customers. Our team consists of:
+            @Locale.about_who_are_we_description
+
         </Paragraph>
         <UnorderedList>
-            <li><strong>Owner:</strong> Giorgi Sanakoevi</li>
-            <li><strong>Development Team:</strong> A talented group of developers. <Link Title="Contact dev team" Href="https://t.me/tenxdeveloper"/></li>
+            <li><strong>@Locale.owner:</strong> @Locale.about_giorgi_sanakoevi</li>
+            <li><strong>@Locale.dev_team:</strong> tenxdeveloper. <Link Title="Contact" Href="https://t.me/tenxdeveloper"/></li>
         </UnorderedList>
 
-        <Header2>Our Achievements</Header2>
+        <Header2>@Locale.about_achievements</Header2>
         <Paragraph>
-            Since our inception, we have successfully delivered <strong>2,320 parcels</strong> from the USA to Georgia, helping countless customers enjoy affordable and reliable shipping.
+            @Locale.about_achievements_description
         </Paragraph>
 
-        <Header2>Why Choose Us?</Header2>
+        <Header2>@Locale.about_why_us</Header2>
         <Paragraph>
-            We combine cost-effective pricing, personalized service, and a commitment to excellence to ensure that your shipping experience is second to none. When you choose us, you’re supporting a dedicated small business that values your trust.
+            @Locale.about_why_us_description
         </Paragraph>
     </Content>
 </Card>

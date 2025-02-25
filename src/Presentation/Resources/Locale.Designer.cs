@@ -60,11 +60,128 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Looks like you&apos;ve ventured into the unknown digital realm..
+        /// </summary>
+        public static string _404_description {
+            get {
+                return ResourceManager.GetString("404_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 404 - Lost in Cyberspace.
+        /// </summary>
+        public static string _404_header {
+            get {
+                return ResourceManager.GetString("404_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to home.
+        /// </summary>
+        public static string _404_return_home {
+            get {
+                return ResourceManager.GetString("404_return_home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our achievements.
+        /// </summary>
+        public static string about_achievements {
+            get {
+                return ResourceManager.GetString("about_achievements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Since our inception, we have successfully delivered 2,320 parcels from the USA to Georgia, helping countless customers enjoy affordable and reliable shipping..
+        /// </summary>
+        public static string about_achievements_description {
+            get {
+                return ResourceManager.GetString("about_achievements_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to our shipping service! We pride ourselves on being the most affordable and reliable delivery service for parcels from the USA to Georgia..
+        /// </summary>
+        public static string about_description {
+            get {
+                return ResourceManager.GetString("about_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giorgi Sanakoevi.
+        /// </summary>
+        public static string about_giorgi_sanakoevi {
+            get {
+                return ResourceManager.GetString("about_giorgi_sanakoevi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Mission.
+        /// </summary>
+        public static string about_mission {
+            get {
+                return ResourceManager.GetString("about_mission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our goal is to make international shipping affordable and hassle-free. We ensure that your parcels are delivered safely and on time from the USA to Georgia..
+        /// </summary>
+        public static string about_mission_description {
+            get {
+                return ResourceManager.GetString("about_mission_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About us.
         /// </summary>
         public static string about_us {
             get {
                 return ResourceManager.GetString("about_us", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who are we.
+        /// </summary>
+        public static string about_who_are_we {
+            get {
+                return ResourceManager.GetString("about_who_are_we", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We are a small business driven by a passion for delivering value to our customers..
+        /// </summary>
+        public static string about_who_are_we_description {
+            get {
+                return ResourceManager.GetString("about_who_are_we_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why us?.
+        /// </summary>
+        public static string about_why_us {
+            get {
+                return ResourceManager.GetString("about_why_us", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We combine cost-effective pricing, personalized service, and a commitment to excellence to ensure that your shipping experience is second to none. When you choose us, you’re supporting a dedicated small business that values your trust..
+        /// </summary>
+        public static string about_why_us_description {
+            get {
+                return ResourceManager.GetString("about_why_us_description", resourceCulture);
             }
         }
         
@@ -92,6 +209,15 @@ namespace Presentation.Resources {
         public static string address_updated_successfully {
             get {
                 return ResourceManager.GetString("address_updated_successfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Addresses.
+        /// </summary>
+        public static string addresses {
+            get {
+                return ResourceManager.GetString("addresses", resourceCulture);
             }
         }
         
@@ -128,6 +254,33 @@ namespace Presentation.Resources {
         public static string calculator {
             get {
                 return ResourceManager.GetString("calculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the required parameters of the parcel and the calculator will calculate the cost of the delivery.
+        /// </summary>
+        public static string calculator_description {
+            get {
+                return ResourceManager.GetString("calculator_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To find out more about how we calculate the package prices please visit our.
+        /// </summary>
+        public static string calculator_price_notice {
+            get {
+                return ResourceManager.GetString("calculator_price_notice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To find out more about volumetric weight and how it&apos;s calculated please visit our.
+        /// </summary>
+        public static string calculator_volumetric_notice {
+            get {
+                return ResourceManager.GetString("calculator_volumetric_notice", resourceCulture);
             }
         }
         
@@ -277,6 +430,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Developer.
+        /// </summary>
+        public static string dev_team {
+            get {
+                return ResourceManager.GetString("dev_team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Didn&apos;t receive an email?.
         /// </summary>
         public static string didnt_receive_an_email {
@@ -358,6 +520,114 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SanGoWay is a platform that helps deliver packages from USA to Georgia..
+        /// </summary>
+        public static string faq_1_a {
+            get {
+                return ResourceManager.GetString("faq_1_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What is SanGoWay?.
+        /// </summary>
+        public static string faq_1_q {
+            get {
+                return ResourceManager.GetString("faq_1_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SanGoWay uses the weight and dimensions of your package to calculate the cost of shipping from the USA to Georgia..
+        /// </summary>
+        public static string faq_2_a {
+            get {
+                return ResourceManager.GetString("faq_2_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How does it work?.
+        /// </summary>
+        public static string faq_2_q {
+            get {
+                return ResourceManager.GetString("faq_2_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting started is easy. Just sign up and start using our services.
+        /// </summary>
+        public static string faq_3_a {
+            get {
+                return ResourceManager.GetString("faq_3_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I get started?.
+        /// </summary>
+        public static string faq_3_q {
+            get {
+                return ResourceManager.GetString("faq_3_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SanGoWay accepts payment via credit card and bank transfer..
+        /// </summary>
+        public static string faq_4_a {
+            get {
+                return ResourceManager.GetString("faq_4_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I pay for shipping?.
+        /// </summary>
+        public static string faq_4_q {
+            get {
+                return ResourceManager.GetString("faq_4_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once your package is shipped, you will receive a tracking number that you can use to track your package..
+        /// </summary>
+        public static string faq_5_a {
+            get {
+                return ResourceManager.GetString("faq_5_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I track my package?.
+        /// </summary>
+        public static string faq_5_q {
+            get {
+                return ResourceManager.GetString("faq_5_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once your package arrives in Georgia, you can pick it up at our office or have it delivered to your address..
+        /// </summary>
+        public static string faq_6_a {
+            get {
+                return ResourceManager.GetString("faq_6_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How do I get my package?.
+        /// </summary>
+        public static string faq_6_q {
+            get {
+                return ResourceManager.GetString("faq_6_q", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password?.
         /// </summary>
         public static string forgot_password {
@@ -394,11 +664,128 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get started.
+        /// </summary>
+        public static string hero_cta_text {
+            get {
+                return ResourceManager.GetString("hero_cta_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We are a new company in the shipping industry, offering reliable, fast, and affordable services worldwide..
+        /// </summary>
+        public static string hero_description {
+            get {
+                return ResourceManager.GetString("hero_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shipping Company from USA to Georgia.
+        /// </summary>
+        public static string hero_title {
+            get {
+                return ResourceManager.GetString("hero_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to House delivery.
+        /// </summary>
+        public static string house_delivery {
+            get {
+                return ResourceManager.GetString("house_delivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How it works.
+        /// </summary>
+        public static string how_it_works {
+            get {
+                return ResourceManager.GetString("how_it_works", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1: Register.
+        /// </summary>
+        public static string how_step_1 {
+            get {
+                return ResourceManager.GetString("how_step_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new account to use our services!.
+        /// </summary>
+        public static string how_step_1_description {
+            get {
+                return ResourceManager.GetString("how_step_1_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2: Copy your address.
+        /// </summary>
+        public static string how_step_2 {
+            get {
+                return ResourceManager.GetString("how_step_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After you register, You will receive an address that you can use for online shopping.&lt;br/&gt;&lt;br/&gt;Copy the address and save it on your desired ECommerce website.
+        /// </summary>
+        public static string how_step_2_description {
+            get {
+                return ResourceManager.GetString("how_step_2_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 3: Add packages.
+        /// </summary>
+        public static string how_step_3 {
+            get {
+                return ResourceManager.GetString("how_step_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After you buy products online, Please declare them in your SanGoWay account..
+        /// </summary>
+        public static string how_step_3_description {
+            get {
+                return ResourceManager.GetString("how_step_3_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 4: Receive packages!.
+        /// </summary>
+        public static string how_step_4 {
+            get {
+                return ResourceManager.GetString("how_step_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After your package arrives, you will be able to pay for it.&lt;br/&gt;&lt;br/&gt;After you pay for shipping, you will receive your package.
+        /// </summary>
+        public static string how_step_4_description {
+            get {
+                return ResourceManager.GetString("how_step_4_description", resourceCulture);
             }
         }
         
@@ -538,6 +925,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        public static string owner {
+            get {
+                return ResourceManager.GetString("owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Packages.
         /// </summary>
         public static string packages {
@@ -637,6 +1033,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please keep in mind, the weight will get rounded up to the nearest 100 grams..
+        /// </summary>
+        public static string please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams {
+            get {
+                return ResourceManager.GetString("please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to privacy policy.
         /// </summary>
         public static string privacy_policy {
@@ -651,6 +1056,15 @@ namespace Presentation.Resources {
         public static string races {
             get {
                 return ResourceManager.GetString("races", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate.
+        /// </summary>
+        public static string rate_per_kilo {
+            get {
+                return ResourceManager.GetString("rate_per_kilo", resourceCulture);
             }
         }
         
@@ -817,6 +1231,87 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;This platform has transformed how I work. Highly recommended!&quot;.
+        /// </summary>
+        public static string testimonial_1 {
+            get {
+                return ResourceManager.GetString("testimonial_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tamar Bibileishvili.
+        /// </summary>
+        public static string testimonial_1_author {
+            get {
+                return ResourceManager.GetString("testimonial_1_author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;The best decision I made this year. Incredible support and features!&quot;.
+        /// </summary>
+        public static string testimonial_2 {
+            get {
+                return ResourceManager.GetString("testimonial_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ani Martiashvili.
+        /// </summary>
+        public static string testimonial_2_author {
+            get {
+                return ResourceManager.GetString("testimonial_2_author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Outstanding quality and attention to detail. They truly care!&quot;.
+        /// </summary>
+        public static string testimonial_3 {
+            get {
+                return ResourceManager.GetString("testimonial_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mariam Nikoladze.
+        /// </summary>
+        public static string testimonial_3_author {
+            get {
+                return ResourceManager.GetString("testimonial_3_author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;I can&apos;t imagine going back to how things were before this service.&quot;.
+        /// </summary>
+        public static string testimonial_4 {
+            get {
+                return ResourceManager.GetString("testimonial_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giorgi Baqradze.
+        /// </summary>
+        public static string testimonial_4_author {
+            get {
+                return ResourceManager.GetString("testimonial_4_author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What our customers are saying.
+        /// </summary>
+        public static string testimonial_header {
+            get {
+                return ResourceManager.GetString("testimonial_header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The token you provided is invalid.
         /// </summary>
         public static string the_token_you_provided_is_invalid {
@@ -849,6 +1344,15 @@ namespace Presentation.Resources {
         public static string to_continue_please_reload {
             get {
                 return ResourceManager.GetString("to_continue_please_reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total price.
+        /// </summary>
+        public static string total_price {
+            get {
+                return ResourceManager.GetString("total_price", resourceCulture);
             }
         }
         
@@ -889,6 +1393,24 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Volumetric price.
+        /// </summary>
+        public static string volumetric_price {
+            get {
+                return ResourceManager.GetString("volumetric_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weight.
+        /// </summary>
+        public static string weight {
+            get {
+                return ResourceManager.GetString("weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome back.
         /// </summary>
         public static string welcome_back {
@@ -903,6 +1425,105 @@ namespace Presentation.Resources {
         public static string welcome_to_our_app {
             get {
                 return ResourceManager.GetString("welcome_to_our_app", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced tracking.
+        /// </summary>
+        public static string why_advanced_tracking {
+            get {
+                return ResourceManager.GetString("why_advanced_tracking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination..
+        /// </summary>
+        public static string why_advanced_tracking_description {
+            get {
+                return ResourceManager.GetString("why_advanced_tracking_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moved packages.
+        /// </summary>
+        public static string why_cards_moving_items {
+            get {
+                return ResourceManager.GetString("why_cards_moving_items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages from Georgia.
+        /// </summary>
+        public static string why_cards_packages_from_geo {
+            get {
+                return ResourceManager.GetString("why_cards_packages_from_geo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages from USA.
+        /// </summary>
+        public static string why_cards_packages_from_usa {
+            get {
+                return ResourceManager.GetString("why_cards_packages_from_usa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages stored.
+        /// </summary>
+        public static string why_cards_storage_items {
+            get {
+                return ResourceManager.GetString("why_cards_storage_items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cheap prices!.
+        /// </summary>
+        public static string why_cheap_prices {
+            get {
+                return ResourceManager.GetString("why_cheap_prices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time..
+        /// </summary>
+        public static string why_cheap_prices_description {
+            get {
+                return ResourceManager.GetString("why_cheap_prices_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vast Experience.
+        /// </summary>
+        public static string why_experience {
+            get {
+                return ResourceManager.GetString("why_experience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe..
+        /// </summary>
+        public static string why_experience_description {
+            get {
+                return ResourceManager.GetString("why_experience_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why SanGoWay?.
+        /// </summary>
+        public static string why_sangoway {
+            get {
+                return ResourceManager.GetString("why_sangoway", resourceCulture);
             }
         }
         

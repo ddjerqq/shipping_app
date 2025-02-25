@@ -2,18 +2,18 @@
 @using Application.Cqrs.Packages.Commands
 @attribute [AllowAnonymous]
 
-<PageTitle>Calculate package price</PageTitle>
-<PageHeader Title="Calculate the price for your package"/>
+<PageTitle>@Locale.calculator</PageTitle>
+<PageHeader Title="@Locale.calculator"/>
 
 <Card class="mt-4">
     <Header>
-        <Description>Enter the required parameters of the parcel and the calculator will calculate the cost of the delivery</Description>
+        <Description>@Locale.calculator_description</Description>
     </Header>
 
     <Content>
         <AppForm @bind-Model="Command">
             <FormField>
-                <FormLabel for="weight">Weight (KG)</FormLabel>
+                <FormLabel for="weight">@Locale.weight (KG)</FormLabel>
                 <InputNumber id="weight"
                              class="@FormInputText.BaseClass"
                              @bind-Value="@Command.WeightKiloGrams"
@@ -24,7 +24,7 @@
                              required
                              disabled="@IsLoading"/>
                 <FormDescription class="text-xs">
-                    Please keep in mind, the weight will get rounded up to the nearest 100 grams.
+                    @Locale.please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams
                 </FormDescription>
                 <FormInvalidFeedback For="@(() => Command.WeightKiloGrams)"/>
             </FormField>
@@ -70,19 +70,19 @@
                 </FormField>
 
                 <FormDescription class="col-span-3">
-                    To find out more about volumetric weight and how it's calculated please visit our
-                    <Link Href="/faq" Title="FAQ"/>
+                    @Locale.calculator_volumetric_notice
+                    <Link Href="/faq" Title="@Locale.faq"/>
                 </FormDescription>
             </InlineFormFieldContainer>
 
             <FormField>
-                <FormLabel for="house-delivery">House delivery?</FormLabel>
+                <FormLabel for="house-delivery">@Locale.house_delivery?</FormLabel>
                 <Switch id="house-delivery"
                         @bind-Value="@Command.IsHouseDelivery"
                         disabled="@IsLoading"/>
                 <FormDescription>
-                    To find out more about how we calculate the package prices please visit our
-                    <Link Title="FAQ" Href="/faq"/>
+                    @Locale.calculator_price_notice
+                    <Link Href="/faq" Title="@Locale.faq"/>
                 </FormDescription>
             </FormField>
         </AppForm>
@@ -92,13 +92,13 @@
         @if (Command.VolumetricApplied)
         {
             <FormField class="pointer-events-none">
-                <FormLabel for="volumetric-price">Volumetric price</FormLabel>
+                <FormLabel for="volumetric-price">@Locale.volumetric_price</FormLabel>
                 <FormInputMoney Id="volumetric-price" Value="Command.VolumetricPrice"/>
             </FormField>
         }
 
         <FormField class="pointer-events-none">
-            <FormLabel for="total-price">Total price</FormLabel>
+            <FormLabel for="total-price">@Locale.total_price</FormLabel>
             <FormInputMoney Id="total-price" Value="Command.Price"/>
         </FormField>
     </Footer>

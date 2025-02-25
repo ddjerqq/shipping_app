@@ -13,10 +13,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="hello_world" xml:space="preserve">
         <value>Hello world</value>
@@ -330,5 +334,212 @@
     </data>
     <data name="contact_dev_team" xml:space="preserve">
         <value>Contact dev team</value>
+    </data>
+    <data name="addresses" xml:space="preserve">
+        <value>Addresses</value>
+    </data>
+    <data name="rate_per_kilo" xml:space="preserve">
+        <value>Rate</value>
+    </data>
+    <data name="hero_title" xml:space="preserve">
+        <value>Shipping Company from USA to Georgia</value>
+    </data>
+    <data name="hero_description" xml:space="preserve">
+        <value>We are a new company in the shipping industry, offering reliable, fast, and affordable services worldwide.</value>
+    </data>
+    <data name="hero_cta_text" xml:space="preserve">
+        <value>Get started</value>
+    </data>
+    <data name="why_sangoway" xml:space="preserve">
+        <value>Why SanGoWay?</value>
+    </data>
+    <data name="why_cheap_prices" xml:space="preserve">
+        <value>Cheap prices!</value>
+    </data>
+    <data name="why_cheap_prices_description" xml:space="preserve">
+        <value>We provide unmatched shipping solutions tailored to meet your unique needs, ensuring timely and secure deliveries every time.</value>
+    </data>
+    <data name="why_experience" xml:space="preserve">
+        <value>Vast Experience</value>
+    </data>
+    <data name="why_experience_description" xml:space="preserve">
+        <value>With years of experience in the logistics industry, we are dedicated to delivering exceptional service, whether you are shipping packages across the country or around the globe.</value>
+    </data>
+    <data name="why_advanced_tracking" xml:space="preserve">
+        <value>Advanced tracking</value>
+    </data>
+    <data name="why_advanced_tracking_description" xml:space="preserve">
+        <value>Our advanced tracking system and professional team guarantee peace of mind from the moment you send your parcel to the moment it reaches its destination.</value>
+    </data>
+    <data name="why_cards_packages_from_usa" xml:space="preserve">
+        <value>Packages from USA</value>
+    </data>
+    <data name="why_cards_packages_from_geo" xml:space="preserve">
+        <value>Packages from Georgia</value>
+    </data>
+    <data name="why_cards_storage_items" xml:space="preserve">
+        <value>Packages stored</value>
+    </data>
+    <data name="why_cards_moving_items" xml:space="preserve">
+        <value>Moved packages</value>
+    </data>
+    <data name="how_it_works" xml:space="preserve">
+        <value>How it works</value>
+    </data>
+    <data name="how_step_1" xml:space="preserve">
+        <value>Step 1: Register</value>
+    </data>
+    <data name="how_step_1_description" xml:space="preserve">
+        <value>Create a new account to use our services!</value>
+    </data>
+    <data name="how_step_2" xml:space="preserve">
+        <value>Step 2: Copy your address</value>
+    </data>
+    <data name="how_step_2_description" xml:space="preserve">
+        <value>After you register, You will receive an address that you can use for online shopping.&lt;br/&gt;&lt;br/&gt;Copy the address and save it on your desired ECommerce website</value>
+    </data>
+    <data name="how_step_3" xml:space="preserve">
+        <value>Step 3: Add packages</value>
+    </data>
+    <data name="how_step_3_description" xml:space="preserve">
+        <value>After you buy products online, Please declare them in your SanGoWay account.</value>
+    </data>
+    <data name="how_step_4" xml:space="preserve">
+        <value>Step 4: Receive packages!</value>
+    </data>
+    <data name="how_step_4_description" xml:space="preserve">
+        <value>After your package arrives, you will be able to pay for it.&lt;br/&gt;&lt;br/&gt;After you pay for shipping, you will receive your package</value>
+    </data>
+    <data name="testimonial_header" xml:space="preserve">
+        <value>What our customers are saying</value>
+    </data>
+    <data name="testimonial_1" xml:space="preserve">
+        <value>"This platform has transformed how I work. Highly recommended!"</value>
+    </data>
+    <data name="testimonial_1_author" xml:space="preserve">
+        <value>Tamar Bibileishvili</value>
+    </data>
+    <data name="testimonial_2" xml:space="preserve">
+        <value>"The best decision I made this year. Incredible support and features!"</value>
+    </data>
+    <data name="testimonial_2_author" xml:space="preserve">
+        <value>Ani Martiashvili</value>
+    </data>
+    <data name="testimonial_3" xml:space="preserve">
+        <value>"Outstanding quality and attention to detail. They truly care!"</value>
+    </data>
+    <data name="testimonial_3_author" xml:space="preserve">
+        <value>Mariam Nikoladze</value>
+    </data>
+    <data name="testimonial_4" xml:space="preserve">
+        <value>"I can't imagine going back to how things were before this service."</value>
+    </data>
+    <data name="testimonial_4_author" xml:space="preserve">
+        <value>Giorgi Baqradze</value>
+    </data>
+    <data name="404_header" xml:space="preserve">
+        <value>404 - Lost in Cyberspace</value>
+    </data>
+    <data name="404_description" xml:space="preserve">
+        <value>Looks like you've ventured into the unknown digital realm.</value>
+    </data>
+    <data name="404_return_home" xml:space="preserve">
+        <value>Return to home</value>
+    </data>
+    <data name="about_description" xml:space="preserve">
+        <value>Welcome to our shipping service! We pride ourselves on being the most affordable and reliable delivery service for parcels from the USA to Georgia.</value>
+    </data>
+    <data name="about_mission" xml:space="preserve">
+        <value>Our Mission</value>
+    </data>
+    <data name="about_mission_description" xml:space="preserve">
+        <value>Our goal is to make international shipping affordable and hassle-free. We ensure that your parcels are delivered safely and on time from the USA to Georgia.</value>
+    </data>
+    <data name="about_who_are_we" xml:space="preserve">
+        <value>Who are we</value>
+    </data>
+    <data name="about_who_are_we_description" xml:space="preserve">
+        <value>We are a small business driven by a passion for delivering value to our customers.</value>
+    </data>
+    <data name="owner" xml:space="preserve">
+        <value>Owner</value>
+    </data>
+    <data name="about_giorgi_sanakoevi" xml:space="preserve">
+        <value>Giorgi Sanakoevi</value>
+    </data>
+    <data name="dev_team" xml:space="preserve">
+        <value>Developer</value>
+    </data>
+    <data name="about_achievements" xml:space="preserve">
+        <value>Our achievements</value>
+    </data>
+    <data name="about_achievements_description" xml:space="preserve">
+        <value>Since our inception, we have successfully delivered 2,320 parcels from the USA to Georgia, helping countless customers enjoy affordable and reliable shipping.</value>
+    </data>
+    <data name="about_why_us" xml:space="preserve">
+        <value>Why us?</value>
+    </data>
+    <data name="about_why_us_description" xml:space="preserve">
+        <value>We combine cost-effective pricing, personalized service, and a commitment to excellence to ensure that your shipping experience is second to none. When you choose us, you’re supporting a dedicated small business that values your trust.</value>
+    </data>
+    <data name="faq_1_q" xml:space="preserve">
+        <value>What is SanGoWay?</value>
+    </data>
+    <data name="faq_2_q" xml:space="preserve">
+        <value>How does it work?</value>
+    </data>
+    <data name="faq_3_q" xml:space="preserve">
+        <value>How do I get started?</value>
+    </data>
+    <data name="faq_4_q" xml:space="preserve">
+        <value>How do I pay for shipping?</value>
+    </data>
+    <data name="faq_5_q" xml:space="preserve">
+        <value>How do I track my package?</value>
+    </data>
+    <data name="faq_6_q" xml:space="preserve">
+        <value>How do I get my package?</value>
+    </data>
+    <data name="faq_1_a" xml:space="preserve">
+        <value>SanGoWay is a platform that helps deliver packages from USA to Georgia.</value>
+    </data>
+    <data name="faq_2_a" xml:space="preserve">
+        <value>SanGoWay uses the weight and dimensions of your package to calculate the cost of shipping from the USA to Georgia.</value>
+    </data>
+    <data name="faq_3_a" xml:space="preserve">
+        <value>Getting started is easy. Just sign up and start using our services</value>
+    </data>
+    <data name="faq_4_a" xml:space="preserve">
+        <value>SanGoWay accepts payment via credit card and bank transfer.</value>
+    </data>
+    <data name="faq_5_a" xml:space="preserve">
+        <value>Once your package is shipped, you will receive a tracking number that you can use to track your package.</value>
+    </data>
+    <data name="faq_6_a" xml:space="preserve">
+        <value>Once your package arrives in Georgia, you can pick it up at our office or have it delivered to your address.</value>
+    </data>
+    <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams" xml:space="preserve">
+        <value>Please keep in mind, the weight will get rounded up to the nearest 100 grams.</value>
+    </data>
+    <data name="calculator_volumetric_notice" xml:space="preserve">
+        <value>To find out more about volumetric weight and how it's calculated please visit our</value>
+    </data>
+    <data name="calculator_description" xml:space="preserve">
+        <value>Enter the required parameters of the parcel and the calculator will calculate the cost of the delivery</value>
+    </data>
+    <data name="weight" xml:space="preserve">
+        <value>Weight</value>
+    </data>
+    <data name="calculator_price_notice" xml:space="preserve">
+        <value>To find out more about how we calculate the package prices please visit our</value>
+    </data>
+    <data name="volumetric_price" xml:space="preserve">
+        <value>Volumetric price</value>
+    </data>
+    <data name="total_price" xml:space="preserve">
+        <value>Total price</value>
+    </data>
+    <data name="house_delivery" xml:space="preserve">
+        <value>House delivery</value>
     </data>
 </root>

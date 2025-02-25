@@ -1,6 +1,6 @@
 <div class="my-32 w-full">
     <h2 class="text-4xl font-semibold mb-8">
-        How it works:
+        @Locale.how_it_works
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch gap-4 justify-around">
@@ -8,13 +8,13 @@
             <Header>
                 <CardTitle class="flex items-center gap-2">
                     <Blazicon Svg="@Lucide.UserPlus" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
-                    Step 1: Register
+                    @Locale.how_step_1
                 </CardTitle>
             </Header>
             <Content class="flex flex-col gap-4 text-muted-foreground">
-                Create a new account to use our services!
+                @((MarkupString)Locale.how_step_1_description)
                 <CtaButton>
-                    Register!
+                    @Locale.signup
                 </CtaButton>
             </Content>
         </Card>
@@ -23,12 +23,11 @@
             <Header>
                 <CardTitle class="flex items-center gap-2">
                     <Blazicon Svg="@Lucide.Warehouse" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
-                    Step 2: Copy your address
+                    @Locale.how_step_2
                 </CardTitle>
             </Header>
             <Content class="text-muted-foreground">
-                After you register, You will receive an address that you can use for online shopping.<br/><br/>
-                Copy the address and save it on your desired ECommerce website
+                @((MarkupString)Locale.how_step_2_description)
             </Content>
         </Card>
 
@@ -36,11 +35,12 @@
             <Header>
                 <CardTitle class="flex items-center gap-2">
                     <Blazicon Svg="@Lucide.BookCheck" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
-                    Step 3: Add packages
+                    @Locale.how_step_3
+
                 </CardTitle>
             </Header>
             <Content class="text-muted-foreground">
-                After you buy products online, Please declare them in your SanGoWay account.
+                @((MarkupString)Locale.how_step_3_description)
             </Content>
         </Card>
 
@@ -48,12 +48,11 @@
             <Header>
                 <CardTitle class="flex items-center gap-2">
                     <Blazicon Svg="@Lucide.Plane" class="flex-grow-0 flex-shrink-0 text-[#21bf73] !size-8"/>
-                    Step 4: Receive packages!
+                    @Locale.how_step_4
                 </CardTitle>
             </Header>
             <Content class="text-muted-foreground">
-                After your package arrives, you will be able to pay for it.<br/><br/>
-                After you pay for shipping, you will receive your package
+                @((MarkupString)Locale.how_step_4_description)
             </Content>
         </Card>
     </div>

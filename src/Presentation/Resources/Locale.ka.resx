@@ -42,7 +42,7 @@
         <value>კითხვები</value>
     </data>
     <data name="home" xml:space="preserve">
-        <value>სახლი</value>
+        <value>მთავარი</value>
     </data>
     <data name="login" xml:space="preserve">
         <value>შესვლა</value>
@@ -322,5 +322,212 @@
     </data>
     <data name="subscribe" xml:space="preserve">
         <value>გამოწერა</value>
+    </data>
+    <data name="rate_per_kilo" xml:space="preserve">
+        <value>ფასი</value>
+    </data>
+    <data name="addresses" xml:space="preserve">
+        <value>მისამართები</value>
+    </data>
+    <data name="hero_cta_text" xml:space="preserve">
+        <value>შემოგვიერთდით</value>
+    </data>
+    <data name="hero_description" xml:space="preserve">
+        <value>ჩვენ ვართ ახალი კომპანია შიპინგის ინდუსტრიაში. ჩვენ ჩამოგვაქვს ამანათები იაფად და დროულად</value>
+    </data>
+    <data name="hero_title" xml:space="preserve">
+        <value>შიპინგ კოპმანია ამერიკიდან საქართველოში</value>
+    </data>
+    <data name="why_advanced_tracking" xml:space="preserve">
+        <value>მოწინავე ტრექინგი</value>
+    </data>
+    <data name="why_advanced_tracking_description" xml:space="preserve">
+        <value>ჩვენი ტრექინგ სისტემა არის მოწინავე ინდუსტრიაში. ჩვენი პროფესიონალი დეველოპერების გუნდი უზრუნველყოფს თქვენი ამანათების სრულ უსაფრთხოებას.</value>
+    </data>
+    <data name="why_cards_moving_items" xml:space="preserve">
+        <value>გადატანილი ამანათი</value>
+    </data>
+    <data name="why_cards_packages_from_geo" xml:space="preserve">
+        <value>ამანათი საქართველოდან</value>
+    </data>
+    <data name="why_cards_packages_from_usa" xml:space="preserve">
+        <value>ამანათი ამერიკიდან</value>
+    </data>
+    <data name="why_cards_storage_items" xml:space="preserve">
+        <value>შენახული ამანათი</value>
+    </data>
+    <data name="why_cheap_prices" xml:space="preserve">
+        <value>იაფი ტარიფი</value>
+    </data>
+    <data name="why_cheap_prices_description" xml:space="preserve">
+        <value>ჩვენ გთავაზობთ შეუდარებელ ფასებს და სამომხმარებლო გამოცდილებას. ჩვენი მიზანია რომ შეგიქმნათ კომფორტული გარემო და უსაფრთხოება</value>
+    </data>
+    <data name="why_experience" xml:space="preserve">
+        <value>დიდი გამოცდილება</value>
+    </data>
+    <data name="why_experience_description" xml:space="preserve">
+        <value>ჩვენ გვაქვს წლები ლოგისტიკის ინდუსტრიაში. ჩვენი მიზანია შეუდარებელი სერვისის მოწოდება თქვენთის. მომხმარებლის კმაყოფილება ჩვენი პირველი მიზანია.</value>
+    </data>
+    <data name="why_sangoway" xml:space="preserve">
+        <value>რატომ სანგოვეი?</value>
+    </data>
+    <data name="how_it_works" xml:space="preserve">
+        <value>როგორ მუშაობს</value>
+    </data>
+    <data name="how_step_1" xml:space="preserve">
+        <value>ეტაპი 1: რეგისტრაცია</value>
+    </data>
+    <data name="how_step_2" xml:space="preserve">
+        <value>ეტაპი 2: დააკოპირეთ მისამართი</value>
+    </data>
+    <data name="how_step_3" xml:space="preserve">
+        <value>ეტაპი 3: დაადეკლარირეთ ამანათი</value>
+    </data>
+    <data name="how_step_4" xml:space="preserve">
+        <value>ეტაპი 4: მიიღეთ ამანათი</value>
+    </data>
+    <data name="how_step_1_description" xml:space="preserve">
+        <value>შექმენით ანგარიში რათა გამოიყენოთ ჩვენი სერვისი</value>
+    </data>
+    <data name="how_step_2_description" xml:space="preserve">
+        <value>რეგისტრაციის შემდეგ თქვენ მიიღებთ მისამართს რომელიც შეგიძლიათ გამოიყენოთ ონლაინ შოპინგის დროს.&lt;br/&gt;&lt;br/&gt;გამოიყენეთ ეს მისამართი როდესაც უკვეთავთ ნივთებს ონლაინ</value>
+    </data>
+    <data name="how_step_3_description" xml:space="preserve">
+        <value>ონლაინ გამოწერის შემდეგ დაადეკლარირეთ თქვენი ანამათი ჩვენს საიტზე</value>
+    </data>
+    <data name="how_step_4_description" xml:space="preserve">
+        <value>თქვენი ამანათის მიღების შემდეგ, თქვენ შეგეძლებათ დაიწყოთ მისი თრექინგი.&lt;br/&gt;&lt;br/&gt;ჩამოტანის საფასურის გადახდის შემდეგ თქვენ შეძლებთ რომ მიიღოთ თქვენი ამანათი</value>
+    </data>
+    <data name="testimonial_1" xml:space="preserve">
+        <value>"ამ პლატფორმამ შეცვალა როგორ ვმუშაობ, ვუწევ რეკომენდაციას"</value>
+    </data>
+    <data name="testimonial_1_author" xml:space="preserve">
+        <value>თამარ ბიბილეიშვილი</value>
+    </data>
+    <data name="testimonial_2_author" xml:space="preserve">
+        <value>ანი მარტიაშვილი</value>
+    </data>
+    <data name="testimonial_3_author" xml:space="preserve">
+        <value>მარიამ ნიკოლაძე</value>
+    </data>
+    <data name="testimonial_4_author" xml:space="preserve">
+        <value>გიორგი ბაქრაძე</value>
+    </data>
+    <data name="testimonial_header" xml:space="preserve">
+        <value>რას ამბობენ ჩვენი მომხმარებლები</value>
+    </data>
+    <data name="testimonial_4" xml:space="preserve">
+        <value>"ვერ წარმომიდგენია ამ სერვისამდე როგორ ვიწერდი ონლაინ ამანათებს"</value>
+    </data>
+    <data name="testimonial_2" xml:space="preserve">
+        <value>"საუკეთესო არჩევანი რაც ამ წელს გავაკეთე იყო სანგოვეიზე გადმოსვლა."</value>
+    </data>
+    <data name="testimonial_3" xml:space="preserve">
+        <value>"გასაოცარი სამომხმარებლო ინტერფეისი!"</value>
+    </data>
+    <data name="404_description" xml:space="preserve">
+        <value>როგორც ჩანს ეს გვერდი ვერ მოიძებნა</value>
+    </data>
+    <data name="404_header" xml:space="preserve">
+        <value>404 - ვერ მოიძებნა</value>
+    </data>
+    <data name="404_return_home" xml:space="preserve">
+        <value>უკან დაბრუნება</value>
+    </data>
+    <data name="about_achievements" xml:space="preserve">
+        <value>ჩვენი მიღწევები</value>
+    </data>
+    <data name="about_achievements_description" xml:space="preserve">
+        <value>ჩვენ უკვე გვაქვს 2,320 ამანათი ჩამოტანილი ამერიკიდან საქართველოში. ჩვენ ვეხმარებით უამრავ მომხმარებელს.</value>
+    </data>
+    <data name="about_giorgi_sanakoevi" xml:space="preserve">
+        <value>გიორგი სანაკოევი</value>
+    </data>
+    <data name="about_mission" xml:space="preserve">
+        <value>ჩვენი მისია</value>
+    </data>
+    <data name="about_description" xml:space="preserve">
+        <value>მოგესალმებით ჩვენს საიტზე, ჩვენ გვიხარია რომ შემოგვიერთდით</value>
+    </data>
+    <data name="about_who_are_we" xml:space="preserve">
+        <value>ვინ ვართ ჩვენ</value>
+    </data>
+    <data name="about_why_us" xml:space="preserve">
+        <value>რატომ ჩვენ?</value>
+    </data>
+    <data name="about_why_us_description" xml:space="preserve">
+        <value>ჩვენ ვაერთიანებთ იაფ ფასებს და პერსონიზირებულ სერვისს ისეთ ადვილად გამოსაყენებ ინტერფეისში რომ ძნელია კომპეტიტორებთან შედარება</value>
+    </data>
+    <data name="about_who_are_we_description" xml:space="preserve">
+        <value>ჩვენ ვართ პატარა ბიზნესი, დიდი მიზნებით: მომხმარებლისათვის ამანათების გამოწერის გაადვილება, და სარგებელი</value>
+    </data>
+    <data name="about_mission_description" xml:space="preserve">
+        <value>ჩვენი მიზანია რომ საერთაშორისო შიპინგი გავხადოთ ადვილი და ინტუიტიური თქვენთვის. ჩვენ გთავაზობთ იაფ ჩამოტანის სერვისს</value>
+    </data>
+    <data name="dev_team" xml:space="preserve">
+        <value>დეველოპერი</value>
+    </data>
+    <data name="faq_1_q" xml:space="preserve">
+        <value>რა არის სანგოვეი?</value>
+    </data>
+    <data name="faq_2_q" xml:space="preserve">
+        <value>როგორ მუშაობს?</value>
+    </data>
+    <data name="faq_3_q" xml:space="preserve">
+        <value>როგორ დავიწყო?</value>
+    </data>
+    <data name="faq_4_q" xml:space="preserve">
+        <value>როგორ გადავიხადო ჩამოტანის საფასური?</value>
+    </data>
+    <data name="faq_5_q" xml:space="preserve">
+        <value>როგორ დავთრექო ჩემი ამანათი?</value>
+    </data>
+    <data name="faq_6_q" xml:space="preserve">
+        <value>როგორ მივიღო ჩემი ამანათი?</value>
+    </data>
+    <data name="faq_1_a" xml:space="preserve">
+        <value>სანგოვეი არის პლატფორმა რომელიც გეხმარებათ ჩამოიტანოთ ამანათები ამერიკიდან</value>
+    </data>
+    <data name="faq_2_a" xml:space="preserve">
+        <value>სანგოვეი იყენებს წონას და განზომილებას ამანათის საფასურის გამოსათვლელად</value>
+    </data>
+    <data name="faq_3_a" xml:space="preserve">
+        <value>დასაწყებად დარეგისტრირდით ჩვენს საიტზე</value>
+    </data>
+    <data name="faq_4_a" xml:space="preserve">
+        <value>სანგოვეი იღებს საკრედიტო ბარათებს Stripe-ის მეშვეობით</value>
+    </data>
+    <data name="faq_5_a" xml:space="preserve">
+        <value>მას შემდეგ რაც თქვენი ამანათი გამოიგზავნება, თქვენ მიიღებთ ტრექნიგ კოდს, ამ კოდის მეშვეობით შეძლებთ რომ თვალი ადევნოთ თქვენს ამანათს</value>
+    </data>
+    <data name="faq_6_a" xml:space="preserve">
+        <value>თბილისში ჩამოსვლის შემდეგ, თქვენ შეძლებთ აიღოთ თქვენი ამანათი ან ისარგებლოთ საკურიერო სერვისით</value>
+    </data>
+    <data name="volumetric_price" xml:space="preserve">
+        <value>მოცულობითი წონაის საფასური</value>
+    </data>
+    <data name="weight" xml:space="preserve">
+        <value>წონა</value>
+    </data>
+    <data name="total_price" xml:space="preserve">
+        <value>ჯამური საფასური</value>
+    </data>
+    <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams" xml:space="preserve">
+        <value>გთხოვთ გაითვალისწინოთ რომ წონა ამრგვალდება 100 გრამზე</value>
+    </data>
+    <data name="owner" xml:space="preserve">
+        <value>მფლობელი</value>
+    </data>
+    <data name="calculator_description" xml:space="preserve">
+        <value>ჩაწერეთ პარამეტრები და გაიგეთ რამდენი დაჯდება თქვენი ამანათის ჩამოტანა ჩვენთან</value>
+    </data>
+    <data name="calculator_price_notice" xml:space="preserve">
+        <value>ფასების გამოთვლასთან დაკავშირებითი მეტი ინფორმაციის მისაღებათ, გთხოვთ იხილეთ:</value>
+    </data>
+    <data name="calculator_volumetric_notice" xml:space="preserve">
+        <value>მოცულობითი წონის ფასების გამოთვლასთან დაკავშირებითი მეტი ინფორმაციის მისაღებათ, გთხოვთ იხილეთ:</value>
+    </data>
+    <data name="house_delivery" xml:space="preserve">
+        <value>სახლში მიწოდება</value>
     </data>
 </root>
