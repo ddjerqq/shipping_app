@@ -10,11 +10,13 @@
     <div class="w-full overflow-x-scroll">
         <List>
             <Trigger Value="Country.Usa">United states</Trigger>
+            <Trigger Value="Country.UsaNoTax">United states (No Tax)</Trigger>
             <Trigger Value="Country.Uk" disabled>United Kingdom</Trigger>
         </List>
     </div>
     <TabContent Value="Country.Usa" class="space-y-4">
         <AddressDisplay
+            AddressName="United States"
             Rate="@(new Money((Currency)"USD", PackagePrice.PricePerKiloGram))"
             Address1="21-A Brookside Dr."
             City="Wilmington"
@@ -23,8 +25,23 @@
             Country="United States"
             Phone="+1 302 691 0017"/>
     </TabContent>
+
+    <TabContent Value="Country.UsaNoTax" class="space-y-4">
+        <AddressDisplay
+            AddressName="United States (duty free)"
+            AddressDescription="When ordering from this address, you do not pay any taxes. This is a duty free address."
+            Rate="@(new Money((Currency)"USD", PackagePrice.PricePerKiloGram))"
+            Address1="1618 East Ayre Street"
+            City="Wilmington"
+            State="DE"
+            ZipCode="something else"
+            Country="United States"
+            Phone="+1 347 296 8792"/>
+    </TabContent>
+
     <TabContent Value="Country.Uk" class="space-y-4">
         <AddressDisplay
+            AddressName="Uk"
             Rate="@(new Money((Currency)"USD", PackagePrice.PricePerKiloGram))"
             Address1="13 Oglethorpe Road"
             City="Dagenham"
@@ -39,6 +56,7 @@
     public enum Country
     {
         Usa,
+        UsaNoTax,
         Uk,
     }
 }

@@ -3,11 +3,19 @@
 
 <div class="grid">
     <Card>
-        <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle>@Country</CardTitle>
-            <span class="text-muted-foreground">
-                Rate: @Rate.FormatedValue / KG
-            </span>
+        <Header>
+            <CardTitle class="flex flex-row items-center justify-between">
+                <span>@AddressName</span>
+                <span class="text-muted-foreground">
+                    Rate: @Rate.FormatedValue / KG
+                </span>
+            </CardTitle>
+            @if (!string.IsNullOrWhiteSpace(AddressDescription))
+            {
+                <Description>
+                    @AddressDescription
+                </Description>
+            }
         </Header>
         <Content class="grid grid-cols-1 md:grid-cols-2 justify-between align-middle items-center gap-x-6 gap-y-3">
             <AuthorizeView>
@@ -25,6 +33,12 @@
 </div>
 
 @code {
+    [Parameter, EditorRequired]
+    public string AddressName { get; set; } = null!;
+
+    [Parameter]
+    public string? AddressDescription { get; set; }
+
     [Parameter, EditorRequired]
     public Money Rate { get; set; }
 
