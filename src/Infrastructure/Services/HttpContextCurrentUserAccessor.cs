@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Claims;
 using Application.Common;
 using Application.Services;
@@ -17,6 +18,8 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
     public Role? Role => User?.GetRole();
 
     public TimeZoneInfo? TimeZoneInfo => User?.GetTimeZone();
+
+    public CultureInfo? CultureInfo => User?.GetCulture();
 
     public async Task<User?> TryGetCurrentUserAsync(CancellationToken ct = default)
     {

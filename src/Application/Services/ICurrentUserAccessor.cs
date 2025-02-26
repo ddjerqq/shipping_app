@@ -1,3 +1,4 @@
+using System.Globalization;
 using Application.Exceptions;
 using Domain.Aggregates;
 using Domain.ValueObjects;
@@ -11,6 +12,8 @@ public interface ICurrentUserAccessor
     public Role? Role { get; }
 
     public TimeZoneInfo? TimeZoneInfo { get; }
+
+    public CultureInfo? CultureInfo { get; }
 
     public DateTime ConvertTimeToUserTime(DateTime dateTime) => TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo ?? TimeZoneInfo.Utc);
 

@@ -5,7 +5,7 @@
 
 @if (EditContext.GetValidationMessages(_fieldIdentifier).ToList() is { Count: > 0 } validationMessages)
 {
-    <div @attributes="@AdditionalAttributes" class="@(Merge("text-xs text-red-700 dark:text-red-400 space-y-2"))">
+    <div @attributes="@AdditionalAttributes" class="@(Merge("text-sm text-red-700 dark:text-red-400 space-y-2"))">
         @foreach (var message in validationMessages)
         {
             <p>@message</p>

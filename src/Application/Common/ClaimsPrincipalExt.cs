@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
@@ -17,6 +18,7 @@ public static class ClaimsPrincipalExt
     public const string SecurityStampClaimType = "security_stamp";
     public const string RoomCodeClaimType = "room_code";
     public const string TimeZoneClaimType = "time_zone";
+    public const string CultureClaimType = "time_zone";
 
     public static UserId? GetId(this ClaimsPrincipal principal) => UserId.TryParse(
         principal.Claims.FirstOrDefault(c => c.Type == IdClaimType)?.Value, null, out var id)
@@ -39,6 +41,11 @@ public static class ClaimsPrincipalExt
         principal.Claims.FirstOrDefault(c => c.Type == TimeZoneClaimType)?.Value is { } tz
             ? TimeZoneInfo.FindSystemTimeZoneById(tz)
             : null;
+
+    public static CultureInfo GetCulture(this ClaimsPrincipal principal) =>
+        principal.Claims.FirstOrDefault(c => c.Type == CultureClaimType)?.Value is { } id
+            ? CultureInfo.GetCultureInfo(id)
+            : CultureInfo.InvariantCulture;
 
     public static IEnumerable<Claim> GetAllClaims(this User user)
     {

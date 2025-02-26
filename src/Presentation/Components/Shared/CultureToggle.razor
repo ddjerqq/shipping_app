@@ -1,7 +1,10 @@
 @using System.Globalization
+@using Application.Services
 @using Presentation.Common
 @attribute [StreamRendering]
 @inject IConfiguration Configuration
+@inject IAppDbContext DbContext
+@inject ICurrentUserAccessor CurrentUserAccessor
 
 <Button Variant="outline" Size="sm" class="relative hidden sm:flex" data-dropdown-toggle="culture-dropdown">
     <img class="size-4" src="@($"/images/{CurrentCulture}.svg")" alt="@Cultures[CurrentCulture.Name]"/>
@@ -11,7 +14,7 @@
 <div id="culture-dropdown" class="z-10 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
     @foreach (var (culture, cultureName) in Cultures)
     {
-        <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(() => SetCulture(culture))">
+        <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(() => SetCultureAsync(culture))">
             <img class="size-4" src="@($"/images/{culture}.svg")" alt="@cultureName"/>
             @cultureName
         </Button>
@@ -28,11 +31,19 @@
         CurrentCulture = CultureInfo.CurrentCulture;
     }
 
-    private void SetCulture(string culture)
+    private async Task SetCultureAsync(string culture)
     {
         CurrentCulture = CultureInfo.GetCultureInfo(culture);
         CultureInfo.DefaultThreadCurrentCulture = CurrentCulture;
         CultureInfo.DefaultThreadCurrentUICulture = CurrentCulture;
+
+        // anonymous users can also change the culture
+        var currentUser = await CurrentUserAccessor.TryGetCurrentUserAsync(CancellationToken);
+        if (currentUser is not null)
+        {
+            currentUser.CultureInfo = CurrentCulture;
+            await DbContext.SaveChangesAsync(CancellationToken);
+        }
 
         var currentUri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.UriEscaped);
         var query = $"?culture={Uri.EscapeDataString(CurrentCulture.Name)}&redirectUri={Uri.EscapeDataString(currentUri)}";
