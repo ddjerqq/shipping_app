@@ -57,6 +57,8 @@ public sealed record ReceivePackageAtWarehouseCommand : IRequest<ReceivePackageA
     /// z centimeters
     /// </summary>
     public float Height { get; set; }
+
+    public Money PricePerKg { get; set; } = new("USD", 800);
 }
 
 public sealed class ReceivePackageAtWarehouseValidator : AbstractValidator<ReceivePackageAtWarehouseCommand>
@@ -64,6 +66,15 @@ public sealed class ReceivePackageAtWarehouseValidator : AbstractValidator<Recei
     public ReceivePackageAtWarehouseValidator()
     {
         RuleFor(x => x.TrackingCode).NotEmpty();
+        RuleFor(x => x.PricePerKg)
+            .Must(price => price.Amount > 0)
+            .WithMessage("Amount must be a positive number")
+            .Must(price => price.Amount % 10 == 0)
+            .WithMessage("Amount must not contain single cents")
+            .Must(price => price.Amount <= 1000)
+            .WithMessage("Amount must be less than 10")
+            .Must(price => price.Currency == "USD")
+            .WithMessage("Currency must be USD");
     }
 }
 
@@ -100,7 +111,9 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
                 request.Height,
                 request.Length,
                 request.WeightKiloGrams,
-                DateTime.UtcNow);
+                DateTime.UtcNow,
+                request.PricePerKg);
+
             await sender.Send(createPackageCommand, ct);
 
             return user is null
@@ -111,7 +124,12 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
         if (package.Statuses.Any(packageStatus => packageStatus.Status == PackageStatus.InWarehouse))
             return ReceivePackageAtWarehouseResult.PackageAlreadyInWarehouse;
 
-        package.ArrivedAtWarehouse(receiver, new Vector3(request.Width, request.Height, request.Length), (long)(request.WeightKiloGrams * 1000), DateTime.UtcNow);
+        package.ArrivedAtWarehouse(
+            receiver,
+            new Vector3(request.Width, request.Height, request.Length),
+            (long)(request.WeightKiloGrams * 1000),
+            DateTime.UtcNow,
+            request.PricePerKg);
 
         await dbContext.SaveChangesAsync(ct);
         return ReceivePackageAtWarehouseResult.Success;

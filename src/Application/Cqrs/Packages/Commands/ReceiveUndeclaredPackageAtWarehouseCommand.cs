@@ -19,7 +19,8 @@ internal sealed record ReceiveUndeclaredPackageAtWarehouse(
     float Height,
     float Length,
     float WeightKiloGrams,
-    DateTime ReceivedAt) : IRequest;
+    DateTime ReceivedAt,
+    Money PricePerKg) : IRequest;
 
 internal sealed class ReceiveUndeclaredPackageAtWarehouseHandler(IAppDbContext dbContext) : IRequestHandler<ReceiveUndeclaredPackageAtWarehouse>
 {
@@ -35,7 +36,12 @@ internal sealed class ReceiveUndeclaredPackageAtWarehouseHandler(IAppDbContext d
             false,
             request.Owner);
 
-        package.ArrivedAtWarehouse(request.Receiver, new Vector3(request.Width, request.Height, request.Length), (long)(request.WeightKiloGrams * 1000), request.ReceivedAt);
+        package.ArrivedAtWarehouse(
+            request.Receiver,
+            new Vector3(request.Width, request.Height, request.Length),
+            (long)(request.WeightKiloGrams * 1000),
+            request.ReceivedAt,
+            request.PricePerKg);
         request.Owner.Packages.Add(package);
 
         await dbContext.SaveChangesAsync(ct);

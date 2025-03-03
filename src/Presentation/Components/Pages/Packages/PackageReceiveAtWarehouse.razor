@@ -11,6 +11,15 @@
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
+            <FormField>
+                <FormLabel for="price-per-kg">Price per KG</FormLabel>
+                <FormInputMoney Id="price-per-kg"
+                                disabled="@IsLoading"
+                                @bind-Value="@Command.PricePerKg" required/>
+                <FormDescription>Enter the price for kilogram of shipping here.</FormDescription>
+                <FormInvalidFeedback For="@(() => Command.PricePerKg)"/>
+            </FormField>
+
             <InlineFormFieldContainer>
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
@@ -141,6 +150,7 @@
                     await Task.Delay(1000, CancellationToken);
                     NavigationManager.NavigateTo("/packages/all?status=Awaiting");
                 }
+
                 break;
             case ReceivePackageAtWarehouseResult.NoOwnerFound:
                 ShowWarning("No owner found for this package. The Package has been added to your name. The user will have to ask for the package later.");

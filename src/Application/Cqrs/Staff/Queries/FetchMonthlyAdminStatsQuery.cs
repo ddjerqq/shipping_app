@@ -66,16 +66,17 @@ internal sealed class FetchMonthlyAdminStatsQueryHandler(IAppDbContext dbContext
                 p.Dimensions,
                 p.Weight,
                 p.HouseDelivery,
+                p.PricePerKg,
             })
             .ToListAsync(ct);
 
         var shippingRevenueThisMonth = packageData
             .Where(p => p.Created.Year == NowYear && p.Created.Month == NowMonth)
-            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery).Amount);
+            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery, p.PricePerKg ?? new Money("USD", 0)).Amount);
 
         var shippingRevenueLastMonth = packageData
             .Where(p => p.Created.Year == LastYear && p.Created.Month == LastMonth)
-            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery).Amount);
+            .Sum(p => PackagePrice.GetTotalPrice(p.Dimensions!.Value.X, p.Dimensions.Value.Y, p.Dimensions.Value.Z, p.Weight!.Value, p.HouseDelivery, p.PricePerKg ?? new Money("USD", 0)).Amount);
 
         return (shippingRevenueThisMonth, shippingRevenueLastMonth);
     }

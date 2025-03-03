@@ -69,9 +69,10 @@ public sealed class PackageTests
             new Money("USD", 20),
             1,
             false,
-            sender);
+            sender,
+            new Money("USD", 800));
 
-        package.ArrivedAtWarehouse(staffOrigin, new Vector3(100, 100, 100), 100, originTime);
+        package.ArrivedAtWarehouse(staffOrigin, new Vector3(100, 100, 100), 100, originTime, new Money("USD", 800));
         package.SentToDestination(staffOrigin, race, originTime.AddHours(4));
         package.ArrivedAtDestination(staffDestination, destTime.AddHours(12));
         package.Delivered(destTime.AddHours(14));

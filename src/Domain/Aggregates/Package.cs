@@ -42,8 +42,13 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     /// </summary>
     public long? Weight { get; private set; }
 
+    /// <summary>
+    /// Set this when receiving the package in the warehouse
+    /// </summary>
+    public Money? PricePerKg { get; set; }
+
     public PackagePrice? Price => this is { Dimensions: {X: var x, Y: var y, Z: var z}, Weight: {} weight }
-        ? new PackagePrice(x, y, z, weight, HouseDelivery)
+        ? new PackagePrice(x, y, z, weight, HouseDelivery, PricePerKg ?? new Money("USD", 0))
         : null;
 
     public bool IsPaid { get; private set; }
@@ -74,7 +79,7 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     /// <summary>
     /// Creates the package, generating the tracking code if null, and adds it to the user's packages.
     /// </summary>
-    public static Package Create(TrackingCode? trackingCode, Category category, string description, string? websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner)
+    public static Package Create(TrackingCode? trackingCode, Category category, string description, string? websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner, Money? pricePerKg = null)
     {
         var packageId = PackageId.New();
         var package = new Package(packageId)
@@ -89,6 +94,8 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
 
             OwnerId = owner.Id,
             Owner = owner,
+
+            PricePerKg = pricePerKg,
 
             Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTime.Now)],
         };
@@ -113,8 +120,9 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <inheritdoc cref="PackageReceptionStatus.AtWarehouse"/>
-    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, long weightGrams, DateTime date)
+    public void ArrivedAtWarehouse(User staff, Vector3 dimensions, long weightGrams, DateTime date, Money pricePerKg)
     {
+        PricePerKg = pricePerKg;
         Dimensions = dimensions;
         Weight = weightGrams;
         UpdateStatus(PackageReceptionStatus.AtWarehouse(Id, staff.Id, date));

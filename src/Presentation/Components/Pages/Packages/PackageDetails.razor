@@ -155,6 +155,16 @@
                            value="@(Package.Owner.Username.CapitalizeName())"/>
                 </FormField>
 
+                @if (Package.PricePerKg is not null)
+                {
+                    <FormField>
+                        <FormLabel for="price-per-kg">Price per KG</FormLabel>
+                        <FormInputMoney Id="price-per-kg"
+                                        disabled
+                                        Value="@Package.PricePerKg!.Value"/>
+                    </FormField>
+                }
+
                 <FormField>
                     <FormLabel for="tracking-code">Tracking code</FormLabel>
                     <input id="tracking-code"

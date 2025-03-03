@@ -68,7 +68,7 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
     }
 }
 
-internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, ICurrentUserAccessor currentUser, IFileStore fileStore) : IRequestHandler<CreatePackageCommand, Package>
+internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, IFileStore fileStore) : IRequestHandler<CreatePackageCommand, Package>
 {
     public async Task<Package> Handle(CreatePackageCommand request, CancellationToken ct)
     {
