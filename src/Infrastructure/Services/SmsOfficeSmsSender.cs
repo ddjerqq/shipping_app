@@ -42,6 +42,7 @@ public sealed class SmsOfficeApiResponse
 public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpClient http) : ISmsSender
 {
     private static string ApiKey => "SMS_OFFICE__API_KEY".FromEnvRequired();
+    private static bool IsDevelopment => "ASPNETCORE_ENVIRONMENT".FromEnv() is "Development";
 
     private static string GetFormattedUrl(string number, string content)
     {
@@ -59,6 +60,11 @@ public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpC
 
     public async Task SendAsync(string number, string content, CancellationToken ct = default)
     {
+        if (IsDevelopment)
+        {
+            logger.LogInformation("[DEVELOPMENT] Sending {Recipient} {Content}", number, content);
+        }
+
         var balance = await GetRemainingSmsBalance(ct);
         if (balance < 10)
         {
@@ -74,5 +80,7 @@ public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpC
         {
             logger.LogError("Error sending text to ***{Number}: {@ApiResponse}", number[^2..], apiResponse);
         }
+
+        logger.LogInformation("Sent SMS to ***{Recipient}", number[^2..]);
     }
 }

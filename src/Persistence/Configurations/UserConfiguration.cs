@@ -57,7 +57,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
                 tz => tz.Id,
                 id => TimeZoneInfo.FindSystemTimeZoneById(id));
 
-        builder.HasMany(user => user.Packages)
+        builder.HasMany(user => user.ReceivedPackages)
             .WithOne(package => package.Owner)
             .HasForeignKey(package => package.OwnerId)
             .OnDelete(DeleteBehavior.Cascade)

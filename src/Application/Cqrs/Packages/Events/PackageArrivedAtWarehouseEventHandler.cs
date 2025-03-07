@@ -15,13 +15,11 @@ internal sealed class PackageArrivedAtWarehouseEventHandler(
     public async Task Handle(PackageArrivedAtWarehouse notification, CancellationToken ct)
     {
         var staff = await dbContext.Users.FindAsync([notification.StaffId], ct);
+        var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
+
         logger.LogInformation(
             "Package {PackageId} has been received at the warehouse by {StaffId} at {Date}",
             notification.PackageId, staff?.Id, notification.Date);
-
-        var package = await dbContext.Packages
-            .Include(package => package.Owner)
-            .FirstOrDefaultAsync(x => x.Id == notification.PackageId, ct);
 
         await notifier.NotifyPackageArrivedAtWarehouse(package!.Owner, package, ct);
     }

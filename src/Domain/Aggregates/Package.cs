@@ -28,6 +28,9 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     public string? InvoiceFileKey { get; set; }
     public string? PictureFileKey { get; set; }
 
+    public UserId? SenderId { get; init; }
+    public User? Sender { get; init; }
+
     public required UserId OwnerId { get; init; }
     public required User Owner { get; init; } = null!;
 
@@ -77,14 +80,14 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
     }
 
     /// <summary>
-    /// Creates the package, generating the tracking code if null, and adds it to the user's packages.
+    /// Creates the package when user is receiving online orders.
     /// </summary>
-    public static Package Create(TrackingCode? trackingCode, Category category, string description, string? websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner, Money? pricePerKg = null)
+    public static Package CreateOnline(TrackingCode trackingCode, Category category, string description, string? websiteAddress, Money retailPrice, int itemCount, bool houseDelivery, User owner, Money? pricePerKg = null)
     {
         var packageId = PackageId.New();
         var package = new Package(packageId)
         {
-            TrackingCode = trackingCode ?? TrackingCode.New(),
+            TrackingCode = trackingCode,
             Category = category,
             Description = description,
             WebsiteAddress = websiteAddress,
@@ -92,6 +95,8 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
             ItemCount = itemCount,
             HouseDelivery = houseDelivery,
 
+            SenderId = null,
+            Sender = null,
             OwnerId = owner.Id,
             Owner = owner,
 
@@ -100,7 +105,40 @@ public sealed class Package(PackageId id) : AggregateRoot<PackageId>(id)
             Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTime.Now)],
         };
 
-        owner.Packages.Add(package);
+        owner.ReceivedPackages.Add(package);
+
+        return package;
+    }
+
+    /// <summary>
+    /// Creates the package when a user is sending the package to another
+    /// </summary>
+    public static Package CreatePersonal(Category category, User sender, User receiver, Money? pricePerKg = null)
+    {
+        var packageId = PackageId.New();
+        var package = new Package(packageId)
+        {
+            TrackingCode = TrackingCode.New(),
+            Category = category,
+            Description = "User Send User",
+            RetailPrice = new Money("USD", 1),
+            WebsiteAddress = "sangoway.com",
+            ItemCount = 1,
+            HouseDelivery = false,
+
+            SenderId = sender.Id,
+            Sender = sender,
+
+            OwnerId = receiver.Id,
+            Owner = receiver,
+
+            PricePerKg = pricePerKg,
+
+            Statuses = [PackageReceptionStatus.Awaiting(packageId, DateTime.Now)],
+        };
+
+        sender.SentPackages.Add(package);
+        receiver.ReceivedPackages.Add(package);
 
         return package;
     }

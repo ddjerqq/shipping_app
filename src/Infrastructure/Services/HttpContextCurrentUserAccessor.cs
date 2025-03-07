@@ -27,7 +27,7 @@ public sealed class HttpContextCurrentUserAccessor(IHttpContextAccessor httpCont
             return null;
 
         var user = await dbContext.Users
-            .Include(u => u.Packages)
+            .Include(u => u.ReceivedPackages)
             .ThenInclude(package => package.Statuses)
             .AsSplitQuery()
             .Where(u => u.Id == id)

@@ -39,7 +39,7 @@
             <Blazicon Svg="@Icons.Truck" class="text-muted-foreground size-4"/>
         </Header>
         <Content class="text-2xl font-bold">
-            @User.Packages.Count
+            @User.ReceivedPackages.Count
         </Content>
         <Footer class="text-muted-foreground text-xs">
             The total amount of packages you have ever ordered
@@ -67,7 +67,7 @@
 
     private Money AmountDue => new(
         PackagePrice.DefaultCurrency,
-        User.Packages
+        User.ReceivedPackages
             .Where(p => !p.IsPaid)
             .Where(p => p.CurrentStatus.Status is PackageStatus.Arrived)
             .Sum(p => p.Price!.TotalPrice.Amount));

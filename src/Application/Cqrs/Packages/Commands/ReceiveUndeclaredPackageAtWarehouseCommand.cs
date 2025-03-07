@@ -26,7 +26,7 @@ internal sealed class ReceiveUndeclaredPackageAtWarehouseHandler(IAppDbContext d
 {
     public async Task Handle(ReceiveUndeclaredPackageAtWarehouse request, CancellationToken ct)
     {
-        var package = Package.Create(
+        var package = Package.CreateOnline(
             (TrackingCode)request.TrackingCode,
             Category.OtherConsumerProducts,
             "-",
@@ -42,7 +42,7 @@ internal sealed class ReceiveUndeclaredPackageAtWarehouseHandler(IAppDbContext d
             (long)(request.WeightKiloGrams * 1000),
             request.ReceivedAt,
             request.PricePerKg);
-        request.Owner.Packages.Add(package);
+        request.Owner.ReceivedPackages.Add(package);
 
         await dbContext.SaveChangesAsync(ct);
     }

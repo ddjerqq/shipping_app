@@ -38,7 +38,7 @@
                                 <AuthorizeView Roles="Staff,Admin">
                                     @if (status.Staff?.Username.CapitalizeName() is { } username)
                                     {
-                                        @:by @username
+                                        <b>by @username</b>
                                     }
                                 </AuthorizeView>
                             </li>
@@ -139,17 +139,20 @@
         </Header>
         <Content>
             <AppForm @bind-Model="Package" OnValidSubmit="Update" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                <FormField class="col-span-1 sm:col-span-2">
-                    <FormLabel for="owner-id">Owner Id</FormLabel>
-                    <input id="owner-id"
-                           class="@FormInputText.BaseClass"
-                           disabled
-                           value="@Package.OwnerId"/>
-                </FormField>
+                @if (Package.Sender is not null)
+                {
+                    <FormField>
+                        <FormLabel for="sender-name">Sender</FormLabel>
+                        <input id="sender-name"
+                               class="@FormInputText.BaseClass"
+                               disabled
+                               value="@(Package.Sender.Username.CapitalizeName())"/>
+                    </FormField>
+                }
 
-                <FormField class="col-span-1 sm:col-span-2">
-                    <FormLabel for="owner-name">Owner Name</FormLabel>
-                    <input id="owner-name"
+                <FormField>
+                    <FormLabel for="receiver-name">Receiver</FormLabel>
+                    <input id="receiver-name"
                            class="@FormInputText.BaseClass"
                            disabled
                            value="@(Package.Owner.Username.CapitalizeName())"/>

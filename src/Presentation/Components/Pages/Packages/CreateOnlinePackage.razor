@@ -1,4 +1,4 @@
-@page "/packages/new"
+@page "/packages/new/online"
 @using Application.Cqrs.Packages.Commands
 @using Application.Services
 @using Domain.Aggregates
@@ -9,12 +9,12 @@
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUser
 
-<PageTitle>Declare new package</PageTitle>
+<PageTitle>Declare new online package</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Declare new package</CardTitle>
-        <Description>Please pre-declare your packages so that there aren't any delays when shipping it</Description>
+        <CardTitle>Declare new online package</CardTitle>
+        <Description>Please pre-declare your online shopping packages so that there aren't any delays when shipping it</Description>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate>
@@ -145,7 +145,7 @@
 </Card>
 
 @code {
-    private CreatePackageCommand Command { get; set; } = new();
+    private CreateOnlinePackageCommand Command { get; set; } = new();
     private IEnumerable<User> Users { get; set; } = [];
 
     protected override async Task OnInitializedAsync()
@@ -166,7 +166,7 @@
     {
         await SendCommandAsync(Command);
         ShowSuccess("You successfully declared your package!");
-        Command = new CreatePackageCommand();
+        Command = new CreateOnlinePackageCommand();
     }
 
     private void UploadInvoice(InputFileChangeEventArgs args)

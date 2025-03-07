@@ -15,11 +15,7 @@ internal sealed class PackageSentToDestinationEventHandler(
     public async Task Handle(PackageSentToDestination notification, CancellationToken ct)
     {
         var staff = await dbContext.Users.FindAsync([notification.StaffId], ct);
-
-        var package = await dbContext.Packages
-            .Include(x => x.Owner)
-            .FirstOrDefaultAsync(x => x.Id == notification.PackageId, ct);
-
+        var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
         var race = await dbContext.Races.FindAsync([notification.RaceId], ct);
 
         logger.LogInformation(

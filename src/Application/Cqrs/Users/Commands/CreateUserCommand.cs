@@ -78,7 +78,7 @@ public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCom
     }
 }
 
-internal sealed class CreateUserCommandHandler(IEmailSender emailSender, IAppDbContext dbContext)
+internal sealed class CreateUserCommandHandler(IAppDbContext dbContext)
     : IRequestHandler<CreateUserCommand, User>
 {
     public async Task<User> Handle(CreateUserCommand request, CancellationToken ct)

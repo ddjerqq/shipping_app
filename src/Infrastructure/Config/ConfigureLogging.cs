@@ -36,8 +36,8 @@ public static class LoggingExt
 
         var levelSwitch = new LoggingLevelSwitch();
 
-        var seqHost = "SEQ__HOST".FromEnvRequired();
-        var seqApiKey = "SEQ__API_KEY".FromEnvRequired();
+        var seqHost = "SEQ__HOST".FromEnv();
+        var seqApiKey = "SEQ__API_KEY".FromEnv();
 
         if (!string.IsNullOrWhiteSpace(seqHost) && !string.IsNullOrWhiteSpace(seqApiKey))
             config = config.WriteTo.Seq(seqHost,

@@ -1,6 +1,6 @@
 namespace UnitTests.Packages;
 
-public sealed class CreatePackageCommandTests
+public sealed class CreateOnlinePackageCommandTests
 {
     [Test]
     public void TestCreation()

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Cqrs.Packages.Commands;
 
-public sealed record CreatePackageCommand : IRequest<Package>
+public sealed record CreateOnlinePackageCommand : IRequest<Package>
 {
     public const long MaxFileSizeBytes = 1_000_000;
 
@@ -27,9 +27,9 @@ public sealed record CreatePackageCommand : IRequest<Package>
     public IBrowserFile? InvoiceFile { get; set; }
 }
 
-public sealed class CreatePackageValidator : AbstractValidator<CreatePackageCommand>
+public sealed class CreateOnlinePackageValidator : AbstractValidator<CreateOnlinePackageCommand>
 {
-    public CreatePackageValidator(IAppDbContext dbContext)
+    public CreateOnlinePackageValidator(IAppDbContext dbContext)
     {
         RuleFor(x => x.TrackingCode).NotNull().MinimumLength(10).MaximumLength(64).Must(TrackingCode.IsValid).WithMessage("Tracking code is malformed!");
         RuleFor(x => x.Category).NotNull();
@@ -39,12 +39,12 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
         RuleFor(x => x.ItemCount).NotNull().GreaterThanOrEqualTo(1);
 
         RuleFor(x => x.InvoiceFile)
-            .Must(x => x!.Size <= CreatePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
+            .Must(x => x!.Size <= CreateOnlinePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
             .Must(x => Path.GetExtension(x!.Name) is ".pdf").WithMessage("The file must be a .pdf format")
             .When(command => command.InvoiceFile is not null);
 
         RuleFor(x => x.PictureFile)
-            .Must(x => x!.Size <= CreatePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
+            .Must(x => x!.Size <= CreateOnlinePackageCommand.MaxFileSizeBytes).WithMessage("The file is too big, must be less than 1mb")
             .Must(x => Path.GetExtension(x!.Name) is ".jpg" or ".jpeg" or ".png").WithMessage("The file must be a .jpg, .jpeg, or .png format")
             .When(command => command.PictureFile is not null);
 
@@ -68,11 +68,11 @@ public sealed class CreatePackageValidator : AbstractValidator<CreatePackageComm
     }
 }
 
-internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, IFileStore fileStore) : IRequestHandler<CreatePackageCommand, Package>
+internal sealed class CreateOnlinePackageCommandHandler(IAppDbContext dbContext, IFileStore fileStore) : IRequestHandler<CreateOnlinePackageCommand, Package>
 {
-    public async Task<Package> Handle(CreatePackageCommand request, CancellationToken ct)
+    public async Task<Package> Handle(CreateOnlinePackageCommand request, CancellationToken ct)
     {
-        var package = Package.Create(
+        var package = Package.CreateOnline(
             (TrackingCode)request.TrackingCode,
             request.Category,
             request.Description,
@@ -84,13 +84,13 @@ internal sealed class CreatePackageCommandHandler(IAppDbContext dbContext, IFile
 
         if (request.InvoiceFile is not null)
         {
-            await using var fileStream = request.InvoiceFile.OpenReadStream(CreatePackageCommand.MaxFileSizeBytes, ct);
+            await using var fileStream = request.InvoiceFile.OpenReadStream(CreateOnlinePackageCommand.MaxFileSizeBytes, ct);
             package.InvoiceFileKey = await fileStore.CreateFileAsync(fileStream, Path.GetExtension(request.InvoiceFile.Name), ct);
         }
 
         if (request.PictureFile is not null)
         {
-            await using var fileStream = request.PictureFile.OpenReadStream(CreatePackageCommand.MaxFileSizeBytes, ct);
+            await using var fileStream = request.PictureFile.OpenReadStream(CreateOnlinePackageCommand.MaxFileSizeBytes, ct);
             package.PictureFileKey = await fileStore.CreateFileAsync(fileStream, Path.GetExtension(request.PictureFile.Name), ct);
         }
 

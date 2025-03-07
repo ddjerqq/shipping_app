@@ -45,28 +45,40 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
         return sender.SendAsync(user.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has arrived at our warehouse (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+        await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package is on it's way (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+        await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
         var content = $"Your package has arrived (tracking code: {package.TrackingCode}). Please pay for shipping as soon as possible!";
-        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+        await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.PhoneNumber, content, ct);
     }
 
-    public Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
+    public async Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
         var content = $"Your package has been delivered (tracking code: {package.TrackingCode})";
-        return sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+        await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.PhoneNumber, content, ct);
     }
 
     public async Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
@@ -75,6 +87,9 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
                       $"Please contact our support team for more information! support@sangoway.com \n" +
                       $"For a full list of prohibited items please see: https://www.rs.ge/OnlineOrders?cat=3&tab=1";
         await sender.SendAsync(package.Owner.PhoneNumber, content, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.PhoneNumber, content, ct);
     }
 
     public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)

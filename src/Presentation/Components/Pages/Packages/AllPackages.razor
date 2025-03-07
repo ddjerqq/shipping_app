@@ -42,9 +42,14 @@
                             </Button>
                         </AuthorizeView>
 
-                        <Button Href="/packages/new" class="ms-2">
+                        <Button Href="/packages/new/personal" class="ms-2">
                             <Blazicon Svg="@Lucide.PackagePlus"/>
-                            Add
+                            Add Personal
+                        </Button>
+
+                        <Button Href="/packages/new/online" class="ms-2">
+                            <Blazicon Svg="@Lucide.PackagePlus"/>
+                            Add Online
                         </Button>
                     </div>
                 </div>
@@ -91,13 +96,12 @@
         SelectedStatus = Enum.TryParse<PackageStatus>(BoundStatus, out var selectedStatus) ? selectedStatus : PackageStatus.Awaiting;
 
         await FetchData();
-        StateHasChanged();
     }
 
     private async Task FetchData()
     {
         TotalPackages = await DbContext.Packages
-            .WhereIf(CurrentUser.Role is Role.User, package => package.OwnerId == CurrentUser.Id)
+            .WhereIf(CurrentUser.Role is Role.User, package => package.SenderId == CurrentUser.Id || package.OwnerId == CurrentUser.Id)
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .CountAsync();
 
@@ -107,7 +111,7 @@
             .Include(package => package.Statuses)
             .ThenInclude(status => status.Staff)
             .AsSplitQuery()
-            .WhereIf(CurrentUser.Role is Role.User, package => package.OwnerId == CurrentUser.Id)
+            .WhereIf(CurrentUser.Role is Role.User, package => package.SenderId == CurrentUser.Id || package.OwnerId == CurrentUser.Id)
             .Where(package => package.Statuses.OrderByDescending(status => status.Status).First().Status == SelectedStatus)
             .OrderByDescending(x => x.Id)
             .Skip(PaginatorState.Skip)

@@ -9,10 +9,7 @@ public sealed class PackageIsDeemedProhibitedEventHandler(IAppDbContext dbContex
 {
     public async Task Handle(PackageIsDeemedProhibited notification, CancellationToken ct)
     {
-        var package = await dbContext.Packages
-            .Include(x => x.Owner)
-            .FirstOrDefaultAsync(x => x.Id == notification.PackageId, ct);
-
+        var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
         await notifier.NotifyPackageIsDeemedProhibited(package!, ct);
     }
 }

@@ -61,8 +61,8 @@ public sealed class PackageTests
             Arrival = destTime.AddHours(8),
         };
 
-        var package = Package.Create(
-            null,
+        var package = Package.CreateOnline(
+            TrackingCode.New(),
             Category.Toy,
             "water blaster toy for kids",
             "amazon.com",

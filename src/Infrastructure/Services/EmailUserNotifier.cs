@@ -49,34 +49,49 @@ public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, 
         return sender.SendAsync(user.Email, "Your account is scheduled for deletion", markup, ct);
     }
 
-    public Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetPackageArrivedAtWarehouseMarkup(package);
-        return sender.SendAsync(package.Owner.Email, "Your package has arrived at our warehouse!", markup, ct);
+        await sender.SendAsync(package.Owner.Email, "Your package has arrived at our warehouse!", markup, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.Email, "Your package has arrived at our warehouse!", markup, ct);
     }
 
-    public Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetPackageSentToDestinationMarkup(package);
-        return sender.SendAsync(package.Owner.Email, "Your package is on it's way", markup, ct);
+        await sender.SendAsync(package.Owner.Email, "Your package is on it's way", markup, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.Email, "Your package is on it's way", markup, ct);
     }
 
-    public Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
+    public async Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetPackageArrivedAtDestinationMarkup(package);
-        return sender.SendAsync(package.Owner.Email, "Your package has arrived - Please pay for shipping!", markup, ct);
+        await sender.SendAsync(package.Owner.Email, "Your package has arrived - Please pay for shipping!", markup, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.Email, "Your package has arrived - Please pay for shipping!", markup, ct);
     }
 
-    public Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
+    public async Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetPackageDeliveredMarkup(package);
-        return sender.SendAsync(package.Owner.Email, "Your package has been delivered", markup, ct);
+        await sender.SendAsync(package.Owner.Email, "Your package has been delivered", markup, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.Email, "Your package has been delivered", markup, ct);
     }
 
-    public Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
+    public async Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
     {
         var markup = emailMarkupProvider.GetPackageIsDeemedProhibitedMarkup(package);
-        return sender.SendAsync(package.Owner.Email, "Your package has been deemed prohibited!", markup, ct);
+        await sender.SendAsync(package.Owner.Email, "Your package has been deemed prohibited!", markup, ct);
+
+        if (package.Sender is not null)
+            await sender.SendAsync(package.Sender.Email, "Your package has been deemed prohibited!", markup, ct);
     }
 
     public Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)

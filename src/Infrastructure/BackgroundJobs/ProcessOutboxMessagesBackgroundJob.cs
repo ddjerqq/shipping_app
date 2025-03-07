@@ -46,7 +46,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
                 continue;
             }
 
-            using var activity = Log.Logger.StartActivity("Publish {DomainEvent}", domainEvent);
+            using var activity = Log.Logger.StartActivity("Publishing {DomainEvent}", domainEvent);
 
             try
             {
@@ -61,6 +61,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
             finally
             {
                 message.ProcessedOn = DateTime.UtcNow;
+                activity.Complete(LogEventLevel.Information);
                 await Log.CloseAndFlushAsync();
             }
         }

@@ -14,9 +14,7 @@ internal sealed class PackageDeliveredEventHandler(
 {
     public async Task Handle(PackageDelivered notification, CancellationToken ct)
     {
-        var package = await dbContext.Packages
-            .Include(x => x.Owner)
-            .FirstOrDefaultAsync(x => x.Id == notification.PackageId, ct);
+        var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
 
         logger.LogInformation(
             "Package {PackageId} has been delivered to the user at {Date}",

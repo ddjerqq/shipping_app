@@ -40,7 +40,7 @@ public partial record struct TrackingCode(string Value)
         var b = Random.Shared.NextInt64(0, long.MaxValue);
 
         var code = $"{a}{b}"[..21];
-        return new TrackingCode($"GEO{code}SGW");
+        return new TrackingCode($"GE{code}SGW");
     }
 
     [GeneratedRegex(@"^(\d{20,22}|\d{16}|\d{15}|C\d{14}|\d{14}|\d{12}|\d{10}|TBA[A-Z0-9]{10}|[A-Z]{2}\d{9}[A-Z]{2}|1Z[A-Z0-9]{16})$")]

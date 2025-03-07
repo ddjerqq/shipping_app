@@ -23,8 +23,14 @@ internal class PackageConfiguration : IEntityTypeConfiguration<Package>
         builder.Property(x => x.InvoiceFileKey).HasMaxLength(64);
         builder.Property(x => x.PictureFileKey).HasMaxLength(64);
 
+        builder.HasOne(package => package.Sender)
+            .WithMany(user => user.SentPackages)
+            .HasForeignKey(package => package.SenderId)
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Navigation(package => package.Sender).AutoInclude();
+
         builder.HasOne(package => package.Owner)
-            .WithMany(user => user.Packages)
+            .WithMany(user => user.ReceivedPackages)
             .HasForeignKey(package => package.OwnerId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
