@@ -22,31 +22,56 @@
             <CardTitle class="text-2xl">SanGoWay</CardTitle>
         </Header>
         <Content class="w-full flex flex-col items-center p-0">
-            <div class="w-full p-6 px-16">
-                <h2 class="text-start text-xl font-bold">Owner</h2>
-                <div class="flex justify-between">
-                    <span>ID:</span>
-                    <span>@Package.Owner.Id</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Name:</span>
-                    <span>@Package.Owner.Username.CapitalizeName()</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Phone:</span>
-                    <span>@Package.Owner.PhoneNumber</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>EMail:</span>
-                    <span>@Package.Owner.Email</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Address:</span>
-                    <span>@Package.Owner.AddressInfo.AddressToString()</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Address 2:</span>
-                    <span>@Package.Owner.RoomCode</span>
+            <div class="@($"w-full grid {(Package.Sender is not null ? "grid-cols-2" : "grid-cols-1")}")">
+                @if (Package.Sender is not null)
+                {
+                    <div class="w-full text-start border border-dashed border-black text-sm p-2">
+                        <h2 class="text-xl font-bold">Sender</h2>
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.User"/>
+                            <span class="text-wrap">@Package.Sender.Username.CapitalizeName()</span>
+                        </div>
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.Phone"/>
+                            <span class="text-wrap">@Package.Sender.PhoneNumber</span>
+                        </div>
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.Mail"/>
+                            <span class="text-wrap">@Package.Sender.Email</span>
+                        </div>
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.MapPinHouse"/>
+                            <span class="text-wrap">@Package.Sender.AddressInfo.AddressToString()</span>
+                        </div>
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.DoorOpen"/>
+                            <span class="text-wrap">@Package.Sender.RoomCode</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="w-full text-start border border-dashed border-black text-sm p-2">
+                    <h2 class="text-xl font-bold">Receiver</h2>
+                    <div class="flex gap-1 items-center">
+                        <Blazicon Svg="@Lucide.User"/>
+                        <span class="text-wrap">@Package.Owner.Username.CapitalizeName()</span>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <Blazicon Svg="@Lucide.Phone"/>
+                        <span class="text-wrap">@Package.Owner.PhoneNumber</span>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <Blazicon Svg="@Lucide.Mail"/>
+                        <span class="text-wrap">@Package.Owner.Email</span>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <Blazicon Svg="@Lucide.MapPinHouse"/>
+                        <span class="text-wrap">@Package.Owner.AddressInfo.AddressToString()</span>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <Blazicon Svg="@Lucide.DoorOpen"/>
+                        <span class="text-wrap">@Package.Owner.RoomCode</span>
+                    </div>
                 </div>
             </div>
 
@@ -54,7 +79,7 @@
                 <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode.Value.ToUpperInvariant()}?dpi=600")" alt="@Package.TrackingCode"/>
             </div>
 
-            <div class="w-full p-6 px-16">
+            <div class="w-full p-6 px-16 border border-dashed border-black">
                 <div class="flex justify-between">
                     <span>Weight</span>
                     <span>@(((float?)Package.Weight / 1000)?.ToString("N2")) kg</span>
@@ -65,15 +90,11 @@
                 </div>
             </div>
         </Content>
-        <Footer class="pt-4 border-t border-dashed border-black text-lg text-bold text-muted-foreground">
+        <Footer class="pt-4 border border-dashed border-black text-lg text-bold text-muted-foreground">
             <div class="w-full">
                 <div class="flex justify-between">
                     <span>Label created at:</span>
                     <span>@CurrentUser.ConvertTimeToUserTime(DateTime.UtcNow).ToString("yyyy-MM-dd HH:mm:ss UTCzzz")</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>Label created by:</span>
-                    <span>@User?.Id</span>
                 </div>
                 <div class="flex justify-between">
                     <span>Package ID:</span>

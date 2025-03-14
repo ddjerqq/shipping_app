@@ -89,10 +89,17 @@
 
                             @if (Package.CurrentStatus.Status == PackageStatus.InWarehouse)
                             {
+                                <div>
                                 <Button Href="@($"/races/add_package/?package_id={Package.Id}")">
                                     <Blazicon Svg="@Lucide.Plane"/>
                                     Add to race
                                 </Button>
+
+                                <Button Href="@($"/packages/label/{Package.Id}")" Variant="outline">
+                                    <Blazicon Svg="@Lucide.Ticket"/>
+                                    Label
+                                </Button>
+                                </div>
                             }
 
                             @if (Package.CurrentStatus.Status == PackageStatus.InTransit)
