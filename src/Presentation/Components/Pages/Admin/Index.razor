@@ -3,48 +3,48 @@
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Admin dashboard</PageTitle>
+<PageTitle>@Locale.admin_dashboard</PageTitle>
 
 <AdminStatus/>
 
 <ul class="grid gap-4 grid-cols-1 md:grid-cols-2">
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/new/online" Variant="outline">
         <Blazicon Svg="@Lucide.PackagePlus" class="!size-6"/>
-        Add Online Package
+        @Locale.add_online
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/new/personal" Variant="outline">
         <Blazicon Svg="@Lucide.PackagePlus" class="!size-6"/>
-        Add Personal Package
+        @Locale.add_personal
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/receive" Variant="outline">
         <Blazicon Svg="@Lucide.PackagePlus" class="!size-6"/>
-        Receive package
+        @Locale.receive
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/races/add_package" Variant="outline">
         <Blazicon Svg="@Lucide.PlaneTakeoff" class="!size-6"/>
-        Add package to race
+        @Locale.add_package_to_race
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/arrived" Variant="outline">
         <Blazicon Svg="@Lucide.PlaneLanding" class="!size-6"/>
-        Mark package as arrived
+        @Locale.mark_package_as_delivered_to_user
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/packages/deliver" Variant="outline">
         <Blazicon Svg="@Lucide.PackageOpen" class="!size-6"/>
-        Mark package as delivered to user
+        @Locale.mark_package_as_delivered_to_user
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/races/new" Variant="outline">
         <Blazicon Svg="@Lucide.Plane" class="!size-6"/>
-        Add Race
+        @Locale.add_race
     </Button>
 
     <Button class="h-16 flex justify-start gap-2 text-lg" Href="/users/new" Variant="outline">
         <Blazicon Svg="@Lucide.UserPlus" class="!size-6"/>
-        Add User
+        @Locale.add_user
     </Button>
 </ul>

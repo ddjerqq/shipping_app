@@ -4,17 +4,17 @@
 @using Application.Cqrs.Users.Commands
 @using Domain.ValueObjects
 
-<PageTitle>Create new User</PageTitle>
+<PageTitle>@Locale.create_new_user</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Create new User</CardTitle>
+        <CardTitle>@Locale.create_new_user</CardTitle>
     </Header>
     <Content>
         <AppForm @bind-Model="CreateUserCommand" OnValidSubmit="OnValidSubmit">
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="full-name">Full name</FormLabel>
+                    <FormLabel for="full-name">@Locale.full_name</FormLabel>
                     <FormInputText id="full-name"
                                    @bind-Value="@CreateUserCommand.FullName"
                                    placeholder="Enter full name"
@@ -27,7 +27,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="email">Email</FormLabel>
+                    <FormLabel for="email">@Locale.email</FormLabel>
                     <FormInputText id="email"
                                    @bind-Value="@CreateUserCommand.Email"
                                    placeholder="Enter email"
@@ -42,7 +42,7 @@
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="phone">Phone number</FormLabel>
+                    <FormLabel for="phone">@Locale.phone_number</FormLabel>
                     <FormInputText id="phone"
                                    @bind-Value="@CreateUserCommand.PhoneNumber"
                                    placeholder="955599123123"
@@ -55,7 +55,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="personal-id">Personal Id</FormLabel>
+                    <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
                     <FormInputText id="personal-id"
                                    @bind-Value="@CreateUserCommand.PersonalId"
                                    placeholder="Id or SSN"
@@ -69,13 +69,13 @@
             </InlineFormFieldContainer>
 
             <FormField>
-                <FormLabel for="role">Role</FormLabel>
+                <FormLabel for="role">@Locale.role</FormLabel>
                 <FormInputEnum TEnum="Role" @bind-Value="CreateUserCommand.Role" Options="@(Enum.GetValues<Role>())"/>
                 <FormInvalidFeedback For="@(() => CreateUserCommand.Role)"/>
             </FormField>
 
             <FormField>
-                <FormLabel for="password">Password</FormLabel>
+                <FormLabel for="password">@Locale.password</FormLabel>
                 <FormInputText id="password"
                                @bind-Value="@CreateUserCommand.Password"
                                placeholder="Enter password"
@@ -85,7 +85,7 @@
                                disabled="@IsLoading"/>
 
                 <FormDescription class="w-full flex justify-between">
-                    Password must contain at least 12 characters
+                    @Locale.password_must_contain_at_least_12_characters
                 </FormDescription>
 
                 <FormInvalidFeedback For="@(() => CreateUserCommand.Password)"/>
@@ -95,18 +95,20 @@
                 <div class="flex flex-row items-center gap-2">
                     <Switch id="show-password" @bind-Value="ShowPassword"/>
                     <FormLabel for="show-password">
-                        Show password
+                        @Locale.show_password
                     </FormLabel>
                 </div>
             </FormField>
 
-            <FormDescription>Address</FormDescription>
+            <FormDescription>
+                @Locale.address
+            </FormDescription>
 
             <FormField>
                 <div class="flex flex-row items-center gap-2">
                     <Switch id="add-address" @bind-Value="AddAddress"/>
                     <FormLabel for="add-address">
-                        Add address
+                        @Locale.add_address
                     </FormLabel>
                 </div>
             </FormField>
@@ -115,7 +117,7 @@
             {
                 <InlineFormFieldContainer>
                     <FormField>
-                        <FormLabel for="country">Country</FormLabel>
+                        <FormLabel for="country">@Locale.country</FormLabel>
                         <FormInputText
                             id="country"
                             @bind-Value="@AddAddressCommand.Country"
@@ -127,7 +129,7 @@
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="state">State</FormLabel>
+                        <FormLabel for="state">@Locale.state</FormLabel>
                         <input
                             id="state"
                             class="@FormInputText.BaseClass"
@@ -140,7 +142,7 @@
 
                 <InlineFormFieldContainer>
                     <FormField>
-                        <FormLabel for="city">City</FormLabel>
+                        <FormLabel for="city">@Locale.city</FormLabel>
                         <FormInputText
                             id="city"
                             @bind-Value="@AddAddressCommand.City"
@@ -152,7 +154,7 @@
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="zip">Zip Code</FormLabel>
+                        <FormLabel for="zip">@Locale.zip_code</FormLabel>
                         <FormInputText
                             id="zip"
                             @bind-Value="@AddAddressCommand.ZipCode"
@@ -169,7 +171,7 @@
                 </InlineFormFieldContainer>
 
                 <FormField>
-                    <FormLabel for="street-address">Street address</FormLabel>
+                    <FormLabel for="street-address">@Locale.street_address</FormLabel>
                     <FormInputText
                         id="street-address"
                         @bind-Value="@AddAddressCommand.Address"
@@ -186,7 +188,7 @@
                 {
                     <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                 }
-                Create
+                @Locale.create
             </Button>
         </AppForm>
     </Content>

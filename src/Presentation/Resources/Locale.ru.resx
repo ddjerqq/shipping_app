@@ -1,326 +1,883 @@
+<?xml version='1.0' encoding='utf-8'?>
 <root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <data name="hello_world" xml:space="preserve">
+    <data name="hello_world">
         <value>Привет, мир</value>
     </data>
-    <data name="reload" xml:space="preserve">
+    <data name="reload">
         <value>Перезагрузить</value>
     </data>
-    <data name="detected_a_networking_issue" xml:space="preserve">
+    <data name="detected_a_networking_issue">
         <value>Обнаружена проблема с сетью</value>
     </data>
-    <data name="this_is_not_a_major_issue" xml:space="preserve">
-        <value>Это не серьезная проблема</value>
+    <data name="this_is_not_a_major_issue">
+        <value>Это не такая серьёзная проблема</value>
     </data>
-    <data name="to_continue_please_reload" xml:space="preserve">
-        <value>Чтобы продолжить использовать сайт, пожалуйста, перезагрузите</value>
+    <data name="to_continue_please_reload">
+        <value>Чтобы продолжить пользоваться сайтом, перезагрузите страницу.</value>
     </data>
-    <data name="dashboard" xml:space="preserve">
+    <data name="dashboard">
         <value>Панель управления</value>
     </data>
-    <data name="home" xml:space="preserve">
-        <value>Главная</value>
+    <data name="home">
+        <value>Дом</value>
     </data>
-    <data name="my_packages" xml:space="preserve">
-        <value>Мои посылки</value>
+    <data name="my_packages">
+        <value>Мои пакеты</value>
     </data>
-    <data name="track_package" xml:space="preserve">
+    <data name="track_package">
         <value>Отследить посылку</value>
     </data>
-    <data name="packages" xml:space="preserve">
-        <value>Посылки</value>
+    <data name="packages">
+        <value>Пакеты</value>
     </data>
-    <data name="races" xml:space="preserve">
+    <data name="races">
         <value>Гонки</value>
     </data>
-    <data name="users" xml:space="preserve">
+    <data name="users">
         <value>Пользователи</value>
     </data>
-    <data name="about_us" xml:space="preserve">
+    <data name="about_us">
         <value>О нас</value>
     </data>
-    <data name="faq" xml:space="preserve">
+    <data name="faq">
         <value>Часто задаваемые вопросы</value>
     </data>
-    <data name="calculator" xml:space="preserve">
-        <value>Калькулятор</value>
+    <data name="calculator">
+        <value>Компьютер</value>
     </data>
-    <data name="manage_account" xml:space="preserve">
-        <value>Управление аккаунтом</value>
+    <data name="manage_account">
+        <value>Управление учетной записью</value>
     </data>
-    <data name="sign_out" xml:space="preserve">
-        <value>Выйти</value>
+    <data name="sign_out">
+        <value>выход</value>
     </data>
-    <data name="enter" xml:space="preserve">
-        <value>Войти</value>
+    <data name="enter">
+        <value>Входить</value>
     </data>
-    <data name="login" xml:space="preserve">
-        <value>Авторизация</value>
+    <data name="login">
+        <value>Авторизоваться</value>
     </data>
-    <data name="signup" xml:space="preserve">
-        <value>Регистрация</value>
+    <data name="signup">
+        <value>Зарегистрироваться</value>
     </data>
-    <data name="my_addresses" xml:space="preserve">
+    <data name="my_addresses">
         <value>Мои адреса</value>
     </data>
-    <data name="room_code" xml:space="preserve">
+    <data name="room_code">
         <value>Код комнаты</value>
     </data>
-    <data name="role" xml:space="preserve">
+    <data name="role">
         <value>Роль</value>
     </data>
-    <data name="welcome_back" xml:space="preserve">
-        <value>С возвращением</value>
+    <data name="welcome_back">
+        <value>Добро пожаловать</value>
     </data>
-    <data name="login_to_your_account" xml:space="preserve">
-        <value>Войдите в свой аккаунт</value>
+    <data name="login_to_your_account">
+        <value>Войдите в свою учетную запись</value>
     </data>
-    <data name="email" xml:space="preserve">
+    <data name="email">
         <value>Электронная почта</value>
     </data>
-    <data name="password" xml:space="preserve">
+    <data name="password">
         <value>Пароль</value>
     </data>
-    <data name="forgot_password" xml:space="preserve">
+    <data name="forgot_password">
         <value>Забыли пароль?</value>
     </data>
-    <data name="show_password" xml:space="preserve">
+    <data name="show_password">
         <value>Показать пароль</value>
     </data>
-    <data name="dont_have_an_account" xml:space="preserve">
-        <value>Нет аккаунта?</value>
+    <data name="dont_have_an_account">
+        <value>У вас нет учетной записи?</value>
     </data>
-    <data name="resend_email_confirmation" xml:space="preserve">
-        <value>Отправить подтверждение повторно</value>
+    <data name="resend_email_confirmation">
+        <value>Отправить подтверждение по электронной почте</value>
     </data>
-    <data name="captcha_errors" xml:space="preserve">
-        <value>Ошибка CAPTCHA</value>
+    <data name="captcha_errors">
+        <value>Капча имеет ошибки</value>
     </data>
-    <data name="google_recaptcha_error_please_reload" xml:space="preserve">
-        <value>Не удалось загрузить CAPTCHA, перезагрузите страницу</value>
+    <data name="google_recaptcha_error_please_reload">
+        <value>Captcha не удалось загрузить, пожалуйста, перезагрузите страницу</value>
     </data>
-    <data name="captcha_expired_please_do_it_again" xml:space="preserve">
-        <value>Срок действия CAPTCHA истек, попробуйте снова</value>
+    <data name="captcha_expired_please_do_it_again">
+        <value>Капча истек, пожалуйста, сделайте это снова</value>
     </data>
-    <data name="full_name" xml:space="preserve">
+    <data name="full_name">
         <value>Полное имя</value>
     </data>
-    <data name="phone_number" xml:space="preserve">
+    <data name="phone_number">
         <value>Номер телефона</value>
     </data>
-    <data name="personal_id" xml:space="preserve">
+    <data name="personal_id">
         <value>Личный идентификатор</value>
     </data>
-    <data name="your_personal_data_is_protected" xml:space="preserve">
-        <value>Ваши персональные данные защищены</value>
+    <data name="your_personal_data_is_protected">
+        <value>Ваши личные данные защищены</value>
     </data>
-    <data name="password_must_contain_at_least_12_characters" xml:space="preserve">
-        <value>Пароль должен содержать минимум 12 символов</value>
+    <data name="password_must_contain_at_least_12_characters">
+        <value>Пароль должен содержать не менее 12 символов</value>
     </data>
-    <data name="already_have_an_account" xml:space="preserve">
+    <data name="already_have_an_account">
         <value>Уже есть аккаунт?</value>
     </data>
-    <data name="create_an_account" xml:space="preserve">
-        <value>Создать аккаунт</value>
+    <data name="create_an_account">
+        <value>Завести аккаунт</value>
     </data>
-    <data name="please_complete_captcha_before_continuing" xml:space="preserve">
-        <value>Пройдите CAPTCHA перед продолжением</value>
+    <data name="please_complete_captcha_before_continuing">
+        <value>Пожалуйста, заполните капчу, прежде чем продолжить</value>
     </data>
-    <data name="you_must_agree_to_our" xml:space="preserve">
-        <value>Вы должны согласиться с нашими</value>
+    <data name="you_must_agree_to_our">
+        <value>Вы должны согласиться с нашим</value>
     </data>
-    <data name="terms" xml:space="preserve">
-        <value>условиями</value>
+    <data name="terms">
+        <value>условия</value>
     </data>
-    <data name="and" xml:space="preserve">
+    <data name="and">
         <value>и</value>
     </data>
-    <data name="privacy_policy" xml:space="preserve">
-        <value>политикой конфиденциальности</value>
+    <data name="privacy_policy">
+        <value>политика конфиденциальности</value>
     </data>
-    <data name="learn_more" xml:space="preserve">
+    <data name="learn_more">
         <value>Узнать больше</value>
     </data>
-    <data name="confirm_email" xml:space="preserve">
-        <value>Подтвердить почту</value>
+    <data name="confirm_email">
+        <value>Подтвердите адрес электронной почты</value>
     </data>
-    <data name="your_account_has_been_confirmed" xml:space="preserve">
-        <value>Ваш аккаунт подтвержден</value>
+    <data name="your_account_has_been_confirmed">
+        <value>Ваша учетная запись была подтверждена</value>
     </data>
-    <data name="welcome_to_our_app" xml:space="preserve">
+    <data name="welcome_to_our_app">
         <value>Добро пожаловать в лучшее приложение!</value>
     </data>
-    <data name="failed_to_validate_token" xml:space="preserve">
-        <value>Ошибка проверки токена</value>
+    <data name="failed_to_validate_token">
+        <value>Не удалось проверить токен</value>
     </data>
-    <data name="register_confirmation" xml:space="preserve">
-        <value>Подтверждение регистрации</value>
+    <data name="register_confirmation">
+        <value>Подтверждение регистра</value>
     </data>
-    <data name="email_sent" xml:space="preserve">
-        <value>Письмо отправлено</value>
+    <data name="email_sent">
+        <value>Электронная почта отправлена</value>
     </data>
-    <data name="please_check_your_email_and_spam_folder" xml:space="preserve">
-        <value>Пожалуйста, проверьте вашу почту и папку спам</value>
+    <data name="please_check_your_email_and_spam_folder">
+        <value>Пожалуйста, проверьте свою электронную почту и папки спама</value>
     </data>
-    <data name="didnt_receive_an_email" xml:space="preserve">
-        <value>Не получили письмо?</value>
+    <data name="didnt_receive_an_email">
+        <value>Не получили электронное письмо?</value>
     </data>
-    <data name="enter_your_email_and_well_send_you_a_new_link" xml:space="preserve">
-        <value>Введите свою почту, и мы отправим вам ссылку.</value>
+    <data name="enter_your_email_and_well_send_you_a_new_link">
+        <value>Введите свою электронную почту, и мы отправим вам ссылку.</value>
     </data>
-    <data name="resend" xml:space="preserve">
-        <value>Отправить снова</value>
+    <data name="resend">
+        <value>Приезжать</value>
     </data>
-    <data name="access_denied" xml:space="preserve">
+    <data name="access_denied">
         <value>Доступ запрещен</value>
     </data>
-    <data name="you_do_not_have_access_to_this_resource" xml:space="preserve">
+    <data name="you_do_not_have_access_to_this_resource">
         <value>У вас нет доступа к этому ресурсу</value>
     </data>
-    <data name="your_account_is_scheduled_for_deletion" xml:space="preserve">
-        <value>Ваш аккаунт запланирован на удаление</value>
+    <data name="your_account_is_scheduled_for_deletion">
+        <value>Ваша учетная запись запланирована на удаление</value>
     </data>
-    <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login" xml:space="preserve">
-        <value>У вас есть 30 дней, чтобы восстановить аккаунт. Для восстановления войдите с почтой и паролем.</value>
+    <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login">
+        <value>У вас есть 30 -дневный льготный период для восстановления вашей учетной записи. Чтобы восстановить свою учетную запись,
+            войдите в систему с вашей электронной почтой и паролем.
+        </value>
     </data>
-    <data name="invalid_token" xml:space="preserve">
-        <value>Недействительный токен</value>
+    <data name="invalid_token">
+        <value>Неверный токен</value>
     </data>
-    <data name="the_token_you_provided_is_invalid" xml:space="preserve">
-        <value>Предоставленный токен недействителен</value>
+    <data name="the_token_you_provided_is_invalid">
+        <value>Предоставленный вами знак недействителен</value>
     </data>
-    <data name="locked_out" xml:space="preserve">
-        <value>Заблокирован</value>
+    <data name="locked_out">
+        <value>Заперт</value>
     </data>
-    <data name="this_account_has_been_locked_out_please_try_again_later" xml:space="preserve">
-        <value>Этот аккаунт заблокирован, попробуйте снова через 5 минут</value>
+    <data name="this_account_has_been_locked_out_please_try_again_later">
+        <value>Эта учетная запись была заблокирована, попробуйте еще раз через 5 минут</value>
     </data>
-    <data name="please_check_your_email" xml:space="preserve">
-        <value>Пожалуйста, проверьте вашу почту</value>
+    <data name="please_check_your_email">
+        <value>Пожалуйста, проверьте свою электронную почту</value>
     </data>
-    <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly" xml:space="preserve">
-        <value>Если у вас подтвержденный аккаунт, вам будет отправлена ссылка для сброса пароля.</value>
+    <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly">
+        <value>Если у вас есть подтвержденная учетная запись с нами, вам будет отправлена ​​ссылка с кодом сброса пароля.</value>
     </data>
-    <data name="reset" xml:space="preserve">
-        <value>Сброс</value>
+    <data name="reset">
+        <value>Перезагрузить</value>
     </data>
-    <data name="reset_password" xml:space="preserve">
-        <value>Сброс пароля</value>
+    <data name="reset_password">
+        <value>Сбросить пароль</value>
     </data>
-    <data name="new_password" xml:space="preserve">
+    <data name="new_password">
         <value>Новый пароль</value>
     </data>
-    <data name="confirm_new_password" xml:space="preserve">
+    <data name="confirm_new_password">
         <value>Подтвердите новый пароль</value>
     </data>
-    <data name="you_successfully_reset_your_password" xml:space="preserve">
-        <value>Вы успешно сбросили пароль</value>
+    <data name="you_successfully_reset_your_password">
+        <value>Вы успешно сбросите свой пароль</value>
     </data>
-    <data name="password_reset_successfully" xml:space="preserve">
-        <value>Пароль успешно сброшен</value>
+    <data name="password_reset_successfully">
+        <value>Сброс пароля успешно</value>
     </data>
-    <data name="your_password_has_been_reset" xml:space="preserve">
+    <data name="your_password_has_been_reset">
         <value>Ваш пароль был сброшен</value>
     </data>
-    <data name="current_password" xml:space="preserve">
+    <data name="current_password">
         <value>Текущий пароль</value>
     </data>
-    <data name="change_password" xml:space="preserve">
+    <data name="change_password">
         <value>Изменить пароль</value>
     </data>
-    <data name="account_delete_confirmation" xml:space="preserve">
-        <value>Вы уверены, что хотите удалить аккаунт?</value>
+    <data name="account_delete_confirmation">
+        <value>Вы уверены, что хотите удалить свою учетную запись?</value>
     </data>
-    <data name="type_delete_to_confirm" xml:space="preserve">
-        <value>Введите 'delete' для подтверждения</value>
+    <data name="type_delete_to_confirm">
+        <value>Введите «Удалить», чтобы подтвердить</value>
     </data>
-    <data name="delete_warning" xml:space="preserve">
-        <value>Это действие необратимо. Все ваши данные будут удалены. У вас будет 30 дней для восстановления.</value>
+    <data name="delete_warning">
+        <value>Это действие необратимо. Все ваши данные будут потеряны. У вас будет 30 -дневный льготный период для восстановления своей
+            учетной записи. &lt;br/&gt;
+            Чтобы восстановить свою учетную запись, просто войдите в систему с вашей электронной почтой и паролем.
+        </value>
     </data>
-    <data name="delete_account" xml:space="preserve">
-        <value>Удалить аккаунт</value>
+    <data name="delete_account">
+        <value>Удалить учетную запись</value>
     </data>
-    <data name="personal_info" xml:space="preserve">
+    <data name="personal_info">
         <value>Личная информация</value>
     </data>
-    <data name="notification_preferences" xml:space="preserve">
-        <value>Настройки уведомлений</value>
+    <data name="notification_preferences">
+        <value>Уведомления предпочтения</value>
     </data>
-    <data name="manage_your_personal_info" xml:space="preserve">
-        <value>Управляйте вашей личной информацией</value>
+    <data name="manage_your_personal_info">
+        <value>Управляйте своей личной информацией</value>
     </data>
-    <data name="change_your_password" xml:space="preserve">
-        <value>Измените пароль</value>
+    <data name="change_your_password">
+        <value>Измените свой пароль</value>
     </data>
-    <data name="manage_your_addresses" xml:space="preserve">
-        <value>Управляйте вашими адресами</value>
+    <data name="manage_your_addresses">
+        <value>Управляйте своими адресами</value>
     </data>
-    <data name="manage_notifications" xml:space="preserve">
-        <value>Управление уведомлениями</value>
+    <data name="manage_notifications">
+        <value>Управлять уведомлениями</value>
     </data>
-    <data name="receive_sms_notifications" xml:space="preserve">
-        <value>Получать SMS-уведомления?</value>
+    <data name="receive_sms_notifications">
+        <value>Получить SMS -уведомления?</value>
     </data>
-    <data name="save_preferences" xml:space="preserve">
-        <value>Сохранить настройки</value>
+    <data name="save_preferences">
+        <value>Сохранить предпочтения</value>
     </data>
-    <data name="your_preferences_have_been_saved" xml:space="preserve">
-        <value>Ваши настройки сохранены</value>
+    <data name="your_preferences_have_been_saved">
+        <value>Ваши предпочтения были сохранены</value>
     </data>
-    <data name="country" xml:space="preserve">
+    <data name="country">
         <value>Страна</value>
     </data>
-    <data name="state" xml:space="preserve">
-        <value>Штат</value>
+    <data name="state">
+        <value>Состояние</value>
     </data>
-    <data name="city" xml:space="preserve">
+    <data name="city">
         <value>Город</value>
     </data>
-    <data name="zip_code" xml:space="preserve">
+    <data name="zip_code">
         <value>Почтовый индекс</value>
     </data>
-    <data name="street_address" xml:space="preserve">
-        <value>Улица, дом</value>
+    <data name="street_address">
+        <value>адрес улицы</value>
     </data>
-    <data name="update_address" xml:space="preserve">
-        <value>Обновить адрес</value>
+    <data name="update_address">
+        <value>Обновление адреса</value>
     </data>
-    <data name="address_updated_successfully" xml:space="preserve">
-        <value>Адрес успешно обновлен</value>
+    <data name="address_updated_successfully">
+        <value>Адрес обновлен успешно</value>
     </data>
-    <data name="state_unavailable_for_georgia" xml:space="preserve">
-        <value>Штат недоступен в Грузии</value>
+    <data name="state_unavailable_for_georgia">
+        <value>Государство недоступно в Грузии</value>
     </data>
-    <data name="newsletter" xml:space="preserve">
-        <value>Новостная рассылка</value>
+    <data name="newsletter">
+        <value>Информационный бюллетень</value>
     </data>
-    <data name="enter_your_email_to_receive_notifications_about_product_updates" xml:space="preserve">
-        <value>Введите ваш email для получения уведомлений о новостях продукта</value>
+    <data name="enter_your_email_to_receive_notifications_about_product_updates">
+        <value>Введите свое письмо, чтобы получить уведомления об обновлениях продуктов и нашей бюллетене.</value>
     </data>
-    <data name="subscribe" xml:space="preserve">
+    <data name="subscribe">
         <value>Подписаться</value>
     </data>
-    <data name="partner_sites" xml:space="preserve">
+    <data name="partner_sites">
         <value>Партнерские сайты</value>
     </data>
-    <data name="contact" xml:space="preserve">
-        <value>Контакты</value>
+    <data name="contact">
+        <value>Контакт</value>
     </data>
-    <data name="all_rights_reserved" xml:space="preserve">
+    <data name="all_rights_reserved">
         <value>Все права защищены</value>
     </data>
-    <data name="contact_dev_team" xml:space="preserve">
-        <value>Связаться с командой разработчиков</value>
+    <data name="contact_dev_team">
+        <value>Свяжитесь с командой разработчиков</value>
+    </data>
+    <data name="addresses">
+        <value>Адреса</value>
+    </data>
+    <data name="rate_per_kilo">
+        <value>Ставка</value>
+    </data>
+    <data name="hero_title">
+        <value>Судоходная компания из США в Грузию</value>
+    </data>
+    <data name="hero_description">
+        <value>Мы являемся новой компанией в судоходной отрасли, предлагающей надежные, быстрые и доступные услуги по всему миру.</value>
+    </data>
+    <data name="hero_cta_text">
+        <value>Начните</value>
+    </data>
+    <data name="why_sangoway">
+        <value>Почему Санговей?</value>
+    </data>
+    <data name="why_cheap_prices">
+        <value>Дешевые цены!</value>
+    </data>
+    <data name="why_cheap_prices_description">
+        <value>Мы предоставляем непревзойденные решения для доставки, адаптированные для удовлетворения ваших уникальных потребностей,
+            каждый раз обеспечивая своевременные и безопасные поставки.
+        </value>
+    </data>
+    <data name="why_experience">
+        <value>Огромный опыт</value>
+    </data>
+    <data name="why_experience_description">
+        <value>Имея многолетний опыт работы в области логистики, мы стремимся предоставлять исключительные услуги, независимо от того,
+            отправляете ли вы пакеты по всей стране или по всему миру.
+        </value>
+    </data>
+    <data name="why_advanced_tracking">
+        <value>Усовершенствованное отслеживание</value>
+    </data>
+    <data name="why_advanced_tracking_description">
+        <value>Наша продвинутая система отслеживания и профессиональная команда гарантируют душевное спокойствие с момента, когда вы
+            отправляете свою посылку в тот момент, когда она достигает места назначения.
+        </value>
+    </data>
+    <data name="why_cards_packages_from_usa">
+        <value>Пакеты из США</value>
+    </data>
+    <data name="why_cards_packages_from_geo">
+        <value>Пакеты из Грузии</value>
+    </data>
+    <data name="why_cards_storage_items">
+        <value>Пакеты хранятся</value>
+    </data>
+    <data name="why_cards_moving_items">
+        <value>Перемещенные пакеты</value>
+    </data>
+    <data name="how_it_works">
+        <value>Как это работает</value>
+    </data>
+    <data name="how_step_1">
+        <value>Шаг 1: зарегистрироваться</value>
+    </data>
+    <data name="how_step_1_description">
+        <value>Создайте новую учетную запись, чтобы использовать наши услуги!</value>
+    </data>
+    <data name="how_step_2">
+        <value>Шаг 2: Скопируйте свой адрес</value>
+    </data>
+    <data name="how_step_2_description">
+        <value>После регистрации вы получите адрес, который вы можете использовать для покупок в Интернете.</value>
+    </data>
+    <data name="how_step_3">
+        <value>Шаг 3: Добавить пакеты</value>
+    </data>
+    <data name="how_step_3_description">
+        <value>После покупки продуктов онлайн, пожалуйста, объявите их в своей учетной записи Sangoway.</value>
+    </data>
+    <data name="how_step_4">
+        <value>Шаг 4: Получить пакеты!</value>
+    </data>
+    <data name="how_step_4_description">
+        <value>После того, как ваш пакет прибудет, вы сможете заплатить за него. &lt;br/&gt; &lt;br/&gt; После оплаты доставки вы получите
+            свой пакет
+        </value>
+    </data>
+    <data name="testimonial_header">
+        <value>Что говорят наши клиенты</value>
+    </data>
+    <data name="testimonial_1">
+        <value>«Эта платформа изменила то, как я работаю. Настоятельно рекомендуется!»</value>
+    </data>
+    <data name="testimonial_1_author">
+        <value>Тамар Бибилеишвили</value>
+    </data>
+    <data name="testimonial_2">
+        <value>«Лучшее решение, которое я принял в этом году. Невероятная поддержка и функции!»</value>
+    </data>
+    <data name="testimonial_2_author">
+        <value>Даже Мартиашвили</value>
+    </data>
+    <data name="testimonial_3">
+        <value>«Выдающее качество и внимание к деталям. Они действительно заботятся!»</value>
+    </data>
+    <data name="testimonial_3_author">
+        <value>Мариам Николадзе</value>
+    </data>
+    <data name="testimonial_4">
+        <value>«Я не могу себе представить, как все было до этой службы».</value>
+    </data>
+    <data name="testimonial_4_author">
+        <value>Джорги Бакрадзе</value>
+    </data>
+    <data name="404_header">
+        <value>404 - Потерянный в киберпространстве</value>
+    </data>
+    <data name="404_description">
+        <value>Похоже, вы отправились в неизвестную цифровую сферу.</value>
+    </data>
+    <data name="404_return_home">
+        <value>Вернись к дому</value>
+    </data>
+    <data name="about_description">
+        <value>Добро пожаловать в нашу службу доставки! Мы гордимся тем, что являемся самой доступной и надежной службой доставки для
+            посылок из США в Грузию.
+        </value>
+    </data>
+    <data name="about_mission">
+        <value>Наша миссия</value>
+    </data>
+    <data name="about_mission_description">
+        <value>Наша цель-сделать международную доставку доступной и беспрепятственной. Мы гарантируем, что ваши посылки доставляются
+            безопасно и вовремя из США в Грузию.
+        </value>
+    </data>
+    <data name="about_who_are_we">
+        <value>Кто мы</value>
+    </data>
+    <data name="about_who_are_we_description">
+        <value>Мы являемся малым бизнесом, ориентированным на страсть к обеспечению ценности для наших клиентов.</value>
+    </data>
+    <data name="owner">
+        <value>Владелец</value>
+    </data>
+    <data name="about_giorgi_sanakoevi">
+        <value>Geovie Sunkoivi</value>
+    </data>
+    <data name="dev_team">
+        <value>Разработчик</value>
+    </data>
+    <data name="about_achievements">
+        <value>Наши достижения</value>
+    </data>
+    <data name="about_achievements_description">
+        <value>С момента нашего основания мы успешно доставили 2320 посылок из США в Грузию, помогая бесчисленным клиентам пользоваться
+            доступной и надежной доставкой.
+        </value>
+    </data>
+    <data name="about_why_us">
+        <value>Почему мы?</value>
+    </data>
+    <data name="about_why_us_description">
+        <value>Мы объединяем экономически эффективные цены, персонализированное обслуживание и приверженность совершенству, чтобы убедиться,
+            что ваш опыт доставки не имеет себе равных. Когда вы выбираете нас, вы поддерживаете выделенный малый бизнес, который ценит ваше
+            доверие.
+        </value>
+    </data>
+    <data name="faq_1_q">
+        <value>Что такое Санговей?</value>
+    </data>
+    <data name="faq_2_q">
+        <value>Как это работает?</value>
+    </data>
+    <data name="faq_3_q">
+        <value>Как мне начать?</value>
+    </data>
+    <data name="faq_4_q">
+        <value>Как мне заплатить за доставку?</value>
+    </data>
+    <data name="faq_5_q">
+        <value>Как мне отслеживать посылку?</value>
+    </data>
+    <data name="faq_6_q">
+        <value>Как мне получить посылку?</value>
+    </data>
+    <data name="faq_1_a">
+        <value>Sangoway - это платформа, которая помогает доставлять пакеты из США в Грузию.</value>
+    </data>
+    <data name="faq_2_a">
+        <value>Sangoway использует вес и размеры вашего пакета для расчета стоимости доставки из США в Грузию.</value>
+    </data>
+    <data name="faq_3_a">
+        <value>Начать работу легко. Просто зарегистрируйтесь и начните использовать наши услуги</value>
+    </data>
+    <data name="faq_4_a">
+        <value>Sangoway принимает оплату с помощью кредитной карты и банковского перевода.</value>
+    </data>
+    <data name="faq_5_a">
+        <value>После того, как ваш пакет будет отправлен, вы получите номер для отслеживания, который вы можете использовать для
+            отслеживания пакета.
+        </value>
+    </data>
+    <data name="faq_6_a">
+        <value>Как только ваш пакет прибудет в Грузию, вы можете забрать его в нашем офисе или доставить на свой адрес.</value>
+    </data>
+    <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams">
+        <value>Пожалуйста, имейте в виду, вес будет окружен до ближайших 100 граммов.</value>
+    </data>
+    <data name="calculator_volumetric_notice">
+        <value>Чтобы узнать больше о объемном весе и о том, как он рассчитывается, посетите наш</value>
+    </data>
+    <data name="calculator_description">
+        <value>Введите требуемые параметры посылки, и калькулятор рассчитывает стоимость доставки</value>
+    </data>
+    <data name="weight">
+        <value>Масса</value>
+    </data>
+    <data name="calculator_price_notice">
+        <value>Чтобы узнать больше о том, как мы рассчитываем цены на пакет, пожалуйста, посетите наш</value>
+    </data>
+    <data name="volumetric_price">
+        <value>Объемная цена</value>
+    </data>
+    <data name="total_price">
+        <value>Общая цена</value>
+    </data>
+    <data name="house_delivery">
+        <value>Доставка дома</value>
+    </data>
+    <data name="user_dashboard">
+        <value>Пользовательская панель</value>
+    </data>
+    <data name="your_balance">
+        <value>Ваш баланс</value>
+    </data>
+    <data name="total_amount_due">
+        <value>Общая сумма причитается</value>
+    </data>
+    <data name="your_packages">
+        <value>Ваши пакеты</value>
+    </data>
+    <data name="top_up_balance">
+        <value>Пополнить баланс</value>
+    </data>
+    <data name="your_payment_info_is_secure">
+        <value>Ваша информация о оплате безопасна</value>
+    </data>
+    <data name="all_packages">
+        <value>Все пакеты</value>
+    </data>
+    <data name="receive">
+        <value>Получать</value>
+    </data>
+    <data name="add_personal">
+        <value>Добавить личный</value>
+    </data>
+    <data name="add_online">
+        <value>Добавить онлайн</value>
+    </data>
+    <data name="retail_price">
+        <value>Розничная цена</value>
+    </data>
+    <data name="website_address">
+        <value>Адрес веб -сайта</value>
+    </data>
+    <data name="race">
+        <value>Раса</value>
+    </data>
+    <data name="shipping_price">
+        <value>Цена доставки</value>
+    </data>
+    <data name="last_update">
+        <value>Последнее обновление</value>
+    </data>
+    <data name="pay_for_shipping">
+        <value>Заплатить за доставку</value>
+    </data>
+    <data name="would_you_like_to_pay_x_amount">
+        <value>Хотели бы вы заплатить x сумму</value>
+    </data>
+    <data name="after_this_transaction_you_will_have">
+        <value>После этой транзакции у вас будет</value>
+    </data>
+    <data name="cancel">
+        <value>Отмена</value>
+    </data>
+    <data name="confirm">
+        <value>Подтверждать</value>
+    </data>
+    <data name="add_package_to_race">
+        <value>Добавить пакет в гонку</value>
+    </data>
+    <data name="mark_package_as_delivered_to_user">
+        <value>Марк пакет, доставленные пользователю</value>
+    </data>
+    <data name="add_race">
+        <value>Добавить гонку</value>
+    </data>
+    <data name="add_user">
+        <value>Добавить пользователя</value>
+    </data>
+    <data name="admin_dashboard">
+        <value>Административная панель</value>
+    </data>
+    <data name="from_last_month">
+        <value>С прошлого месяца</value>
+    </data>
+    <data name="packages_processed">
+        <value>Пакеты обрабатываются</value>
+    </data>
+    <data name="shipping_revenue">
+        <value>Доход от доставки</value>
+    </data>
+    <data name="cancelled">
+        <value>Отменен</value>
+    </data>
+    <data name="you_cancelled_the_payment">
+        <value>Вы отменили платеж</value>
+    </data>
+    <data name="return_home">
+        <value>Вернуться домой</value>
+    </data>
+    <data name="success">
+        <value>Успех</value>
+    </data>
+    <data name="you_successfully_deposited">
+        <value>Вы успешно внесены</value>
+    </data>
+    <data name="to_your_account">
+        <value>На ваш аккаунт</value>
+    </data>
+    <data name="thank_you_for_using_our_services">
+        <value>Спасибо за использование наших услуг</value>
+    </data>
+    <data name="receive_package_at_warehouse">
+        <value>Получить пакет на складе</value>
+    </data>
+    <data name="when_you_receive_a_package_at_the_warehouse_declare_them_here">
+        <value>Когда вы получите посылку на складе, объявите их здесь</value>
+    </data>
+    <data name="price_per">
+        <value>Цена за</value>
+    </data>
+    <data name="enter_the_price_per_kilogram_here">
+        <value>Введите цену за килограмм здесь</value>
+    </data>
+    <data name="tracking_code">
+        <value>Код отслеживания</value>
+    </data>
+    <data name="address_2_room_code">
+        <value>Адрес 2 кода номера</value>
+    </data>
+    <data name="width">
+        <value>Ширина</value>
+    </data>
+    <data name="height">
+        <value>Высота</value>
+    </data>
+    <data name="length">
+        <value>Длина</value>
+    </data>
+    <data name="package_contains_prohibited_items">
+        <value>Пакет содержит запрещенные предметы</value>
+    </data>
+    <data name="declare">
+        <value>Объявить</value>
+    </data>
+    <data name="add_package_ro_race">
+        <value>Добавить пакет RO Race</value>
+    </data>
+    <data name="race_id">
+        <value>Гоночный идентификатор</value>
+    </data>
+    <data name="select_option">
+        <value>Выберите опцию</value>
+    </data>
+    <data name="package_id">
+        <value>Идентификатор пакета</value>
+    </data>
+    <data name="all_races">
+        <value>Все расы</value>
+    </data>
+    <data name="create">
+        <value>Создавать</value>
+    </data>
+    <data name="race_name">
+        <value>Название расы</value>
+    </data>
+    <data name="takeoff">
+        <value>Снимать</value>
+    </data>
+    <data name="landing">
+        <value>Посадка</value>
+    </data>
+    <data name="create_race">
+        <value>Создать гонку</value>
+    </data>
+    <data name="name">
+        <value>Имя</value>
+    </data>
+    <data name="flight_code">
+        <value>Код полета</value>
+    </data>
+    <data name="origin">
+        <value>Источник</value>
+    </data>
+    <data name="airport_name">
+        <value>Название аэропорта</value>
+    </data>
+    <data name="destination">
+        <value>Место назначения</value>
+    </data>
+    <data name="save">
+        <value>Сохранять</value>
+    </data>
+    <data name="race_details">
+        <value>Подробности расы</value>
+    </data>
+    <data name="export">
+        <value>Экспорт</value>
+    </data>
+    <data name="staff_dashboard">
+        <value>Персонал панель панели</value>
+    </data>
+    <data name="add_new_payment_method_to_your_account">
+        <value>Добавьте новый способ оплаты в свою учетную запись</value>
+    </data>
+    <data name="amount">
+        <value>Количество</value>
+    </data>
+    <data name="top_up">
+        <value>Пополнить</value>
+    </data>
+    <data name="_using">
+        <value>С использованием</value>
+    </data>
+    <data name="all_users">
+        <value>Все пользователи</value>
+    </data>
+    <data name="add">
+        <value>Добавлять</value>
+    </data>
+    <data name="address">
+        <value>Адрес</value>
+    </data>
+    <data name="add_address">
+        <value>Добавить адрес</value>
+    </data>
+    <data name="user">
+        <value>Пользователь</value>
+    </data>
+    <data name="save_changes">
+        <value>Сохранить изменения</value>
+    </data>
+    <data name="login_as_this_user">
+        <value>Войдите как этот пользователь</value>
+    </data>
+    <data name="delete">
+        <value>Удалить</value>
+    </data>
+    <data name="create_new_user">
+        <value>Создайте нового пользователя</value>
+    </data>
+    <data name="user_details">
+        <value>Данные пользователя</value>
+    </data>
+    <data name="created_at">
+        <value>Создан в</value>
+    </data>
+    <data name="search">
+        <value>Поиск</value>
+    </data>
+    <data name="enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system">
+        <value>Введите код отслеживания пакета и посмотрите, есть ли у нас в системе</value>
+    </data>
+    <data name="declare_new_online_package">
+        <value>Объявить новый онлайн -пакет</value>
+    </data>
+    <data name="please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id">
+        <value>Пожалуйста, предварительно объявите свой пакет онлайн -покупок, чтобы не было никаких задержек при доставке идентификатора
+        </value>
+    </data>
+    <data name="category">
+        <value>Категория</value>
+    </data>
+    <data name="package_description">
+        <value>Описание упаковки</value>
+    </data>
+    <data name="item_count">
+        <value>Подсчет предметов</value>
+    </data>
+    <data name="invoice">
+        <value>Счет</value>
+    </data>
+    <data name="picture">
+        <value>Картина</value>
+    </data>
+    <data name="declare_new_personal_package">
+        <value>Объявить новый личный пакет</value>
+    </data>
+    <data name="sender">
+        <value>Отправитель</value>
+    </data>
+    <data name="choose_sender">
+        <value>Выберите отправителя</value>
+    </data>
+    <data name="create_sender">
+        <value>Создать отправителя</value>
+    </data>
+    <data name="receiver">
+        <value>Приемник</value>
+    </data>
+    <data name="choose_receiver">
+        <value>Выберите приемник</value>
+    </data>
+    <data name="create_receiver">
+        <value>Создать приемник</value>
+    </data>
+    <data name="package_arrived_at_destination">
+        <value>Пакет прибыл в пункт назначения</value>
+    </data>
+    <data name="mark_as_delivered">
+        <value>Марк как доставлен</value>
+    </data>
+    <data name="package_delivered_to_user">
+        <value>Пакет доставлен пользователю</value>
+    </data>
+    <data name="package_details">
+        <value>Детали пакета</value>
+    </data>
+    <data name="status_updates">
+        <value>Обновления статуса</value>
+    </data>
+    <data name="receive_at_warehouse">
+        <value>Получить на складе</value>
+    </data>
+    <data name="add_to_race">
+        <value>Добавить в гонку</value>
+    </data>
+    <data name="print_label">
+        <value>Печатная метка</value>
+    </data>
+    <data name="receive_at_destination">
+        <value>Получить в пункте назначения</value>
+    </data>
+    <data name="this_package_has_not_been_paid_for_cant_deliver">
+        <value>Этот пакет не был заплачен за невозможность доставить</value>
+    </data>
+    <data name="this_package_contains_prohibited_items">
+        <value>Этот пакет содержит запрещенные предметы</value>
+    </data>
+    <data name="download">
+        <value>Скачать</value>
+    </data>
+    <data name="dimensions">
+        <value>Размеры</value>
+    </data>
+    <data name="copy">
+        <value>Копия</value>
+    </data>
+    <data name="is_paid">
+        <value>Оплачивается</value>
+    </data>
+    <data name="package">
+        <value>Упаковка</value>
     </data>
 </root>

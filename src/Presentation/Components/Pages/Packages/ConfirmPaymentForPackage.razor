@@ -5,24 +5,24 @@
 
 <Card class="text-start w-full sm:w-[480px]">
     <Header>
-        <CardTitle class="text-2xl">Pay for shipping</CardTitle>
+        <CardTitle class="text-2xl">@Locale.pay_for_shipping</CardTitle>
     </Header>
 
     <Content class="grid gap-6">
-        Would you like to pay @Package.Price?.TotalPrice.FormatedValue? <br/>
-        Your balance is: @CurrentUser.Balance.FormatedValue<br/>
-        After this transaction you will have: @((CurrentUser.Balance - Package.Price?.TotalPrice)?.FormatedValue)
+        @Locale.would_you_like_to_pay_x_amount @Package.Price?.TotalPrice.FormatedValue? <br/>
+        @Locale.your_balance: @CurrentUser.Balance.FormatedValue<br/>
+        @Locale.after_this_transaction_you_will_have: @((CurrentUser.Balance - Package.Price?.TotalPrice)?.FormatedValue)
     </Content>
 
     <Footer class="grid grid-cols-2 gap-4">
         <Button Variant="outline" type="submit" class="w-full" @onclick="@Cancel" disabled="@(!CanPay)">
             <Blazicon Svg="@Lucide.X"/>
-            Cancel
+            @Locale.cancel
         </Button>
 
         <Button Variant="default" type="submit" class="w-full" @onclick="@Pay">
             <Blazicon Svg="@Lucide.DollarSign"/>
-            Pay
+            @Locale.confirm
         </Button>
     </Footer>
 </Card>

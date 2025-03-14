@@ -1,18 +1,20 @@
 @page "/track_package"
 @using Application.Cqrs.Packages.Queries
 
-<PageTitle>Track package</PageTitle>
+<PageTitle>@Locale.track_package</PageTitle>
 <PageHeader Title="Track package"/>
 
 <Card class="mt-4">
     <Header>
-        <Description>Enter the package tracking code and see if we have it in the system</Description>
+        <Description>
+            @Locale.enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system
+        </Description>
     </Header>
 
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
             <FormField>
-                <FormLabel for="tracking-code">Tracking Code</FormLabel>
+                <FormLabel for="tracking-code">@Locale.tracking_code</FormLabel>
                 <FormInputText id="tracking-code"
                                @bind-Value="@Command.TrackingCode"
                                placeholder="Enter tracking code..."
@@ -26,7 +28,7 @@
                 {
                     <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                 }
-                Search
+                @Locale.search
             </Button>
         </AppForm>
     </Content>

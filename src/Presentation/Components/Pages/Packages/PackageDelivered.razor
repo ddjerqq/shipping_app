@@ -2,28 +2,27 @@
 @using Application.Cqrs.Packages.Commands
 @attribute [Authorize(Roles = "Staff,Admin")]
 
-<PageTitle>Package delivered to user</PageTitle>
+<PageTitle>@Locale.package_delivered_to_user</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Package delivered to user</CardTitle>
+        <CardTitle>@Locale.package_delivered_to_user</CardTitle>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
             <FormField>
-                <FormLabel for="tracking-code">Tracking code</FormLabel>
+                <FormLabel for="tracking-code">@Locale.tracking_code</FormLabel>
                 <FormInputText id="tracking-code"
                                disabled="@(ParametersSuppliedFromQuery || IsLoading)"
                                @bind-Value="@Command.TrackingCode"
                                placeholder="Enter tracking code"
                                required/>
-                <FormDescription>The tracking code, as present on the package</FormDescription>
                 <FormInvalidFeedback For="@(() => Command.TrackingCode)"/>
             </FormField>
 
             <Button type="submit" disabled="@IsLoading">
                 <Blazicon Svg="Icons.Check" class="mr-2 size-4"/>
-                Mark as arrived
+                @Locale.mark_as_delivered
             </Button>
         </AppForm>
     </Content>

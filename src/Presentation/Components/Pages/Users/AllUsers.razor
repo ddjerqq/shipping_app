@@ -4,22 +4,21 @@
 @using Domain.Aggregates
 @using Microsoft.EntityFrameworkCore
 @inject IAppDbContext DbContext
-@inject ICurrentUserAccessor CurrentUser
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>All users</PageTitle>
+<PageTitle>@Locale.all_users</PageTitle>
 
 <Card>
     <Header>
         <CardTitle class="flex flex-col w-full justify-center content-around px-1 gap-2">
             <div class="flex items-center justify-between">
-                <span>All users</span>
+                <span>@Locale.all_users</span>
 
                 <div class="space-x-2">
                     <Button Href="/users/new" class="ms-2">
                         <Blazicon Svg="@Lucide.UserPlus"/>
-                        Add
+                        @Locale.add
                     </Button>
                 </div>
             </div>

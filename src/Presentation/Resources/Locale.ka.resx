@@ -1,4 +1,10 @@
-<root>
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema id="root">
+        <xs:element name="root" ns1:IsDataSet="true">
+
+        </xs:element>
+    </xs:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -6,10 +12,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="hello_world" xml:space="preserve">
         <value>გამარჯობა სამყარო</value>
@@ -26,32 +36,17 @@
     <data name="to_continue_please_reload" xml:space="preserve">
         <value>ვებსაიტის გამოყენებისათვის გთხოვთ გადათვირთეთ</value>
     </data>
-    <data name="about_us" xml:space="preserve">
-        <value>ჩვენს შესახებ</value>
-    </data>
-    <data name="calculator" xml:space="preserve">
-        <value>კალკულატორი</value>
-    </data>
     <data name="dashboard" xml:space="preserve">
-        <value>დაშბორდი</value>
-    </data>
-    <data name="enter" xml:space="preserve">
-        <value>შესვლა</value>
-    </data>
-    <data name="faq" xml:space="preserve">
-        <value>კითხვები</value>
+        <value>დაფა</value>
     </data>
     <data name="home" xml:space="preserve">
-        <value>მთავარი</value>
-    </data>
-    <data name="login" xml:space="preserve">
-        <value>შესვლა</value>
-    </data>
-    <data name="manage_account" xml:space="preserve">
-        <value>ანგარიშის მართვა</value>
+        <value>სახლი</value>
     </data>
     <data name="my_packages" xml:space="preserve">
         <value>ჩემი ამანათები</value>
+    </data>
+    <data name="track_package" xml:space="preserve">
+        <value>ამანათის თრექინგი</value>
     </data>
     <data name="packages" xml:space="preserve">
         <value>ამანათები</value>
@@ -59,416 +54,432 @@
     <data name="races" xml:space="preserve">
         <value>რეისები</value>
     </data>
-    <data name="signup" xml:space="preserve">
-        <value>რეგისტრაცია</value>
+    <data name="users" xml:space="preserve">
+        <value>მომხმარებლები</value>
+    </data>
+    <data name="about_us" xml:space="preserve">
+        <value>ჩვენს შესახებ</value>
+    </data>
+    <data name="faq" xml:space="preserve">
+        <value>კითხვები</value>
+    </data>
+    <data name="calculator" xml:space="preserve">
+        <value>კალკულატორი</value>
+    </data>
+    <data name="manage_account" xml:space="preserve">
+        <value>ანგარიშის მართვა</value>
     </data>
     <data name="sign_out" xml:space="preserve">
         <value>გამოსვლა</value>
     </data>
-    <data name="track_package" xml:space="preserve">
-        <value>ამანათის ტრექინგი</value>
+    <data name="enter" xml:space="preserve">
+        <value>შესვლა</value>
     </data>
-    <data name="users" xml:space="preserve">
-        <value>მომხმარებლები</value>
+    <data name="login" xml:space="preserve">
+        <value>შესვლა</value>
+    </data>
+    <data name="signup" xml:space="preserve">
+        <value>დარეგისტრირება</value>
     </data>
     <data name="my_addresses" xml:space="preserve">
         <value>ჩემი მისამართები</value>
     </data>
+    <data name="room_code" xml:space="preserve">
+        <value>ოთახის კოდი</value>
+    </data>
     <data name="role" xml:space="preserve">
         <value>როლი</value>
     </data>
-    <data name="room_code" xml:space="preserve">
-        <value>ოთახის ნომერი</value>
-    </data>
-    <data name="dont_have_an_account" xml:space="preserve">
-        <value>არ გაქვტ ანგარიში?</value>
-    </data>
-    <data name="email" xml:space="preserve">
-        <value>ელ-ფოსტა</value>
-    </data>
-    <data name="forgot_password" xml:space="preserve">
-        <value>დაგავიწყდათ პაროლი?</value>
+    <data name="welcome_back" xml:space="preserve">
+        <value>მოგესალმებით</value>
     </data>
     <data name="login_to_your_account" xml:space="preserve">
-        <value>შედით თქვენს ანგარიშში</value>
+        <value>შედით თქვენს ანგარიშზე</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>ელ.ფოსტა</value>
     </data>
     <data name="password" xml:space="preserve">
         <value>პაროლი</value>
     </data>
-    <data name="resend_email_confirmation" xml:space="preserve">
-        <value>ელფოსტის თავიდან ვერიფიკაცია</value>
+    <data name="forgot_password" xml:space="preserve">
+        <value>დაგავიწყდათ პაროლი?</value>
     </data>
     <data name="show_password" xml:space="preserve">
-        <value>პაროლის გამოჩენა</value>
+        <value>პაროლის ჩვენება</value>
     </data>
-    <data name="welcome_back" xml:space="preserve">
-        <value>კეთილი იყოს თქვენი დაბრუნება</value>
+    <data name="dont_have_an_account" xml:space="preserve">
+        <value>ანგარიში არ გაქვთ?</value>
     </data>
-    <data name="already_have_an_account" xml:space="preserve">
-        <value>უკვე გაქვთ ანგარიში?</value>
-    </data>
-    <data name="and" xml:space="preserve">
-        <value>და</value>
+    <data name="resend_email_confirmation" xml:space="preserve">
+        <value>გაგზავნეთ ელ.ფოსტის დადასტურება</value>
     </data>
     <data name="captcha_errors" xml:space="preserve">
-        <value>CAPTCHA-ს აქვს ხარვეზები</value>
+        <value>Captcha- ს აქვს შეცდომები</value>
+    </data>
+    <data name="google_recaptcha_error_please_reload" xml:space="preserve">
+        <value>Captcha–ამ ვერ ჩაიტვირთა, გთხოვთ, გადატვირთოთ გვერდი</value>
     </data>
     <data name="captcha_expired_please_do_it_again" xml:space="preserve">
-        <value>CAPTCHA-ს ვადა გაუვიდა, გთხოვთ სცადოთ თავიდან</value>
-    </data>
-    <data name="create_an_account" xml:space="preserve">
-        <value>ანგარიშის შექმნა</value>
+        <value>Captcha-ს დრო ამოეწურა, გთხოვთ კიდევ შეარულეთ</value>
     </data>
     <data name="full_name" xml:space="preserve">
         <value>სრული სახელი</value>
     </data>
-    <data name="google_recaptcha_error_please_reload" xml:space="preserve">
-        <value>CAPTCHA ვერ ჩაიტვირთა, გთხოვთ გადატვირთოთ გვერდი</value>
-    </data>
-    <data name="password_must_contain_at_least_12_characters" xml:space="preserve">
-        <value>პაროლი უნდა შეიცავდეს მინიმუმ 12 ასოს</value>
-    </data>
-    <data name="personal_id" xml:space="preserve">
-        <value>პირადი ნომერი</value>
-    </data>
     <data name="phone_number" xml:space="preserve">
         <value>ტელეფონის ნომერი</value>
     </data>
-    <data name="please_complete_captcha_before_continuing" xml:space="preserve">
-        <value>გთხოვთ შეასრულოთ CAPTCHA დავალება სანამ გააგრძელებთ</value>
-    </data>
-    <data name="privacy_policy" xml:space="preserve">
-        <value>კონფიდენციალობის პოლიტიკა</value>
-    </data>
-    <data name="terms" xml:space="preserve">
-        <value>გამოყენების წესები</value>
-    </data>
-    <data name="you_must_agree_to_our" xml:space="preserve">
-        <value>თქვენ უნდა დაეთანხმოთ ჩვენს</value>
+    <data name="personal_id" xml:space="preserve">
+        <value>პირადობის მოწმობა</value>
     </data>
     <data name="your_personal_data_is_protected" xml:space="preserve">
-        <value>თქვენი კონფიდენციალური ინფორმაცია დაცულია</value>
+        <value>თქვენი პირადი მონაცემები დაცულია</value>
+    </data>
+    <data name="password_must_contain_at_least_12_characters" xml:space="preserve">
+        <value>პაროლი უნდა შეიცავდეს მინიმუმ 12 სიმბოლოს</value>
+    </data>
+    <data name="already_have_an_account" xml:space="preserve">
+        <value>უკვე გაქვთ ანგარიში?</value>
+    </data>
+    <data name="create_an_account" xml:space="preserve">
+        <value>შექმენით ანგარიში</value>
+    </data>
+    <data name="please_complete_captcha_before_continuing" xml:space="preserve">
+        <value>გთხოვთ, შეავსოთ Captcha გაგრძელებამდე</value>
+    </data>
+    <data name="you_must_agree_to_our" xml:space="preserve">
+        <value>თქვენ უნდა ეთანხმებით ჩვენს</value>
+    </data>
+    <data name="terms" xml:space="preserve">
+        <value>წესებს</value>
+    </data>
+    <data name="and" xml:space="preserve">
+        <value>და</value>
+    </data>
+    <data name="privacy_policy" xml:space="preserve">
+        <value>კონფიდენციალურობის პოლიტიკას</value>
     </data>
     <data name="learn_more" xml:space="preserve">
-        <value>მეტის გაგება</value>
-    </data>
-    <data name="access_denied" xml:space="preserve">
-        <value>წვდომა აკრძალულია</value>
-    </data>
-    <data name="account_delete_confirmation" xml:space="preserve">
-        <value>დარწმუნებული ხართ რომ გსურთ ანგარიშის წაშლა?</value>
-    </data>
-    <data name="address_updated_successfully" xml:space="preserve">
-        <value>მისამართი განახლებულია</value>
-    </data>
-    <data name="change_password" xml:space="preserve">
-        <value>პაროლის შეცვლა</value>
-    </data>
-    <data name="change_your_password" xml:space="preserve">
-        <value>შეცვალეთ თქვენი პაროლი</value>
-    </data>
-    <data name="city" xml:space="preserve">
-        <value>ქალაქი</value>
+        <value>გაიგეთ მეტი</value>
     </data>
     <data name="confirm_email" xml:space="preserve">
-        <value>ელ-ფოსტის დადასტურება</value>
-    </data>
-    <data name="confirm_new_password" xml:space="preserve">
-        <value>ახალი პაროლის დადასტურება</value>
-    </data>
-    <data name="country" xml:space="preserve">
-        <value>ქვეყანა</value>
-    </data>
-    <data name="current_password" xml:space="preserve">
-        <value>მიმდინარე პაროლი</value>
-    </data>
-    <data name="delete_account" xml:space="preserve">
-        <value>ანგარიშის წაშლა</value>
-    </data>
-    <data name="delete_warning" xml:space="preserve">
-        <value>ამ ქმედების შედეგად, თქვენი ანგარიში წაიშლება. თქვენი ყველა მონაცემი წაიშლება ჩვენი ბაზიდან. თქვენ გაქვთ 30 დღე რათა შეიცვალოთ აზრი. 30 დღის შემდეგ თქვენს ანგარიშს ვერანაირად ვერ დაიბრნებთ. &lt;br/&gt;ანგარიშის აღსადგენად უბრალოდ შედით საიტზე თქვენი ელ-ფოსტით და პაროლით.</value>
-    </data>
-    <data name="didnt_receive_an_email" xml:space="preserve">
-        <value>არ მიგიღიათ ელ-ფოსტა?</value>
-    </data>
-    <data name="email_sent" xml:space="preserve">
-        <value>წერილი გამოგზავნილია ელ-ფოსტაზე</value>
-    </data>
-    <data name="enter_your_email_and_well_send_you_a_new_link" xml:space="preserve">
-        <value>ჩაწერეთ თქვენი მეილის მისამართი და გამოგიგზავნით ლინკს</value>
-    </data>
-    <data name="failed_to_validate_token" xml:space="preserve">
-        <value>ტოკენის ვალიდაცია ვერ მოხერხდა</value>
-    </data>
-    <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly" xml:space="preserve">
-        <value>თუ თქვენ გაქვთ დადასტურებული ანგარიში საიტზე, ცოტა ხანში მიიღებთ ლინკს პაროლის აღდგენის ინსტრუქციებით. გთხოვთ შეამოწმოთ სპამ ფოლდერი</value>
-    </data>
-    <data name="invalid_token" xml:space="preserve">
-        <value>არასწორი ტოკენი</value>
-    </data>
-    <data name="locked_out" xml:space="preserve">
-        <value>ანგარიში ჩაკეტილია</value>
-    </data>
-    <data name="manage_notifications" xml:space="preserve">
-        <value>შეტყობინებების მართვა</value>
-    </data>
-    <data name="manage_your_addresses" xml:space="preserve">
-        <value>მისამართების მართვა</value>
-    </data>
-    <data name="manage_your_personal_info" xml:space="preserve">
-        <value>პირადი ინფორმაციის მართვა</value>
-    </data>
-    <data name="new_password" xml:space="preserve">
-        <value>ახალი პაროლი</value>
-    </data>
-    <data name="notification_preferences" xml:space="preserve">
-        <value>შეტყობინებების მართვა</value>
-    </data>
-    <data name="password_reset_successfully" xml:space="preserve">
-        <value>პაროლი წარმატებით შეიცვალა</value>
-    </data>
-    <data name="personal_info" xml:space="preserve">
-        <value>პირადი ინფორმაცია</value>
-    </data>
-    <data name="please_check_your_email" xml:space="preserve">
-        <value>გთხოვთ შეამოწმოთ ელ-ფოსტა</value>
-    </data>
-    <data name="please_check_your_email_and_spam_folder" xml:space="preserve">
-        <value>გთხოვთ შეამოწმოთ ელ-ფოსტა და სპამ ფოლდერი</value>
-    </data>
-    <data name="receive_sms_notifications" xml:space="preserve">
-        <value>გსურთ მიიღოთ SMS შეტყობინებები?</value>
-    </data>
-    <data name="register_confirmation" xml:space="preserve">
-        <value>რეგისტრაციის დასტური</value>
-    </data>
-    <data name="resend" xml:space="preserve">
-        <value>ხელახლა გაგზავნა</value>
-    </data>
-    <data name="reset" xml:space="preserve">
-        <value>შეცვლა</value>
-    </data>
-    <data name="reset_password" xml:space="preserve">
-        <value>პაროლის შეცვლა</value>
-    </data>
-    <data name="save_preferences" xml:space="preserve">
-        <value>პრეფერენციების შენახვა</value>
-    </data>
-    <data name="state" xml:space="preserve">
-        <value>შტატი</value>
-    </data>
-    <data name="state_unavailable_for_georgia" xml:space="preserve">
-        <value>საქართველოში შტატი არ არის</value>
-    </data>
-    <data name="street_address" xml:space="preserve">
-        <value>ქუჩის მისამართი</value>
-    </data>
-    <data name="the_token_you_provided_is_invalid" xml:space="preserve">
-        <value>თქვენს მიერ მოწოდებული ტოკენი არ არის სწორი</value>
-    </data>
-    <data name="this_account_has_been_locked_out_please_try_again_later" xml:space="preserve">
-        <value>თქვენი ანგარიში ჩაკეტილია, გთხოვთ ხელახლა სცადოთ 5 წუთში</value>
-    </data>
-    <data name="type_delete_to_confirm" xml:space="preserve">
-        <value>ჩაწერეთ 'delete' რათა წაშალოთ თქვენი ანგარიში</value>
-    </data>
-    <data name="update_address" xml:space="preserve">
-        <value>მისამართის განახლება</value>
-    </data>
-    <data name="welcome_to_our_app" xml:space="preserve">
-        <value>მოგესალმებით ჩვენს აპლიკაციაზე</value>
+        <value>დაადასტურეთ ელ.ფოსტა</value>
     </data>
     <data name="your_account_has_been_confirmed" xml:space="preserve">
         <value>თქვენი ანგარიში დადასტურებულია</value>
     </data>
+    <data name="welcome_to_our_app" xml:space="preserve">
+        <value>კეთილი იყოს თქვენი მობრძანება!</value>
+    </data>
+    <data name="failed_to_validate_token" xml:space="preserve">
+        <value>ვერ მოახერხა ტოკენის გადამოწმება</value>
+    </data>
+    <data name="register_confirmation" xml:space="preserve">
+        <value>რეგისტრაციის დადასტურება</value>
+    </data>
+    <data name="email_sent" xml:space="preserve">
+        <value>ელ.ფოსტა გაგზავნილია</value>
+    </data>
+    <data name="please_check_your_email_and_spam_folder" xml:space="preserve">
+        <value>გთხოვთ, შეამოწმოთ თქვენი ელ.ფოსტა და სპამის საქაღალდეები</value>
+    </data>
+    <data name="didnt_receive_an_email" xml:space="preserve">
+        <value>არ მიიღეთ ელ.წერილი?</value>
+    </data>
+    <data name="enter_your_email_and_well_send_you_a_new_link" xml:space="preserve">
+        <value>შეიყვანეთ თქვენი ელ.ფოსტა და ჩვენ გამოგიგზავნით ბმულს.</value>
+    </data>
+    <data name="resend" xml:space="preserve">
+        <value>გადასვლა</value>
+    </data>
+    <data name="access_denied" xml:space="preserve">
+        <value>წვდომა აკრძალულია</value>
+    </data>
+    <data name="you_do_not_have_access_to_this_resource" xml:space="preserve">
+        <value>თქვენ არ გაქვთ წვდომა ამ რესურსზე</value>
+    </data>
     <data name="your_account_is_scheduled_for_deletion" xml:space="preserve">
-        <value>თქვენი ანგარიში მალე წაიშლება</value>
+        <value>თქვენი ანგარიში არის მალე წაიშლება</value>
+    </data>
+    <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login" xml:space="preserve">
+        <value>თქვენ გაქვთ 30 დღიანი ვადა თქვენი ანგარიშის გამოსაყენებლად. თქვენი ანგარიშის აღსადგენად, შედით თქვენი ელ.ფოსტით და პაროლით.</value>
+    </data>
+    <data name="invalid_token" xml:space="preserve">
+        <value>არასწორი ტოკენი</value>
+    </data>
+    <data name="the_token_you_provided_is_invalid" xml:space="preserve">
+        <value>თქვენს მიერ მოწოდებული ტოკენი არასწორია</value>
+    </data>
+    <data name="locked_out" xml:space="preserve">
+        <value>ანგარიში ჩაიკეტა</value>
+    </data>
+    <data name="this_account_has_been_locked_out_please_try_again_later" xml:space="preserve">
+        <value>ეს ანგარიში ჩაკეტილია, გთხოვთ სცადოთ 5 წუთში</value>
+    </data>
+    <data name="please_check_your_email" xml:space="preserve">
+        <value>გთხოვთ, შეამოწმოთ თქვენი ელ.ფოსტა</value>
+    </data>
+    <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly" xml:space="preserve">
+        <value>თუ ჩვენთან დადასტურებული ანგარიში გაქვთ, პაროლის შეცვლის ბმულს გამოგიგზავნით.</value>
+    </data>
+    <data name="reset_password" xml:space="preserve">
+        <value>პაროლის შეცვლა</value>
+    </data>
+    <data name="new_password" xml:space="preserve">
+        <value>ახალი პაროლი</value>
+    </data>
+    <data name="confirm_new_password" xml:space="preserve">
+        <value>დაადასტურეთ ახალი პაროლი</value>
+    </data>
+    <data name="you_successfully_reset_your_password" xml:space="preserve">
+        <value>თქვენ წარმატებით აღადგინეთ თქვენი პაროლი</value>
+    </data>
+    <data name="password_reset_successfully" xml:space="preserve">
+        <value>პაროლის წარმატებით შეიცვალა</value>
     </data>
     <data name="your_password_has_been_reset" xml:space="preserve">
-        <value>თქვენი პაროლი შეიცვალა</value>
+        <value>თქვენი პაროლი შეცვლილია</value>
+    </data>
+    <data name="current_password" xml:space="preserve">
+        <value>მიმდინარე პაროლი</value>
+    </data>
+    <data name="change_password" xml:space="preserve">
+        <value>პაროლის შეცვლა</value>
+    </data>
+    <data name="account_delete_confirmation" xml:space="preserve">
+        <value>დარწმუნებული ხართ, რომ გსურთ თქვენი ანგარიშის წაშლა?</value>
+    </data>
+    <data name="type_delete_to_confirm" xml:space="preserve">
+        <value>ჩაწერეთ 'delete' დასადასტურებლად</value>
+    </data>
+    <data name="delete_warning" xml:space="preserve">
+        <value>ეს მოქმედება შეუქცევადია. თქვენი ყველა მონაცემი დაიკარგება. თქვენ გექნებათ 30 დღიანი ვადა თქვენი ანგარიშის გამოსაყენებლად. &lt;br/&gt;
+        თქვენი ანგარიშის დასადგენად, უბრალოდ შეხვიდეთ თქვენი ელ.ფოსტით და პაროლით.</value>
+    </data>
+    <data name="delete_account" xml:space="preserve">
+        <value>ანგარიშის წაშლა</value>
+    </data>
+    <data name="personal_info" xml:space="preserve">
+        <value>პირადი ინფორმაცია</value>
+    </data>
+    <data name="notification_preferences" xml:space="preserve">
+        <value>შეტყობინებების მართვა</value>
+    </data>
+    <data name="manage_your_personal_info" xml:space="preserve">
+        <value>მართეთ თქვენი პირადი ინფორმაცია</value>
+    </data>
+    <data name="change_your_password" xml:space="preserve">
+        <value>შეცვალეთ თქვენი პაროლი</value>
+    </data>
+    <data name="manage_your_addresses" xml:space="preserve">
+        <value>მართეთ თქვენი მისამართები</value>
+    </data>
+    <data name="manage_notifications" xml:space="preserve">
+        <value>შეტყობინებების მართვა</value>
+    </data>
+    <data name="receive_sms_notifications" xml:space="preserve">
+        <value>მიიღეთ SMS შეტყობინებები?</value>
+    </data>
+    <data name="save_preferences" xml:space="preserve">
+        <value>პრეფერენციების შენახვა</value>
     </data>
     <data name="your_preferences_have_been_saved" xml:space="preserve">
         <value>თქვენი პრეფერენციები შენახულია</value>
     </data>
-    <data name="you_do_not_have_access_to_this_resource" xml:space="preserve">
-        <value>თქვენ არ გაქვს წვდომა ამ რესურსზე</value>
+    <data name="country" xml:space="preserve">
+        <value>ქვეყანა</value>
     </data>
-    <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login" xml:space="preserve">
-        <value>თქვენ გაქვთ 30 დღიანი პერიოდი თქვენი ანგარიშის აღსადგენად, ანგარიშის აღსადგენად, უბრალოდ შედით საიტზე თქვენი ელ-ფოსტით და პაროლით.</value>
+    <data name="state" xml:space="preserve">
+        <value>შტატი</value>
     </data>
-    <data name="you_successfully_reset_your_password" xml:space="preserve">
-        <value>თქვენ წარმატებით შეცვალეთ თქვენი პაროლი</value>
+    <data name="city" xml:space="preserve">
+        <value>ქალაქი</value>
     </data>
     <data name="zip_code" xml:space="preserve">
-        <value>ზიპ კოდი</value>
+        <value>საფოსტო კოდი</value>
     </data>
-    <data name="all_rights_reserved" xml:space="preserve">
-        <value>ყველა უფლება დაცულია</value>
+    <data name="street_address" xml:space="preserve">
+        <value>ქუჩის მისამართი</value>
     </data>
-    <data name="contact" xml:space="preserve">
-        <value>კონტაქტი</value>
+    <data name="update_address" xml:space="preserve">
+        <value>მისამართის განახლება</value>
     </data>
-    <data name="contact_dev_team" xml:space="preserve">
-        <value>დეველოპერებთან კონტაქტი</value>
+    <data name="address_updated_successfully" xml:space="preserve">
+        <value>მისამართი წარმატებით განახლდა</value>
     </data>
-    <data name="enter_your_email_to_receive_notifications_about_product_updates" xml:space="preserve">
-        <value>ჩაწერეთ თქვენი მეილის მისამართი რათა მიიღოთ შეტყობინებები სიახლეებზე</value>
+    <data name="state_unavailable_for_georgia" xml:space="preserve">
+        <value>შტატი მიუწვდომელია საქართველოში</value>
     </data>
     <data name="newsletter" xml:space="preserve">
-        <value>წერილები</value>
+        <value>ბიულეტენი</value>
     </data>
-    <data name="partner_sites" xml:space="preserve">
-        <value>პარტნიორი საიტები</value>
+    <data name="enter_your_email_to_receive_notifications_about_product_updates" xml:space="preserve">
+        <value>შეიყვანეთ თქვენი ელ.ფოსტა, რომ მიიღოთ შეტყობინებები პროდუქტის განახლებებისა და ჩვენი ბიულეტენის შესახებ.</value>
     </data>
     <data name="subscribe" xml:space="preserve">
         <value>გამოწერა</value>
     </data>
-    <data name="rate_per_kilo" xml:space="preserve">
-        <value>ფასი</value>
+    <data name="partner_sites" xml:space="preserve">
+        <value>პარტნიორი საიტები</value>
+    </data>
+    <data name="contact" xml:space="preserve">
+        <value>კონტაქტი</value>
+    </data>
+    <data name="all_rights_reserved" xml:space="preserve">
+        <value>ყველა უფლება დაცულია</value>
+    </data>
+    <data name="contact_dev_team" xml:space="preserve">
+        <value>დაუკავშირდით დეველოპერების გუნდს</value>
     </data>
     <data name="addresses" xml:space="preserve">
         <value>მისამართები</value>
     </data>
-    <data name="hero_cta_text" xml:space="preserve">
-        <value>შემოგვიერთდით</value>
-    </data>
-    <data name="hero_description" xml:space="preserve">
-        <value>ჩვენ ვართ ახალი კომპანია შიპინგის ინდუსტრიაში. ჩვენ ჩამოგვაქვს ამანათები იაფად და დროულად</value>
+    <data name="rate_per_kilo" xml:space="preserve">
+        <value>ფასი</value>
     </data>
     <data name="hero_title" xml:space="preserve">
-        <value>შიპინგ კოპმანია ამერიკიდან საქართველოში</value>
+        <value>გადაზიდვის კომპანია აშშ - დან საქართველოში</value>
     </data>
-    <data name="why_advanced_tracking" xml:space="preserve">
-        <value>მოწინავე ტრექინგი</value>
+    <data name="hero_description" xml:space="preserve">
+        <value>ჩვენ ვართ ახალი კომპანია გადაზიდვების ინდუსტრიაში, გთავაზობთ საიმედო, სწრაფ და ხელმისაწვდომ მომსახურებას მთელს მსოფლიოში.</value>
     </data>
-    <data name="why_advanced_tracking_description" xml:space="preserve">
-        <value>ჩვენი ტრექინგ სისტემა არის მოწინავე ინდუსტრიაში. ჩვენი პროფესიონალი დეველოპერების გუნდი უზრუნველყოფს თქვენი ამანათების სრულ უსაფრთხოებას.</value>
+    <data name="hero_cta_text" xml:space="preserve">
+        <value>დაწყება</value>
     </data>
-    <data name="why_cards_moving_items" xml:space="preserve">
-        <value>გადატანილი ამანათი</value>
-    </data>
-    <data name="why_cards_packages_from_geo" xml:space="preserve">
-        <value>ამანათი საქართველოდან</value>
-    </data>
-    <data name="why_cards_packages_from_usa" xml:space="preserve">
-        <value>ამანათი ამერიკიდან</value>
-    </data>
-    <data name="why_cards_storage_items" xml:space="preserve">
-        <value>შენახული ამანათი</value>
+    <data name="why_sangoway" xml:space="preserve">
+        <value>რატომ SanGoWay?</value>
     </data>
     <data name="why_cheap_prices" xml:space="preserve">
-        <value>იაფი ტარიფი</value>
+        <value>იაფი ფასები!</value>
     </data>
     <data name="why_cheap_prices_description" xml:space="preserve">
-        <value>ჩვენ გთავაზობთ შეუდარებელ ფასებს და სამომხმარებლო გამოცდილებას. ჩვენი მიზანია რომ შეგიქმნათ კომფორტული გარემო და უსაფრთხოება</value>
+        <value>ჩვენ გთავაზობთ შეუსაბამო გადაზიდვის გადაწყვეტილებებს, რომლებიც მორგებულია თქვენი უნიკალური საჭიროებების დასაკმაყოფილებლად, ყოველ ჯერზე დროული და უსაფრთხო მიწოდების უზრუნველსაყოფად.</value>
     </data>
     <data name="why_experience" xml:space="preserve">
         <value>დიდი გამოცდილება</value>
     </data>
     <data name="why_experience_description" xml:space="preserve">
-        <value>ჩვენ გვაქვს წლები ლოგისტიკის ინდუსტრიაში. ჩვენი მიზანია შეუდარებელი სერვისის მოწოდება თქვენთის. მომხმარებლის კმაყოფილება ჩვენი პირველი მიზანია.</value>
+        <value>ლოჯისტიკური ინდუსტრიის მრავალწლიანი გამოცდილებით, ჩვენ ერთგულნი ვართ განსაკუთრებული მომსახურების მიწოდებით, იქნება ეს თუ არა თქვენ გადაზიდავთ პაკეტებს ქვეყნის მასშტაბით თუ მთელს მსოფლიოში.</value>
     </data>
-    <data name="why_sangoway" xml:space="preserve">
-        <value>რატომ სანგოვეი?</value>
+    <data name="why_advanced_tracking" xml:space="preserve">
+        <value>მოწინავე თრექინგი დევნება</value>
+    </data>
+    <data name="why_advanced_tracking_description" xml:space="preserve">
+        <value>ჩვენი მოწინავე თრექინგის სისტემა და პროფესიონალი გუნდი გარანტიას იძლევა გონების სიმშვიდეს იმ მომენტიდან, როდესაც თქვენ გამოგიგზავნით ნაკვეთს იმ დანიშნულების ადგილამდე, როდესაც მიაღწევს დანიშნულების ადგილს.</value>
+    </data>
+    <data name="why_cards_packages_from_usa" xml:space="preserve">
+        <value>პაკეტები აშშ - დან</value>
+    </data>
+    <data name="why_cards_packages_from_geo" xml:space="preserve">
+        <value>პაკეტები - საქართველოდან</value>
+    </data>
+    <data name="why_cards_storage_items" xml:space="preserve">
+        <value>შენახული პაკეტები</value>
+    </data>
+    <data name="why_cards_moving_items" xml:space="preserve">
+        <value>ჩამოტანილი პაკეტები</value>
     </data>
     <data name="how_it_works" xml:space="preserve">
         <value>როგორ მუშაობს</value>
     </data>
     <data name="how_step_1" xml:space="preserve">
-        <value>ეტაპი 1: რეგისტრაცია</value>
-    </data>
-    <data name="how_step_2" xml:space="preserve">
-        <value>ეტაპი 2: დააკოპირეთ მისამართი</value>
-    </data>
-    <data name="how_step_3" xml:space="preserve">
-        <value>ეტაპი 3: დაადეკლარირეთ ამანათი</value>
-    </data>
-    <data name="how_step_4" xml:space="preserve">
-        <value>ეტაპი 4: მიიღეთ ამანათი</value>
+        <value>ნაბიჯი 1: დარეგისტრირდით</value>
     </data>
     <data name="how_step_1_description" xml:space="preserve">
-        <value>შექმენით ანგარიში რათა გამოიყენოთ ჩვენი სერვისი</value>
+        <value>შექმენით ახალი ანგარიში ჩვენი სერვისების გამოსაყენებლად!</value>
+    </data>
+    <data name="how_step_2" xml:space="preserve">
+        <value>ნაბიჯი 2: დააკოპირეთ თქვენი მისამართი</value>
     </data>
     <data name="how_step_2_description" xml:space="preserve">
-        <value>რეგისტრაციის შემდეგ თქვენ მიიღებთ მისამართს რომელიც შეგიძლიათ გამოიყენოთ ონლაინ შოპინგის დროს.&lt;br/&gt;&lt;br/&gt;გამოიყენეთ ეს მისამართი როდესაც უკვეთავთ ნივთებს ონლაინ</value>
+        <value>დარეგისტრირების შემდეგ, თქვენ მიიღებთ მისამართს, რომლის საშუალებითაც შეგიძლიათ გამოიყენოთ ონლაინ შოპინგისთვის.</value>
+    </data>
+    <data name="how_step_3" xml:space="preserve">
+        <value>ნაბიჯი 3: პაკეტების დამატება</value>
     </data>
     <data name="how_step_3_description" xml:space="preserve">
-        <value>ონლაინ გამოწერის შემდეგ დაადეკლარირეთ თქვენი ანამათი ჩვენს საიტზე</value>
+        <value>მას შემდეგ, რაც შეიძენთ პროდუქტებს ინტერნეტით, გთხოვთ, გამოაცხადოთ ისინი თქვენს SangGoWay ანგარიშზე.</value>
+    </data>
+    <data name="how_step_4" xml:space="preserve">
+        <value>ნაბიჯი 4: მიიღეთ პაკეტები!</value>
     </data>
     <data name="how_step_4_description" xml:space="preserve">
-        <value>თქვენი ამანათის მიღების შემდეგ, თქვენ შეგეძლებათ დაიწყოთ მისი თრექინგი.&lt;br/&gt;&lt;br/&gt;ჩამოტანის საფასურის გადახდის შემდეგ თქვენ შეძლებთ რომ მიიღოთ თქვენი ამანათი</value>
-    </data>
-    <data name="testimonial_1" xml:space="preserve">
-        <value>"ამ პლატფორმამ შეცვალა როგორ ვმუშაობ, ვუწევ რეკომენდაციას"</value>
-    </data>
-    <data name="testimonial_1_author" xml:space="preserve">
-        <value>თამარ ბიბილეიშვილი</value>
-    </data>
-    <data name="testimonial_2_author" xml:space="preserve">
-        <value>ანი მარტიაშვილი</value>
-    </data>
-    <data name="testimonial_3_author" xml:space="preserve">
-        <value>მარიამ ნიკოლაძე</value>
-    </data>
-    <data name="testimonial_4_author" xml:space="preserve">
-        <value>გიორგი ბაქრაძე</value>
+        <value>თქვენი ამანათის ჩამოსვლის შემდეგ, თქვენ შეძლებთ გადაიხადოთ მისი წონის საფასური.</value>
     </data>
     <data name="testimonial_header" xml:space="preserve">
         <value>რას ამბობენ ჩვენი მომხმარებლები</value>
     </data>
-    <data name="testimonial_4" xml:space="preserve">
-        <value>"ვერ წარმომიდგენია ამ სერვისამდე როგორ ვიწერდი ონლაინ ამანათებს"</value>
+    <data name="testimonial_1" xml:space="preserve">
+        <value>"ამ პლატფორმამ გარდაქმნა როგორ ვმუშაობ. ძალიან რეკომენდებულია!"</value>
+    </data>
+    <data name="testimonial_1_author" xml:space="preserve">
+        <value>თამარ ბიბილიშვილი</value>
     </data>
     <data name="testimonial_2" xml:space="preserve">
-        <value>"საუკეთესო არჩევანი რაც ამ წელს გავაკეთე იყო სანგოვეიზე გადმოსვლა."</value>
+        <value>"საუკეთესო გადაწყვეტილება, რომელიც წელს მივიღე. წარმოუდგენელი მხარდაჭერა და თვისებები!"</value>
+    </data>
+    <data name="testimonial_2_author" xml:space="preserve">
+        <value>არც მარტასვილი</value>
     </data>
     <data name="testimonial_3" xml:space="preserve">
-        <value>"გასაოცარი სამომხმარებლო ინტერფეისი!"</value>
+        <value>"შესანიშნავი ხარისხი და ყურადღება დეტალებზე. ისინი ნამდვილად ზრუნავენ!"</value>
     </data>
-    <data name="404_description" xml:space="preserve">
-        <value>როგორც ჩანს ეს გვერდი ვერ მოიძებნა</value>
+    <data name="testimonial_3_author" xml:space="preserve">
+        <value>მარიამ ნიკოლოძე</value>
+    </data>
+    <data name="testimonial_4" xml:space="preserve">
+        <value>”მე ვერ წარმომიდგენია, რომ დავუბრუნდები, თუ როგორ იყო საქმეები ამ სამსახურის წინ.”</value>
+    </data>
+    <data name="testimonial_4_author" xml:space="preserve">
+        <value>გიორგი სანაკოევი</value>
     </data>
     <data name="404_header" xml:space="preserve">
-        <value>404 - ვერ მოიძებნა</value>
+        <value>404 - დაკარგული კიბერსივრცეში</value>
+    </data>
+    <data name="404_description" xml:space="preserve">
+        <value>როგორც ჩანს, ეს გვერდი ვერ მოიძებნა.</value>
     </data>
     <data name="404_return_home" xml:space="preserve">
-        <value>უკან დაბრუნება</value>
+        <value>მთავარ გვერდზე დაბრუნება</value>
+    </data>
+    <data name="about_description" xml:space="preserve">
+        <value>კეთილი იყოს თქვენი მობრძანება ჩვენს გადაზიდვის სერვისში! ჩვენ ვამაყობთ იმით, რომ ვართ ყველაზე ხელმისაწვდომი და საიმედო მიწოდების სერვისი ნაკვეთებისთვის აშშ - დან საქართველოში.</value>
+    </data>
+    <data name="about_mission" xml:space="preserve">
+        <value>ჩვენი მისია</value>
+    </data>
+    <data name="about_mission_description" xml:space="preserve">
+        <value>ჩვენი მიზანია საერთაშორისო გადაზიდვის ხელმისაწვდომი და უპრობლემოდ განთავსება. ჩვენ უზრუნველვყოფთ, რომ თქვენი ამანათები უსაფრთხოდ და დროულად მიეწოდება აშშ - დან საქართველოში.</value>
+    </data>
+    <data name="about_who_are_we" xml:space="preserve">
+        <value>ვინ ვართ ჩვენ</value>
+    </data>
+    <data name="about_who_are_we_description" xml:space="preserve">
+        <value>ჩვენ მცირე ბიზნესი ვართ, რომელიც გამოწვეულია ჩვენი მომხმარებლებისთვის ღირებულების მიწოდების ვნებით.</value>
+    </data>
+    <data name="owner" xml:space="preserve">
+        <value>მესაკუთრე ქალი</value>
+    </data>
+    <data name="about_giorgi_sanakoevi" xml:space="preserve">
+        <value>გიორგი სანაკოევი</value>
+    </data>
+    <data name="dev_team" xml:space="preserve">
+        <value>დეველოპერების გუნდი</value>
     </data>
     <data name="about_achievements" xml:space="preserve">
         <value>ჩვენი მიღწევები</value>
     </data>
     <data name="about_achievements_description" xml:space="preserve">
-        <value>ჩვენ უკვე გვაქვს 2,320 ამანათი ჩამოტანილი ამერიკიდან საქართველოში. ჩვენ ვეხმარებით უამრავ მომხმარებელს.</value>
-    </data>
-    <data name="about_giorgi_sanakoevi" xml:space="preserve">
-        <value>გიორგი სანაკოევი</value>
-    </data>
-    <data name="about_mission" xml:space="preserve">
-        <value>ჩვენი მისია</value>
-    </data>
-    <data name="about_description" xml:space="preserve">
-        <value>მოგესალმებით ჩვენს საიტზე, ჩვენ გვიხარია რომ შემოგვიერთდით</value>
-    </data>
-    <data name="about_who_are_we" xml:space="preserve">
-        <value>ვინ ვართ ჩვენ</value>
+        <value>ჩვენი დაარსების დღიდან, ჩვენ წარმატებით მივაწოდეთ 2,320 ამანათი აშშ - დან საქართველოში, რაც უთვალავი მომხმარებლების დახმარებას ეხმარება ხელმისაწვდომი და საიმედო გადაზიდვით.</value>
     </data>
     <data name="about_why_us" xml:space="preserve">
         <value>რატომ ჩვენ?</value>
     </data>
     <data name="about_why_us_description" xml:space="preserve">
-        <value>ჩვენ ვაერთიანებთ იაფ ფასებს და პერსონიზირებულ სერვისს ისეთ ადვილად გამოსაყენებ ინტერფეისში რომ ძნელია კომპეტიტორებთან შედარება</value>
-    </data>
-    <data name="about_who_are_we_description" xml:space="preserve">
-        <value>ჩვენ ვართ პატარა ბიზნესი, დიდი მიზნებით: მომხმარებლისათვის ამანათების გამოწერის გაადვილება, და სარგებელი</value>
-    </data>
-    <data name="about_mission_description" xml:space="preserve">
-        <value>ჩვენი მიზანია რომ საერთაშორისო შიპინგი გავხადოთ ადვილი და ინტუიტიური თქვენთვის. ჩვენ გთავაზობთ იაფ ჩამოტანის სერვისს</value>
-    </data>
-    <data name="dev_team" xml:space="preserve">
-        <value>დეველოპერი</value>
+        <value>ჩვენ ვაერთიანებთ ხარჯების ეფექტურ ფასებს, პერსონალიზებულ მომსახურებას და ბრწყინვალების ვალდებულებას, რომ თქვენი გადაზიდვის გამოცდილება მეორე არ იყოს. როდესაც თქვენ აირჩევთ, თქვენ მხარს უჭერთ გამოყოფილი მცირე ბიზნესს, რომელიც აფასებს თქვენს ნდობას.</value>
     </data>
     <data name="faq_1_q" xml:space="preserve">
-        <value>რა არის სანგოვეი?</value>
+        <value>რა არის სანგოვი?</value>
     </data>
     <data name="faq_2_q" xml:space="preserve">
         <value>როგორ მუშაობს?</value>
@@ -477,57 +488,390 @@
         <value>როგორ დავიწყო?</value>
     </data>
     <data name="faq_4_q" xml:space="preserve">
-        <value>როგორ გადავიხადო ჩამოტანის საფასური?</value>
+        <value>როგორ გადავიხადო გადაზიდვისთვის?</value>
     </data>
     <data name="faq_5_q" xml:space="preserve">
-        <value>როგორ დავთრექო ჩემი ამანათი?</value>
+        <value>როგორ თვალყური ადევნო ჩემს პაკეტს?</value>
     </data>
     <data name="faq_6_q" xml:space="preserve">
         <value>როგორ მივიღო ჩემი ამანათი?</value>
     </data>
     <data name="faq_1_a" xml:space="preserve">
-        <value>სანგოვეი არის პლატფორმა რომელიც გეხმარებათ ჩამოიტანოთ ამანათები ამერიკიდან</value>
+        <value>Sangoway არის პლატფორმა, რომელიც ხელს უწყობს პაკეტების მიწოდებას აშშ - დან საქართველოში.</value>
     </data>
     <data name="faq_2_a" xml:space="preserve">
-        <value>სანგოვეი იყენებს წონას და განზომილებას ამანათის საფასურის გამოსათვლელად</value>
+        <value>Sangoway იყენებს თქვენი ამანათის წონასა და ზომებს, რომ გამოანგარიშდეს აშშ - დან საქართველოში გადაზიდვის ღირებულება.</value>
     </data>
     <data name="faq_3_a" xml:space="preserve">
-        <value>დასაწყებად დარეგისტრირდით ჩვენს საიტზე</value>
+        <value>დაწყება მარტივია. უბრალოდ დარეგისტრირდით და დაიწყეთ ჩვენი სერვისების გამოყენება</value>
     </data>
     <data name="faq_4_a" xml:space="preserve">
-        <value>სანგოვეი იღებს საკრედიტო ბარათებს Stripe-ის მეშვეობით</value>
+        <value>Sangoway იღებს გადახდას საკრედიტო ბარათისა და საბანკო გადარიცხვით.</value>
     </data>
     <data name="faq_5_a" xml:space="preserve">
-        <value>მას შემდეგ რაც თქვენი ამანათი გამოიგზავნება, თქვენ მიიღებთ ტრექნიგ კოდს, ამ კოდის მეშვეობით შეძლებთ რომ თვალი ადევნოთ თქვენს ამანათს</value>
+        <value>თქვენი ამანათის გაგზავნის შემდეგ, თქვენ მიიღებთ თვალთვალის ნომერს, რომლის გამოყენებაც შეგიძლიათ თქვენი ამანათის დასადგენად.</value>
     </data>
     <data name="faq_6_a" xml:space="preserve">
-        <value>თბილისში ჩამოსვლის შემდეგ, თქვენ შეძლებთ აიღოთ თქვენი ამანათი ან ისარგებლოთ საკურიერო სერვისით</value>
+        <value>თქვენი ამანათის საქართველოში ჩასვლისთანავე შეგიძლიათ აიღოთ იგი ჩვენს ოფისში ან მიაწოდოთ იგი თქვენს მისამართს.</value>
     </data>
-    <data name="volumetric_price" xml:space="preserve">
-        <value>მოცულობითი წონაის საფასური</value>
+    <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams" xml:space="preserve">
+        <value>გაითვალისწინეთ, წონა მომრგვალდება უახლოეს 100 გრამამდე.</value>
+    </data>
+    <data name="calculator_volumetric_notice" xml:space="preserve">
+        <value>უფრო მეტი რომ გაეცნოთ მოცულობითი წონის შესახებ და როგორ გამოითვლება, ეწვიეთ ჩვენს</value>
+    </data>
+    <data name="calculator_description" xml:space="preserve">
+        <value>შეიყვანეთ ამანათის საჭირო პარამეტრები და კალკულატორი გამოთვლის მიწოდების ღირებულებას</value>
     </data>
     <data name="weight" xml:space="preserve">
         <value>წონა</value>
     </data>
-    <data name="total_price" xml:space="preserve">
-        <value>ჯამური საფასური</value>
-    </data>
-    <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams" xml:space="preserve">
-        <value>გთხოვთ გაითვალისწინოთ რომ წონა ამრგვალდება 100 გრამზე</value>
-    </data>
-    <data name="owner" xml:space="preserve">
-        <value>მფლობელი</value>
-    </data>
-    <data name="calculator_description" xml:space="preserve">
-        <value>ჩაწერეთ პარამეტრები და გაიგეთ რამდენი დაჯდება თქვენი ამანათის ჩამოტანა ჩვენთან</value>
-    </data>
     <data name="calculator_price_notice" xml:space="preserve">
-        <value>ფასების გამოთვლასთან დაკავშირებითი მეტი ინფორმაციის მისაღებათ, გთხოვთ იხილეთ:</value>
+        <value>მეტი ინფორმაციის მისაღებად, თუ როგორ გამოვთვალებთ ამანათის ფასებს, ეწვიეთ ჩვენს</value>
     </data>
-    <data name="calculator_volumetric_notice" xml:space="preserve">
-        <value>მოცულობითი წონის ფასების გამოთვლასთან დაკავშირებითი მეტი ინფორმაციის მისაღებათ, გთხოვთ იხილეთ:</value>
+    <data name="volumetric_price" xml:space="preserve">
+        <value>მოცულობითი ფასი</value>
+    </data>
+    <data name="total_price" xml:space="preserve">
+        <value>საერთო ფასი</value>
     </data>
     <data name="house_delivery" xml:space="preserve">
         <value>სახლში მიწოდება</value>
+    </data>
+    <data name="user_dashboard" xml:space="preserve">
+        <value>მომხმარებლის დაშბორდი</value>
+    </data>
+    <data name="your_balance" xml:space="preserve">
+        <value>თქვენი ბალანსი</value>
+    </data>
+    <data name="total_amount_due" xml:space="preserve">
+        <value>სულ გადასახდელი</value>
+    </data>
+    <data name="your_packages" xml:space="preserve">
+        <value>თქვენი ამანათები</value>
+    </data>
+    <data name="top_up_balance" xml:space="preserve">
+        <value>ბალანსის შევსება</value>
+    </data>
+    <data name="your_payment_info_is_secure" xml:space="preserve">
+        <value>თქვენი გადახდის ინფორმაცია უსაფრთხოა</value>
+    </data>
+    <data name="all_packages" xml:space="preserve">
+        <value>ამანათების სია</value>
+    </data>
+    <data name="receive" xml:space="preserve">
+        <value>მიღება</value>
+    </data>
+    <data name="add_personal" xml:space="preserve">
+        <value>პირადის დამატება</value>
+    </data>
+    <data name="add_online" xml:space="preserve">
+        <value>ონლაინის დაამატეთ</value>
+    </data>
+    <data name="retail_price" xml:space="preserve">
+        <value>საცალო ფასი</value>
+    </data>
+    <data name="website_address" xml:space="preserve">
+        <value>ვებსაიტის მისამართი</value>
+    </data>
+    <data name="race" xml:space="preserve">
+        <value>რეისი</value>
+    </data>
+    <data name="shipping_price" xml:space="preserve">
+        <value>გადაზიდვის ფასი</value>
+    </data>
+    <data name="last_update" xml:space="preserve">
+        <value>ბოლო განახლება</value>
+    </data>
+    <data name="pay_for_shipping" xml:space="preserve">
+        <value>გადაიხადე გადაზიდვისთვის</value>
+    </data>
+    <data name="would_you_like_to_pay_x_amount" xml:space="preserve">
+        <value>გსურთ გადაიხადოთ x თანხა</value>
+    </data>
+    <data name="after_this_transaction_you_will_have" xml:space="preserve">
+        <value>ამ გარიგების შემდეგ გექნებათ</value>
+    </data>
+    <data name="cancel" xml:space="preserve">
+        <value>გაუქმება</value>
+    </data>
+    <data name="confirm" xml:space="preserve">
+        <value>დადასტურება</value>
+    </data>
+    <data name="add_package_to_race" xml:space="preserve">
+        <value>დაამატეთ ამანათი რასის</value>
+    </data>
+    <data name="mark_package_as_delivered_to_user" xml:space="preserve">
+        <value>მონიშნეთ ამანათი, მიეწოდებულად</value>
+    </data>
+    <data name="add_race" xml:space="preserve">
+        <value>დაამატეთ რეისი</value>
+    </data>
+    <data name="add_user" xml:space="preserve">
+        <value>დაამატეთ მომხმარებელი</value>
+    </data>
+    <data name="admin_dashboard" xml:space="preserve">
+        <value>ადმინისტრატორის დაფა</value>
+    </data>
+    <data name="from_last_month" xml:space="preserve">
+        <value>გასული თვიდან</value>
+    </data>
+    <data name="packages_processed" xml:space="preserve">
+        <value>დამუშავებული პაკეტები</value>
+    </data>
+    <data name="shipping_revenue" xml:space="preserve">
+        <value>გადაზიდვის შემოსავალი</value>
+    </data>
+    <data name="cancelled" xml:space="preserve">
+        <value>გაუქმება</value>
+    </data>
+    <data name="you_cancelled_the_payment" xml:space="preserve">
+        <value>თქვენ გააუქმეთ გადახდა</value>
+    </data>
+    <data name="return_home" xml:space="preserve">
+        <value>სახლში დაბრუნება</value>
+    </data>
+    <data name="success" xml:space="preserve">
+        <value>წარმატება</value>
+    </data>
+    <data name="you_successfully_deposited" xml:space="preserve">
+        <value>თქვენ წარმატებით შეიტანეთ</value>
+    </data>
+    <data name="to_your_account" xml:space="preserve">
+        <value>თქვენს ანგარიშზე</value>
+    </data>
+    <data name="thank_you_for_using_our_services" xml:space="preserve">
+        <value>გმადლობთ ჩვენი სერვისების გამოყენებისთვის</value>
+    </data>
+    <data name="receive_package_at_warehouse" xml:space="preserve">
+        <value>მიიღეთ ამანათი საწყობში</value>
+    </data>
+    <data name="when_you_receive_a_package_at_the_warehouse_declare_them_here" xml:space="preserve">
+        <value>როდესაც თქვენ მიიღებთ პაკეტს საწყობში</value>
+    </data>
+    <data name="price_per" xml:space="preserve">
+        <value>ფასი თითო</value>
+    </data>
+    <data name="enter_the_price_per_kilogram_here" xml:space="preserve">
+        <value>შეიყვანეთ ფასი თითო კილოგრამზე</value>
+    </data>
+    <data name="tracking_code" xml:space="preserve">
+        <value>თვალთვალის კოდი</value>
+    </data>
+    <data name="address_2_room_code" xml:space="preserve">
+        <value>მისამართი 2 ოთახის კოდი</value>
+    </data>
+    <data name="width" xml:space="preserve">
+        <value>სიგანე</value>
+    </data>
+    <data name="height" xml:space="preserve">
+        <value>სიმაღლე</value>
+    </data>
+    <data name="length" xml:space="preserve">
+        <value>სიგრძე</value>
+    </data>
+    <data name="package_contains_prohibited_items" xml:space="preserve">
+        <value>ამანათი შეიცავს აკრძალულ ნივთებს</value>
+    </data>
+    <data name="declare" xml:space="preserve">
+        <value>დეკლარირება</value>
+    </data>
+    <data name="add_package_to_race" xml:space="preserve">
+        <value>დაამატეთ ამანათი რეისში</value>
+    </data>
+    <data name="race_id" xml:space="preserve">
+        <value>რასის პირადობის მოწმობა</value>
+    </data>
+    <data name="select_option" xml:space="preserve">
+        <value>აირჩიეთ ვარიანტი</value>
+    </data>
+    <data name="package_id" xml:space="preserve">
+        <value>ამანათის პირადობის მოწმობა</value>
+    </data>
+    <data name="all_races" xml:space="preserve">
+        <value>ყველა რეისი</value>
+    </data>
+    <data name="create" xml:space="preserve">
+        <value>შექმნა</value>
+    </data>
+    <data name="race_name" xml:space="preserve">
+        <value>რასის სახელი</value>
+    </data>
+    <data name="takeoff" xml:space="preserve">
+        <value>ასაფთამააჟი</value>
+    </data>
+    <data name="landing" xml:space="preserve">
+        <value>მიწაზე დაშვება</value>
+    </data>
+    <data name="create_race" xml:space="preserve">
+        <value>შექმენით რეისი</value>
+    </data>
+    <data name="name" xml:space="preserve">
+        <value>სახელი</value>
+    </data>
+    <data name="flight_code" xml:space="preserve">
+        <value>ფრენის კოდი</value>
+    </data>
+    <data name="origin" xml:space="preserve">
+        <value>წყარო</value>
+    </data>
+    <data name="airport_name" xml:space="preserve">
+        <value>აეროპორტის სახელი</value>
+    </data>
+    <data name="destination" xml:space="preserve">
+        <value>დანიშნულების ადგილი</value>
+    </data>
+    <data name="save" xml:space="preserve">
+        <value>გადარჩენა</value>
+    </data>
+    <data name="race_details" xml:space="preserve">
+        <value>რასის დეტალები</value>
+    </data>
+    <data name="export" xml:space="preserve">
+        <value>ექსპორტი</value>
+    </data>
+    <data name="staff_dashboard" xml:space="preserve">
+        <value>პერსონალის დაფა</value>
+    </data>
+    <data name="add_new_payment_method_to_your_account" xml:space="preserve">
+        <value>დაამატეთ გადახდის ახალი მეთოდი თქვენს ანგარიშზე</value>
+    </data>
+    <data name="amount" xml:space="preserve">
+        <value>თანხა</value>
+    </data>
+    <data name="top_up" xml:space="preserve">
+        <value>ზემოდან</value>
+    </data>
+    <data name="_using" xml:space="preserve">
+        <value>გამოყენება</value>
+    </data>
+    <data name="all_users" xml:space="preserve">
+        <value>ყველა მომხმარებელი</value>
+    </data>
+    <data name="add" xml:space="preserve">
+        <value>დამატება</value>
+    </data>
+    <data name="address" xml:space="preserve">
+        <value>მიმართვა</value>
+    </data>
+    <data name="add_address" xml:space="preserve">
+        <value>მისამართის დამატება</value>
+    </data>
+    <data name="user" xml:space="preserve">
+        <value>მომხმარებელი ქალი</value>
+    </data>
+    <data name="save_changes" xml:space="preserve">
+        <value>ცვლილებების დაზოგვა</value>
+    </data>
+    <data name="login_as_this_user" xml:space="preserve">
+        <value>შესვლა როგორც ეს მომხმარებელი</value>
+    </data>
+    <data name="delete" xml:space="preserve">
+        <value>წაშლა</value>
+    </data>
+    <data name="create_new_user" xml:space="preserve">
+        <value>შექმენით ახალი მომხმარებელი</value>
+    </data>
+    <data name="user_details" xml:space="preserve">
+        <value>მომხმარებლის დეტალები</value>
+    </data>
+    <data name="created_at" xml:space="preserve">
+        <value>შექმნილია</value>
+    </data>
+    <data name="search" xml:space="preserve">
+        <value>ძებნა</value>
+    </data>
+    <data name="enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system" xml:space="preserve">
+        <value>შეიყვანეთ ამანათის თვალთვალის კოდი და ნახეთ თუ არა ეს სისტემაში</value>
+    </data>
+    <data name="declare_new_online_package" xml:space="preserve">
+        <value>გამოაცხადეთ ახალი ონლაინ ამანათი</value>
+    </data>
+    <data name="please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id" xml:space="preserve">
+        <value>გთხოვთ, წინასწარ გამოაცხადოთ თქვენი ონლაინ სავაჭრო ამანათი ისე, რომ გადაზიდვისას არ არსებობს შეფერხებები</value>
+    </data>
+    <data name="category" xml:space="preserve">
+        <value>კატეგორია</value>
+    </data>
+    <data name="package_description" xml:space="preserve">
+        <value>ამანათის აღწერა</value>
+    </data>
+    <data name="item_count" xml:space="preserve">
+        <value>ნივთების რაოდენობა</value>
+    </data>
+    <data name="invoice" xml:space="preserve">
+        <value>ზედნადები</value>
+    </data>
+    <data name="picture" xml:space="preserve">
+        <value>სურათი</value>
+    </data>
+    <data name="declare_new_personal_package" xml:space="preserve">
+        <value>გამოაცხადეთ ახალი პირადი ამანათი</value>
+    </data>
+    <data name="sender" xml:space="preserve">
+        <value>მგზავრი</value>
+    </data>
+    <data name="choose_sender" xml:space="preserve">
+        <value>აირჩიეთ გამგზავნი</value>
+    </data>
+    <data name="create_sender" xml:space="preserve">
+        <value>გამგზავნის შექმნა</value>
+    </data>
+    <data name="receiver" xml:space="preserve">
+        <value>მიმღები</value>
+    </data>
+    <data name="choose_receiver" xml:space="preserve">
+        <value>აირჩიეთ მიმღები</value>
+    </data>
+    <data name="create_receiver" xml:space="preserve">
+        <value>მიმღების შექმნა</value>
+    </data>
+    <data name="package_arrived_at_destination" xml:space="preserve">
+        <value>ამანათი დანიშნულების ადგილზე მივიდა</value>
+    </data>
+    <data name="mark_as_delivered" xml:space="preserve">
+        <value>მონიშნეთ, როგორც მიწოდებული</value>
+    </data>
+    <data name="package_delivered_to_user" xml:space="preserve">
+        <value>ამანათი მიწოდებული მომხმარებლისთვის</value>
+    </data>
+    <data name="package_details" xml:space="preserve">
+        <value>ამანათის დეტალები</value>
+    </data>
+    <data name="status_updates" xml:space="preserve">
+        <value>სტატუსის განახლებები</value>
+    </data>
+    <data name="receive_at_warehouse" xml:space="preserve">
+        <value>მიიღეთ საწყობში</value>
+    </data>
+    <data name="add_to_race" xml:space="preserve">
+        <value>რბოლას დაამატე</value>
+    </data>
+    <data name="print_label" xml:space="preserve">
+        <value>ბეჭდვითი ეტიკეტი</value>
+    </data>
+    <data name="receive_at_destination" xml:space="preserve">
+        <value>მიიღეთ დანიშნულების ადგილზე</value>
+    </data>
+    <data name="this_package_has_not_been_paid_for_cant_deliver" xml:space="preserve">
+        <value>ეს ამანათი არ გადაიხადეს Cant მიწოდებისთვის</value>
+    </data>
+    <data name="this_package_contains_prohibited_items" xml:space="preserve">
+        <value>ეს ამანათი შეიცავს აკრძალულ ნივთებს</value>
+    </data>
+    <data name="download" xml:space="preserve">
+        <value>ჩამოტვირთვა</value>
+    </data>
+    <data name="dimensions" xml:space="preserve">
+        <value>ზომები</value>
+    </data>
+    <data name="copy" xml:space="preserve">
+        <value>ასლი</value>
+    </data>
+    <data name="is_paid" xml:space="preserve">
+        <value>გადახდილია</value>
+    </data>
+    <data name="package" xml:space="preserve">
+        <value>ფუთა</value>
     </data>
 </root>

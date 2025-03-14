@@ -9,24 +9,26 @@
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUser
 
-<PageTitle>Declare new online package</PageTitle>
+<PageTitle>@Locale.declare_new_online_package</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Declare new online package</CardTitle>
-        <Description>Please pre-declare your online shopping packages so that there aren't any delays when shipping it</Description>
+        <CardTitle>@Locale.declare_new_online_package</CardTitle>
+        <Description>
+            @Locale.please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id
+        </Description>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate>
             <AuthorizeView Roles="Staff,Admin">
                 <FormField>
-                    <FormLabel for="owner-id">Owner Id</FormLabel>
+                    <FormLabel for="owner-id">@Locale.owner</FormLabel>
 
                     <select id="owner-id"
                             @onchange="@(args => Command.Owner = Users.FirstOrDefault(u => u.Id == UserId.Parse(args.Value?.ToString()!))!)"
                             class="@FormInputText.BaseClass"
                             required>
-                        <option value="null" disabled selected>-- select option --</option>
+                        <option value="null" disabled selected>-- @Locale.select_option --</option>
 
                         @foreach (var user in Users)
                         {
@@ -38,7 +40,7 @@
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="tracking-code">Tracking code</FormLabel>
+                    <FormLabel for="tracking-code">@Locale.tracking_code</FormLabel>
                     <FormInputText id="tracking-code"
                                    disabled="@IsLoading"
                                    @bind-Value="@Command.TrackingCode"
@@ -49,7 +51,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="category">Category</FormLabel>
+                    <FormLabel for="category">@Locale.category</FormLabel>
                     <FormInputEnum id="category"
                                    disabled="@IsLoading"
                                    @bind-Value="Command.Category"
@@ -61,7 +63,7 @@
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="description">Description</FormLabel>
+                    <FormLabel for="description">@Locale.package_description</FormLabel>
                     <FormInputText id="description"
                                    disabled="@IsLoading"
                                    @bind-Value="@Command.Description"
@@ -71,7 +73,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="web-address">Website address</FormLabel>
+                    <FormLabel for="web-address">@Locale.website_address</FormLabel>
                     <FormInputText id="web-address"
                                    disabled="@IsLoading"
                                    @bind-Value="@Command.WebsiteAddress"
@@ -84,7 +86,7 @@
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="retail-price">Retail price</FormLabel>
+                    <FormLabel for="retail-price">@Locale.retail_price</FormLabel>
                     <FormInputMoney Id="retail-price"
                                     disabled="@IsLoading"
                                     @bind-Value="@Command.RetailPrice"
@@ -93,7 +95,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="item-count">Item Count</FormLabel>
+                    <FormLabel for="item-count">@Locale.item_count</FormLabel>
                     <InputNumber id="item-count"
                                  disabled="@IsLoading"
                                  class="@FormInputText.BaseClass"
@@ -105,7 +107,7 @@
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="invoice">Invoice</FormLabel>
+                    <FormLabel for="invoice">@Locale.invoice</FormLabel>
                     <InputFile id="invoice"
                                disabled="@IsLoading"
                                class="@FormInputText.BaseClass"
@@ -115,7 +117,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="picture">Picture</FormLabel>
+                    <FormLabel for="picture">@Locale.picture</FormLabel>
                     <InputFile id="picture"
                                disabled="@IsLoading"
                                class="@FormInputText.BaseClass"
@@ -126,7 +128,7 @@
             </InlineFormFieldContainer>
 
             <FormField>
-                <FormLabel for="house-delivery">House delivery</FormLabel>
+                <FormLabel for="house-delivery">@Locale.house_delivery</FormLabel>
                 <Switch id="house-delivery"
                         disabled="@IsLoading"
                         @bind-Value="@Command.HouseDelivery"/>
@@ -138,7 +140,7 @@
                 {
                     <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                 }
-                Declare
+                @Locale.declare
             </Button>
         </AppForm>
     </Content>

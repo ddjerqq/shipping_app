@@ -6,20 +6,20 @@
 @inject IAppDbContext DbContext
 @attribute [Authorize(Roles = "Staff,Admin")]
 
-<PageTitle>All races</PageTitle>
+<PageTitle>@Locale.all_races</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>All races</CardTitle>
+        <CardTitle>@Locale.all_races</CardTitle>
         <Description class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <Button Href="/races/add_package" Variant="outline" class="text-primary">
                 <Blazicon Svg="Lucide.Box"/>
-                Add package to race
+                @Locale.add_package_to_race
             </Button>
 
             <Button Href="/races/new" Variant="default">
                 <Blazicon Svg="Lucide.Plus"/>
-                Create
+                @Locale.create
             </Button>
         </Description>
     </Header>
@@ -33,7 +33,7 @@
                         <Blazicon Svg="@Lucide.Plane" class="hidden md:block !size-9"/>
 
                         <div class="flex flex-col gap-1 justify-center">
-                            <span class="text-xs text-muted-foreground">Name</span>
+                            <span class="text-xs text-muted-foreground">@Locale.race_name</span>
                             <span
                                 class="truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                                 <Blazicon Svg="@Lucide.Signpost"/>
@@ -45,7 +45,7 @@
 
 
                     <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Packages</span>
+                        <span class="text-xs text-muted-foreground">@Locale.packages</span>
                         <span class="font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                             <Blazicon Svg="@Lucide.Package"/>
                             @race.Packages.Count
@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Takeoff</span>
+                        <span class="text-xs text-muted-foreground">@Locale.takeoff</span>
                         <span class="font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                             <Blazicon Svg="@Lucide.PlaneTakeoff"/>
                             @race.Start.ToString("dd MMM yyyy")
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                        <span class="text-xs text-muted-foreground">Landing</span>
+                        <span class="text-xs text-muted-foreground">@Locale.landing</span>
                         <span class="font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                             <Blazicon Svg="@Lucide.PlaneLanding"/>
                             @race.Arrival.ToString("dd MMM yyyy")

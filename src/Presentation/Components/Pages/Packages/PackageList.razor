@@ -29,14 +29,14 @@
             </div>
 
             <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                <span class="text-xs text-muted-foreground">Retail Price</span>
+                <span class="text-xs text-muted-foreground">@Locale.retail_price</span>
                 <span class="font-medium capitalize leading-none">@package.RetailPrice.FormatedValue</span>
             </div>
 
             @if (package.CurrentStatus.Status == PackageStatus.Awaiting)
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                    <span class="text-xs text-muted-foreground">Website address</span>
+                    <span class="text-xs text-muted-foreground">@Locale.website_address</span>
                     <span
                         class="w-full truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                         <Blazicon Svg="@Lucide.Globe" class="!size-3"/>
@@ -48,7 +48,7 @@
             @if (package.CurrentStatus.Status == PackageStatus.InWarehouse)
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                    <span class="text-xs text-muted-foreground">Weight (Kilo Grams)</span>
+                    <span class="text-xs text-muted-foreground">@Locale.weight (KG)</span>
                     <span
                         class="w-full truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                         <Blazicon Svg="@Lucide.Weight" class="!size-3"/>
@@ -60,7 +60,7 @@
             @if (package.CurrentStatus.Status == PackageStatus.InTransit)
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                    <span class="text-xs text-muted-foreground">Race</span>
+                    <span class="text-xs text-muted-foreground">@Locale.race</span>
                     <span
                         class="w-full truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                         <Blazicon Svg="@Lucide.Plane" class="!size-3"/>
@@ -73,7 +73,7 @@
             {
                 <div class="flex flex-col gap-1 text-start md:text-center justify-center">
                     <span class="text-xs text-muted-foreground">
-                        Shipping price
+                        @Locale.shipping_price
                     </span>
                     <span title="@(package.IsPaid ? "paid" : "not paid")"
                           class="@("w-full truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle " +
@@ -86,7 +86,7 @@
             }
 
             <div class="flex flex-col gap-1 text-start md:text-center justify-center">
-                <span class="text-xs text-muted-foreground">Last Update</span>
+                <span class="text-xs text-muted-foreground">@Locale.last_update</span>
                 <span class="w-full truncate font-medium capitalize leading-none flex gap-2 justify-start md:justify-center align-middle">
                     <Blazicon Svg="@Lucide.Calendar" class="!size-4"/>
                     @package.CurrentStatus.Date.ToString("ddd, MMM dd")

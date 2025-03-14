@@ -11,7 +11,7 @@
 @attribute [StreamRendering]
 @attribute [Authorize(Roles = "Staff,Admin")]
 
-<PageTitle>All packages</PageTitle>
+<PageTitle>@Locale.all_packages</PageTitle>
 
 @{
     var onSelectedTabChanged = new EventCallbackFactory().Create<object>(this, newStatus =>
@@ -32,24 +32,24 @@
         <Header>
             <CardTitle class="flex flex-col w-full justify-center content-around px-1 gap-2">
                 <div class="flex items-center justify-between">
-                    <span>All packages</span>
+                    <span>@Locale.all_packages</span>
 
                     <div class="space-x-2">
                         <AuthorizeView Roles="Staff">
                             <Button Href="/packages/receive" class="ms-2">
                                 <Blazicon Svg="@Lucide.Inbox"/>
-                                Receive
+                                @Locale.receive
                             </Button>
                         </AuthorizeView>
 
                         <Button Href="/packages/new/personal" class="ms-2">
                             <Blazicon Svg="@Lucide.PackagePlus"/>
-                            Add Personal
+                            @Locale.add_personal
                         </Button>
 
                         <Button Href="/packages/new/online" class="ms-2">
                             <Blazicon Svg="@Lucide.PackagePlus"/>
-                            Add Online
+                            @Locale.add_online
                         </Button>
                     </div>
                 </div>

@@ -542,4 +542,337 @@
     <data name="house_delivery" xml:space="preserve">
         <value>House delivery</value>
     </data>
+    <data name="user_dashboard" xml:space="preserve">
+        <value>User dashboard</value>
+    </data>
+    <data name="your_balance" xml:space="preserve">
+        <value>Your balance</value>
+    </data>
+    <data name="total_amount_due" xml:space="preserve">
+        <value>Total amount due</value>
+    </data>
+    <data name="your_packages" xml:space="preserve">
+        <value>Your packages</value>
+    </data>
+    <data name="top_up_balance" xml:space="preserve">
+        <value>Top up balance</value>
+    </data>
+    <data name="your_payment_info_is_secure" xml:space="preserve">
+        <value>Your payment info is secure</value>
+    </data>
+    <data name="all_packages" xml:space="preserve">
+        <value>All packages</value>
+    </data>
+    <data name="receive" xml:space="preserve">
+        <value>Receive</value>
+    </data>
+    <data name="add_personal" xml:space="preserve">
+        <value>Add personal</value>
+    </data>
+    <data name="add_online" xml:space="preserve">
+        <value>Add online</value>
+    </data>
+    <data name="retail_price" xml:space="preserve">
+        <value>Retail price</value>
+    </data>
+    <data name="website_address" xml:space="preserve">
+        <value>Website address</value>
+    </data>
+    <data name="race" xml:space="preserve">
+        <value>Race</value>
+    </data>
+    <data name="shipping_price" xml:space="preserve">
+        <value>Shipping price</value>
+    </data>
+    <data name="last_update" xml:space="preserve">
+        <value>Last update</value>
+    </data>
+    <data name="pay_for_shipping" xml:space="preserve">
+        <value>Pay for shipping</value>
+    </data>
+    <data name="would_you_like_to_pay_x_amount" xml:space="preserve">
+        <value>Would you like to pay x amount</value>
+    </data>
+    <data name="after_this_transaction_you_will_have" xml:space="preserve">
+        <value>After this transaction you will have</value>
+    </data>
+    <data name="cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="confirm" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
+    <data name="add_package_to_race" xml:space="preserve">
+        <value>Add package to race</value>
+    </data>
+    <data name="mark_package_as_delivered_to_user" xml:space="preserve">
+        <value>Mark package as delivered to user</value>
+    </data>
+    <data name="add_race" xml:space="preserve">
+        <value>Add race</value>
+    </data>
+    <data name="add_user" xml:space="preserve">
+        <value>Add user</value>
+    </data>
+    <data name="admin_dashboard" xml:space="preserve">
+        <value>Admin dashboard</value>
+    </data>
+    <data name="from_last_month" xml:space="preserve">
+        <value>From last month</value>
+    </data>
+    <data name="packages_processed" xml:space="preserve">
+        <value>Packages processed</value>
+    </data>
+    <data name="shipping_revenue" xml:space="preserve">
+        <value>Shipping revenue</value>
+    </data>
+    <data name="cancelled" xml:space="preserve">
+        <value>Cancelled</value>
+    </data>
+    <data name="you_cancelled_the_payment" xml:space="preserve">
+        <value>You cancelled the payment</value>
+    </data>
+    <data name="return_home" xml:space="preserve">
+        <value>Return home</value>
+    </data>
+    <data name="success" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="you_successfully_deposited" xml:space="preserve">
+        <value>You successfully deposited</value>
+    </data>
+    <data name="to_your_account" xml:space="preserve">
+        <value>To your account</value>
+    </data>
+    <data name="thank_you_for_using_our_services" xml:space="preserve">
+        <value>Thank you for using our services</value>
+    </data>
+    <data name="receive_package_at_warehouse" xml:space="preserve">
+        <value>Receive package at warehouse</value>
+    </data>
+    <data name="when_you_receive_a_package_at_the_warehouse_declare_them_here" xml:space="preserve">
+        <value>When you receive a package at the warehouse declare them here</value>
+    </data>
+    <data name="price_per" xml:space="preserve">
+        <value>Price per</value>
+    </data>
+    <data name="enter_the_price_per_kilogram_here" xml:space="preserve">
+        <value>Enter the price per kilogram here</value>
+    </data>
+    <data name="tracking_code" xml:space="preserve">
+        <value>Tracking code</value>
+    </data>
+    <data name="address_2_room_code" xml:space="preserve">
+        <value>Address 2 room code</value>
+    </data>
+    <data name="width" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="height" xml:space="preserve">
+        <value>Height</value>
+    </data>
+    <data name="length" xml:space="preserve">
+        <value>Length</value>
+    </data>
+    <data name="package_contains_prohibited_items" xml:space="preserve">
+        <value>Package contains prohibited items</value>
+    </data>
+    <data name="declare" xml:space="preserve">
+        <value>Declare</value>
+    </data>
+    <data name="race_id" xml:space="preserve">
+        <value>Race id</value>
+    </data>
+    <data name="select_option" xml:space="preserve">
+        <value>Select option</value>
+    </data>
+    <data name="package_id" xml:space="preserve">
+        <value>Package id</value>
+    </data>
+    <data name="all_races" xml:space="preserve">
+        <value>All races</value>
+    </data>
+    <data name="create" xml:space="preserve">
+        <value>Create</value>
+    </data>
+    <data name="race_name" xml:space="preserve">
+        <value>Race name</value>
+    </data>
+    <data name="takeoff" xml:space="preserve">
+        <value>Takeoff</value>
+    </data>
+    <data name="landing" xml:space="preserve">
+        <value>Landing</value>
+    </data>
+    <data name="create_race" xml:space="preserve">
+        <value>Create race</value>
+    </data>
+    <data name="name" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="flight_code" xml:space="preserve">
+        <value>Flight code</value>
+    </data>
+    <data name="origin" xml:space="preserve">
+        <value>Origin</value>
+    </data>
+    <data name="airport_name" xml:space="preserve">
+        <value>Airport name</value>
+    </data>
+    <data name="destination" xml:space="preserve">
+        <value>Destination</value>
+    </data>
+    <data name="save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="race_details" xml:space="preserve">
+        <value>Race details</value>
+    </data>
+    <data name="export" xml:space="preserve">
+        <value>Export</value>
+    </data>
+    <data name="staff_dashboard" xml:space="preserve">
+        <value>Staff dashboard</value>
+    </data>
+    <data name="add_new_payment_method_to_your_account" xml:space="preserve">
+        <value>Add new payment method to your account</value>
+    </data>
+    <data name="amount" xml:space="preserve">
+        <value>Amount</value>
+    </data>
+    <data name="top_up" xml:space="preserve">
+        <value>Top up</value>
+    </data>
+    <data name="_using" xml:space="preserve">
+        <value>Using</value>
+    </data>
+    <data name="all_users" xml:space="preserve">
+        <value>All users</value>
+    </data>
+    <data name="add" xml:space="preserve">
+        <value>Add</value>
+    </data>
+    <data name="address" xml:space="preserve">
+        <value>Address</value>
+    </data>
+    <data name="add_address" xml:space="preserve">
+        <value>Add address</value>
+    </data>
+    <data name="user" xml:space="preserve">
+        <value>User</value>
+    </data>
+    <data name="save_changes" xml:space="preserve">
+        <value>Save changes</value>
+    </data>
+    <data name="login_as_this_user" xml:space="preserve">
+        <value>Login as this user</value>
+    </data>
+    <data name="delete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="create_new_user" xml:space="preserve">
+        <value>Create new user</value>
+    </data>
+    <data name="user_details" xml:space="preserve">
+        <value>User details</value>
+    </data>
+    <data name="created_at" xml:space="preserve">
+        <value>Created at</value>
+    </data>
+    <data name="search" xml:space="preserve">
+        <value>Search</value>
+    </data>
+    <data name="enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system" xml:space="preserve">
+        <value>Enter the package tracking code and see if we have it in the system</value>
+    </data>
+    <data name="declare_new_online_package" xml:space="preserve">
+        <value>Declare new online package</value>
+    </data>
+    <data name="please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id" xml:space="preserve">
+        <value>Please predeclare your online shopping package so that there arent any delays when shipping id</value>
+    </data>
+    <data name="category" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="package_description" xml:space="preserve">
+        <value>Package description</value>
+    </data>
+    <data name="item_count" xml:space="preserve">
+        <value>Item count</value>
+    </data>
+    <data name="invoice" xml:space="preserve">
+        <value>Invoice</value>
+    </data>
+    <data name="picture" xml:space="preserve">
+        <value>Picture</value>
+    </data>
+    <data name="declare_new_personal_package" xml:space="preserve">
+        <value>Declare new personal package</value>
+    </data>
+    <data name="sender" xml:space="preserve">
+        <value>Sender</value>
+    </data>
+    <data name="choose_sender" xml:space="preserve">
+        <value>Choose sender</value>
+    </data>
+    <data name="create_sender" xml:space="preserve">
+        <value>Create sender</value>
+    </data>
+    <data name="receiver" xml:space="preserve">
+        <value>Receiver</value>
+    </data>
+    <data name="choose_receiver" xml:space="preserve">
+        <value>Choose receiver</value>
+    </data>
+    <data name="create_receiver" xml:space="preserve">
+        <value>Create receiver</value>
+    </data>
+    <data name="package_arrived_at_destination" xml:space="preserve">
+        <value>Package arrived at destination</value>
+    </data>
+    <data name="mark_as_delivered" xml:space="preserve">
+        <value>Mark as delivered</value>
+    </data>
+    <data name="package_delivered_to_user" xml:space="preserve">
+        <value>Package delivered to user</value>
+    </data>
+    <data name="package_details" xml:space="preserve">
+        <value>Package details</value>
+    </data>
+    <data name="status_updates" xml:space="preserve">
+        <value>Status updates</value>
+    </data>
+    <data name="receive_at_warehouse" xml:space="preserve">
+        <value>Receive at warehouse</value>
+    </data>
+    <data name="add_to_race" xml:space="preserve">
+        <value>Add to race</value>
+    </data>
+    <data name="print_label" xml:space="preserve">
+        <value>Print label</value>
+    </data>
+    <data name="receive_at_destination" xml:space="preserve">
+        <value>Receive at destination</value>
+    </data>
+    <data name="this_package_has_not_been_paid_for_cant_deliver" xml:space="preserve">
+        <value>This package has not been paid for cant deliver</value>
+    </data>
+    <data name="this_package_contains_prohibited_items" xml:space="preserve">
+        <value>This package contains prohibited items</value>
+    </data>
+    <data name="download" xml:space="preserve">
+        <value>Download</value>
+    </data>
+    <data name="dimensions" xml:space="preserve">
+        <value>Dimensions</value>
+    </data>
+    <data name="copy" xml:space="preserve">
+        <value>Copy</value>
+    </data>
+    <data name="is_paid" xml:space="preserve">
+        <value>Is paid</value>
+    </data>
+    <data name="package" xml:space="preserve">
+        <value>Package</value>
+    </data>
 </root>

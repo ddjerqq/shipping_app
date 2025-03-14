@@ -5,18 +5,17 @@
 @using Domain.Common
 @using Microsoft.EntityFrameworkCore
 @using Domain.ValueObjects
-
 @attribute [Authorize(Roles = "Staff,Admin")]
-
 @inject IAppDbContext DbContext
-@inject ICurrentUserAccessor CurrentUser
 
-<PageTitle>Declare new personal package</PageTitle>
+<PageTitle>@Locale.declare_new_personal_package</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Declare new package</CardTitle>
-        <Description>Declare a personal package</Description>
+        <CardTitle>@Locale.declare_new_personal_package</CardTitle>
+        <Description>
+            @Locale.please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id
+        </Description>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit" novalidate>
@@ -24,30 +23,30 @@
                 <FormField>
                     <FormLabel for="sender" class="font-bold text-xl">
                         @(Command.CreateSender ? "Create" : "Choose")
-                        Sender
+                        @Locale.sender
                     </FormLabel>
 
                     @if (Command.CreateSender)
                     {
                         <InlineFormFieldContainer>
                             <FormField>
-                                <FormLabel for="sender-name">Name</FormLabel>
+                                <FormLabel for="sender-name">@Locale.full_name</FormLabel>
                                 <FormInputText id="sender-name" @bind-Value="Command.SenderUsername" placeholder="Enter Name" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderUsername)"/>
                             </FormField>
                             <FormField>
-                                <FormLabel for="sender-id">Id</FormLabel>
+                                <FormLabel for="sender-id">@Locale.personal_id</FormLabel>
                                 <FormInputText id="sender-id" @bind-Value="Command.SenderId" placeholder="Enter Id" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderId)"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="sender-email">Email</FormLabel>
+                                <FormLabel for="sender-email">@Locale.email</FormLabel>
                                 <FormInputText id="sender-email" @bind-Value="Command.SenderEmail" type="email" placeholder="Enter Email" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderEmail)"/>
                             </FormField>
                             <FormField>
-                                <FormLabel for="sender-phone">Phone</FormLabel>
+                                <FormLabel for="sender-phone">@Locale.phone_number</FormLabel>
                                 <FormInputText id="sender-phone" @bind-Value="Command.SenderPhone" type="tel" placeholder="Enter Phone" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderPhone)"/>
                             </FormField>
@@ -55,9 +54,9 @@
                     }
                     else
                     {
-                        <FormLabel for="sender">Choose sender</FormLabel>
+                        <FormLabel for="sender">@Locale.choose_sender</FormLabel>
                         <select id="sender" @onchange="@SetSender" class="@FormInputText.BaseClass" required>
-                            <option value="null" disabled selected>-- select option --</option>
+                            <option value="null" disabled selected>-- @Locale.select_option --</option>
 
                             @foreach (var user in Users.Where(user => user != Command.Receiver))
                             {
@@ -73,12 +72,12 @@
                             @if (Command.CreateSender)
                             {
                                 <Blazicon Svg="@Lucide.Users"/>
-                                @:Choose Sender
+                                @Locale.choose_sender
                             }
                             else
                             {
                                 <Blazicon Svg="@Lucide.UserPlus"/>
-                                @:Create Sender
+                                @Locale.create_sender
                             }
                         </Button>
                     }
@@ -87,30 +86,30 @@
                 <FormField>
                     <FormLabel for="receiver" class="font-bold text-xl">
                         @(Command.CreateReceiver ? "Create" : "Choose")
-                        Receiver
+                        @Locale.receiver
                     </FormLabel>
 
                     @if (Command.CreateReceiver)
                     {
                         <InlineFormFieldContainer>
                             <FormField>
-                                <FormLabel for="receiver-name">Name</FormLabel>
+                                <FormLabel for="receiver-name">@Locale.full_name</FormLabel>
                                 <FormInputText id="receiver-name" @bind-Value="Command.ReceiverUsername" placeholder="Enter Name" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverUsername)"/>
                             </FormField>
                             <FormField>
-                                <FormLabel for="receiver-id">Id</FormLabel>
+                                <FormLabel for="receiver-id">@Locale.personal_id</FormLabel>
                                 <FormInputText id="receiver-id" @bind-Value="Command.ReceiverId" placeholder="Enter Id" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverId)"/>
                             </FormField>
 
                             <FormField>
-                                <FormLabel for="receiver-email">Email</FormLabel>
+                                <FormLabel for="receiver-email">@Locale.email</FormLabel>
                                 <FormInputText id="receiver-email" @bind-Value="Command.ReceiverEmail" type="email" placeholder="Enter Email" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverEmail)"/>
                             </FormField>
                             <FormField>
-                                <FormLabel for="receiver-phone">Phone</FormLabel>
+                                <FormLabel for="receiver-phone">@Locale.phone_number</FormLabel>
                                 <FormInputText id="receiver-phone" @bind-Value="Command.ReceiverPhone" type="tel" placeholder="Enter Phone" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverPhone)"/>
                             </FormField>
@@ -118,9 +117,9 @@
                     }
                     else
                     {
-                        <FormLabel for="receiver">Choose receiver</FormLabel>
+                        <FormLabel for="receiver">@Locale.choose_receiver</FormLabel>
                         <select id="receiver" @onchange="@SetReceiver" class="@FormInputText.BaseClass" required>
-                            <option value="null" disabled selected>-- select option --</option>
+                            <option value="null" disabled selected>-- @Locale.select_option --</option>
 
                             @foreach (var user in Users.Where(user => user != Command.Sender))
                             {
@@ -136,12 +135,12 @@
                             @if (Command.CreateReceiver)
                             {
                                 <Blazicon Svg="@Lucide.Users"/>
-                                @:Choose Receiver
+                                @Locale.choose_receiver
                             }
                             else
                             {
                                 <Blazicon Svg="@Lucide.UserPlus"/>
-                                @:Create Receiver
+                                @Locale.create_receiver
                             }
                         </Button>
                     }
@@ -153,7 +152,7 @@
                 {
                     <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                 }
-                Declare
+                @Locale.declare
             </Button>
         </AppForm>
     </Content>

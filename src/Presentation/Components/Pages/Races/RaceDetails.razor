@@ -11,30 +11,30 @@
 @inject IAppDbContext DbContext
 @inject FileDownloader FileDownloader
 
-<PageTitle>Race details</PageTitle>
+<PageTitle>@Locale.race_details</PageTitle>
 
 @if (Race is not null)
 {
     <Card>
         <Header>
-            <CardTitle>Race details for @Race.QualifiedName</CardTitle>
+            <CardTitle>@Locale.race_details @Race.QualifiedName</CardTitle>
             <Description>
                 <Button @onclick="@Export">
                     <Blazicon Svg="@Lucide.Download"/>
-                    Export
+                    @Locale.export
                 </Button>
             </Description>
         </Header>
         <Content>
             <AppForm @bind-Model="Race" OnValidSubmit="Update">
                 <FormField>
-                    <FormLabel for="name">Name</FormLabel>
+                    <FormLabel for="name">@Locale.name</FormLabel>
                     <FormInputText id="name"
                                    disabled="@IsLoading"
                                    @bind-Value="@Race.Name"
                                    placeholder="Enter flight code"
                                    required/>
-                    <FormDescription>The flight code (eg. US1001)</FormDescription>
+                    <FormDescription>@Locale.flight_code (eg. US1001)</FormDescription>
                     <FormInvalidFeedback For="@(() => Race.Name)"/>
                 </FormField>
 
@@ -46,25 +46,25 @@
                                        @bind-Value="@Race.Origin"
                                        placeholder="Enter origin"
                                        required/>
-                        <FormDescription>The airport name (eg. New York)</FormDescription>
+                        <FormDescription>@Locale.airport_name (eg. New York)</FormDescription>
                         <FormInvalidFeedback For="@(() => Race.Origin)"/>
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="destination">Destination</FormLabel>
+                        <FormLabel for="destination">@Locale.destination</FormLabel>
                         <FormInputText id="destination"
                                        disabled="@IsLoading"
                                        @bind-Value="@Race.Destination"
                                        placeholder="Enter destination"
                                        required/>
-                        <FormDescription>The airport name (eg. Tbilisi)</FormDescription>
+                        <FormDescription>@Locale.airport_name (eg. Tbilisi)</FormDescription>
                         <FormInvalidFeedback For="@(() => Race.Destination)"/>
                     </FormField>
                 </InlineFormFieldContainer>
 
                 <InlineFormFieldContainer>
                     <FormField>
-                        <FormLabel for="takeoff">Takeoff date</FormLabel>
+                        <FormLabel for="takeoff">@Locale.takeoff</FormLabel>
                         <InputDate id="takeoff"
                                    class="@FormInputText.BaseClass"
                                    Type="InputDateType.Date"
@@ -74,7 +74,7 @@
                     </FormField>
 
                     <FormField>
-                        <FormLabel for="landing">Landing</FormLabel>
+                        <FormLabel for="landing">@Locale.landing</FormLabel>
                         <InputDate id="landing"
                                    class="@FormInputText.BaseClass"
                                    Type="InputDateType.Date"
@@ -89,15 +89,15 @@
                     {
                         <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                     }
-                    Save
+                    @Locale.save
                 </Button>
 
-                <h1>Packages</h1>
+                <h1>@Locale.packages</h1>
                 <PackageList Packages="@Race.Packages"/>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
-            Race ID: @Id
+            @Locale.race ID: @Id
         </Footer>
     </Card>
 }

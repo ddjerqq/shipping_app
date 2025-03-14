@@ -3,52 +3,52 @@
 @using Application.Cqrs.Races.Commands
 @attribute [Authorize(Roles = "Staff,Admin")]
 
-<PageTitle>Create race</PageTitle>
+<PageTitle>@Locale.create_race</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Create race</CardTitle>
+        <CardTitle>@Locale.create_race</CardTitle>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
             <FormField>
-                <FormLabel for="name">Name</FormLabel>
+                <FormLabel for="name">@Locale.name</FormLabel>
                 <FormInputText id="name"
                                disabled="@IsLoading"
                                @bind-Value="@Command.Name"
                                placeholder="Enter flight code"
                                required/>
-                <FormDescription>The flight code (eg. US1001)</FormDescription>
+                <FormDescription>@Locale.flight_code (US1001)</FormDescription>
                 <FormInvalidFeedback For="@(() => Command.Name)"/>
             </FormField>
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="origin">Origin</FormLabel>
+                    <FormLabel for="origin">@Locale.origin</FormLabel>
                     <FormInputText id="origin"
                                    disabled="@IsLoading"
                                    @bind-Value="@Command.Origin"
                                    placeholder="Enter origin"
                                    required/>
-                    <FormDescription>The airport name (eg. New York)</FormDescription>
+                    <FormDescription>@Locale.airport_name (New York)</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.Origin)"/>
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="destination">Destination</FormLabel>
+                    <FormLabel for="destination">@Locale.destination</FormLabel>
                     <FormInputText id="destination"
                                    disabled="@IsLoading"
                                    @bind-Value="@Command.Destination"
                                    placeholder="Enter destination"
                                    required/>
-                    <FormDescription>The airport name (eg. Tbilisi)</FormDescription>
+                    <FormDescription>@Locale.airport_name (Tbilisi)</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.Destination)"/>
                 </FormField>
             </InlineFormFieldContainer>
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="takeoff">Takeoff date</FormLabel>
+                    <FormLabel for="takeoff">@Locale.takeoff</FormLabel>
                     <InputDate id="takeoff"
                                class="@FormInputText.BaseClass"
                                Type="InputDateType.Date"
@@ -58,7 +58,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="landing">Landing</FormLabel>
+                    <FormLabel for="landing">@Locale.landing</FormLabel>
                     <InputDate id="landing"
                                class="@FormInputText.BaseClass"
                                Type="InputDateType.Date"
@@ -73,7 +73,7 @@
                 {
                     <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
                 }
-                Create flight
+                @Locale.create
             </Button>
         </AppForm>
     </Content>

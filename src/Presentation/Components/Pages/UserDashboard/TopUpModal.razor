@@ -5,9 +5,9 @@
 <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmitAsync">
     <Card class="text-start w-full sm:w-[480px]">
         <Header>
-            <CardTitle class="text-2xl">Top up balance</CardTitle>
+            <CardTitle class="text-2xl">@Locale.top_up_balance</CardTitle>
             <Description>
-                Add a new payment method to your account
+                @Locale.add_new_payment_method_to_your_account
             </Description>
         </Header>
         <Content class="grid gap-6">
@@ -56,7 +56,7 @@
             </div>
 
             <FormField>
-                <FormLabel for="amount">Amount</FormLabel>
+                <FormLabel for="amount">@Locale.amount</FormLabel>
                 <FormInputMoney Id="amount" @bind-Value="Command.Amount"/>
             </FormField>
 
@@ -65,7 +65,7 @@
         <Footer>
             <Button type="submit" class="w-full">
                 <Blazicon Svg="@Lucide.DollarSign"/>
-                Top up @Command.Amount.FormatedValue using @Command.PaymentMethod
+                @Locale.top_up @Command.Amount.FormatedValue @Locale._using @Command.PaymentMethod
             </Button>
         </Footer>
     </Card>

@@ -2,50 +2,48 @@
 @attribute [Authorize(Roles = "Staff,Admin")]
 @using Application.Cqrs.Packages.Commands
 
-<PageTitle>Receive Package at warehouse</PageTitle>
+<PageTitle>@Locale.receive_package_at_warehouse</PageTitle>
 
 <Card>
     <Header>
-        <CardTitle>Receive Package at warehouse</CardTitle>
-        <Description>When you receive a package at the warehouse, declare them here.</Description>
+        <CardTitle>@Locale.receive_package_at_warehouse</CardTitle>
+        <Description>@Locale.when_you_receive_a_package_at_the_warehouse_declare_them_here</Description>
     </Header>
     <Content>
         <AppForm @bind-Model="Command" OnValidSubmit="OnValidSubmit">
             <FormField>
-                <FormLabel for="price-per-kg">Price per KG</FormLabel>
+                <FormLabel for="price-per-kg">@Locale.price_per KG</FormLabel>
                 <FormInputMoney Id="price-per-kg"
                                 disabled="@IsLoading"
                                 @bind-Value="@Command.PricePerKg" required/>
-                <FormDescription>Enter the price for kilogram of shipping here.</FormDescription>
+                <FormDescription>@Locale.enter_the_price_per_kilogram_here</FormDescription>
                 <FormInvalidFeedback For="@(() => Command.PricePerKg)"/>
             </FormField>
 
             <InlineFormFieldContainer>
                 <FormField>
-                    <FormLabel for="tracking-code">Tracking code</FormLabel>
+                    <FormLabel for="tracking-code">@Locale.tracking_code</FormLabel>
                     <FormInputText id="tracking-code"
                                    disabled="@(ParametersSuppliedFromQuery || IsLoading)"
                                    @bind-Value="@Command.TrackingCode"
                                    placeholder="Enter tracking code"
                                    required/>
-                    <FormDescription>The tracking code, as present on the package</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.TrackingCode)"/>
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="room-code">Address 2 (Room code)</FormLabel>
+                    <FormLabel for="room-code">@Locale.address_2_room_code</FormLabel>
                     <FormInputText id="room-code"
                                    disabled="@(ParametersSuppliedFromQuery || IsLoading)"
                                    @bind-Value="Command.Address2"
                                    placeholder="Enter room code (address 2)"/>
-                    <FormDescription>Address 2, as present on the package</FormDescription>
                     <FormInvalidFeedback For="@(() => Command.Address2)"/>
                 </FormField>
             </InlineFormFieldContainer>
 
             <InlineFormFieldContainer class="mt-2 sm:grid-cols-3">
                 <FormField>
-                    <FormLabel for="y">Width (cm)</FormLabel>
+                    <FormLabel for="y">@Locale.width (cm)</FormLabel>
                     <InputNumber id="y"
                                  class="@FormInputText.BaseClass"
                                  @bind-Value="@Command.Width"
@@ -58,7 +56,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="z">Height (cm)</FormLabel>
+                    <FormLabel for="z">@Locale.height (cm)</FormLabel>
                     <InputNumber id="z"
                                  class="@FormInputText.BaseClass"
                                  @bind-Value="@Command.Height"
@@ -71,7 +69,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="x">Length (cm)</FormLabel>
+                    <FormLabel for="x">@Locale.length (cm)</FormLabel>
                     <InputNumber id="x"
                                  class="@FormInputText.BaseClass"
                                  @bind-Value="@Command.Length"
@@ -85,7 +83,7 @@
             </InlineFormFieldContainer>
 
             <FormField>
-                <FormLabel for="weight">Weight (Kg)</FormLabel>
+                <FormLabel for="weight">@Locale.weight (Kg)</FormLabel>
                 <InputNumber id="weight"
                              class="@FormInputText.BaseClass"
                              @bind-Value="@Command.WeightKiloGrams"
@@ -96,7 +94,7 @@
                              required
                              disabled="@IsLoading"/>
                 <FormDescription class="text-xs">
-                    Please keep in mind, the weight will get rounded up to the nearest 100 grams.
+                    @Locale.please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams
                 </FormDescription>
                 <FormInvalidFeedback For="@(() => Command.WeightKiloGrams)"/>
             </FormField>
@@ -104,12 +102,12 @@
             <FormField class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Button Variant="destructive" type="button" disabled="@IsLoading" @onclick="ProhibitedItem">
                     <Blazicon Svg="Icons.Trash" class="mr-2 size-4"/>
-                    Package contains prohibited items
+                    @Locale.package_contains_prohibited_items
                 </Button>
 
                 <Button type="submit" disabled="@IsLoading">
                     <Blazicon Svg="Icons.Check" class="mr-2 size-4"/>
-                    Declare
+                    @Locale.declare
                 </Button>
             </FormField>
         </AppForm>

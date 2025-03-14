@@ -87,6 +87,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Using.
+        /// </summary>
+        public static string _using {
+            get {
+                return ResourceManager.GetString("_using", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Our achievements.
         /// </summary>
         public static string about_achievements {
@@ -204,6 +213,105 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string add {
+            get {
+                return ResourceManager.GetString("add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add address.
+        /// </summary>
+        public static string add_address {
+            get {
+                return ResourceManager.GetString("add_address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new payment method to your account.
+        /// </summary>
+        public static string add_new_payment_method_to_your_account {
+            get {
+                return ResourceManager.GetString("add_new_payment_method_to_your_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add online.
+        /// </summary>
+        public static string add_online {
+            get {
+                return ResourceManager.GetString("add_online", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add package to race.
+        /// </summary>
+        public static string add_package_to_race {
+            get {
+                return ResourceManager.GetString("add_package_to_race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add personal.
+        /// </summary>
+        public static string add_personal {
+            get {
+                return ResourceManager.GetString("add_personal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add race.
+        /// </summary>
+        public static string add_race {
+            get {
+                return ResourceManager.GetString("add_race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to race.
+        /// </summary>
+        public static string add_to_race {
+            get {
+                return ResourceManager.GetString("add_to_race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add user.
+        /// </summary>
+        public static string add_user {
+            get {
+                return ResourceManager.GetString("add_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string address {
+            get {
+                return ResourceManager.GetString("address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address 2 room code.
+        /// </summary>
+        public static string address_2_room_code {
+            get {
+                return ResourceManager.GetString("address_2_room_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address updated successfully.
         /// </summary>
         public static string address_updated_successfully {
@@ -222,6 +330,51 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin dashboard.
+        /// </summary>
+        public static string admin_dashboard {
+            get {
+                return ResourceManager.GetString("admin_dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After this transaction you will have.
+        /// </summary>
+        public static string after_this_transaction_you_will_have {
+            get {
+                return ResourceManager.GetString("after_this_transaction_you_will_have", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Airport name.
+        /// </summary>
+        public static string airport_name {
+            get {
+                return ResourceManager.GetString("airport_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All packages.
+        /// </summary>
+        public static string all_packages {
+            get {
+                return ResourceManager.GetString("all_packages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All races.
+        /// </summary>
+        public static string all_races {
+            get {
+                return ResourceManager.GetString("all_races", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All rights reserved.
         /// </summary>
         public static string all_rights_reserved {
@@ -231,11 +384,29 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All users.
+        /// </summary>
+        public static string all_users {
+            get {
+                return ResourceManager.GetString("all_users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Already have an account?.
         /// </summary>
         public static string already_have_an_account {
             get {
                 return ResourceManager.GetString("already_have_an_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string amount {
+            get {
+                return ResourceManager.GetString("amount", resourceCulture);
             }
         }
         
@@ -285,6 +456,24 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelled.
+        /// </summary>
+        public static string cancelled {
+            get {
+                return ResourceManager.GetString("cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CAPTCHA has errors.
         /// </summary>
         public static string captcha_errors {
@@ -299,6 +488,15 @@ namespace Presentation.Resources {
         public static string captcha_expired_please_do_it_again {
             get {
                 return ResourceManager.GetString("captcha_expired_please_do_it_again", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string category {
+            get {
+                return ResourceManager.GetString("category", resourceCulture);
             }
         }
         
@@ -321,11 +519,38 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose receiver.
+        /// </summary>
+        public static string choose_receiver {
+            get {
+                return ResourceManager.GetString("choose_receiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose sender.
+        /// </summary>
+        public static string choose_sender {
+            get {
+                return ResourceManager.GetString("choose_sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string city {
             get {
                 return ResourceManager.GetString("city", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string confirm {
+            get {
+                return ResourceManager.GetString("confirm", resourceCulture);
             }
         }
         
@@ -366,6 +591,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string copy {
+            get {
+                return ResourceManager.GetString("copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string country {
@@ -375,11 +609,65 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string create {
+            get {
+                return ResourceManager.GetString("create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an account.
         /// </summary>
         public static string create_an_account {
             get {
                 return ResourceManager.GetString("create_an_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new user.
+        /// </summary>
+        public static string create_new_user {
+            get {
+                return ResourceManager.GetString("create_new_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create race.
+        /// </summary>
+        public static string create_race {
+            get {
+                return ResourceManager.GetString("create_race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create receiver.
+        /// </summary>
+        public static string create_receiver {
+            get {
+                return ResourceManager.GetString("create_receiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create sender.
+        /// </summary>
+        public static string create_sender {
+            get {
+                return ResourceManager.GetString("create_sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created at.
+        /// </summary>
+        public static string created_at {
+            get {
+                return ResourceManager.GetString("created_at", resourceCulture);
             }
         }
         
@@ -402,6 +690,42 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Declare.
+        /// </summary>
+        public static string declare {
+            get {
+                return ResourceManager.GetString("declare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declare new online package.
+        /// </summary>
+        public static string declare_new_online_package {
+            get {
+                return ResourceManager.GetString("declare_new_online_package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Declare new personal package.
+        /// </summary>
+        public static string declare_new_personal_package {
+            get {
+                return ResourceManager.GetString("declare_new_personal_package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string delete {
+            get {
+                return ResourceManager.GetString("delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete account.
         /// </summary>
         public static string delete_account {
@@ -417,6 +741,15 @@ namespace Presentation.Resources {
         public static string delete_warning {
             get {
                 return ResourceManager.GetString("delete_warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string destination {
+            get {
+                return ResourceManager.GetString("destination", resourceCulture);
             }
         }
         
@@ -448,11 +781,29 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dimensions.
+        /// </summary>
+        public static string dimensions {
+            get {
+                return ResourceManager.GetString("dimensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t have an account?.
         /// </summary>
         public static string dont_have_an_account {
             get {
                 return ResourceManager.GetString("dont_have_an_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string download {
+            get {
+                return ResourceManager.GetString("download", resourceCulture);
             }
         }
         
@@ -484,6 +835,24 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the package tracking code and see if we have it in the system.
+        /// </summary>
+        public static string enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system {
+            get {
+                return ResourceManager.GetString("enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the price per kilogram here.
+        /// </summary>
+        public static string enter_the_price_per_kilogram_here {
+            get {
+                return ResourceManager.GetString("enter_the_price_per_kilogram_here", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your email, and we&apos;ll send you a link..
         /// </summary>
         public static string enter_your_email_and_well_send_you_a_new_link {
@@ -498,6 +867,15 @@ namespace Presentation.Resources {
         public static string enter_your_email_to_receive_notifications_about_product_updates {
             get {
                 return ResourceManager.GetString("enter_your_email_to_receive_notifications_about_product_updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string export {
+            get {
+                return ResourceManager.GetString("export", resourceCulture);
             }
         }
         
@@ -628,11 +1006,29 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flight code.
+        /// </summary>
+        public static string flight_code {
+            get {
+                return ResourceManager.GetString("flight_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password?.
         /// </summary>
         public static string forgot_password {
             get {
                 return ResourceManager.GetString("forgot_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From last month.
+        /// </summary>
+        public static string from_last_month {
+            get {
+                return ResourceManager.GetString("from_last_month", resourceCulture);
             }
         }
         
@@ -651,6 +1047,15 @@ namespace Presentation.Resources {
         public static string google_recaptcha_error_please_reload {
             get {
                 return ResourceManager.GetString("google_recaptcha_error_please_reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string height {
+            get {
+                return ResourceManager.GetString("height", resourceCulture);
             }
         }
         
@@ -808,11 +1213,65 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invoice.
+        /// </summary>
+        public static string invoice {
+            get {
+                return ResourceManager.GetString("invoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is paid.
+        /// </summary>
+        public static string is_paid {
+            get {
+                return ResourceManager.GetString("is_paid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item count.
+        /// </summary>
+        public static string item_count {
+            get {
+                return ResourceManager.GetString("item_count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Landing.
+        /// </summary>
+        public static string landing {
+            get {
+                return ResourceManager.GetString("landing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last update.
+        /// </summary>
+        public static string last_update {
+            get {
+                return ResourceManager.GetString("last_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Learn more.
         /// </summary>
         public static string learn_more {
             get {
                 return ResourceManager.GetString("learn_more", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length.
+        /// </summary>
+        public static string length {
+            get {
+                return ResourceManager.GetString("length", resourceCulture);
             }
         }
         
@@ -831,6 +1290,15 @@ namespace Presentation.Resources {
         public static string login {
             get {
                 return ResourceManager.GetString("login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login as this user.
+        /// </summary>
+        public static string login_as_this_user {
+            get {
+                return ResourceManager.GetString("login_as_this_user", resourceCulture);
             }
         }
         
@@ -880,6 +1348,24 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as delivered.
+        /// </summary>
+        public static string mark_as_delivered {
+            get {
+                return ResourceManager.GetString("mark_as_delivered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark package as delivered to user.
+        /// </summary>
+        public static string mark_package_as_delivered_to_user {
+            get {
+                return ResourceManager.GetString("mark_package_as_delivered_to_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Addresses.
         /// </summary>
         public static string my_addresses {
@@ -894,6 +1380,15 @@ namespace Presentation.Resources {
         public static string my_packages {
             get {
                 return ResourceManager.GetString("my_packages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
             }
         }
         
@@ -925,6 +1420,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Origin.
+        /// </summary>
+        public static string origin {
+            get {
+                return ResourceManager.GetString("origin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string owner {
@@ -934,11 +1438,83 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Package.
+        /// </summary>
+        public static string package {
+            get {
+                return ResourceManager.GetString("package", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package arrived at destination.
+        /// </summary>
+        public static string package_arrived_at_destination {
+            get {
+                return ResourceManager.GetString("package_arrived_at_destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package contains prohibited items.
+        /// </summary>
+        public static string package_contains_prohibited_items {
+            get {
+                return ResourceManager.GetString("package_contains_prohibited_items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package delivered to user.
+        /// </summary>
+        public static string package_delivered_to_user {
+            get {
+                return ResourceManager.GetString("package_delivered_to_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package description.
+        /// </summary>
+        public static string package_description {
+            get {
+                return ResourceManager.GetString("package_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package details.
+        /// </summary>
+        public static string package_details {
+            get {
+                return ResourceManager.GetString("package_details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package id.
+        /// </summary>
+        public static string package_id {
+            get {
+                return ResourceManager.GetString("package_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Packages.
         /// </summary>
         public static string packages {
             get {
                 return ResourceManager.GetString("packages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Packages processed.
+        /// </summary>
+        public static string packages_processed {
+            get {
+                return ResourceManager.GetString("packages_processed", resourceCulture);
             }
         }
         
@@ -979,6 +1555,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pay for shipping.
+        /// </summary>
+        public static string pay_for_shipping {
+            get {
+                return ResourceManager.GetString("pay_for_shipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal ID.
         /// </summary>
         public static string personal_id {
@@ -1002,6 +1587,15 @@ namespace Presentation.Resources {
         public static string phone_number {
             get {
                 return ResourceManager.GetString("phone_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Picture.
+        /// </summary>
+        public static string picture {
+            get {
+                return ResourceManager.GetString("picture", resourceCulture);
             }
         }
         
@@ -1042,11 +1636,75 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please predeclare your online shopping package so that there arent any delays when shipping id.
+        /// </summary>
+        public static string please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id {
+            get {
+                return ResourceManager.GetString("please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_whe" +
+                        "n_shipping_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price per.
+        /// </summary>
+        public static string price_per {
+            get {
+                return ResourceManager.GetString("price_per", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print label.
+        /// </summary>
+        public static string print_label {
+            get {
+                return ResourceManager.GetString("print_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to privacy policy.
         /// </summary>
         public static string privacy_policy {
             get {
                 return ResourceManager.GetString("privacy_policy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race.
+        /// </summary>
+        public static string race {
+            get {
+                return ResourceManager.GetString("race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race details.
+        /// </summary>
+        public static string race_details {
+            get {
+                return ResourceManager.GetString("race_details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race id.
+        /// </summary>
+        public static string race_id {
+            get {
+                return ResourceManager.GetString("race_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race name.
+        /// </summary>
+        public static string race_name {
+            get {
+                return ResourceManager.GetString("race_name", resourceCulture);
             }
         }
         
@@ -1069,11 +1727,56 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Receive.
+        /// </summary>
+        public static string receive {
+            get {
+                return ResourceManager.GetString("receive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receive at destination.
+        /// </summary>
+        public static string receive_at_destination {
+            get {
+                return ResourceManager.GetString("receive_at_destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receive at warehouse.
+        /// </summary>
+        public static string receive_at_warehouse {
+            get {
+                return ResourceManager.GetString("receive_at_warehouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receive package at warehouse.
+        /// </summary>
+        public static string receive_package_at_warehouse {
+            get {
+                return ResourceManager.GetString("receive_package_at_warehouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Receive SMS notifications?.
         /// </summary>
         public static string receive_sms_notifications {
             get {
                 return ResourceManager.GetString("receive_sms_notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receiver.
+        /// </summary>
+        public static string receiver {
+            get {
+                return ResourceManager.GetString("receiver", resourceCulture);
             }
         }
         
@@ -1132,6 +1835,24 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retail price.
+        /// </summary>
+        public static string retail_price {
+            get {
+                return ResourceManager.GetString("retail_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return home.
+        /// </summary>
+        public static string return_home {
+            get {
+                return ResourceManager.GetString("return_home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string role {
@@ -1150,11 +1871,74 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes.
+        /// </summary>
+        public static string save_changes {
+            get {
+                return ResourceManager.GetString("save_changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save preferences.
         /// </summary>
         public static string save_preferences {
             get {
                 return ResourceManager.GetString("save_preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string search {
+            get {
+                return ResourceManager.GetString("search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select option.
+        /// </summary>
+        public static string select_option {
+            get {
+                return ResourceManager.GetString("select_option", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sender.
+        /// </summary>
+        public static string sender {
+            get {
+                return ResourceManager.GetString("sender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shipping price.
+        /// </summary>
+        public static string shipping_price {
+            get {
+                return ResourceManager.GetString("shipping_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shipping revenue.
+        /// </summary>
+        public static string shipping_revenue {
+            get {
+                return ResourceManager.GetString("shipping_revenue", resourceCulture);
             }
         }
         
@@ -1186,6 +1970,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Staff dashboard.
+        /// </summary>
+        public static string staff_dashboard {
+            get {
+                return ResourceManager.GetString("staff_dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         public static string state {
@@ -1204,6 +1997,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status updates.
+        /// </summary>
+        public static string status_updates {
+            get {
+                return ResourceManager.GetString("status_updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street address.
         /// </summary>
         public static string street_address {
@@ -1218,6 +2020,24 @@ namespace Presentation.Resources {
         public static string subscribe {
             get {
                 return ResourceManager.GetString("subscribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string success {
+            get {
+                return ResourceManager.GetString("success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Takeoff.
+        /// </summary>
+        public static string takeoff {
+            get {
+                return ResourceManager.GetString("takeoff", resourceCulture);
             }
         }
         
@@ -1312,6 +2132,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank you for using our services.
+        /// </summary>
+        public static string thank_you_for_using_our_services {
+            get {
+                return ResourceManager.GetString("thank_you_for_using_our_services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The token you provided is invalid.
         /// </summary>
         public static string the_token_you_provided_is_invalid {
@@ -1339,11 +2168,65 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This package contains prohibited items.
+        /// </summary>
+        public static string this_package_contains_prohibited_items {
+            get {
+                return ResourceManager.GetString("this_package_contains_prohibited_items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This package has not been paid for cant deliver.
+        /// </summary>
+        public static string this_package_has_not_been_paid_for_cant_deliver {
+            get {
+                return ResourceManager.GetString("this_package_has_not_been_paid_for_cant_deliver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To continue using the website please reload.
         /// </summary>
         public static string to_continue_please_reload {
             get {
                 return ResourceManager.GetString("to_continue_please_reload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To your account.
+        /// </summary>
+        public static string to_your_account {
+            get {
+                return ResourceManager.GetString("to_your_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top up.
+        /// </summary>
+        public static string top_up {
+            get {
+                return ResourceManager.GetString("top_up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top up balance.
+        /// </summary>
+        public static string top_up_balance {
+            get {
+                return ResourceManager.GetString("top_up_balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total amount due.
+        /// </summary>
+        public static string total_amount_due {
+            get {
+                return ResourceManager.GetString("total_amount_due", resourceCulture);
             }
         }
         
@@ -1366,6 +2249,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tracking code.
+        /// </summary>
+        public static string tracking_code {
+            get {
+                return ResourceManager.GetString("tracking_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type &apos;delete&apos; to confirm.
         /// </summary>
         public static string type_delete_to_confirm {
@@ -1384,6 +2276,33 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string user {
+            get {
+                return ResourceManager.GetString("user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User dashboard.
+        /// </summary>
+        public static string user_dashboard {
+            get {
+                return ResourceManager.GetString("user_dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User details.
+        /// </summary>
+        public static string user_details {
+            get {
+                return ResourceManager.GetString("user_details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string users {
@@ -1398,6 +2317,15 @@ namespace Presentation.Resources {
         public static string volumetric_price {
             get {
                 return ResourceManager.GetString("volumetric_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website address.
+        /// </summary>
+        public static string website_address {
+            get {
+                return ResourceManager.GetString("website_address", resourceCulture);
             }
         }
         
@@ -1425,6 +2353,15 @@ namespace Presentation.Resources {
         public static string welcome_to_our_app {
             get {
                 return ResourceManager.GetString("welcome_to_our_app", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When you receive a package at the warehouse declare them here.
+        /// </summary>
+        public static string when_you_receive_a_package_at_the_warehouse_declare_them_here {
+            get {
+                return ResourceManager.GetString("when_you_receive_a_package_at_the_warehouse_declare_them_here", resourceCulture);
             }
         }
         
@@ -1528,6 +2465,33 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string width {
+            get {
+                return ResourceManager.GetString("width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to pay x amount.
+        /// </summary>
+        public static string would_you_like_to_pay_x_amount {
+            get {
+                return ResourceManager.GetString("would_you_like_to_pay_x_amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cancelled the payment.
+        /// </summary>
+        public static string you_cancelled_the_payment {
+            get {
+                return ResourceManager.GetString("you_cancelled_the_payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You do not have access to this resource.
         /// </summary>
         public static string you_do_not_have_access_to_this_resource {
@@ -1551,6 +2515,15 @@ namespace Presentation.Resources {
         public static string you_must_agree_to_our {
             get {
                 return ResourceManager.GetString("you_must_agree_to_our", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You successfully deposited.
+        /// </summary>
+        public static string you_successfully_deposited {
+            get {
+                return ResourceManager.GetString("you_successfully_deposited", resourceCulture);
             }
         }
         
@@ -1582,11 +2555,38 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your balance.
+        /// </summary>
+        public static string your_balance {
+            get {
+                return ResourceManager.GetString("your_balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your packages.
+        /// </summary>
+        public static string your_packages {
+            get {
+                return ResourceManager.GetString("your_packages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password has been reset.
         /// </summary>
         public static string your_password_has_been_reset {
             get {
                 return ResourceManager.GetString("your_password_has_been_reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your payment info is secure.
+        /// </summary>
+        public static string your_payment_info_is_secure {
+            get {
+                return ResourceManager.GetString("your_payment_info_is_secure", resourceCulture);
             }
         }
         

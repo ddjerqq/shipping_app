@@ -9,55 +9,55 @@
 <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
         <Header class="flex flex-row items-center justify-between">
-            <CardTitle>Your balance</CardTitle>
+            <CardTitle>@Locale.your_balance</CardTitle>
             <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground size-4"/>
         </Header>
         <Content class="text-2xl font-bold">
             @User.Balance.FormatedValue
         </Content>
         <Footer class="text-muted-foreground text-xs">
-            Your balance
+            @Locale.your_balance
         </Footer>
     </Card>
 
     <Card>
         <Header class="flex flex-row items-center justify-between">
-            <CardTitle>Total amount due</CardTitle>
+            <CardTitle>@Locale.total_amount_due</CardTitle>
             <Blazicon Svg="@Icons.Minus" class="text-muted-foreground size-4"/>
         </Header>
         <Content class="@("text-2xl font-bold " + (AmountDue.Amount > 0 ? "text-red-700 dark:text-red-400" : ""))">
             @AmountDue.FormatedValue
         </Content>
         <Footer class="text-muted-foreground text-xs">
-            Total amount to pay for shipping
+            @Locale.total_amount_due
         </Footer>
     </Card>
 
     <Card>
         <Header class="flex flex-row items-center justify-between">
-            <CardTitle>Your packages</CardTitle>
+            <CardTitle>@Locale.your_packages</CardTitle>
             <Blazicon Svg="@Icons.Truck" class="text-muted-foreground size-4"/>
         </Header>
         <Content class="text-2xl font-bold">
             @User.ReceivedPackages.Count
         </Content>
         <Footer class="text-muted-foreground text-xs">
-            The total amount of packages you have ever ordered
+            @Locale.your_packages
         </Footer>
     </Card>
 
     <Card>
         <Header class="flex flex-row items-center justify-between">
-            <CardTitle>Top up balance</CardTitle>
+            <CardTitle>@Locale.top_up_balance</CardTitle>
             <Blazicon Svg="@Icons.CreditCard" class="text-muted-foreground size-4"/>
         </Header>
         <Content>
             <Button @onclick="@(OpenTopUpModal)">
-                Top up balance
+                @Locale.top_up_balance
             </Button>
         </Content>
         <Footer class="text-muted-foreground text-xs">
-            Your payment info is secure
+            @Locale.your_payment_info_is_secure
         </Footer>
     </Card>
 </div>

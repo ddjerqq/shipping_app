@@ -6,56 +6,56 @@
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
             <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Packages processed</CardTitle>
+                <CardTitle>@Locale.packages_processed</CardTitle>
                 <Blazicon Svg="@Icons.Package" class="text-muted-foreground !size-7"/>
             </Header>
             <Content class="space-y-2 pt-0">
                 <div class="text-2xl font-bold">@Stats.PackagesThisMonth</div>
                 <p class="text-muted-foreground text-xs">
                     @(Stats.MonthlyPackageChange.ToString("N2"))%
-                    from last month
+                    @Locale.from_last_month
                 </p>
             </Content>
         </Card>
 
         <Card>
             <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Shipping Revenue</CardTitle>
+                <CardTitle>@Locale.shipping_revenue</CardTitle>
                 <Blazicon Svg="@Icons.DollarSign" class="text-muted-foreground !size-7"/>
             </Header>
             <Content class="space-y-2 pt-0">
                 <div class="text-2xl font-bold">@(Stats.ShippingRevenueThisMonth / 100)</div>
                 <p class="text-muted-foreground text-xs">
                     @(Stats.MonthlyRevenueChange.ToString("N2"))%
-                    from last month
+                    @Locale.from_last_month
                 </p>
             </Content>
         </Card>
 
         <Card>
             <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Races</CardTitle>
+                <CardTitle>@Locale.races</CardTitle>
                 <Blazicon Svg="@Icons.Plane" class="text-muted-foreground !size-7"/>
             </Header>
             <Content class="space-y-2 pt-0">
                 <div class="text-2xl font-bold">@Stats.TotalRaces</div>
                 <p class="text-muted-foreground text-xs">
                     @(Stats.MonthlyRaceChange.ToString("N2"))%
-                    from last month
+                    @Locale.from_last_month
                 </p>
             </Content>
         </Card>
 
         <Card>
             <Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Users</CardTitle>
+                <CardTitle>@Locale.users</CardTitle>
                 <Blazicon Svg="@Icons.Users" class="text-muted-foreground !size-7"/>
             </Header>
             <Content class="space-y-2 pt-0">
                 <div class="text-2xl font-bold">@Stats.TotalUsers</div>
                 <p class="text-muted-foreground text-xs">
                     @(Stats.MonthlyUserChange.ToString("N2"))%
-                    from last month
+                    @Locale.from_last_month
                 </p>
             </Content>
         </Card>

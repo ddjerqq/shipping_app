@@ -14,7 +14,7 @@
 @attribute [Authorize(Roles = "Admin")]
 @attribute [StreamRendering]
 
-<PageTitle>User details</PageTitle>
+<PageTitle>@Locale.user_details</PageTitle>
 
 @if (User is not null)
 {
@@ -29,18 +29,18 @@
                 <InlineFormFieldContainer>
                     <Button @onclick="LoginAsUser" Variant="outline" disabled="@IsLoading">
                         <Blazicon Svg="Icons.LogIn"/>
-                        Login as this user
+                        @Locale.login_as_this_user
                     </Button>
 
                     <Button @onclick="DeleteUser" Variant="destructive"
                             disabled="@IsLoading">
                         <Blazicon Svg="Icons.Trash"/>
-                        Delete
+                        @Locale.delete
                     </Button>
                 </InlineFormFieldContainer>
 
                 <FormField>
-                    <FormLabel for="full-name">Full Name</FormLabel>
+                    <FormLabel for="full-name">@Locale.full_name</FormLabel>
                     <FormInputText id="full-name"
                                    Class="capitalize"
                                    Value="@User.Username"
@@ -50,7 +50,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="personal-id">Personal id</FormLabel>
+                    <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
                     <FormInputText id="personal-id"
                                    Value="@User.PersonalId"
                                    ValueExpression="@(() => User.PersonalId)"
@@ -59,7 +59,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="email">Email address</FormLabel>
+                    <FormLabel for="email">@Locale.email</FormLabel>
                     <FormInputText id="email"
                                    Value="@User.Email"
                                    ValueExpression="@(() => User.Email)"
@@ -68,7 +68,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="phone">Phone</FormLabel>
+                    <FormLabel for="phone">@Locale.phone_number</FormLabel>
                     <FormInputText id="phone"
                                    Value="@User.PhoneNumber"
                                    ValueExpression="@(() => User.PhoneNumber)"
@@ -77,7 +77,7 @@
                 </FormField>
 
                 <FormField>
-                    <FormLabel for="role">Role</FormLabel>
+                    <FormLabel for="role">@Locale.role</FormLabel>
                     <FormInputEnum Value="@User.Role" ValueExpression="@(() => User.Role)"
                                    Options="@(Enum.GetValues<Role>())" disabled />
                 </FormField>
@@ -85,12 +85,12 @@
                 <Button type="submit" Variant="default"
                         disabled title="Updating users is disabled for now, because changing their data is not yet supported">
                     <Blazicon Svg="Icons.Save"/>
-                    Save changes
+                    @Locale.save_changes
                 </Button>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">
-            User ID: @Id
+            @Locale.user ID: @Id
         </Footer>
     </Card>
 }

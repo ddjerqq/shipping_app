@@ -1,7 +1,14 @@
 @page "/payments/cancel"
 
-<h3>Cancelled</h3>
+<div class="w-full flex items-center px-4 py-12">
+    <div class="w-full space-y-6 text-center">
+        <div class="space-y-3">
+            <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl">@Locale.cancelled</h1>
+            <p class="text-2xl">@Locale.you_cancelled_the_payment</p>
+        </div>
 
-@code {
-
-}
+        <Button Href="/" Size="lg">
+            @Locale.return_home
+        </Button>
+    </div>
+</div>
