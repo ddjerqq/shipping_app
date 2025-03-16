@@ -3,7 +3,7 @@ using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Notifications;
 
 public sealed class EmailUserNotifier(IEmailMarkupProvider emailMarkupProvider, IEmailSender sender) : IUserNotifier
 {

@@ -1,29 +1,42 @@
+using System.Globalization;
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Notifications;
 
 public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUserNotifier smsNotifier) : IUserNotifier
 {
+    private static void SetCulture(User? user)
+    {
+        var culture = user?.CultureInfo ?? CultureInfo.InvariantCulture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+    }
+
     public async Task SendEmailConfirmationAsync(User user, string callback, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendEmailConfirmationAsync(user, callback, ct);
     }
 
     public async Task SendYourAccountHasBeenAddedAsync(User user, string password, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendYourAccountHasBeenAddedAsync(user, password, ct);
     }
 
     public async Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendWelcomeAsync(user, ct);
     }
 
     public async Task SendNewLoginLocationAsync(User user, UserLogin login, CancellationToken ct = default)
     {
+        SetCulture(user);
+
         if (user.NotifyBySms)
             await smsNotifier.SendNewLoginLocationAsync(user,login, ct);
 
@@ -32,21 +45,26 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendPasswordResetAsync(user, callback, ct);
     }
 
     public async Task SendPasswordChangedAsync(User user, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendPasswordChangedAsync(user, ct);
     }
 
     public async Task SendDeleteAccountConfirmationAsync(User user, CancellationToken ct = default)
     {
+        SetCulture(user);
         await emailNotifier.SendDeleteAccountConfirmationAsync(user, ct);
     }
 
     public async Task NotifyPackageArrivedAtWarehouse(User staff, Package package, CancellationToken ct = default)
     {
+        SetCulture(package.Owner);
+
         if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageArrivedAtWarehouse(staff, package, ct);
 
@@ -55,6 +73,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageSentToDestination(User staff, Package package, CancellationToken ct = default)
     {
+        SetCulture(package.Owner);
+
         if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageSentToDestination(staff, package, ct);
 
@@ -63,6 +83,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageArrivedAtDestination(User staff, Package package, CancellationToken ct = default)
     {
+        SetCulture(package.Owner);
+
         if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageArrivedAtDestination(staff, package, ct);
 
@@ -71,6 +93,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageDelivered(Package package, CancellationToken ct = default)
     {
+        SetCulture(package.Owner);
+
         if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageDelivered(package, ct);
 
@@ -79,6 +103,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPackageIsDeemedProhibited(Package package, CancellationToken ct = default)
     {
+        SetCulture(package.Owner);
+
         if (package.Owner.NotifyBySms)
             await smsNotifier.NotifyPackageIsDeemedProhibited(package, ct);
 
@@ -87,6 +113,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyTopUpSuccess(User user, Money amount, PaymentMethod paymentMethod, object paymentSession, CancellationToken ct = default)
     {
+        SetCulture(user);
+
         if (user.NotifyBySms)
             await smsNotifier.NotifyTopUpSuccess(user, amount, paymentMethod, paymentSession, ct);
 
@@ -95,6 +123,8 @@ public sealed class CompositeUserNotifier(EmailUserNotifier emailNotifier, SmsUs
 
     public async Task NotifyPaidForPackageSuccessfully(User user, Package package, CancellationToken ct = default)
     {
+        SetCulture(user);
+
         if (user.NotifyBySms)
             await smsNotifier.NotifyPaidForPackageSuccessfully(user, package, ct);
 

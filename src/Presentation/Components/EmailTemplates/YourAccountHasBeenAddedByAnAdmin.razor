@@ -5,31 +5,30 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Welcome to <strong style="color:#040;font-weight:bold;">Sangoway</strong>
+    @Emails.welcome_to_sangoway
 </SectionContent>
 
 <EmailParagraph>
-    Your account has been created by an administrator
+    @Emails.your_account_has_been_created_by_an_administrator
 </EmailParagraph>
 
 <EmailParagraph>
-    We are excited to have you on board.<br/>
-    Please use this email and your following password to login: <br/>
-    Email: @User.Email
-    Password: @Password
+    @Emails.we_are_excited_to_have_you_on_board.<br/>
+    @Emails.please_use_this_email_and_password_to_login: <br/>
+    @Emails.email: @User.Email
+    @Emails.password: @Password
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
 
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
 <EmailParagraph>
-    Please note it is highly advised to change your password and store it in a secure place.<br/>
-    You can review<br/>
+    @Emails.it_is_recommended_to_change_your_password.<br/>
     <a href="@($"https://{WebAppDomain}/terms")" target="_blank" style="color:#067df7;text-decoration:none;">
-        Terms of Service
-    </a> and
+        @Emails.tos
+    </a> @Emails.and
     <a href="@($"https://{WebAppDomain}/privacy")" target="_blank" style="color:#067df7;text-decoration:none;">
-        Privacy Policy
+        @Emails.privacy_policy
     </a>:
 </EmailParagraph>
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>

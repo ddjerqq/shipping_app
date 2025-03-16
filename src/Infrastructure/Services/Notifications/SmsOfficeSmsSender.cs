@@ -4,7 +4,7 @@ using Application.Services;
 using Domain.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Notifications;
 
 public sealed class SmsOfficeApiResponse
 {

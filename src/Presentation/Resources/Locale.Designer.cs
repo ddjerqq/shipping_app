@@ -1817,15 +1817,6 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string reset {
-            get {
-                return ResourceManager.GetString("reset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>
         public static string reset_password {

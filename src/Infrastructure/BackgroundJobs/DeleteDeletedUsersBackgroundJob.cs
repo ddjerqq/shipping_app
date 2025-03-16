@@ -12,13 +12,13 @@ public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : I
 
     public async Task Execute(IJobExecutionContext context)
     {
-        var threeYearsAgo = DateTime.UtcNow.AddDays(-90);
+        var date = DateTime.UtcNow.AddDays(-90);
 
         var unprocessedUsersCount = await dbContext
             .Users
             .IgnoreQueryFilters()
             .Where(u => u.Deleted != null)
-            .Where(u => u.Deleted < threeYearsAgo)
+            .Where(u => u.Deleted < date)
             .CountAsync();
 
         if (unprocessedUsersCount == 0)
@@ -28,7 +28,7 @@ public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : I
             .Users
             .IgnoreQueryFilters()
             .Where(u => u.Deleted != null)
-            .Where(u => u.Deleted < threeYearsAgo)
+            .Where(u => u.Deleted < date)
             .OrderBy(m => m.Id)
             .ToListAsync(context.CancellationToken);
 

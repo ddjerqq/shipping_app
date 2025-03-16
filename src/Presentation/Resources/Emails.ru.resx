@@ -1,0 +1,147 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="your_account_is_scheduled_for_deletion" xml:space="preserve">
+        <value>Ваша учетная запись запланирована на удаление</value>
+    </data>
+    <data name="we_are_sorry_to_see_you_go_however_you_have_a_30_day_grace_period_to_recover_your_account" xml:space="preserve">
+        <value>Мы сожалеем, что вы уходите, однако у вас есть 30 -дневный период, чтобы восстановить свою учетную запись</value>
+    </data>
+    <data name="to_recover_your_account_just_login_with_your_email_and_password_normally" xml:space="preserve">
+        <value>Чтобы восстановить свою учетную запись, просто входите в систему с вашей электронной почтой и паролем нормально</value>
+    </data>
+    <data name="if_you_did_not_request_this_action_please_contact_our_support_immediately" xml:space="preserve">
+        <value>Если вы не запросили это действие, немедленно свяжитесь с нашей поддержкой</value>
+    </data>
+    <data name="this_email_was_sent_to" xml:space="preserve">
+        <value>Это письмо было отправлено</value>
+    </data>
+    <data name="support_email" xml:space="preserve">
+        <value>Поддержка электронной почты</value>
+    </data>
+    <data name="someone_just_signed_into_your_account" xml:space="preserve">
+        <value>Кто -то только что подписал вашу учетную запись</value>
+    </data>
+    <data name="if_you_did_not_attempt_to_login_to_your_account_just_now_please_change_your_password_immediately" xml:space="preserve">
+        <value>Если вы не пытались войти в свою учетную запись только сейчас, немедленно измените свой пароль</value>
+    </data>
+    <data name="if_this_was_not_you_please_change_your_password_immediately" xml:space="preserve">
+        <value>Если это не так, пожалуйста, немедленно измените свой пароль</value>
+    </data>
+    <data name="someone_is_trying_to_access_your_account_do_not_delay_resetting_your_password" xml:space="preserve">
+        <value>Кто -то пытается получить доступ к вашей учетной записи, не откладывает сброс пароля</value>
+    </data>
+    <data name="if_this_was_you_you_can_disregard_this_message" xml:space="preserve">
+        <value>Если это было, вы можете игнорировать это сообщение</value>
+    </data>
+    <data name="urgent_attention_required" xml:space="preserve">
+        <value>Требуется срочное внимание</value>
+    </data>
+    <data name="your_package_has_been_deemed_to_contain_prohibited_items_by_our_staff" xml:space="preserve">
+        <value>Ваш пакет считается, что наши сотрудники содержат запрещенные предметы</value>
+    </data>
+    <data name="tracking_code" xml:space="preserve">
+        <value>Код отслеживания</value>
+    </data>
+    <data name="if_you_think_this_if_a_mistake_please_contact_our_support_team_immediately" xml:space="preserve">
+        <value>Если вы думаете об этом, если ошибка, немедленно свяжитесь с нашей командой поддержки</value>
+    </data>
+    <data name="for_a_full_list_of_prohibited_items_please_see" xml:space="preserve">
+        <value>Полный список запрещенных предметов, см.</value>
+    </data>
+    <data name="your_package_with_the_tracking_code" xml:space="preserve">
+        <value>Ваш пакет с кодом отслеживания</value>
+    </data>
+    <data name="your_package_has_status" xml:space="preserve">
+        <value>Ваш пакет имеет статус</value>
+    </data>
+    <data name="is_awaiting_arrival_in_our_warehouse" xml:space="preserve">
+        <value>Ожидает прибытия на нашем складе</value>
+    </data>
+    <data name="has_arrived_at_our_warehouse" xml:space="preserve">
+        <value>Прибыл на наш склад</value>
+    </data>
+    <data name="has_been_sent" xml:space="preserve">
+        <value>Был отправлен</value>
+    </data>
+    <data name="has_arrived" xml:space="preserve">
+        <value>Прибыл</value>
+    </data>
+    <data name="has_been_delivered" xml:space="preserve">
+        <value>Был доставлен</value>
+    </data>
+    <data name="your_password_has_been_successfully_changed" xml:space="preserve">
+        <value>Ваш пароль был успешно изменен</value>
+    </data>
+    <data name="if_you_did_not_request_a_password_reset_please_contact_our_support_immediately" xml:space="preserve">
+        <value>Если вы не запросили сброс пароля, немедленно свяжитесь с нашей поддержкой</value>
+    </data>
+    <data name="you_requested_a_password_reset_for_your_account" xml:space="preserve">
+        <value>Вы запросили сброс пароля для вашей учетной записи</value>
+    </data>
+    <data name="if_you_did_not_request_a_password_reset_please_ignore_this_email" xml:space="preserve">
+        <value>Если вы не запросили сброс пароля, пожалуйста, игнорируйте это письмо</value>
+    </data>
+    <data name="please_click_on_the_link_below_to_reset_your_password" xml:space="preserve">
+        <value>Пожалуйста, нажмите на ссылку ниже, чтобы сбросить пароль</value>
+    </data>
+    <data name="your_packages_shipping_fee_has_been_paid" xml:space="preserve">
+        <value>Ваша плата за доставку пакетов была оплачена</value>
+    </data>
+    <data name="package" xml:space="preserve">
+        <value>Упаковка</value>
+    </data>
+    <data name="your_current_balance_is" xml:space="preserve">
+        <value>Ваш текущий баланс</value>
+    </data>
+    <data name="package_id" xml:space="preserve">
+        <value>Идентификатор пакета</value>
+    </data>
+    <data name="welcome_to_sangoway" xml:space="preserve">
+        <value>Добро пожаловать в Санговей</value>
+    </data>
+    <data name="you_successfully_verified_your_email_account" xml:space="preserve">
+        <value>Вы успешно проверили свою учетную запись электронной почты</value>
+    </data>
+    <data name="we_are_excited_to_have_you_on_board" xml:space="preserve">
+        <value>Мы рады, что вы находитесь на борту</value>
+    </data>
+    <data name="your_account_has_been_created_by_an_administrator" xml:space="preserve">
+        <value>Ваша учетная запись была создана администратором</value>
+    </data>
+    <data name="please_use_this_email_and_password_to_login" xml:space="preserve">
+        <value>Пожалуйста, используйте эту электронную почту и пароль для входа в систему</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>Электронная почта</value>
+    </data>
+    <data name="password" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
+    <data name="it_is_recommended_to_change_your_password" xml:space="preserve">
+        <value>Рекомендуется изменить свой пароль</value>
+    </data>
+    <data name="tos" xml:space="preserve">
+        <value>Их</value>
+    </data>
+    <data name="and" xml:space="preserve">
+        <value>И</value>
+    </data>
+    <data name="privacy_policy" xml:space="preserve">
+        <value>Политика конфиденциальности</value>
+    </data>
+</root>

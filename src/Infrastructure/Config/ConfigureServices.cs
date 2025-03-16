@@ -1,6 +1,7 @@
 using Application;
 using Application.Services;
 using Infrastructure.Services;
+using Infrastructure.Services.Notifications;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Config;

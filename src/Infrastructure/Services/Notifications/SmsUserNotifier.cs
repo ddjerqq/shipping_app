@@ -2,24 +2,25 @@ using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
+using Microsoft.Extensions.Localization;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Notifications;
 
-public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
+public sealed class SmsUserNotifier(ISmsSender sender, IStringLocalizer<SmsUserNotifier> localizer) : IUserNotifier
 {
     public Task SendEmailConfirmationAsync(User user, string callback, CancellationToken ct = default)
     {
-        throw new NotImplementedException("Sms user notifier does not support the following method");
+        throw new NotImplementedException("SmsUserNotifier does not support the following method");
     }
 
     public Task SendYourAccountHasBeenAddedAsync(User user, string password, CancellationToken ct = default)
     {
-        throw new NotImplementedException("Sms user notifier does not support the following method");
+        throw new NotImplementedException("SmsUserNotifier does not support the following method");
     }
 
     public Task SendWelcomeAsync(User user, CancellationToken ct = default)
     {
-        throw new NotImplementedException("Sms user notifier does not support the following method");
+        throw new NotImplementedException("SmsUserNotifier does not support the following method");
     }
 
     public Task SendNewLoginLocationAsync(User user, UserLogin login, CancellationToken ct = default)
@@ -30,7 +31,7 @@ public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
 
     public Task SendPasswordResetAsync(User user, string callback, CancellationToken ct = default)
     {
-        throw new NotImplementedException("Sms user notifier does not support the following method");
+        throw new NotImplementedException("SmsUserNotifier does not support the following method");
     }
 
     public Task SendPasswordChangedAsync(User user, CancellationToken ct = default)

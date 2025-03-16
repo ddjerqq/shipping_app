@@ -4,19 +4,21 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Urgent attention required!
+    @Emails.urgent_attention_required
 </SectionContent>
 
 <EmailParagraph>
-    Your package (tracking code: @Package.TrackingCode) has been deemed to contain prohibited items by our staff!
+    @Emails.your_package_has_been_deemed_to_contain_prohibited_items_by_our_staff!<br/>
+    @Emails.tracking_code: @Package.TrackingCode
 </EmailParagraph>
 
 <EmailParagraph>
-    If you think this is a mistake, please contact our support team immediately: <a href="mailto:support@sangoway.com">support@sangoway.com</a>
+    @Emails.if_you_think_this_if_a_mistake_please_contact_our_support_team_immediately
+    <a href="mailto:support@sangoway.com">support@sangoway.com</a>
 </EmailParagraph>
 
 <EmailParagraph>
-    For a full list of prohibited items, please see: <a href="https://www.rs.ge/OnlineOrders?cat=3&tab=1">rs.ge</a>
+    @Emails.for_a_full_list_of_prohibited_items_please_see <a href="https://www.rs.ge/OnlineOrders?cat=3&tab=1">rs.ge</a>
 </EmailParagraph>
 
 @code {

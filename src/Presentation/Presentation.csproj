@@ -55,6 +55,16 @@
         <LastGenOutput>Locale.Designer.cs</LastGenOutput>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Emails.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Emails.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Locale.ka.resx">
+        <DependentUpon>Locale.resx</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Locale.ru.resx">
+        <DependentUpon>Locale.resx</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -62,6 +72,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>Locale.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Emails.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Emails.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

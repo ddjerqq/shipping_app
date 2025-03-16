@@ -5,23 +5,23 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Your package's shipping fee has been paid.
+    @Emails.your_packages_shipping_fee_has_been_paid.
 </SectionContent>
 
 <EmailParagraph>
-    Package:<br/>
+    @Emails.package:<br/>
     @Package.TrackingCode<br/>
     @Package.Description<br/>
 </EmailParagraph>
 
 <EmailParagraph>
-    Your current balance is: @User.Balance.FormatedValue
+    @Emails.your_current_balance_is: @User.Balance.FormatedValue
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
 
 <SectionContent SectionId="@EmailLayout.FooterSectionId">
-    Package id: @Package.Id
+    @Emails.package_id: @Package.Id
 </SectionContent>
 
 @code {

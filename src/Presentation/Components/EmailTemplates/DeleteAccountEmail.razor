@@ -5,25 +5,25 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Your account is scheduled for deletion :(
+    @Emails.your_account_is_scheduled_for_deletion
 </SectionContent>
 
 <EmailParagraph>
-    We are sorry to see you go, however, you have a 30 day grace period to recover your account!
+    @Emails.we_are_sorry_to_see_you_go_however_you_have_a_30_day_grace_period_to_recover_your_account
 </EmailParagraph>
 
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
 
 <EmailParagraph>
-    To recover your account, just login with your email and password normally.
+    @Emails.to_recover_your_account_just_login_with_your_email_and_password_normally
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/auth/login")" Title="login" target="_blank"/>
 
 <SectionContent SectionId="@EmailLayout.FooterSectionId">
-    If you did not request this action, please contact our support immediately.<br/>
-    This email was sent to @User.Email.
-    Support email: <a href="mailto:support@sangoway.com">support@sangoway.com</a>
+    @Emails.if_you_did_not_request_this_action_please_contact_our_support_immediately<br/>
+    @Emails.this_email_was_sent_to @User.Email.
+    @Emails.support_email: <a href="mailto:support@sangoway.com">support@sangoway.com</a>
 </SectionContent>
 
 @code {

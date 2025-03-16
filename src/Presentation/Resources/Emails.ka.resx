@@ -1,0 +1,147 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="your_account_is_scheduled_for_deletion" xml:space="preserve">
+        <value>თქვენი ანგარიში მალე წაიშლება</value>
+    </data>
+    <data name="we_are_sorry_to_see_you_go_however_you_have_a_30_day_grace_period_to_recover_your_account" xml:space="preserve">
+        <value>ვწუხვართ, რომ მიდიხართ, მაგრამ თქვენ გაქვთ 30 დღიანი პერიოდი თქვენი ანგარიშის გამოსაყენებლად</value>
+    </data>
+    <data name="to_recover_your_account_just_login_with_your_email_and_password_normally" xml:space="preserve">
+        <value>თქვენი ანგარიშის აღსადგენად უბრალოდ შედით თქვენი ელ.ფოსტით და პაროლით</value>
+    </data>
+    <data name="if_you_did_not_request_this_action_please_contact_our_support_immediately" xml:space="preserve">
+        <value>თუ თქვენ არ მოითხოვეთ ეს მოქმედება, გთხოვთ დაუყოვნებლივ დაუკავშირდეთ ჩვენს გუნდს</value>
+    </data>
+    <data name="this_email_was_sent_to" xml:space="preserve">
+        <value>ეს ელ.ფოსტა გაგზავნილია შემდეგი მიმღებისთვის</value>
+    </data>
+    <data name="support_email" xml:space="preserve">
+        <value>ჩვენი გუნდი</value>
+    </data>
+    <data name="someone_just_signed_into_your_account" xml:space="preserve">
+        <value>თქვენს ანგარიშში შევიდა ახალი მოწყობილობა</value>
+    </data>
+    <data name="if_you_did_not_attempt_to_login_to_your_account_just_now_please_change_your_password_immediately" xml:space="preserve">
+        <value>თუ თქვენს ანგარიშში თქვენ არ შესულხართ, გთხოვთ, დაუყოვნებლივ შეცვალოთ პაროლი</value>
+    </data>
+    <data name="if_this_was_not_you_please_change_your_password_immediately" xml:space="preserve">
+        <value>თუ ეს თქვენ არ იყავით, გთხოვთ, დაუყოვნებლივ შეცვალოთ პაროლი</value>
+    </data>
+    <data name="someone_is_trying_to_access_your_account_do_not_delay_resetting_your_password" xml:space="preserve">
+        <value>ვიღაც ცდილობს თქვენს ანგარიშზე შესვლას, არ დააყოვნოთ თქვენი პაროლის შეცვლა</value>
+    </data>
+    <data name="if_this_was_you_you_can_disregard_this_message" xml:space="preserve">
+        <value>თუ ეს თქვენ იყავით, მაშინ არაფერი არ არის დამატებით საჭირო</value>
+    </data>
+    <data name="urgent_attention_required" xml:space="preserve">
+        <value>აუცილებელია სასწრაფო ყურადღება</value>
+    </data>
+    <data name="your_package_has_been_deemed_to_contain_prohibited_items_by_our_staff" xml:space="preserve">
+        <value>ჩვენმა პერსონალმა აღმოაჩინა აკრძალულ ნივთი თქვენს ამანათში</value>
+    </data>
+    <data name="tracking_code" xml:space="preserve">
+        <value>თრექინგ კოდი</value>
+    </data>
+    <data name="if_you_think_this_if_a_mistake_please_contact_our_support_team_immediately" xml:space="preserve">
+        <value>თუ ფიქრობთ, რომ შეცდომა დავუშვით, გთხოვთ დაუყოვნებლივ დაუკავშირდეთ ჩვენს დამხმარე გუნდს</value>
+    </data>
+    <data name="for_a_full_list_of_prohibited_items_please_see" xml:space="preserve">
+        <value>აკრძალული ნივთების სრული ჩამონათვალისთვის იხილეთ</value>
+    </data>
+    <data name="your_package_with_the_tracking_code" xml:space="preserve">
+        <value>თქვენი ამანათი</value>
+    </data>
+    <data name="your_package_has_status" xml:space="preserve">
+        <value>თქვენს ამანათი</value>
+    </data>
+    <data name="is_awaiting_arrival_in_our_warehouse" xml:space="preserve">
+        <value>ელოდება ჩამოსვლას ჩვენს საწყობში</value>
+    </data>
+    <data name="has_arrived_at_our_warehouse" xml:space="preserve">
+        <value>ჩვენს საწყობში ჩავიდა</value>
+    </data>
+    <data name="has_been_sent" xml:space="preserve">
+        <value>გამოგზავნილია</value>
+    </data>
+    <data name="has_arrived" xml:space="preserve">
+        <value>ჩამოვიდა</value>
+    </data>
+    <data name="has_been_delivered" xml:space="preserve">
+        <value>მიწოდებულია</value>
+    </data>
+    <data name="your_password_has_been_successfully_changed" xml:space="preserve">
+        <value>თქვენი პაროლი წარმატებით შეიცვალა</value>
+    </data>
+    <data name="if_you_did_not_request_a_password_reset_please_contact_our_support_immediately" xml:space="preserve">
+        <value>თუ თქვენ არ მოითხოვეთ პაროლის შეცვლა, გთხოვთ დაუყოვნებლივ დაუკავშირდეთ ჩვენს დამხმარე გუნდს</value>
+    </data>
+    <data name="you_requested_a_password_reset_for_your_account" xml:space="preserve">
+        <value>თქვენ მოითხოვეთ პაროლის შეცვლა თქვენი ანგარიშისთვის</value>
+    </data>
+    <data name="if_you_did_not_request_a_password_reset_please_ignore_this_email" xml:space="preserve">
+        <value>თუ თქვენ არ მოითხოვეთ პაროლის შეცვლა, გთხოვთ, უგულებელყოთ ეს ელ.ფოსტა</value>
+    </data>
+    <data name="please_click_on_the_link_below_to_reset_your_password" xml:space="preserve">
+        <value>გთხოვთ, დააჭირეთ ქვემოთ მოცემულ ბმულს, რომ შეცვალოთ თქვენი პაროლი</value>
+    </data>
+    <data name="your_packages_shipping_fee_has_been_paid" xml:space="preserve">
+        <value>თქვენი პაკეტების გადაზიდვის საფასური გადახდილია</value>
+    </data>
+    <data name="package" xml:space="preserve">
+        <value>ამანათი</value>
+    </data>
+    <data name="your_current_balance_is" xml:space="preserve">
+        <value>თქვენი ბალანსი არის</value>
+    </data>
+    <data name="package_id" xml:space="preserve">
+        <value>პაკეტის ID</value>
+    </data>
+    <data name="welcome_to_sangoway" xml:space="preserve">
+        <value>კეთილი იყოს თქვენი მობრძანება Sangoway - ში</value>
+    </data>
+    <data name="you_successfully_verified_your_email_account" xml:space="preserve">
+        <value>თქვენ წარმატებით დაადასტურეთ თქვენი ელ.ფოსტის ანგარიში</value>
+    </data>
+    <data name="we_are_excited_to_have_you_on_board" xml:space="preserve">
+        <value>ჩვენ გვიხარია რომ შემოგვიერთდით</value>
+    </data>
+    <data name="your_account_has_been_created_by_an_administrator" xml:space="preserve">
+        <value>თქვენი ანგარიში შეიქმნა ადმინისტრატორის მიერ</value>
+    </data>
+    <data name="please_use_this_email_and_password_to_login" xml:space="preserve">
+        <value>გთხოვთ, გამოიყენოთ ეს ელ.ფოსტა და პაროლი შესასვლელად</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>ელ.ფოსტა</value>
+    </data>
+    <data name="password" xml:space="preserve">
+        <value>პაროლი</value>
+    </data>
+    <data name="it_is_recommended_to_change_your_password" xml:space="preserve">
+        <value>რეკომენდებულია თქვენი პაროლის შეცვლა</value>
+    </data>
+    <data name="tos" xml:space="preserve">
+        <value>წესები</value>
+    </data>
+    <data name="and" xml:space="preserve">
+        <value>და</value>
+    </data>
+    <data name="privacy_policy" xml:space="preserve">
+        <value>კონფიდენციალურობის პოლიტიკა</value>
+    </data>
+</root>

@@ -6,16 +6,16 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Your package @StatusText
+    @Emails.your_package_has_status: @StatusText
 </SectionContent>
 
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
 
 <EmailParagraph>
-    Your package with the tracking code: <br/>
+    @Emails.your_package_with_the_tracking_code: <br/>
     @Package.TrackingCode<br/>
-    has @StatusText <br/>
-    on @(Package.Statuses
+    @StatusText <br/>
+    Date: @(Package.Statuses
                .First(x => x.Status == Status)
                .Date.ToString("dddd, dd MMMM yyyy, HH:mm UTCzzz", Package.Owner.CultureInfo))
 </EmailParagraph>
@@ -27,11 +27,11 @@
 
     private string StatusText => Status switch
     {
-        PackageStatus.Awaiting => "is awaiting arrival in our warehouse",
-        PackageStatus.InWarehouse => "has arrived at our warehouse",
-        PackageStatus.InTransit => "has been sent to Georgia",
-        PackageStatus.Arrived => "has arrived in Georgia",
-        PackageStatus.Delivered => "has been delivered",
+        PackageStatus.Awaiting => Emails.is_awaiting_arrival_in_our_warehouse,
+        PackageStatus.InWarehouse => Emails.has_arrived_at_our_warehouse,
+        PackageStatus.InTransit => Emails.has_been_sent,
+        PackageStatus.Arrived => Emails.has_arrived,
+        PackageStatus.Delivered => Emails.has_been_delivered,
         _ => throw new ArgumentOutOfRangeException(),
     };
 

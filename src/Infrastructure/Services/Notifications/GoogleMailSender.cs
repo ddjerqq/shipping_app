@@ -4,7 +4,7 @@ using Application.Services;
 using Domain.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Notifications;
 
 public sealed class GoogleMailSender : IEmailSender
 {
@@ -12,7 +12,7 @@ public sealed class GoogleMailSender : IEmailSender
     private readonly SmtpClient _client;
     private readonly ILogger<GoogleMailSender> _logger;
 
-    public GoogleMailSender(ILogger<GoogleMailSender> logger, IEmailMarkupProvider markupProvider)
+    public GoogleMailSender(ILogger<GoogleMailSender> logger)
     {
         _logger = logger;
         _username = "GOOGLE__USERNAME".FromEnvRequired();
@@ -26,11 +26,7 @@ public sealed class GoogleMailSender : IEmailSender
             Credentials = new NetworkCredential(_username, password),
             Timeout = 20_000,
         };
-
-        EmailMarkupProvider = markupProvider;
     }
-
-    public IEmailMarkupProvider EmailMarkupProvider { get; }
 
     public async Task SendAsync(string recipient, string subject, string body, CancellationToken ct = default)
     {

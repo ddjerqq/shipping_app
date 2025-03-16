@@ -6,18 +6,17 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Someone just signed into your <strong style="color:#040;font-weight:bold;">Sangoway</strong> account
+    @Emails.someone_just_signed_into_your_account
 </SectionContent>
 
 <SectionContent SectionId="@EmailLayout.FooterSectionId">
-    If you didn't attempt to login to your account just now, please change your password IMMEDIATELY
-    Someone is trying to access your account. Do not delay resetting your password.
-    <br/>
-    You can contact our support <a href="mailto:support@sangoway.com" target="_blank" style="color:#067df7;text-decoration:none;">here</a>
+    @Emails.if_you_did_not_attempt_to_login_to_your_account_just_now_please_change_your_password_immediately<br/>
+    @Emails.someone_is_trying_to_access_your_account_do_not_delay_resetting_your_password<br/>
+    @Emails.support_email <a href="mailto:support@sangoway.com" target="_blank" style="color:#067df7;text-decoration:none;">support@sangoway.com</a>
 </SectionContent>
 
 <EmailParagraph>
-    If this was you, you can disregard this message.
+    @Emails.if_this_was_you_you_can_disregard_this_message
 </EmailParagraph>
 
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
@@ -32,14 +31,10 @@
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
 
 <EmailParagraph>
-    If this was not you, please change your password immediately.
+    @Emails.if_this_was_not_you_please_change_your_password_immediately
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/auth/forgot_password")" Title="Change password" target="_blank"/>
-
-<EmailParagraph>
-    But if it was you, you don't need to do anything.
-</EmailParagraph>
 
 <hr style="border:none;border-top:1px solid #eaeaea;margin:26px 0;width:100%;"/>
 

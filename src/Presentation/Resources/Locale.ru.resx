@@ -203,9 +203,6 @@
     <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly">
         <value>Если у вас есть подтвержденная учетная запись с нами, вам будет отправлена ​​ссылка с кодом сброса пароля.</value>
     </data>
-    <data name="reset">
-        <value>Перезагрузить</value>
-    </data>
     <data name="reset_password">
         <value>Сбросить пароль</value>
     </data>
@@ -680,9 +677,6 @@
     </data>
     <data name="declare">
         <value>Объявить</value>
-    </data>
-    <data name="add_package_ro_race">
-        <value>Добавить пакет RO Race</value>
     </data>
     <data name="race_id">
         <value>Гоночный идентификатор</value>

@@ -4,15 +4,15 @@
 @inherits ComponentBase
 
 <SectionContent SectionId="EmailLayout.TitleSectionId">
-    Welcome to <strong style="color:#040;font-weight:bold;">Sangoway</strong>
+    @Emails.welcome_to_sangoway
 </SectionContent>
 
 <EmailParagraph>
-    You successfully verified your email account
+    @Emails.you_successfully_verified_your_email_account
 </EmailParagraph>
 
 <EmailParagraph>
-    We are excited to have you on board.
+    @Emails.we_are_excited_to_have_you_on_board.
 </EmailParagraph>
 
 <EmailCta Href="@($"https://{WebAppDomain}/home")" Title="Go to the website"/>
