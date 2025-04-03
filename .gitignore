@@ -37,6 +37,7 @@ msbuild.wrn
 .aspnet/https/*.pem
 .aspnet/https/*.key
 .aspnet/https/*.crt
+.aspnet/https/*.pfx
 
 .env
 *.db

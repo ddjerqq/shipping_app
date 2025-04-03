@@ -1,11 +1,12 @@
 ﻿using Application.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Presentation.Common;
 
 /// <inheritdoc />
-public sealed class GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHandlerMiddleware> logger) : IMiddleware
+public sealed class GlobalExceptionHandlerMiddleware : IMiddleware
 {
     /// <inheritdoc />
     public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next)
@@ -39,7 +40,7 @@ public sealed class GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHand
 
     private async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception)
     {
-        logger.LogError(exception, "An unhandled exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
+        Log.Error(exception, "An unhandled exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
 
         var problemDetails = new ProblemDetails
         {
@@ -62,7 +63,7 @@ public sealed class GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHand
 
     private async ValueTask<bool> TryHandleAsync(HttpContext httpContext, NotFoundException exception)
     {
-        logger.LogError(exception, "A not found exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
+        Log.Error(exception, "A not found exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
 
         var problemDetails = new ProblemDetails
         {
@@ -85,7 +86,7 @@ public sealed class GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHand
 
     private ValueTask<bool> TryHandleAsync(HttpContext httpContext, UnauthenticatedException exception)
     {
-        logger.LogError(exception, "An unauthenticated exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
+        Log.Error(exception, "An unauthenticated exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
 
         if (!httpContext.Request.Path.StartsWithSegments("/api"))
             httpContext.Response.Redirect("login");
@@ -95,7 +96,7 @@ public sealed class GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHand
 
     private async ValueTask<bool> TryHandleAsync(HttpContext httpContext, ValidationException exception)
     {
-        logger.LogError(exception, "A validation exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
+        Log.Error(exception, "A validation exception occurred. {Message} {TraceId}", exception.Message, httpContext.TraceIdentifier);
 
         var errors = exception
             .Errors

@@ -4,11 +4,11 @@ using Amazon.S3.Model;
 using Application.Services;
 using Domain.Common;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Infrastructure.Services;
 
-public sealed class AmazonS3FileStore(IAmazonS3 client, ILogger<AmazonS3FileStore> logger, IDistributedCache cache) : IFileStore
+public sealed class AmazonS3FileStore(IAmazonS3 client, IDistributedCache cache) : IFileStore
 {
     private static string BucketName => "AWS_BUCKET_NAME".FromEnvRequired();
     private static readonly TimeSpan Expiration = TimeSpan.FromMinutes(5);
@@ -69,7 +69,7 @@ public sealed class AmazonS3FileStore(IAmazonS3 client, ILogger<AmazonS3FileStor
         var url = await cache.GetStringAsync(key, ct);
         if (url is not null)
         {
-            logger.LogDebug("cache hit on key {Key}", key);
+            Log.Debug("cache hit on key {Key}", key);
             return url;
         }
 

@@ -47,24 +47,18 @@ public static class ClaimsPrincipalExt
             ? CultureInfo.GetCultureInfo(id)
             : CultureInfo.InvariantCulture;
 
-    public static IEnumerable<Claim> GetAllClaims(this User user)
-    {
-        var claims = new[]
-        {
-            new Claim(IdClaimType, user.Id.ToString()),
-            new Claim(PersonalIdClaimType, user.PersonalId),
-            new Claim(UsernameClaimType, user.Username),
-            new Claim(EmailClaimType, user.Email),
-            new Claim(PhoneClaimType, user.PhoneNumber),
-            new Claim(RoleClaimType, user.Role.ToString()),
-            new Claim(SecurityStampClaimType, user.SecurityStamp),
-            new Claim(RoomCodeClaimType, user.RoomCode.ToString()),
-            new Claim(TimeZoneClaimType, user.TimeZone.Id),
-        };
-        var userClaims = user.Claims.Select(uc => uc.Claim);
-
-        return claims.Concat(userClaims);
-    }
+    public static IEnumerable<Claim> GetAllClaims(this User user) =>
+    [
+        new(IdClaimType, user.Id.ToString()),
+        new(PersonalIdClaimType, user.PersonalId),
+        new(UsernameClaimType, user.Username),
+        new(EmailClaimType, user.Email),
+        new(PhoneClaimType, user.PhoneNumber),
+        new(RoleClaimType, user.Role.ToString()),
+        new(SecurityStampClaimType, user.SecurityStamp),
+        new(RoomCodeClaimType, user.RoomCode.ToString()),
+        new(TimeZoneClaimType, user.TimeZone.Id),
+    ];
 
     public static string GetDefaultAvatar(string? username = null)
     {

@@ -1,7 +1,6 @@
 using Application.Services;
-using Domain.ValueObjects;
+using Domain.Events;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Cqrs.Packages.Events;
 

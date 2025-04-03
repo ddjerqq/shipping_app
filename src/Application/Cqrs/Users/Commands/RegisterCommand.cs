@@ -8,7 +8,6 @@ using EntityFrameworkCore.DataProtection.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Cqrs.Users.Commands;
 

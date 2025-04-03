@@ -12,7 +12,7 @@ internal sealed class RequestLoggingBehaviour<TRequest, TResponse>(ICurrentUserA
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
         var userId = currentUser.Id?.ToString() ?? "unauthenticated";
-        using var activity = Log.Logger.StartActivity("{UserId} sent request {RequestName} {Request}", userId, typeof(TRequest).Name, request);
+        Log.Information("{UserId} sent request {RequestName} {@Request}", userId, typeof(TRequest).Name, request);
 
         try
         {
@@ -20,7 +20,7 @@ internal sealed class RequestLoggingBehaviour<TRequest, TResponse>(ICurrentUserA
         }
         catch (Exception ex)
         {
-            activity.Complete(LogEventLevel.Fatal, ex);
+            Log.Error(ex, "{UserId} failed to handle request {RequestName} {@Request}", userId, typeof(TRequest).Name, request);
             throw;
         }
     }

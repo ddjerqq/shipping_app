@@ -1,8 +1,10 @@
+using System.Globalization;
 using System.Security.Claims;
 using Application;
 using Application.Common;
 using Destructurama;
 using Domain.Common;
+using Domain.ValueObjects;
 using Generated;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,8 +52,14 @@ public static class LoggingExt
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .Destructure.UsingAttributes()
+            .Destructure.ToMaximumDepth(2)
             .Destructure.ByTransforming<Ulid>(id => id.ToString())
-            .Destructure.ByTransforming<IStrongId>(id => id.ToString()!)
+            .Destructure.ByTransformingWhere(idType => typeof(IStrongId).IsAssignableFrom(idType), (IStrongId id) => id.ToString()!)
+            .Destructure.ByTransforming<CultureInfo>(culture => culture.Name)
+            .Destructure.ByTransforming<TimeZoneInfo>(tz => tz.Id)
+            .Destructure.ByTransforming<AbstractAddress>(address => address.AddressToString())
+            .Destructure.ByTransforming<TrackingCode>(code => code.Value)
+            .Destructure.ByTransforming<Money>(money => money.FormatedValue)
             .Enrich.WithProperty("Application", "SEQ__APP_NAME".FromEnvRequired())
             .Enrich.FromLogContext()
             .Enrich.WithProcessId()

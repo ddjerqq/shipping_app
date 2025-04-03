@@ -676,9 +676,6 @@
     <data name="declare" xml:space="preserve">
         <value>დეკლარირება</value>
     </data>
-    <data name="add_package_to_race" xml:space="preserve">
-        <value>დაამატეთ ამანათი რეისში</value>
-    </data>
     <data name="race_id" xml:space="preserve">
         <value>რასის პირადობის მოწმობა</value>
     </data>

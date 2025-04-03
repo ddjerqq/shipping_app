@@ -3,7 +3,7 @@ using Domain.Aggregates;
 using Domain.Common;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Stripe;
 using Stripe.Checkout;
 using PaymentMethod = Domain.ValueObjects.PaymentMethod;
@@ -19,7 +19,7 @@ namespace Infrastructure.Services;
 /// 4000000000003220 authentication required<br/>
 /// 4000000000000002 declined<br/>
 /// </remarks>
-public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConverter currencyConverter, ILogger<StripePaymentService> logger) : IPaymentService
+public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConverter currencyConverter) : IPaymentService
 {
     private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
     private static string WebhookSecret => "STRIPE__WEBHOOK_SECRET".FromEnvRequired();
@@ -71,7 +71,7 @@ public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConve
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to construct stripe event");
+            Log.Error(ex, "Failed to construct stripe event");
             return false;
         }
 
@@ -90,13 +90,13 @@ public sealed class StripePaymentService(IAppDbContext dbContext, ICurrencyConve
                 user.AddBalance(convertedAmount, PaymentMethod.Card, session.Id);
                 await dbContext.SaveChangesAsync(ct);
 
-                logger.LogInformation("User {UserId} balance topped up by {Amount}. Stripe Session id: {StripeSessionId}", user.Id, convertedAmount, session.Id);
+                Log.Information("User {UserId} balance topped up by {Amount}. Stripe Session id: {StripeSessionId}", user.Id, convertedAmount, session.Id);
             }
 
             return true;
         }
 
-        logger.LogInformation("Received stripe event: {EventType}: {EventId}", stripeEvent.Type, stripeEvent.Id);
+        Log.Information("Received stripe event: {EventType}: {EventId}", stripeEvent.Type, stripeEvent.Id);
 
         return true;
     }

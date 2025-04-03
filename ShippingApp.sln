@@ -12,7 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{A508EFC4-0EDB-31DF-620D-ECD3B3B4B781}"
 	ProjectSection(SolutionItems) = preProject
 		.github/workflows/api.yaml = .github/workflows/api.yaml
-		.github/workflows/client.yaml = .github/workflows/client.yaml
+		.github/workflows/backup-data.yaml = .github/workflows/backup-data.yaml
+		.github/workflows/todo-to-issue.yaml = .github/workflows/todo-to-issue.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source_generators", "source_generators", "{AAEDA8F5-6156-1908-6F44-7504302A18AE}"

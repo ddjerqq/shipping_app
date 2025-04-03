@@ -8,10 +8,10 @@ namespace Application.Cqrs.Users.Commands;
 
 public sealed record ResetPasswordWithTokenCommand : IRequest
 {
-    [LogMasked]
+    [NotLogged]
     public string NewPassword { get; set; } = null!;
 
-    [LogMasked]
+    [NotLogged]
     public string ConfirmNewPassword { get; set; } = null!;
 
     public string Token { get; set; } = null!;

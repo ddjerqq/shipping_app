@@ -17,6 +17,7 @@ public sealed class JwtGenerator : IJwtGenerator
 
     public static readonly string ClaimsIssuer = "JWT__ISSUER".FromEnvRequired();
     public static readonly string ClaimsAudience = "JWT__AUDIENCE".FromEnvRequired();
+    // TODO ecdsa and JWE encryption
     private static readonly string Key = "JWT__KEY".FromEnvRequired();
 
     public static readonly JwtBearerEvents Events = new()
@@ -63,6 +64,7 @@ public sealed class JwtGenerator : IJwtGenerator
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        // TODO make static
         ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
     };
 

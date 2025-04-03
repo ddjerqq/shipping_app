@@ -1,13 +1,11 @@
 using Application.Services;
 using Domain.Events;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Packages.Events;
 
 internal sealed class PackageArrivedAtDestinationEventHandler(
-    ILogger<PackageArrivedAtDestinationEventHandler> logger,
     IAppDbContext dbContext,
     IUserNotifier notifier)
     : INotificationHandler<PackageArrivedAtDestination>
@@ -17,7 +15,7 @@ internal sealed class PackageArrivedAtDestinationEventHandler(
         var staff = await dbContext.Users.FindAsync([notification.StaffId], ct);
         var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
 
-        logger.LogInformation(
+        Log.Information(
             "Package {PackageId} has arrived at destination. Received by {StaffId} at {Date}",
             notification.PackageId, staff?.Id, notification.Date);
 

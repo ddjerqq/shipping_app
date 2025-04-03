@@ -1,0 +1,35 @@
+name: Backup data
+
+on:
+  workflow_dispatch:
+
+  workflow_call:
+
+  schedule:
+    # every week on sunday
+    # minute hour day month day-of-week
+    # 24:00 on sunday
+    - cron: '0 0 * * 0'
+
+jobs:
+  backup-data:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Time ⌚
+        id: getdate
+        run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> $GITHUB_OUTPUT
+
+      - name: Set up SSH key 🔑
+        run: |
+          mkdir -v -m 700 $HOME/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
+          echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 400 $HOME/.ssh/id_rsa
+
+      - name: Backup data 📦
+        env:
+          TIMESTAMP: ${{ steps.getdate.outputs.date }}
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sqlite3 ~/.data/app.db .dump | gzip > ~/.data/backup/$TIMESTAMP.sql.gz"

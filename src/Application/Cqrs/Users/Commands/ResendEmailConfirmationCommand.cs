@@ -5,7 +5,7 @@ using EntityFrameworkCore.DataProtection.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Users.Commands;
 
@@ -25,7 +25,6 @@ public sealed class ResendEmailConfirmationValidator : AbstractValidator<ResendE
 
 internal sealed class ResendEmailConfirmationHandler(
     IAppDbContext dbContext,
-    ILogger<ResendEmailConfirmationHandler> logger,
     IUserNotifier notifier,
     IUserVerificationTokenGenerator tokenGenerator) : IRequestHandler<ResendEmailConfirmationCommand>
 {
@@ -38,7 +37,7 @@ internal sealed class ResendEmailConfirmationHandler(
             return;
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
-        logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
+        Log.Information("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
         await notifier.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }

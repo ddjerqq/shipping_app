@@ -1,12 +1,11 @@
 using Application.Services;
 using Domain.Events;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Users.Events;
 
 internal sealed class UserRegisteredEventHandler(
-    ILogger<UserRegisteredEventHandler> logger,
     IUserVerificationTokenGenerator tokenGenerator,
     IAppDbContext dbContext,
     IUserNotifier notifier)
@@ -18,7 +17,7 @@ internal sealed class UserRegisteredEventHandler(
                    ?? throw new InvalidOperationException($"Failed to load the user from the database, user with id: {notification.UserId} not found");
 
         var callbackUrl = tokenGenerator.GenerateConfirmEmailCallbackUrl(user);
-        logger.LogInformation("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
+        Log.Information("User {UserId} registered, sending confirmation link: {ConfirmationLink}", user.Id, callbackUrl);
         await notifier.SendEmailConfirmationAsync(user, callbackUrl, ct);
     }
 }

@@ -1,10 +1,12 @@
 ﻿# Creating keys for ASP.NET is tricky, but you can do it with a simple command.
 
-1. Firstly, you should acquire a certificate from a certificate authority, or create a self-signed certificate.
-2. After you have the certificate, you can create a private key and a public key with the following command:
-
 ```bash
+openssl ecparam -name prime256v1 -genkey -noout -out ecdsa_key.pem
+openssl req -new -x509 -key ecdsa_key.pem -out ecdsa_cert.pem -days 365
 openssl pkcs12 -export -out cert.pfx -in cert.pem -inkey key.pem
 ```
 
-3. Use a strong password, and make sure to update the `.env` file. `ASPNETCORE_KESTREL__CERTIFICATES__DEFAULT__PASSWORD`
+```bash
+export=ASPNETCORE_KESTREL__CERTIFICATES__DEFAULT__PATH=
+export=ASPNETCORE_KESTREL__CERTIFICATES__DEFAULT__PASSWORD=
+```

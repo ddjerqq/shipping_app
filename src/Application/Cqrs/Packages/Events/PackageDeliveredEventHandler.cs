@@ -1,13 +1,11 @@
 using Application.Services;
 using Domain.Events;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Packages.Events;
 
 internal sealed class PackageDeliveredEventHandler(
-    ILogger<PackageDeliveredEventHandler> logger,
     IAppDbContext dbContext,
     IUserNotifier notifier)
     : INotificationHandler<PackageDelivered>
@@ -16,7 +14,7 @@ internal sealed class PackageDeliveredEventHandler(
     {
         var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
 
-        logger.LogInformation(
+        Log.Information(
             "Package {PackageId} has been delivered to the user at {Date}",
             notification.PackageId, notification.Date);
 

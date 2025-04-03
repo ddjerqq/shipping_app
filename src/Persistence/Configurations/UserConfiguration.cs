@@ -63,13 +63,6 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
-        builder.HasMany(user => user.Claims)
-            .WithOne(uc => uc.User)
-            .HasForeignKey(uc => uc.UserId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
-        builder.Navigation(user => user.Claims).AutoInclude();
-
         builder.HasMany(user => user.Logins)
             .WithOne(ul => ul.User)
             .HasForeignKey(ul => ul.UserId)

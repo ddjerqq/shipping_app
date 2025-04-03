@@ -2,11 +2,10 @@ using Application.Services;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
-using Microsoft.Extensions.Localization;
 
 namespace Infrastructure.Services.Notifications;
 
-public sealed class SmsUserNotifier(ISmsSender sender, IStringLocalizer<SmsUserNotifier> localizer) : IUserNotifier
+public sealed class SmsUserNotifier(ISmsSender sender) : IUserNotifier
 {
     public Task SendEmailConfirmationAsync(User user, string callback, CancellationToken ct = default)
     {

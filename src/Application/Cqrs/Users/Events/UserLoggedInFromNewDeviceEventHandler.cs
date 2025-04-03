@@ -2,12 +2,11 @@ using Application.Services;
 using Domain.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Users.Events;
 
 internal sealed class UserLoggedInFromNewDeviceEventHandler(
-    ILogger<UserLoggedInFromNewDeviceEventHandler> logger,
     IAppDbContext dbContext,
     IUserNotifier notifier) : INotificationHandler<UserLoggedInFromNewDevice>
 {
@@ -20,7 +19,7 @@ internal sealed class UserLoggedInFromNewDeviceEventHandler(
         var login = user.Logins.FirstOrDefault(x => x.Id == notification.UserLoginId)
             ?? throw new InvalidOperationException($"Failed to load the user login from the database, login with id: {notification.UserLoginId} not found");
 
-        logger.LogInformation("User {UserId} logged in from a new location. {LoginId}", user.Id, notification.UserLoginId);
+        Log.Information("User {UserId} logged in from a new location. {LoginId}", user.Id, notification.UserLoginId);
         await notifier.SendNewLoginLocationAsync(user, login, ct);
     }
 }

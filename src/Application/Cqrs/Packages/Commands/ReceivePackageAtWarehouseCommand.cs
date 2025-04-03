@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Packages.Commands;
 
@@ -80,7 +80,6 @@ public sealed class ReceivePackageAtWarehouseValidator : AbstractValidator<Recei
 
 internal sealed class ReceivePackageAtWarehouseCommandHandler(
     IAppDbContext dbContext,
-    ILogger<ReceivePackageAtWarehouseCommandHandler> logger,
     ISender sender,
     ICurrentUserAccessor currentUser)
     : IRequestHandler<ReceivePackageAtWarehouseCommand, ReceivePackageAtWarehouseResult>
@@ -100,7 +99,7 @@ internal sealed class ReceivePackageAtWarehouseCommandHandler(
         if (package is null)
         {
             if (user is null)
-                logger.LogWarning("Orphan package received at warehouse: {TrackingCode}. Will add the package to the receiver {ReceiverId}.", request.TrackingCode, receiver.Id);
+                Log.Warning("Orphan package received at warehouse: {TrackingCode}. Will add the package to the receiver {ReceiverId}.", request.TrackingCode, receiver.Id);
 
             // create the package, and add it to the user.
             var createPackageCommand = new ReceiveUndeclaredPackageAtWarehouse(

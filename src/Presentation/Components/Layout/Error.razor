@@ -1,4 +1,4 @@
-@inject ILogger<Error> Logger
+@using Serilog
 @attribute [AllowAnonymous]
 
 <div class="w-full h-full flex justify-center items-center px-4 py-12">
@@ -37,7 +37,7 @@
     {
         if (firstRender)
         {
-            Logger.LogError(Exception, "Detected an error in a component");
+            Log.Error(Exception, "Detected an error in a component");
             ShowError($"Detected an error in a component - {Exception.Message}");
         }
 

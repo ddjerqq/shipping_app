@@ -1,4 +1,5 @@
 using System.Globalization;
+using Destructurama.Attributed;
 using Domain.Abstractions;
 using Domain.Attributes;
 using Domain.Entities;
@@ -15,12 +16,22 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public const int MaxAccessFailedCount = 5;
     public static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(5);
 
+    [LogMasked]
     public required string PersonalId { get; init; }
+    
     public required string Username { get; init; }
+    
+    [LogMasked]
     public required string Email { get; init; }
+    
+    [LogMasked]
     public required string PhoneNumber { get; init; }
+    
+    [LogMasked]
     public AbstractAddress AddressInfo { get; set; } = new NoAddress();
+
     public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
+    
     public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public int RoomCode { get; init; } = Random.Shared.Next(1_000_000, 9_999_999);
@@ -31,6 +42,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 
     public Money Balance { get; private set; } = new("USD", 0);
 
+    [LogMasked]
     public string PasswordHash { get; private set; } = null!;
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
@@ -39,7 +51,6 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
 
     public ICollection<Package> SentPackages { get; init; } = [];
     public ICollection<Package> ReceivedPackages { get; init; } = [];
-    public ICollection<UserClaim> Claims { get; init; } = [];
     public ICollection<UserLogin> Logins { get; init; } = [];
     public Role Role { get; init; } = Role.User;
 

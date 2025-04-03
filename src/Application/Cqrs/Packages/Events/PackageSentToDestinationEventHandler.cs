@@ -1,13 +1,11 @@
 using Application.Services;
 using Domain.Events;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Application.Cqrs.Packages.Events;
 
 internal sealed class PackageSentToDestinationEventHandler(
-    ILogger<PackageSentToDestinationEventHandler> logger,
     IAppDbContext dbContext,
     IUserNotifier notifier)
     : INotificationHandler<PackageSentToDestination>
@@ -18,7 +16,7 @@ internal sealed class PackageSentToDestinationEventHandler(
         var package = await dbContext.Packages.FindAsync([notification.PackageId], ct);
         var race = await dbContext.Races.FindAsync([notification.RaceId], ct);
 
-        logger.LogInformation(
+        Log.Information(
             "Package {PackageId} has been added to the race {RaceId} by {StaffId} at {Date}",
             notification.PackageId, race?.Id, staff?.Id, notification.Date);
 
