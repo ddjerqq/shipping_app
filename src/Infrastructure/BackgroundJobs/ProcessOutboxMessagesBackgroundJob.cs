@@ -43,7 +43,7 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
                 continue;
             }
 
-            Log.Information("Publishing {@DomainEvent}", domainEvent);
+            Log.Information("Publishing {DomainEvent}", domainEvent);
 
             try
             {

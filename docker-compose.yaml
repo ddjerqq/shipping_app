@@ -16,10 +16,12 @@
       - ASPNETCORE_KESTREL__CERTIFICATES__DEFAULT__PATH=/https/sangoway.com.pfx
       - ASPNETCORE_KESTREL__CERTIFICATES__DEFAULT__PASSWORD=6ff160fe40de4b4fbcf3d874263f7d1f
       - DB__PATH=/var/data/app.db
+      - JWT__ENCRYPTION_KEY_PATH=/https/jwt_encryption_key.pem
+      - JWT__SIGNING_KEY_PATH=/https/jwt_signing_key.pem
     volumes:
       - ./.aspnet/dp:/var/data-protection
       - ./.aspnet/https:/https/:ro
-      - ./.data:/var/data
+      - ./.data/:/var/data
     restart: unless-stopped
 
 #  seq:
