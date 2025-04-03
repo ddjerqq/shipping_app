@@ -5,11 +5,8 @@ on:
 
   workflow_call:
 
-  schedule:
-    # every week on sunday
-    # minute hour day month day-of-week
-    # 24:00 on sunday
-    - cron: '0 0 * * 0'
+#  schedule:
+#    - cron: '0 0 * * 0'
 
 jobs:
   backup-data:
