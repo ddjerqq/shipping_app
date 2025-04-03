@@ -19,7 +19,7 @@ internal sealed class ConfirmEmailHandler(IAppDbContext dbContext, IUserVerifica
 {
     public async Task<User?> Handle(ConfirmEmailCommand request, CancellationToken ct)
     {
-        var result = tokenGenerator.ValidateToken(IUserVerificationTokenGenerator.ConfirmEmailPurpose, request.Token);
+        var result = await tokenGenerator.ValidateTokenAsync(IUserVerificationTokenGenerator.ConfirmEmailPurpose, request.Token);
         if (result is null)
             return null;
 

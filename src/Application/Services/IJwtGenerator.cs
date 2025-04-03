@@ -21,5 +21,5 @@ public interface IJwtGenerator
     /// <summary>
     /// Tries to validate the specified token and returns the claims if the token is valid.
     /// </summary>
-    public bool TryValidateToken(string token, out List<Claim> claims);
+    public Task<IEnumerable<Claim>> TryValidateTokenAsync(string token);
 }

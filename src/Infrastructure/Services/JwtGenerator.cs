@@ -1,111 +1,106 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using Stripe.Issuing;
 
 namespace Infrastructure.Services;
 
 public sealed class JwtGenerator : IJwtGenerator
 {
     public const string CookieName = "authorization";
+    private const string SecurityAlgorithm = SecurityAlgorithms.EcdsaSha256;
 
     public static readonly string ClaimsIssuer = "JWT__ISSUER".FromEnvRequired();
     public static readonly string ClaimsAudience = "JWT__AUDIENCE".FromEnvRequired();
-    // TODO ecdsa and JWE encryption
-    private static readonly string Key = "JWT__KEY".FromEnvRequired();
-    private static readonly string SecurityAlgorithm = SecurityAlgorithms.HmacSha256; 
+    public static readonly TimeSpan Expiration = TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired());
+    public static readonly string EncryptionKeyPassword = "JWT__ENCRYPTION_KEY_PASSWORD".FromEnvRequired();
+    public static readonly string EncryptionKeyPath = "JWT__ENCRYPTION_KEY_PATH".FromEnvRequired();
+    public static readonly string SigningKeyPath = "JWT__SIGNING_KEY_PATH".FromEnvRequired();
 
-    public static readonly JwtBearerEvents Events = new()
+    private readonly JsonWebTokenHandler _handler;
+    private readonly RsaSecurityKey _privateEncryptionKey;
+    private readonly RsaSecurityKey _publicEncryptionKey;
+    private readonly ECDsaSecurityKey _privateSigningKey;
+    private readonly ECDsaSecurityKey _publicSigningKey;
+    public readonly TokenValidationParameters TokenValidationParameters;
+
+    public JwtGenerator()
     {
-        OnMessageReceived = ctx =>
+        var encryptionKey = RSA.Create();
+        var encryptionKeyText = File.ReadAllText(EncryptionKeyPath);
+        encryptionKey.ImportFromEncryptedPem(encryptionKeyText, Encoding.UTF8.GetBytes(EncryptionKeyPassword));
+        
+        var signingKeyText = File.ReadAllText(SigningKeyPath);
+        var signingKey = ECDsa.Create();
+        signingKey.ImportFromPem(signingKeyText);
+
+        _handler = new JsonWebTokenHandler();
+        
+        _privateEncryptionKey = new RsaSecurityKey(encryptionKey);
+        _publicEncryptionKey = new RsaSecurityKey(encryptionKey.ExportParameters(false));
+        _privateSigningKey = new ECDsaSecurityKey(signingKey);
+        _publicSigningKey = new ECDsaSecurityKey(ECDsa.Create(signingKey.ExportParameters(false)));
+
+        TokenValidationParameters = new TokenValidationParameters
         {
-            ctx.Request.Query.TryGetValue(CookieName, out var query);
-            ctx.Request.Headers.TryGetValue(CookieName, out var header);
-            ctx.Request.Cookies.TryGetValue(CookieName, out var cookie);
-            ctx.Token = (string?)query ?? (string?)header ?? cookie;
-            return Task.CompletedTask;
-        },
-        OnForbidden = ctx =>
-        {
-            if (ctx.Request.Path.StartsWithSegments("/api"))
-            {
-                ctx.Response.StatusCode = 403;
-                return Task.CompletedTask;
-            }
-
-            ctx.Response.Redirect("auth/denied");
-            return Task.CompletedTask;
-        },
-        OnChallenge = ctx =>
-        {
-            if (ctx.Request.Path.StartsWithSegments("/api"))
-            {
-                ctx.Response.StatusCode = 401;
-                return Task.CompletedTask;
-            }
-
-            ctx.Response.Redirect("auth/login");
-            ctx.HandleResponse();
-            return Task.CompletedTask;
-        },
-    };
-
-    public static readonly TokenValidationParameters TokenValidationParameters = new()
-    {
-        ValidIssuer = ClaimsIssuer,
-        ValidAudience = ClaimsAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key)),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidAlgorithms = [SecurityAlgorithm],
-    };
-
-    private readonly JwtSecurityTokenHandler _handler = new();
-    private readonly SymmetricSecurityKey _securityKey = new(Encoding.UTF8.GetBytes(Key));
-    private SigningCredentials SigningCredentials => new(_securityKey, SecurityAlgorithm);
+            ValidIssuer = ClaimsIssuer,
+            ValidAudience = ClaimsAudience,
+            IssuerSigningKey = _publicSigningKey,
+            TokenDecryptionKey = _privateEncryptionKey,
+            RequireSignedTokens = true,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            // ValidAlgorithms = [SecurityAlgorithm],
+            NameClaimType = ClaimsPrincipalExt.IdClaimType,
+            RoleClaimType = ClaimsPrincipalExt.RoleClaimType,
+        };
+    }
 
     public string GenerateToken(IEnumerable<Claim> claims, TimeSpan? expiration = null)
     {
-        expiration ??= TimeSpan.FromSeconds(int.Parse("JWT__EXPIRATION".FromEnvRequired()));
+        expiration ??= Expiration;
 
-        var token = new JwtSecurityToken(
-            ClaimsIssuer,
-            ClaimsAudience,
-            claims,
-            expires: DateTime.UtcNow.Add(expiration.Value),
-            signingCredentials: SigningCredentials);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Issuer = ClaimsIssuer,
+            Audience = ClaimsAudience,
+            Claims = claims.ToDictionary(claim => claim.Type, object (claim) => claim.Value),
+            Expires = DateTime.UtcNow.Add(expiration.Value),
+            SigningCredentials = new SigningCredentials(_privateSigningKey, SecurityAlgorithms.EcdsaSha256),
+            EncryptingCredentials = new EncryptingCredentials(_publicEncryptionKey, SecurityAlgorithms.RsaOAEP, SecurityAlgorithms.Aes256CbcHmacSha512),
+        };
 
-        return _handler.WriteToken(token);
+        return _handler.CreateToken(tokenDescriptor);
     }
 
-    public string GenerateToken(User user, TimeSpan? expiration = null)
-    {
-        var claims = user.GetAllClaims();
-        return GenerateToken(claims, expiration);
-    }
+    public string GenerateToken(User user, TimeSpan? expiration = null) => GenerateToken(user.GetAllClaims(), expiration);
 
-    public bool TryValidateToken(string token, out List<Claim> claims)
+    public async Task<IEnumerable<Claim>> TryValidateTokenAsync(string token)
     {
         try
         {
-            var principal = _handler.ValidateToken(token, TokenValidationParameters, out _);
-            claims = principal.Claims.ToList();
-            return true;
+            var result = await _handler.ValidateTokenAsync(token, TokenValidationParameters);
+
+            if (!result.IsValid)
+                throw new SecurityTokenInvalidSignatureException("Invalid token signature");
+
+            return result.ClaimsIdentity.Claims;
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to validate token");
-
-            claims = [];
-            return false;
+            return [];
         }
     }
 }

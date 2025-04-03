@@ -30,7 +30,7 @@ public sealed class ResetPasswordWithTokenValidator : AbstractValidator<ResetPas
 
         RuleFor(x => x.Token)
             .NotEmpty()
-            .Must(token => jwtGenerator.TryValidateToken(token, out _))
+            .MustAsync(async (token, _) => (await jwtGenerator.TryValidateTokenAsync(token)).Any())
             .WithMessage("Invalid token!");
     }
 }
@@ -39,7 +39,7 @@ internal sealed class ResetPasswordWithTokenHandler(IAppDbContext dbContext, IUs
 {
     public async Task Handle(ResetPasswordWithTokenCommand request, CancellationToken ct)
     {
-        var result = tokenGenerator.ValidateToken(IUserVerificationTokenGenerator.ResetPasswordPurpose, request.Token);
+        var result = await tokenGenerator.ValidateTokenAsync(IUserVerificationTokenGenerator.ResetPasswordPurpose, request.Token);
         if (result is null)
             return;
 

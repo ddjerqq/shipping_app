@@ -26,12 +26,11 @@ public interface IUserVerificationTokenGenerator
         QueryHelpers.AddQueryString($"https://{WebAppDomain}/auth/{ResetPasswordPurpose}",
             new Dictionary<string, string?> { ["token"] = GenerateToken(user, ResetPasswordPurpose) });
 
-
     /// <summary>
     /// Validates that the jwt is valid and the token's purpose matches
     /// </summary>
     /// <remarks>
     /// Please note it is your responsibility to validate the security_stamp and the sid
     /// </remarks>
-    public (string Purpose, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token);
+    public Task<(string Purpose, string SecurityStamp, UserId UserId)?> ValidateTokenAsync(string purpose, string token);
 }

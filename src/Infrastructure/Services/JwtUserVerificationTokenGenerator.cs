@@ -19,9 +19,11 @@ public sealed class JwtUserVerificationTokenGenerator(IJwtGenerator jwtGenerator
         return jwtGenerator.GenerateToken(claims, TimeSpan.FromMinutes(5));
     }
 
-    public (string Purpose, string SecurityStamp, UserId UserId)? ValidateToken(string purpose, string token)
+    public async Task<(string Purpose, string SecurityStamp, UserId UserId)?> ValidateTokenAsync(string purpose, string token)
     {
-        if (!jwtGenerator.TryValidateToken(token, out var claims))
+        var claims = (await jwtGenerator.TryValidateTokenAsync(token)).ToList();
+
+        if (claims.Count == 0)
             return null;
 
         if (!claims.HasAllKeys("purpose", "security_stamp", "sid"))
