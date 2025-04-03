@@ -41,12 +41,11 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
 
             if (domainEvent is null)
             {
-                // fatal
-                Log.Logger.Fatal("failed to deserialize message {@MessageId}", message.Id);
+                Log.Error("failed to deserialize message {MessageId}", message.Id);
                 continue;
             }
 
-            using var activity = Log.Logger.StartActivity("Publishing {DomainEvent}", domainEvent);
+            Log.Information("Publishing {@DomainEvent}", domainEvent);
 
             try
             {
@@ -55,13 +54,12 @@ public sealed class ProcessOutboxMessagesBackgroundJob(IPublisher publisher, IAp
             catch (Exception ex)
             {
                 message.Error = ex.ToString();
-                Log.Logger.Fatal("failed to process message {@MessageId}", message.Id);
-                activity.Complete(LogEventLevel.Fatal, ex);
+                Log.Error(ex, "Failed to process message {MessageId}", message.Id);
             }
             finally
             {
                 message.ProcessedOn = DateTime.UtcNow;
-                activity.Complete(LogEventLevel.Information);
+                Log.Information("Processed message {MessageId}", message.Id);
                 await Log.CloseAndFlushAsync();
             }
         }

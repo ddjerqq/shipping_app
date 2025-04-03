@@ -19,6 +19,7 @@ public sealed class JwtGenerator : IJwtGenerator
     public static readonly string ClaimsAudience = "JWT__AUDIENCE".FromEnvRequired();
     // TODO ecdsa and JWE encryption
     private static readonly string Key = "JWT__KEY".FromEnvRequired();
+    private static readonly string SecurityAlgorithm = SecurityAlgorithms.HmacSha256; 
 
     public static readonly JwtBearerEvents Events = new()
     {
@@ -64,13 +65,12 @@ public sealed class JwtGenerator : IJwtGenerator
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        // TODO make static
-        ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
+        ValidAlgorithms = [SecurityAlgorithm],
     };
 
     private readonly JwtSecurityTokenHandler _handler = new();
     private readonly SymmetricSecurityKey _securityKey = new(Encoding.UTF8.GetBytes(Key));
-    private SigningCredentials SigningCredentials => new(_securityKey, SecurityAlgorithms.HmacSha256);
+    private SigningCredentials SigningCredentials => new(_securityKey, SecurityAlgorithm);
 
     public string GenerateToken(IEnumerable<Claim> claims, TimeSpan? expiration = null)
     {
@@ -102,7 +102,7 @@ public sealed class JwtGenerator : IJwtGenerator
         }
         catch (Exception ex)
         {
-            Log.Logger.Debug(ex, "Failed to validate token");
+            Log.Error(ex, "Failed to validate token");
 
             claims = [];
             return false;

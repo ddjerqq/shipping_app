@@ -71,7 +71,7 @@
         catch (InvalidOperationException)
         {
             // This exception is thrown when the form is submitted without any validation rules on the model, which is a warning
-            Log.Logger.Warning("No validation rules found for model {Model}", Model);
+            Log.Warning("No validation rules found for model {Model}", Model);
             isValid = true;
         }
 
@@ -81,7 +81,7 @@
         {
             var messages = EditContext!.GetValidationMessages().ToList();
             ShowWarning($"Validation errors: {string.Join(';', messages)}");
-            Log.Logger.Warning("Validation failed in form: {Messages}", string.Join(';', messages));
+            Log.Warning("Validation failed in form: {Messages}", string.Join(';', messages));
             StateHasChanged();
             await OnInvalidSubmit.InvokeAsync(EditContext);
         }

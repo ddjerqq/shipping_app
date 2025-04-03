@@ -24,7 +24,7 @@
         if (response.Success)
             return true;
 
-        Log.Logger.Warning("Recaptcha has errors: {Errors}", string.Join(';', response.ErrorCodes));
+        Log.Warning("Recaptcha has errors: {Errors}", string.Join(';', response.ErrorCodes));
         ShowWarning($"{Locale.captcha_errors} {string.Join(';', response.ErrorCodes)}");
 
         return false;
@@ -43,7 +43,7 @@
             }
             catch (JSException ex)
             {
-                Log.Logger.Error(ex, "failed to load CAPTCHA");
+                Log.Error(ex, "failed to load CAPTCHA");
                 ShowWarning(Locale.google_recaptcha_error_please_reload);
             }
         }
@@ -53,7 +53,7 @@
     public void OnSuccess(string response)
     {
         _captchaResponse = response;
-        Log.Logger.Debug("recaptcha response received: {Response}", response);
+        Log.Debug("recaptcha response received: {Response}", response);
     }
 
     [JSInvokable]

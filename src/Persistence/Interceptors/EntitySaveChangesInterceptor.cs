@@ -51,7 +51,7 @@ public sealed class EntitySaveChangesInterceptor : SaveChangesInterceptor
                 .Select(x => x.Metadata.Name));
 
             if (entry.State is EntityState.Added or EntityState.Modified or EntityState.Deleted)
-                Log.Logger.Information("{UserId} {EntryState} entity {EntityId} {ModifiedProperties}", currentUserId, entry.State, ((dynamic)entry.Entity).Id, modifiedProperties);
+                Log.Information("{UserId} {EntryState} entity {EntityId} {ModifiedProperties}", currentUserId, entry.State, ((dynamic)entry.Entity).Id, modifiedProperties);
 
             if (entry.State == EntityState.Added)
             {

@@ -32,7 +32,7 @@ public sealed class DeleteDeletedUsersBackgroundJob(IAppDbContext dbContext) : I
             .OrderBy(m => m.Id)
             .ToListAsync(context.CancellationToken);
 
-        Log.Logger.Information("deleting {Count} old users", users.Count);
+        Log.Information("deleting {Count} old users", users.Count);
         dbContext.Users.RemoveRange(users);
         await dbContext.SaveChangesAsync(context.CancellationToken);
     }
