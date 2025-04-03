@@ -3,6 +3,9 @@ using dotenv.net;
 using FluentValidation;
 using Infrastructure.Config;
 using Presentation.Config;
+#if !DEBUG
+using SerilogTracing;
+#endif
 
 ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
 ValidatorOptions.Global.LanguageManager.Enabled = true;

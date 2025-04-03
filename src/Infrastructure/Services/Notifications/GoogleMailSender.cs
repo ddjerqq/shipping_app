@@ -14,7 +14,6 @@ public sealed class GoogleMailSender : IEmailSender
 
     public GoogleMailSender(ILogger<GoogleMailSender> logger)
     {
-        // TODO not working from docker??
         _logger = logger;
         _username = "GOOGLE__USERNAME".FromEnvRequired();
         var password = "GOOGLE__APP_PASSWORD".FromEnvRequired();

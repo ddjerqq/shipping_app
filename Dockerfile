@@ -68,7 +68,6 @@ EXPOSE 1443
 
 COPY --from=publish /app/publish .
 
-# TODO fix healthcheck
-HEALTHCHECK --interval=30s --timeout=10s CMD curl --silent --fail https://127.0.0.1:1443/api/v1/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s CMD curl --insecure --silent --fail https://127.0.0.1:1443/api/v1/health || exit 1
 
 ENTRYPOINT ["dotnet", "Presentation.dll"]
