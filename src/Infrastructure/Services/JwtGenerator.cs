@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -6,18 +5,16 @@ using Application.Common;
 using Application.Services;
 using Domain.Aggregates;
 using Domain.Common;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Stripe.Issuing;
 
 namespace Infrastructure.Services;
 
 public sealed class JwtGenerator : IJwtGenerator
 {
     public const string CookieName = "authorization";
-    private const string SecurityAlgorithm = SecurityAlgorithms.EcdsaSha256;
+    private static readonly string[] ValidAlgorithms = [SecurityAlgorithms.EcdsaSha256, SecurityAlgorithms.RsaOAEP, SecurityAlgorithms.Aes256CbcHmacSha512];
 
     public static readonly string ClaimsIssuer = "JWT__ISSUER".FromEnvRequired();
     public static readonly string ClaimsAudience = "JWT__AUDIENCE".FromEnvRequired();
@@ -61,7 +58,7 @@ public sealed class JwtGenerator : IJwtGenerator
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            // ValidAlgorithms = [SecurityAlgorithm],
+            ValidAlgorithms = ValidAlgorithms,
             NameClaimType = ClaimsPrincipalExt.IdClaimType,
             RoleClaimType = ClaimsPrincipalExt.RoleClaimType,
         };

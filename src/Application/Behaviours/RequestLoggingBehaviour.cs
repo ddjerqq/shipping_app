@@ -1,8 +1,6 @@
 using Application.Services;
 using MediatR;
 using Serilog;
-using Serilog.Events;
-using SerilogTracing;
 
 namespace Application.Behaviours;
 
