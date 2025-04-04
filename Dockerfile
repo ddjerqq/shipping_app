@@ -22,7 +22,6 @@ RUN apt update && apt install -y curl && \
     curl -sLo /usr/bin/tailwindcss "https://github.com/tailwindlabs/tailwindcss/releases/download/v${TAILWIND_VERSION}/tailwindcss-linux-${ARCH_SUFFIX}" && \
     chmod +x /usr/bin/tailwindcss
 
-# Restore stage (native arch to avoid QEMU segfaults)
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS restore
 WORKDIR /app
 
@@ -35,7 +34,7 @@ COPY ["source_generators/StrongIdGenerator/StrongIdGenerator.csproj", "source_ge
 
 RUN dotnet restore "src/Presentation/Presentation.csproj"
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 COPY --from=base /usr/bin/tailwindcss /usr/bin/tailwindcss
@@ -64,7 +63,7 @@ RUN /usr/bin/tailwindcss \
 
 RUN dotnet publish -c Release -o /app/publish --no-restore --no-build "Presentation/Presentation.csproj"
 
-FROM --platform=$TARGETPLATFORM base AS final
+FROM base AS final
 ARG USERNAME
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
