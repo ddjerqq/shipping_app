@@ -22,23 +22,24 @@ RUN apt update && apt install -y curl && \
     curl -sLo /usr/bin/tailwindcss "https://github.com/tailwindlabs/tailwindcss/releases/download/v${TAILWIND_VERSION}/tailwindcss-linux-${ARCH_SUFFIX}" && \
     chmod +x /usr/bin/tailwindcss
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS restore
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-COPY ["src/Presentation/Presentation.csproj", "src/Presentation/"]
+COPY ["source_generators/StrongIdGenerator/StrongIdGenerator.csproj", "source_generators/StrongIdGenerator/"]
 COPY ["src/Domain/Domain.csproj", "src/Domain/"]
 COPY ["src/Application/Application.csproj", "src/Application/"]
 COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
 COPY ["src/Persistence/Persistence.csproj", "src/Persistence/"]
-COPY ["source_generators/StrongIdGenerator/StrongIdGenerator.csproj", "source_generators/StrongIdGenerator/"]
+COPY ["src/Presentation/Presentation.csproj", "src/Presentation/"]
 
+RUN dotnet restore "source_generators/StrongIdGenerator/StrongIdGenerator.csproj"
+RUN dotnet restore "src/Domain/Domain.csproj"
+RUN dotnet restore "src/Application/Application.csproj"
+RUN dotnet restore "src/Infrastructure/Infrastructure.csproj"
+RUN dotnet restore "src/Persistence/Persistence.csproj"
 RUN dotnet restore "src/Presentation/Presentation.csproj"
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
-
 COPY --from=base /usr/bin/tailwindcss /usr/bin/tailwindcss
-COPY --from=restore /app /app
 COPY . .
 
 WORKDIR /app/source_generators
