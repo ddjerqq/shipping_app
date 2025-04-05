@@ -53,16 +53,16 @@ RUN dotnet build -c Release --no-restore "Persistence/Persistence.csproj"
 RUN dotnet build -c Release --no-restore "Presentation/Presentation.csproj"
 
 FROM build AS publish
-WORKDIR /app/src
+WORKDIR /app
 
 RUN /usr/bin/tailwindcss \
-    --input src/Presentation/wwwroot/styles/app.css \
-    --output src/Presentation/wwwroot/styles/app.min.css \
-    --config src/Presentation/tailwind.config.cjs \
+    --input ./src/Presentation/wwwroot/styles/app.css \
+    --output ./src/Presentation/wwwroot/styles/app.min.css \
+    --config ./src/Presentation/tailwind.config.cjs \
     --content "./src/Presentation/**/*.{cs,razor,js,css,html}" \
     --minify
 
-RUN dotnet publish -c Release -o /app/publish --no-restore --no-build "Presentation/Presentation.csproj"
+RUN dotnet publish -c Release -o /app/publish --no-restore --no-build "./src/Presentation/Presentation.csproj"
 
 FROM base AS final
 ARG USERNAME

@@ -2195,6 +2195,15 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle theme.
+        /// </summary>
+        public static string toggle_theme {
+            get {
+                return ResourceManager.GetString("toggle_theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top up.
         /// </summary>
         public static string top_up {

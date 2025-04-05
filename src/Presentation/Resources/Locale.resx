@@ -872,4 +872,7 @@
     <data name="package" xml:space="preserve">
         <value>Package</value>
     </data>
+    <data name="toggle_theme" xml:space="preserve">
+        <value>Toggle theme</value>
+    </data>
 </root>

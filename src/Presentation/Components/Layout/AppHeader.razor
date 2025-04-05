@@ -5,20 +5,15 @@
 <header class="border-grid fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div class="container flex h-14 items-center justify-between">
         <div class="mr-4 flex">
-            <AuthorizeView>
-                <Authorized>
-                    <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
-                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">@Locale.dashboard</span>
-                    </a>
-                </Authorized>
-                <NotAuthorized>
-                    <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
-                        <Blazicon Svg="@Icons.Truck" class="!size-8"/>
-                        <span class="hidden font-bold lg:inline-block">@Locale.home</span>
-                    </a>
-                </NotAuthorized>
-            </AuthorizeView>
+            <a class="mr-4 sm:flex items-center gap-2 lg:mr-6" href="/">
+                <Blazicon Svg="@Icons.Truck" class="!size-8"/>
+                <span class="hidden font-bold lg:inline-block">
+                    <AuthorizeView>
+                        <Authorized>@Locale.dashboard</Authorized>
+                        <NotAuthorized>@Locale.home</NotAuthorized>
+                    </AuthorizeView>
+                </span>
+            </a>
 
             <nav class="flex items-center text-sm gap-2 sm:gap-4 md:gap-6">
                 <AuthorizeView Roles="User">
@@ -54,8 +49,20 @@
         </div>
 
         <div class="flex align-middle space-x-2">
-            <ThemeToggle/>
-            <CultureToggle />
+            <ThemeToggle>
+                <Button Variant="outline" Size="icon" class="!size-9 relative hidden sm:flex" data-dropdown-toggle="theme-dropdown">
+                    <Blazicon Svg="Icons.Sun" class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
+                    <Blazicon Svg="Icons.Moon" class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
+                </Button>
+            </ThemeToggle>
+
+            <CultureToggle Context="ctx">
+                <Button Variant="outline" Size="sm" class="relative hidden sm:flex" data-dropdown-toggle="culture-dropdown">
+                    <img class="size-4" src="@($"/images/{ctx.CurrentCulture}.svg")" alt="@ctx.Cultures[ctx.CurrentCulture.Name]"/>
+                    @ctx.Cultures[ctx.CurrentCulture.Name]
+                </Button>
+            </CultureToggle>
+
             <Search/>
             <AuthStatus/>
         </div>

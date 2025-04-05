@@ -851,7 +851,7 @@
         <value>მიიღეთ დანიშნულების ადგილზე</value>
     </data>
     <data name="this_package_has_not_been_paid_for_cant_deliver" xml:space="preserve">
-        <value>ეს ამანათი არ გადაიხადეს Cant მიწოდებისთვის</value>
+        <value>ეს ამანათი არ გადაიხადეს, ვერ მივაწოდებთ</value>
     </data>
     <data name="this_package_contains_prohibited_items" xml:space="preserve">
         <value>ეს ამანათი შეიცავს აკრძალულ ნივთებს</value>
@@ -870,5 +870,8 @@
     </data>
     <data name="package" xml:space="preserve">
         <value>ფუთა</value>
+    </data>
+    <data name="toggle_theme" xml:space="preserve">
+        <value>ფონის შეცვლა</value>
     </data>
 </root>

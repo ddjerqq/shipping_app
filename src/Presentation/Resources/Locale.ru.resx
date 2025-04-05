@@ -874,4 +874,7 @@
     <data name="package">
         <value>Упаковка</value>
     </data>
+    <data name="toggle_theme" xml:space="preserve">
+        <value>изменить тему</value>
+    </data>
 </root>

@@ -1,12 +1,9 @@
 @inject IJSRuntime Js
 @implements IAsyncDisposable
 
-<Button Variant="outline" Size="icon" class="!size-9 relative hidden sm:flex" data-dropdown-toggle="theme-dropdown">
-    <Blazicon Svg="Icons.Sun" class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
-    <Blazicon Svg="Icons.Moon" class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
-</Button>
+@ChildContent
 
-<div id="theme-dropdown" class="z-10 hidden  divide-background-100 rounded-lg shadow w-36 border bg-background">
+<div id="theme-dropdown" class="z-30 hidden divide-background-100 rounded-lg shadow w-36 border bg-background">
     <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(async () => await SetTheme("light"))">
         <Blazicon Svg="Icons.Sun"/>
         Light
@@ -23,6 +20,9 @@
 
 
 @code {
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = null!;
+    
     private IJSObjectReference? _module;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

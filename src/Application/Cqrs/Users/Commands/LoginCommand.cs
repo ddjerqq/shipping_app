@@ -95,6 +95,9 @@ internal sealed class LoginCommandHandler(
         var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
         var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString();
         var ipInfo = await ipGeoLocator.GetIpInfoAsync(ipAddress, ct);
+        var location = ipInfo is { Country: { } country, City: { } city } 
+            ? $"{country} - {city}" 
+            : ipAddress;
 
         var login = await dbContext.Set<UserLogin>()
             .Where(ul => ul.UserId == user.Id)
@@ -107,7 +110,7 @@ internal sealed class LoginCommandHandler(
             {
                 UserId = user.Id,
                 UserAgent = userAgent,
-                Location = ipInfo is not null ? $"{ipInfo.Country}, {ipInfo.City}" : "unknown",
+                Location = location,
                 IpAddress = ipAddress ?? "unknown",
                 LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo),
             };

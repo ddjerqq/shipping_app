@@ -35,8 +35,24 @@
 
             <nav class="py-2 text-sm">
                 <Button Href="/auth/manage" Variant="ghost" class="shadow-none justify-start w-full rounded-none">
+                    <Blazicon Svg="@Icons.Cog"/>
                     @Locale.manage_account
                 </Button>
+
+                <ThemeToggle>
+                    <Button Variant="ghost" class="flex sm:hidden shadow-none justify-start w-full rounded-none" data-dropdown-toggle="theme-dropdown">
+                        <Blazicon Svg="Icons.Sun" class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"/>
+                        <Blazicon Svg="Icons.Moon" class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
+                        @Locale.toggle_theme
+                    </Button>
+                </ThemeToggle>
+
+                <CultureToggle Context="ctx">
+                    <Button Variant="ghost" class="flex sm:hidden shadow-none justify-start w-full rounded-none" data-dropdown-toggle="culture-dropdown">
+                        <img class="size-4" src="@($"/images/{ctx.CurrentCulture}.svg")" alt="@ctx.Cultures[ctx.CurrentCulture.Name]"/>
+                        @ctx.Cultures[ctx.CurrentCulture.Name]
+                    </Button>
+                </CultureToggle>
             </nav>
 
             <div class="py-2">

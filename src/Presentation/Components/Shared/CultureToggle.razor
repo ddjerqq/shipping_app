@@ -6,12 +6,9 @@
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUserAccessor
 
-<Button Variant="outline" Size="sm" class="relative hidden sm:flex" data-dropdown-toggle="culture-dropdown">
-    <img class="size-4" src="@($"/images/{CurrentCulture}.svg")" alt="@Cultures[CurrentCulture.Name]"/>
-    @Cultures[CurrentCulture.Name]
-</Button>
+@ChildContent((Cultures, CurrentCulture))
 
-<div id="culture-dropdown" class="z-10 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
+<div id="culture-dropdown" class="z-30 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
     @foreach (var (culture, cultureName) in Cultures)
     {
         <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(() => SetCultureAsync(culture))">
@@ -22,6 +19,9 @@
 </div>
 
 @code {
+    [Parameter, EditorRequired]
+    public RenderFragment<(Dictionary<string, string?> Cultures, CultureInfo CurrentCulture)> ChildContent { get; set; } = null!;
+    
     private CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentCulture;
     private Dictionary<string, string?> Cultures { get; set; } = new();
 

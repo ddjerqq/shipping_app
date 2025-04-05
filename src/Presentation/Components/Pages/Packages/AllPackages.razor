@@ -30,28 +30,26 @@
 <Tabs Value="SelectedStatus" ValueChanged="@onSelectedTabChanged">
     <Card>
         <Header>
-            <CardTitle class="flex flex-col w-full justify-center content-around px-1 gap-2">
-                <div class="flex items-center justify-between">
-                    <span>@Locale.all_packages</span>
+            <CardTitle class="flex flex-col w-full justify-start content-around px-1 gap-2">
+                <span>@Locale.all_packages</span>
 
-                    <div class="space-x-2">
-                        <AuthorizeView Roles="Staff">
-                            <Button Href="/packages/receive" class="ms-2">
-                                <Blazicon Svg="@Lucide.Inbox"/>
-                                @Locale.receive
-                            </Button>
-                        </AuthorizeView>
-
-                        <Button Href="/packages/new/personal" class="ms-2">
-                            <Blazicon Svg="@Lucide.PackagePlus"/>
-                            @Locale.add_personal
+                <div class="grid grid-cols-3 gap-2">
+                    <AuthorizeView Roles="Staff">
+                        <Button Href="/packages/receive">
+                            <Blazicon Svg="@Lucide.Inbox" class="hidden sm:block"/>
+                            @Locale.receive
                         </Button>
+                    </AuthorizeView>
 
-                        <Button Href="/packages/new/online" class="ms-2">
-                            <Blazicon Svg="@Lucide.PackagePlus"/>
-                            @Locale.add_online
-                        </Button>
-                    </div>
+                    <Button Href="/packages/new/personal">
+                        <Blazicon Svg="@Lucide.PackagePlus" class="hidden sm:block"/>
+                        @Locale.add_personal
+                    </Button>
+
+                    <Button Href="/packages/new/online">
+                        <Blazicon Svg="@Lucide.PackagePlus" class="hidden sm:block"/>
+                        @Locale.add_online
+                    </Button>
                 </div>
 
                 <Description class="w-full overflow-x-scroll">
