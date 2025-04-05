@@ -60,6 +60,7 @@ public sealed class PayForShippingValidator : AbstractValidator<PayForShippingCo
 
 internal sealed class PayForShippingCommandHandler(IAppDbContext dbContext, ICurrentUserAccessor currentUserAccessor) : IRequestHandler<PayForShippingCommand>
 {
+    // TODO fix this
     public async Task Handle(PayForShippingCommand request, CancellationToken ct)
     {
         var package = await dbContext.Packages.FindAsync([request.PackageId], ct);

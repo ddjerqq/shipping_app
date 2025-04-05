@@ -39,6 +39,7 @@ public sealed class GoogleMailSender : IEmailSender
         msg.Body = body;
         msg.IsBodyHtml = true;
 
+        // TODO dont log
         _logger.LogInformation("sending email to {Recipient}", recipient);
 
         try
