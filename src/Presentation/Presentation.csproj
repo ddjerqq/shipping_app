@@ -65,6 +65,12 @@
       <EmbeddedResource Update="Resources\Locale.ru.resx">
         <DependentUpon>Locale.resx</DependentUpon>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Emails.ka.resx">
+        <DependentUpon>Emails.resx</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Emails.ru.resx">
+        <DependentUpon>Emails.resx</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
