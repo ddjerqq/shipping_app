@@ -6,18 +6,18 @@ using Infrastructure.Common;
 namespace Infrastructure.Services;
 
 public sealed class JwtUserVerificationTokenGenerator(IJwtGenerator jwtGenerator) : IUserVerificationTokenGenerator
-{
-    public string GenerateToken(User user, string purpose)
-    {
-        Claim[] claims =
-        [
-            new("purpose", purpose),
-            new("security_stamp", user.SecurityStamp),
-            new("sid", user.Id.ToString()),
-        ];
+{    public string GenerateToken(User user, string purpose)
+     {
+         Claim[] claims =
+         [
+             new("purpose", purpose),
+             new("security_stamp", user.SecurityStamp),
+             new("sid", user.Id.ToString()),
+         ];
+ 
+         return jwtGenerator.GenerateToken(claims, TimeSpan.FromMinutes(5));
+     }
 
-        return jwtGenerator.GenerateToken(claims, TimeSpan.FromMinutes(5));
-    }
 
     public async Task<(string Purpose, string SecurityStamp, UserId UserId)?> ValidateTokenAsync(string purpose, string token)
     {

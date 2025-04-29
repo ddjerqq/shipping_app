@@ -4,7 +4,7 @@ using Domain.Aggregates;
 namespace Application.Services;
 
 /// <summary>
-///     Represents a service that manages JWT tokens.
+/// Represents a service that manages JWT tokens.
 /// </summary>
 public interface IJwtGenerator
 {
