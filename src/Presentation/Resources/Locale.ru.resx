@@ -22,16 +22,16 @@
         <value>Дом</value>
     </data>
     <data name="my_packages">
-        <value>Мои пакеты</value>
+        <value>Мои посылки</value>
     </data>
     <data name="track_package">
         <value>Отследить посылку</value>
     </data>
     <data name="packages">
-        <value>Пакеты</value>
+        <value>Посылки</value>
     </data>
     <data name="races">
-        <value>Гонки</value>
+        <value>Рейсы</value>
     </data>
     <data name="users">
         <value>Пользователи</value>
@@ -43,7 +43,7 @@
         <value>Часто задаваемые вопросы</value>
     </data>
     <data name="calculator">
-        <value>Компьютер</value>
+        <value>Калькулятор</value>
     </data>
     <data name="manage_account">
         <value>Управление учетной записью</value>
@@ -100,7 +100,7 @@
         <value>Captcha не удалось загрузить, пожалуйста, перезагрузите страницу</value>
     </data>
     <data name="captcha_expired_please_do_it_again">
-        <value>Капча истек, пожалуйста, сделайте это снова</value>
+        <value>Капча истекла, пожалуйста, повторите снова</value>
     </data>
     <data name="full_name">
         <value>Полное имя</value>
@@ -121,13 +121,13 @@
         <value>Уже есть аккаунт?</value>
     </data>
     <data name="create_an_account">
-        <value>Завести аккаунт</value>
+        <value>Создать аккаунт</value>
     </data>
     <data name="please_complete_captcha_before_continuing">
         <value>Пожалуйста, заполните капчу, прежде чем продолжить</value>
     </data>
     <data name="you_must_agree_to_our">
-        <value>Вы должны согласиться с нашим</value>
+        <value>Вы должны согласиться с нашими </value>
     </data>
     <data name="terms">
         <value>условия</value>
@@ -154,10 +154,10 @@
         <value>Не удалось проверить токен</value>
     </data>
     <data name="register_confirmation">
-        <value>Подтверждение регистра</value>
+        <value>Подтверждение регистрации</value>
     </data>
     <data name="email_sent">
-        <value>Электронная почта отправлена</value>
+        <value>Электронная письмо отправлено</value>
     </data>
     <data name="please_check_your_email_and_spam_folder">
         <value>Пожалуйста, проверьте свою электронную почту и папки спама</value>
@@ -169,7 +169,7 @@
         <value>Введите свою электронную почту, и мы отправим вам ссылку.</value>
     </data>
     <data name="resend">
-        <value>Приезжать</value>
+        <value>Послать заново</value>
     </data>
     <data name="access_denied">
         <value>Доступ запрещен</value>
@@ -182,14 +182,14 @@
     </data>
     <data name="you_have_a_30_day_grace_period_to_recover_your_account_to_recover_simply_login">
         <value>У вас есть 30 -дневный льготный период для восстановления вашей учетной записи. Чтобы восстановить свою учетную запись,
-            войдите в систему с вашей электронной почтой и паролем.
+            войдите в систему используя электронную почту и пароль.
         </value>
     </data>
     <data name="invalid_token">
         <value>Неверный токен</value>
     </data>
     <data name="the_token_you_provided_is_invalid">
-        <value>Предоставленный вами знак недействителен</value>
+        <value>Предоставленный вами токен недействителен</value>
     </data>
     <data name="locked_out">
         <value>Заперт</value>
@@ -213,7 +213,7 @@
         <value>Подтвердите новый пароль</value>
     </data>
     <data name="you_successfully_reset_your_password">
-        <value>Вы успешно сбросите свой пароль</value>
+        <value>Вы успешно сбросили свой пароль</value>
     </data>
     <data name="password_reset_successfully">
         <value>Сброс пароля успешно</value>
@@ -273,7 +273,7 @@
         <value>Страна</value>
     </data>
     <data name="state">
-        <value>Состояние</value>
+        <value>Штат</value>
     </data>
     <data name="city">
         <value>Город</value>
@@ -291,13 +291,13 @@
         <value>Адрес обновлен успешно</value>
     </data>
     <data name="state_unavailable_for_georgia">
-        <value>Государство недоступно в Грузии</value>
+        <value>Штат недоступен в Грузии</value>
     </data>
     <data name="newsletter">
         <value>Информационный бюллетень</value>
     </data>
     <data name="enter_your_email_to_receive_notifications_about_product_updates">
-        <value>Введите свое письмо, чтобы получить уведомления об обновлениях продуктов и нашей бюллетене.</value>
+        <value>Введите эл.почту, чтобы получить уведомления об обновлениях посылок и бюллетеня.</value>
     </data>
     <data name="subscribe">
         <value>Подписаться</value>
@@ -306,7 +306,7 @@
         <value>Партнерские сайты</value>
     </data>
     <data name="contact">
-        <value>Контакт</value>
+        <value>Контакты</value>
     </data>
     <data name="all_rights_reserved">
         <value>Все права защищены</value>
@@ -333,40 +333,34 @@
         <value>Почему Санговей?</value>
     </data>
     <data name="why_cheap_prices">
-        <value>Дешевые цены!</value>
+        <value>Доступные цены!</value>
     </data>
     <data name="why_cheap_prices_description">
-        <value>Мы предоставляем непревзойденные решения для доставки, адаптированные для удовлетворения ваших уникальных потребностей,
-            каждый раз обеспечивая своевременные и безопасные поставки.
-        </value>
+        <value>Мы предлагаем уникальные решения в сфере доставки, адаптированные под ваши индивидуальные потребности, гарантируя своевременную и надёжную доставку каждый раз.</value>
     </data>
     <data name="why_experience">
         <value>Огромный опыт</value>
     </data>
     <data name="why_experience_description">
-        <value>Имея многолетний опыт работы в области логистики, мы стремимся предоставлять исключительные услуги, независимо от того,
-            отправляете ли вы пакеты по всей стране или по всему миру.
-        </value>
+        <value>Обладая многолетним опытом в сфере логистики, мы стремимся обеспечивать высокий уровень сервиса — будь то доставка по стране или по всему миру.</value>
     </data>
     <data name="why_advanced_tracking">
-        <value>Усовершенствованное отслеживание</value>
+        <value>Продвинутое отслеживание</value>
     </data>
     <data name="why_advanced_tracking_description">
-        <value>Наша продвинутая система отслеживания и профессиональная команда гарантируют душевное спокойствие с момента, когда вы
-            отправляете свою посылку в тот момент, когда она достигает места назначения.
-        </value>
+        <value>Наша современная система отслеживания и команда профессионалов гарантируют вам уверенность на всём пути — от отправки посылки до её получения.</value>
     </data>
     <data name="why_cards_packages_from_usa">
-        <value>Пакеты из США</value>
+        <value>Посылки из США</value>
     </data>
     <data name="why_cards_packages_from_geo">
-        <value>Пакеты из Грузии</value>
+        <value>Посылки из Грузии</value>
     </data>
     <data name="why_cards_storage_items">
-        <value>Пакеты хранятся</value>
+        <value>Хранящиеся посылки</value>
     </data>
     <data name="why_cards_moving_items">
-        <value>Перемещенные пакеты</value>
+        <value>Перемещенные посылки</value>
     </data>
     <data name="how_it_works">
         <value>Как это работает</value>
@@ -384,45 +378,45 @@
         <value>После регистрации вы получите адрес, который вы можете использовать для покупок в Интернете.</value>
     </data>
     <data name="how_step_3">
-        <value>Шаг 3: Добавить пакеты</value>
+        <value>Шаг 3: Добавить посылку</value>
     </data>
     <data name="how_step_3_description">
-        <value>После покупки продуктов онлайн, пожалуйста, объявите их в своей учетной записи Sangoway.</value>
+        <value>После покупки продуктов онлайн, пожалуйста, задекларируйте их в своей учетной записи Sangoway.</value>
     </data>
     <data name="how_step_4">
-        <value>Шаг 4: Получить пакеты!</value>
+        <value>Шаг 4: Получить посылку!</value>
     </data>
     <data name="how_step_4_description">
-        <value>После того, как ваш пакет прибудет, вы сможете заплатить за него. &lt;br/&gt; &lt;br/&gt; После оплаты доставки вы получите
-            свой пакет
+        <value>После того, как ваша посылка прибудет, вы сможете заплатить за неё. &lt;br/&gt; &lt;br/&gt; После оплаты доставки вы получите
+            свою посылку
         </value>
     </data>
     <data name="testimonial_header">
-        <value>Что говорят наши клиенты</value>
+        <value>Что говорят о нас клиенты</value>
     </data>
     <data name="testimonial_1">
-        <value>«Эта платформа изменила то, как я работаю. Настоятельно рекомендуется!»</value>
+        <value>«Эта платформа изменила то, как я работаю. Настоятельно рекомендую!»</value>
     </data>
     <data name="testimonial_1_author">
-        <value>Тамар Бибилеишвили</value>
+        <value>Тамара Бибилеишвили</value>
     </data>
     <data name="testimonial_2">
-        <value>«Лучшее решение, которое я принял в этом году. Невероятная поддержка и функции!»</value>
+        <value>«Лучшее решение, которое я приняла в этом году. Невероятная поддержка и функции!»</value>
     </data>
     <data name="testimonial_2_author">
-        <value>Даже Мартиашвили</value>
+        <value>Ани Мартиашвили</value>
     </data>
     <data name="testimonial_3">
-        <value>«Выдающее качество и внимание к деталям. Они действительно заботятся!»</value>
+        <value>«Выдающееся качество и внимание к деталям. Они действительно заботятся!»</value>
     </data>
     <data name="testimonial_3_author">
         <value>Мариам Николадзе</value>
     </data>
     <data name="testimonial_4">
-        <value>«Я не могу себе представить, как все было до этой службы».</value>
+        <value>«Я не могу себе представить, как все было до без этого сервиса».</value>
     </data>
     <data name="testimonial_4_author">
-        <value>Джорги Бакрадзе</value>
+        <value>Георгий Бакрадзе</value>
     </data>
     <data name="404_header">
         <value>404 - Потерянный в киберпространстве</value>
@@ -434,29 +428,25 @@
         <value>Вернись к дому</value>
     </data>
     <data name="about_description">
-        <value>Добро пожаловать в нашу службу доставки! Мы гордимся тем, что являемся самой доступной и надежной службой доставки для
-            посылок из США в Грузию.
-        </value>
+        <value>Добро пожаловать в нашу службу доставки! Мы гордимся тем, что предлагаем самую доступную и надёжную доставку посылок из США в Грузию.</value>
     </data>
     <data name="about_mission">
         <value>Наша миссия</value>
     </data>
     <data name="about_mission_description">
-        <value>Наша цель-сделать международную доставку доступной и беспрепятственной. Мы гарантируем, что ваши посылки доставляются
-            безопасно и вовремя из США в Грузию.
-        </value>
+        <value>Наша цель — сделать международную доставку доступной и удобной. Мы гарантируем безопасную и своевременную доставку ваших посылок из США в Грузию.</value>
     </data>
     <data name="about_who_are_we">
         <value>Кто мы</value>
     </data>
     <data name="about_who_are_we_description">
-        <value>Мы являемся малым бизнесом, ориентированным на страсть к обеспечению ценности для наших клиентов.</value>
+        <value>Мы — малый бизнес, движимый стремлением приносить пользу нашим клиентам.</value>
     </data>
     <data name="owner">
         <value>Владелец</value>
     </data>
     <data name="about_giorgi_sanakoevi">
-        <value>Geovie Sunkoivi</value>
+        <value>Giorgi Sanakoevi</value>
     </data>
     <data name="dev_team">
         <value>Разработчик</value>
@@ -465,18 +455,13 @@
         <value>Наши достижения</value>
     </data>
     <data name="about_achievements_description">
-        <value>С момента нашего основания мы успешно доставили 2320 посылок из США в Грузию, помогая бесчисленным клиентам пользоваться
-            доступной и надежной доставкой.
-        </value>
+        <value>С момента основания мы успешно доставили 2 320 посылок из США в Грузию, помогая множеству клиентов пользоваться доступной и надёжной доставкой.</value>
     </data>
     <data name="about_why_us">
-        <value>Почему мы?</value>
+        <value>Почему выбирают нас?</value>
     </data>
     <data name="about_why_us_description">
-        <value>Мы объединяем экономически эффективные цены, персонализированное обслуживание и приверженность совершенству, чтобы убедиться,
-            что ваш опыт доставки не имеет себе равных. Когда вы выбираете нас, вы поддерживаете выделенный малый бизнес, который ценит ваше
-            доверие.
-        </value>
+        <value>Мы предлагаем выгодные цены, индивидуальный подход и стремление к совершенству — всё ради того, чтобы ваш опыт доставки был на высшем уровне. Выбирая нас, вы поддерживаете малый бизнес, который действительно ценит ваше доверие.</value>
     </data>
     <data name="faq_1_q">
         <value>Что такое Санговей?</value>
@@ -497,10 +482,10 @@
         <value>Как мне получить посылку?</value>
     </data>
     <data name="faq_1_a">
-        <value>Sangoway - это платформа, которая помогает доставлять пакеты из США в Грузию.</value>
+        <value>Sangoway - это платформа, которая помогает доставлять посылки из США в Грузию.</value>
     </data>
     <data name="faq_2_a">
-        <value>Sangoway использует вес и размеры вашего пакета для расчета стоимости доставки из США в Грузию.</value>
+        <value>Sangoway использует вес и размеры вашей посылки для расчета стоимости доставки из США в Грузию.</value>
     </data>
     <data name="faq_3_a">
         <value>Начать работу легко. Просто зарегистрируйтесь и начните использовать наши услуги</value>
@@ -509,36 +494,36 @@
         <value>Sangoway принимает оплату с помощью кредитной карты и банковского перевода.</value>
     </data>
     <data name="faq_5_a">
-        <value>После того, как ваш пакет будет отправлен, вы получите номер для отслеживания, который вы можете использовать для
-            отслеживания пакета.
+        <value>После того, как ваша посылка будет отправлена, вы получите номер для отслеживания, который вы можете использовать для
+            отслеживания посылки.
         </value>
     </data>
     <data name="faq_6_a">
-        <value>Как только ваш пакет прибудет в Грузию, вы можете забрать его в нашем офисе или доставить на свой адрес.</value>
+        <value>Как только ваша посылка прибудет в Грузию, вы можете забрать её в нашем офисе или доставить на свой адрес.</value>
     </data>
     <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams">
         <value>Пожалуйста, имейте в виду, вес будет окружен до ближайших 100 граммов.</value>
     </data>
     <data name="calculator_volumetric_notice">
-        <value>Чтобы узнать больше о объемном весе и о том, как он рассчитывается, посетите наш</value>
+        <value>Чтобы узнать больше о объемном весе и о том, как он рассчитывается, посетите раздел  </value>
     </data>
     <data name="calculator_description">
-        <value>Введите требуемые параметры посылки, и калькулятор рассчитывает стоимость доставки</value>
+        <value>Введите требуемые параметры посылки, и калькулятор рассчитает стоимость доставки</value>
     </data>
     <data name="weight">
         <value>Масса</value>
     </data>
     <data name="calculator_price_notice">
-        <value>Чтобы узнать больше о том, как мы рассчитываем цены на пакет, пожалуйста, посетите наш</value>
+        <value>Чтобы узнать больше о том, как мы рассчитываем цены на посылку, пожалуйста, раздел  </value>
     </data>
     <data name="volumetric_price">
         <value>Объемная цена</value>
     </data>
     <data name="total_price">
-        <value>Общая цена</value>
+        <value>Итоговая цена</value>
     </data>
     <data name="house_delivery">
-        <value>Доставка дома</value>
+        <value>Доставка до дома</value>
     </data>
     <data name="user_dashboard">
         <value>Пользовательская панель</value>
@@ -547,22 +532,22 @@
         <value>Ваш баланс</value>
     </data>
     <data name="total_amount_due">
-        <value>Общая сумма причитается</value>
+        <value>Итоговая сумма к оплате</value>
     </data>
     <data name="your_packages">
-        <value>Ваши пакеты</value>
+        <value>Ваши посылки</value>
     </data>
     <data name="top_up_balance">
         <value>Пополнить баланс</value>
     </data>
     <data name="your_payment_info_is_secure">
-        <value>Ваша информация о оплате безопасна</value>
+        <value>Ваша платёжная информация надёжно защищена</value>
     </data>
     <data name="all_packages">
-        <value>Все пакеты</value>
+        <value>Все Посылки</value>
     </data>
     <data name="receive">
-        <value>Получать</value>
+        <value>Получить</value>
     </data>
     <data name="add_personal">
         <value>Добавить личный</value>
@@ -574,10 +559,10 @@
         <value>Розничная цена</value>
     </data>
     <data name="website_address">
-        <value>Адрес веб -сайта</value>
+        <value>Адрес веб-сайта</value>
     </data>
     <data name="race">
-        <value>Раса</value>
+        <value>Рейс</value>
     </data>
     <data name="shipping_price">
         <value>Цена доставки</value>
@@ -601,13 +586,13 @@
         <value>Подтверждать</value>
     </data>
     <data name="add_package_to_race">
-        <value>Добавить пакет в гонку</value>
+        <value>Добавить посылку в рейс</value>
     </data>
     <data name="mark_package_as_delivered_to_user">
-        <value>Марк пакет, доставленные пользователю</value>
+        <value>Пометить посылку как, доставленную пользователю</value>
     </data>
     <data name="add_race">
-        <value>Добавить гонку</value>
+        <value>Добавить рейс</value>
     </data>
     <data name="add_user">
         <value>Добавить пользователя</value>
@@ -619,7 +604,7 @@
         <value>С прошлого месяца</value>
     </data>
     <data name="packages_processed">
-        <value>Пакеты обрабатываются</value>
+        <value>Посылки обрабатываются</value>
     </data>
     <data name="shipping_revenue">
         <value>Доход от доставки</value>
@@ -637,7 +622,7 @@
         <value>Успех</value>
     </data>
     <data name="you_successfully_deposited">
-        <value>Вы успешно внесены</value>
+        <value>Средства успешно зачислены</value>
     </data>
     <data name="to_your_account">
         <value>На ваш аккаунт</value>
@@ -646,10 +631,12 @@
         <value>Спасибо за использование наших услуг</value>
     </data>
     <data name="receive_package_at_warehouse">
-        <value>Получить пакет на складе</value>
+        <value>Получить посылку на складе</value>
     </data>
     <data name="when_you_receive_a_package_at_the_warehouse_declare_them_here">
-        <value>Когда вы получите посылку на складе, объявите их здесь</value>
+        <value>Когда ваша посылка поступит на склад, задекларируйте её здесь.
+
+        </value>
     </data>
     <data name="price_per">
         <value>Цена за</value>
@@ -673,46 +660,46 @@
         <value>Длина</value>
     </data>
     <data name="package_contains_prohibited_items">
-        <value>Пакет содержит запрещенные предметы</value>
+        <value>Посылка содержит запрещенные предметы</value>
     </data>
     <data name="declare">
-        <value>Объявить</value>
+        <value>Задекларировать</value>
     </data>
     <data name="race_id">
-        <value>Гоночный идентификатор</value>
+        <value>Идентификатор рейса</value>
     </data>
     <data name="select_option">
         <value>Выберите опцию</value>
     </data>
     <data name="package_id">
-        <value>Идентификатор пакета</value>
+        <value>Идентификатор посылки</value>
     </data>
     <data name="all_races">
-        <value>Все расы</value>
+        <value>Все рейсы</value>
     </data>
     <data name="create">
-        <value>Создавать</value>
+        <value>Создать</value>
     </data>
     <data name="race_name">
-        <value>Название расы</value>
+        <value>Название рейса</value>
     </data>
     <data name="takeoff">
-        <value>Снимать</value>
+        <value>Отправление</value>
     </data>
     <data name="landing">
         <value>Посадка</value>
     </data>
     <data name="create_race">
-        <value>Создать гонку</value>
+        <value>Создать рейс</value>
     </data>
     <data name="name">
-        <value>Имя</value>
+        <value>Название</value>
     </data>
     <data name="flight_code">
         <value>Код полета</value>
     </data>
     <data name="origin">
-        <value>Источник</value>
+        <value>Пункт отправления</value>
     </data>
     <data name="airport_name">
         <value>Название аэропорта</value>
@@ -721,16 +708,16 @@
         <value>Место назначения</value>
     </data>
     <data name="save">
-        <value>Сохранять</value>
+        <value>Сохранить</value>
     </data>
     <data name="race_details">
-        <value>Подробности расы</value>
+        <value>Подробности рейса</value>
     </data>
     <data name="export">
         <value>Экспорт</value>
     </data>
     <data name="staff_dashboard">
-        <value>Персонал панель панели</value>
+        <value>Панель Для Персонала</value>
     </data>
     <data name="add_new_payment_method_to_your_account">
         <value>Добавьте новый способ оплаты в свою учетную запись</value>
@@ -748,7 +735,7 @@
         <value>Все пользователи</value>
     </data>
     <data name="add">
-        <value>Добавлять</value>
+        <value>Добавить</value>
     </data>
     <data name="address">
         <value>Адрес</value>
@@ -781,20 +768,19 @@
         <value>Поиск</value>
     </data>
     <data name="enter_the_package_tracking_code_and_see_if_we_have_it_in_the_system">
-        <value>Введите код отслеживания пакета и посмотрите, есть ли у нас в системе</value>
+        <value>Введите код отслеживания посылки и посмотрите, есть ли у нас в системе</value>
     </data>
     <data name="declare_new_online_package">
-        <value>Объявить новый онлайн -пакет</value>
+        <value>задекларировать новую посылку онлайн</value>
     </data>
     <data name="please_predeclare_your_online_shopping_package_so_that_there_arent_any_delays_when_shipping_id">
-        <value>Пожалуйста, предварительно объявите свой пакет онлайн -покупок, чтобы не было никаких задержек при доставке идентификатора
-        </value>
+        <value>Пожалуйста, предварительно задекларируйте посылку с онлайн-покупками, чтобы избежать задержек при отправке.</value>
     </data>
     <data name="category">
         <value>Категория</value>
     </data>
     <data name="package_description">
-        <value>Описание упаковки</value>
+        <value>Описание посылки</value>
     </data>
     <data name="item_count">
         <value>Подсчет предметов</value>
@@ -803,10 +789,10 @@
         <value>Счет</value>
     </data>
     <data name="picture">
-        <value>Картина</value>
+        <value>Изображение</value>
     </data>
     <data name="declare_new_personal_package">
-        <value>Объявить новый личный пакет</value>
+        <value>Задекларировать новую личную посылку</value>
     </data>
     <data name="sender">
         <value>Отправитель</value>
@@ -818,25 +804,25 @@
         <value>Создать отправителя</value>
     </data>
     <data name="receiver">
-        <value>Приемник</value>
+        <value>Получатель</value>
     </data>
     <data name="choose_receiver">
-        <value>Выберите приемник</value>
+        <value>Выберите получателя</value>
     </data>
     <data name="create_receiver">
-        <value>Создать приемник</value>
+        <value>Создать получателя</value>
     </data>
     <data name="package_arrived_at_destination">
-        <value>Пакет прибыл в пункт назначения</value>
+        <value>Посылка прибыла в пункт назначения</value>
     </data>
     <data name="mark_as_delivered">
         <value>Марк как доставлен</value>
     </data>
     <data name="package_delivered_to_user">
-        <value>Пакет доставлен пользователю</value>
+        <value>Посылка доставлена пользователю</value>
     </data>
     <data name="package_details">
-        <value>Детали пакета</value>
+        <value>Детали посылки</value>
     </data>
     <data name="status_updates">
         <value>Обновления статуса</value>
@@ -845,19 +831,19 @@
         <value>Получить на складе</value>
     </data>
     <data name="add_to_race">
-        <value>Добавить в гонку</value>
+        <value>Добавить в рейс</value>
     </data>
     <data name="print_label">
-        <value>Печатная метка</value>
+        <value>Распечатать этикетку</value>
     </data>
     <data name="receive_at_destination">
         <value>Получить в пункте назначения</value>
     </data>
     <data name="this_package_has_not_been_paid_for_cant_deliver">
-        <value>Этот пакет не был заплачен за невозможность доставить</value>
+        <value>Эта посылка не была оплачена , невозможность доставить</value>
     </data>
     <data name="this_package_contains_prohibited_items">
-        <value>Этот пакет содержит запрещенные предметы</value>
+        <value>Эта посылка содержит запрещенные предметы</value>
     </data>
     <data name="download">
         <value>Скачать</value>
@@ -872,7 +858,7 @@
         <value>Оплачивается</value>
     </data>
     <data name="package">
-        <value>Упаковка</value>
+        <value>Посылка</value>
     </data>
     <data name="toggle_theme" xml:space="preserve">
         <value>изменить тему</value>
