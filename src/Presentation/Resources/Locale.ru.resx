@@ -52,7 +52,7 @@
         <value>выход</value>
     </data>
     <data name="enter">
-        <value>Входить</value>
+        <value>Ввести</value>
     </data>
     <data name="login">
         <value>Авторизоваться</value>
@@ -201,7 +201,7 @@
         <value>Пожалуйста, проверьте свою электронную почту</value>
     </data>
     <data name="if_you_have_an_account_with_us_you_should_receive_a_password_reset_code_shortly">
-        <value>Если у вас есть подтвержденная учетная запись с нами, вам будет отправлена ​​ссылка с кодом сброса пароля.</value>
+        <value>Если у вас есть подтвержденная учетная запись, вам будет отправлена ​​ссылка с кодом сброса пароля.</value>
     </data>
     <data name="reset_password">
         <value>Сбросить пароль</value>
@@ -216,7 +216,7 @@
         <value>Вы успешно сбросили свой пароль</value>
     </data>
     <data name="password_reset_successfully">
-        <value>Сброс пароля успешно</value>
+        <value>Сброс пароля успешен</value>
     </data>
     <data name="your_password_has_been_reset">
         <value>Ваш пароль был сброшен</value>
@@ -261,7 +261,7 @@
         <value>Управлять уведомлениями</value>
     </data>
     <data name="receive_sms_notifications">
-        <value>Получить SMS -уведомления?</value>
+        <value>Получать SMS -уведомления?</value>
     </data>
     <data name="save_preferences">
         <value>Сохранить предпочтения</value>
@@ -488,7 +488,7 @@
         <value>Sangoway использует вес и размеры вашей посылки для расчета стоимости доставки из США в Грузию.</value>
     </data>
     <data name="faq_3_a">
-        <value>Начать работу легко. Просто зарегистрируйтесь и начните использовать наши услуги</value>
+        <value>Начать пользоваться услугами легко. Просто зарегистрируйтесь и начните использовать наши услуги</value>
     </data>
     <data name="faq_4_a">
         <value>Sangoway принимает оплату с помощью кредитной карты и банковского перевода.</value>
@@ -502,7 +502,7 @@
         <value>Как только ваша посылка прибудет в Грузию, вы можете забрать её в нашем офисе или доставить на свой адрес.</value>
     </data>
     <data name="please_keep_in_mind_the_weight_will_get_rounded_up_to_the_nearest_100_grams">
-        <value>Пожалуйста, имейте в виду, вес будет окружен до ближайших 100 граммов.</value>
+        <value>Пожалуйста, имейте в виду, вес будет округлён до ближайших 100 граммов.</value>
     </data>
     <data name="calculator_volumetric_notice">
         <value>Чтобы узнать больше о объемном весе и о том, как он рассчитывается, посетите раздел  </value>
@@ -816,7 +816,7 @@
         <value>Посылка прибыла в пункт назначения</value>
     </data>
     <data name="mark_as_delivered">
-        <value>Марк как доставлен</value>
+        <value>Помечена как доставленая</value>
     </data>
     <data name="package_delivered_to_user">
         <value>Посылка доставлена пользователю</value>
