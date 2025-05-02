@@ -31,58 +31,58 @@
         <value>Это письмо было отправлено</value>
     </data>
     <data name="support_email" xml:space="preserve">
-        <value>Поддержка электронной почты</value>
+        <value>Электронная почта поддержки</value>
     </data>
     <data name="someone_just_signed_into_your_account" xml:space="preserve">
-        <value>Кто -то только что подписал вашу учетную запись</value>
+        <value>Кто -то только что вошёл в вашу учетную запись</value>
     </data>
     <data name="if_you_did_not_attempt_to_login_to_your_account_just_now_please_change_your_password_immediately" xml:space="preserve">
-        <value>Если вы не пытались войти в свою учетную запись только сейчас, немедленно измените свой пароль</value>
+        <value>Если вы не пытались войти в свою учетную запись только что, немедленно измените свой пароль</value>
     </data>
     <data name="if_this_was_not_you_please_change_your_password_immediately" xml:space="preserve">
-        <value>Если это не так, пожалуйста, немедленно измените свой пароль</value>
+        <value>Если это были не вы, пожалуйста, немедленно измените свой пароль</value>
     </data>
     <data name="someone_is_trying_to_access_your_account_do_not_delay_resetting_your_password" xml:space="preserve">
-        <value>Кто -то пытается получить доступ к вашей учетной записи, не откладывает сброс пароля</value>
+        <value>Кто -то пытается получить доступ к вашей учетной записи, не откладывайте сброс пароля</value>
     </data>
     <data name="if_this_was_you_you_can_disregard_this_message" xml:space="preserve">
-        <value>Если это было, вы можете игнорировать это сообщение</value>
+        <value>Если это были вы то можете игнорировать это сообщение</value>
     </data>
     <data name="urgent_attention_required" xml:space="preserve">
         <value>Требуется срочное внимание</value>
     </data>
     <data name="your_package_has_been_deemed_to_contain_prohibited_items_by_our_staff" xml:space="preserve">
-        <value>Ваш пакет считается, что наши сотрудники содержат запрещенные предметы</value>
+        <value>Ваша посылка была признана содержащей запрещённые предметы нашими сотрудниками.</value>
     </data>
     <data name="tracking_code" xml:space="preserve">
         <value>Код отслеживания</value>
     </data>
     <data name="if_you_think_this_if_a_mistake_please_contact_our_support_team_immediately" xml:space="preserve">
-        <value>Если вы думаете об этом, если ошибка, немедленно свяжитесь с нашей командой поддержки</value>
+        <value>Если вы думаете что, это ошибка, немедленно свяжитесь с нашей командой поддержки</value>
     </data>
     <data name="for_a_full_list_of_prohibited_items_please_see" xml:space="preserve">
         <value>Полный список запрещенных предметов, см.</value>
     </data>
     <data name="your_package_with_the_tracking_code" xml:space="preserve">
-        <value>Ваш пакет с кодом отслеживания</value>
+        <value>Ваша посылка с кодом отслеживания</value>
     </data>
     <data name="your_package_has_status" xml:space="preserve">
-        <value>Ваш пакет имеет статус</value>
+        <value>Ваша посылка имеет статус</value>
     </data>
     <data name="is_awaiting_arrival_in_our_warehouse" xml:space="preserve">
         <value>Ожидает прибытия на нашем складе</value>
     </data>
     <data name="has_arrived_at_our_warehouse" xml:space="preserve">
-        <value>Прибыл на наш склад</value>
+        <value>Прибыла на наш склад</value>
     </data>
     <data name="has_been_sent" xml:space="preserve">
         <value>Был отправлен</value>
     </data>
     <data name="has_arrived" xml:space="preserve">
-        <value>Прибыл</value>
+        <value>Прибыла</value>
     </data>
     <data name="has_been_delivered" xml:space="preserve">
-        <value>Был доставлен</value>
+        <value>Был доставлена</value>
     </data>
     <data name="your_password_has_been_successfully_changed" xml:space="preserve">
         <value>Ваш пароль был успешно изменен</value>
@@ -100,22 +100,22 @@
         <value>Пожалуйста, нажмите на ссылку ниже, чтобы сбросить пароль</value>
     </data>
     <data name="your_packages_shipping_fee_has_been_paid" xml:space="preserve">
-        <value>Ваша плата за доставку пакетов была оплачена</value>
+        <value>Ваша плата за доставку посылок была оплачена</value>
     </data>
     <data name="package" xml:space="preserve">
-        <value>Упаковка</value>
+        <value>Посылка</value>
     </data>
     <data name="your_current_balance_is" xml:space="preserve">
         <value>Ваш текущий баланс</value>
     </data>
     <data name="package_id" xml:space="preserve">
-        <value>Идентификатор пакета</value>
+        <value>Идентификатор посылки</value>
     </data>
     <data name="welcome_to_sangoway" xml:space="preserve">
         <value>Добро пожаловать в Санговей</value>
     </data>
     <data name="you_successfully_verified_your_email_account" xml:space="preserve">
-        <value>Вы успешно проверили свою учетную запись электронной почты</value>
+        <value>Вы успешно подтвердили свою учетную запись электронной почты</value>
     </data>
     <data name="we_are_excited_to_have_you_on_board" xml:space="preserve">
         <value>Мы рады, что вы находитесь на борту</value>
@@ -136,7 +136,7 @@
         <value>Рекомендуется изменить свой пароль</value>
     </data>
     <data name="tos" xml:space="preserve">
-        <value>Их</value>
+        <value>Условия обслуживания</value>
     </data>
     <data name="and" xml:space="preserve">
         <value>И</value>
