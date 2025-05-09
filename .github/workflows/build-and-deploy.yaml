@@ -1,4 +1,4 @@
-name: API
+name: Build and deploy
 
 on:
   workflow_dispatch:
@@ -44,7 +44,7 @@ jobs:
         run: dotnet test --no-restore --verbosity minimal
 
   call-backup-data:
-    uses: ./.github/workflows/backup-data.yaml
+    uses: https://github.com/ddjerqq/shipping_app/.github/workflows/backup-data.yaml
     concurrency: ci-${{ github.ref }}-${{ github.sha }}
     needs: [ test ]
     secrets: inherit
@@ -58,9 +58,6 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Set up Docker buildx ️ 🐳
-        uses: docker/setup-buildx-action@v3
-
       - name: Set up SSH key 🔑
         run: |
           mkdir -v -m 700 $HOME/.ssh
@@ -68,13 +65,21 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
           chmod 400 $HOME/.ssh/id_rsa
 
+      - name: Set up QEMU 🐦
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker buildx ️ 🐳
+        uses: docker/setup-buildx-action@v3
+
       - name: Build docker image 🐳
         uses: docker/build-push-action@v6
         with:
           context: .
           push: false
-          platforms: linux/amd64
-          tags: ddjerqq/shippingapp:latest
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ddjerqq/shippingapp:latest
+            ghcr.io/ddjerqq/shippingapp:latest
           outputs: type=docker,dest=/tmp/image.tar
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -85,9 +90,9 @@ jobs:
 
       - name: Upload artefacts to the server ⬆️
         run: |
-          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
-          scp /tmp/image.tar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
+          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping_app
+          scp /tmp/image.tar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping_app
 
       - name: Restart cluster 🔄
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker-compose down; docker load --input image.tar; rm image.tar; docker-compose up -d"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd shipping_app; docker-compose down; docker load --input image.tar; rm image.tar; docker-compose up -d"

@@ -1,7 +1,7 @@
 ﻿services:
   api:
     container_name: api
-    image: ddjerqq/shippingapp:latest-arm64
+    image: ddjerqq/shippingapp:latest
     ports:
       - "80:1080"
       - "443:1443"
@@ -9,7 +9,7 @@
       - .env
     shm_size: 512mb
     environment:
-      - WEB_APP__DOMAIN=shippingapp.nachkebia.dev.com
+      - WEB_APP__DOMAIN=shippingapp.nachkebia.dev
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:1080;https://0.0.0.0:1443
       - ASPNETCORE_DATAPROTECTION__PATH=/var/data-protection
