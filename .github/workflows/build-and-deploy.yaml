@@ -61,38 +61,46 @@ jobs:
       - name: Set up SSH key 🔑
         run: |
           mkdir -v -m 700 $HOME/.ssh
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> $HOME/.ssh/known_hosts
           echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
           chmod 400 $HOME/.ssh/id_rsa
 
       - name: Set up QEMU 🐦
         uses: docker/setup-qemu-action@v3
+        with:
+          platforms: "arm64,amd64"
 
-      - name: Set up Docker buildx ️ 🐳
+      - name: Set up Docker Buildx ️ 🐳
+        id: buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build docker image 🐳
+      - name: Login to Docker Hub 🔑
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image 🐳
+        id: build-push
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: false
+          push: true
           platforms: linux/amd64,linux/arm64
-          tags: |
-            ddjerqq/shippingapp:latest
-            ghcr.io/ddjerqq/shippingapp:latest
-          outputs: type=docker,dest=/tmp/image.tar
+          tags: ddjerqq/shipping:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            USER_ID=1006
-            GROUP_ID=1006
-            USERNAME=shippingapp
+            USER_ID=1000
+            GROUP_ID=1003
+            USERNAME=shipping
 
-      - name: Upload artefacts to the server ⬆️
+      - name: Upload local dependencies to the server ⬆️
         run: |
-          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping_app
-          scp /tmp/image.tar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping_app
+          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/docker-compose.yaml -p ${{ secrets.SSH_PORT }}
+          scp restart.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/restart.sh -p ${{ secrets.SSH_PORT }}
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "chmod +x ~/shipping/restart.sh"
 
       - name: Restart cluster 🔄
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd shipping_app; docker-compose down; docker load --input image.tar; rm image.tar; docker-compose up -d"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "./restart.sh"
