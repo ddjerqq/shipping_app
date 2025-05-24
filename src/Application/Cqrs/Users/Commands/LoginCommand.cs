@@ -20,7 +20,7 @@ public sealed record LoginCommand : IRequest<LoginResult>
     [LogMasked]
     public string Password { get; set; } = null!;
 
-    public TimeZoneInfo TimeZoneInfo { get; set; } = null!;
+    public TimeZoneInfo? TimeZoneInfo { get; set; }
 }
 
 public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
@@ -89,7 +89,7 @@ internal sealed class LoginCommandHandler(
     }
 
 
-    private async Task UpdateLoginAsync(User user, TimeZoneInfo timeZoneInfo, CancellationToken ct)
+    private async Task UpdateLoginAsync(User user, TimeZoneInfo? timeZoneInfo, CancellationToken ct)
     {
         var httpContext = httpContextAccessor.HttpContext;
         var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
@@ -110,18 +110,18 @@ internal sealed class LoginCommandHandler(
             {
                 UserId = user.Id,
                 UserAgent = userAgent,
-                Location = location,
+                Location = location ?? "unknown",
                 IpAddress = ipAddress ?? "unknown",
-                LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo),
+                LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc),
             };
 
             user.AddLogin(login);
         }
         else
         {
-            login.LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+            login.LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc);
         }
 
-        user.TimeZone = timeZoneInfo;
+        user.TimeZone = timeZoneInfo ?? TimeZoneInfo.Utc;
     }
 }
