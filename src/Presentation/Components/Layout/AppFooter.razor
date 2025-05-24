@@ -10,9 +10,9 @@
                     @Locale.enter_your_email_to_receive_notifications_about_product_updates
                 </span>
 
-                <input class="@FormInputText.BaseClass" placeholder="name@example.com" autocomplete="email"/>
+                <input @bind="email" class="@FormInputText.BaseClass" placeholder="name@example.com" autocomplete="email"/>
 
-                <Button>
+                <Button @onclick="showinfo">
                     @Locale.subscribe
                 </Button>
             </div>
@@ -85,3 +85,15 @@
         </div>
     </div>
 </footer>
+
+
+@code {
+    private string email;
+
+    private void showinfo()
+    {
+        
+        ShowInfo("This feature is not supported yet.");
+        
+    }
+}

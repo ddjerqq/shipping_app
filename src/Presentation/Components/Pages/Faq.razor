@@ -2,23 +2,40 @@
 @attribute [AllowAnonymous]
 
 <PageTitle>@Locale.faq</PageTitle>
-<PageHeader Title="@Locale.faq"/>
+<PageHeader Title="@Locale.faq" />
 
 <div class="grid gap-4 mt-4">
-    @foreach (var (question, answer) in _questions)
+    @foreach (var (question, answer, index) in _questions.Select((qa, i) => (qa.Question, qa.HtmlAnswer, i)))
     {
-        <Card>
-            <Header>
-                <CardTitle class="text-2xl">@question</CardTitle>
-            </Header>
-            <Content>
-                @answer
-            </Content>
-        </Card>
+        <div class="border rounded-xl p-6 bg-background shadow-sm">
+            <div class="flex items-center justify-between w-full cursor-pointer" @onclick="() => Toggle(index)">
+                <h3 class="text-2xl font-medium">@question</h3>
+                <button class="text-2xl font-bold leading-none focus:outline-none">
+                    @(expandedIndex == index ? "−" : "+")
+                </button>
+            </div>
+
+            <div class="transition-all duration-300 ease-in-out overflow-hidden"
+                 style="@((expandedIndex == index) ? "max-height: 1000px;" : "max-height: 0;")">
+                <div class="pt-6">
+                    @((MarkupString)answer)
+                </div>
+            </div>
+        </div>
     }
 </div>
 
 @code {
+    private int? expandedIndex = null;
+
+    private void Toggle(int index)
+    {
+        if (expandedIndex == index)
+            expandedIndex = null; // Collapse if already expanded
+        else
+            expandedIndex = index; // Expand selected
+    }
+
     private readonly IEnumerable<(string Question, string HtmlAnswer)> _questions =
     [
         (Locale.faq_1_q, Locale.faq_1_a),
