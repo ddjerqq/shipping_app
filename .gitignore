@@ -40,6 +40,8 @@ msbuild.wrn
 .aspnet/https/*.pfx
 
 .env
+.env.staging
+
 *.db
 *.sqlite
 *.db-wal

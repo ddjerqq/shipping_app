@@ -84,7 +84,7 @@ jobs:
           build-args: |
             USER_ID=1000
             GROUP_ID=1000
-            USERNAME=${{ secrets.SSH_USER }}
+            USERNAME=shipping
 
   restart-cluster:
     name: "[🔄] Restart Cluster on Droplet"
