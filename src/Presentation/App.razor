@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
+@using Domain.Common
 @using Microsoft.AspNetCore.Localization
 @using Presentation.Components.Layout
-@inject NavigationManager NavigationManager
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentCulture.Name">
 <head>
@@ -23,30 +23,30 @@
     <script src="scripts/util.js"></script>
 
     <HeadOutlet @rendermode="InteractiveServer"/>
-    // SEO Meta Tags
-    <link rel="canonical" href="@NavigationManager.Uri" />
 
+    @*SEO Meta Tags*@
+    <link rel="canonical" href="@NavigationManager.Uri" />
     <meta name="keywords" content="shipping, parcel delivery, global shipping, international shipping, logistics, courier, express delivery, affordable shipping">
     <meta name="theme-color" content="#047835">
-    <meta name="description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services worldwide.">
+    <meta name="description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from the U.S. and Georgia.">
     <meta property="author" content="tenxdeveloper"/>
 
-    //OG Meta Tags
+    @*OG Meta Tags*@
     <meta property="og:locale" content="@CultureInfo.CurrentCulture.Name"/>
     <meta property="og:title" content="SanGoWay">
     <meta property="og:site_name" content="SanGoWay">
     <meta property="og:url" content="@NavigationManager.Uri">
-    <meta property="og:image" content="https://@WebAppDomain/images/sangoway.svg">
-    <meta property="og:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services worldwide.">
+    <meta property="og:image" content="@($"https://{WebAppDomain}/images/sangoway.svg")">
+    <meta property="og:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from the U.S. and Georgia.">
     <meta property="og:type" content="website">
 
-    // Twitter Meta Tags
+    @*Twitter Meta Tags*@
     <meta name="twitter:creator" content="@@tenxdeveloper">
     <meta name="twitter:title" content="SanGoWay">
     <meta name="twitter:site" content="@@SanGoWayOfficial">
-    <meta name="twitter:image" content="https://@WebAppDomain/images/sangoway.svg">
+    <meta name="twitter:image" content="@($"https://{WebAppDomain}/images/sangoway.svg")">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services worldwide.">
+    <meta name="twitter:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from the U.S. and Georgia.">
 
 </head>
 <body class="bg-topo overflow-y-scroll transition-all duration-1000">
@@ -126,7 +126,7 @@
 @code {
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = null!;
-    private string WebAppDomain => Environment.GetEnvironmentVariable("WEB_APP__DOMAIN") ?? "sangoway";
+    private string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
     private string Language => CultureInfo.CurrentCulture.Name.Split('-')[0];
 
     protected override void OnInitialized()
