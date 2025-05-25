@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using Domain.Common
 @using Microsoft.AspNetCore.Localization
 @using Presentation.Components.Layout
 
@@ -24,16 +25,30 @@
 
     <HeadOutlet @rendermode="InteractiveServer"/>
 
-    <meta property="author" content="ddjerqq"/>
-    <meta property="og:title" content="sangoway">
-    <meta name="twitter:title" content="sangoway">
+    @* SEO Meta Tags *@
+    <link rel="canonical" href="@NavigationManager.Uri" />
+    <meta name="title" content="SanGoWay">
+    <meta name="description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to Georgia">
+    <meta name="keywords" content="shipping, parcel delivery, global shipping, international shipping, logistics, courier, express delivery, affordable shipping, georgia">
     <meta name="theme-color" content="#047835">
-    <meta name="og:image" content="">
-    <meta name="twitter:image" content="">
+    <meta property="author" content="tenxdeveloper"/>
+
+    @* OG Meta Tags *@
+    <meta property="og:locale" content="@CultureInfo.CurrentCulture.Name"/>
+    <meta property="og:title" content="SanGoWay">
+    <meta property="og:site_name" content="SanGoWay">
+    <meta property="og:url" content="@NavigationManager.Uri">
+    <meta property="og:image" content="@($"https://{WebAppDomain}/images/cover.webp")">
+    <meta property="og:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to Georgia">
+    <meta property="og:type" content="website">
+
+    @* Twitter Meta Tags *@
+    <meta name="twitter:creator" content="@@tenxdeveloper">
+    <meta name="twitter:title" content="SanGoWay">
+    <meta name="twitter:site" content="@@SanGoWayOfficial">
+    <meta name="twitter:image" content="@($"https://{WebAppDomain}/images/cover.webp")">
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="og:description" content="Sangoway shipping">
-    <meta name="description" content="Sangoway shipping">
-    <meta property="twitter:description" content="Sangoway shipping">
+    <meta name="twitter:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to GEORGIA only">
 </head>
 <body class="bg-topo overflow-y-scroll transition-all duration-1000">
 
@@ -112,7 +127,7 @@
 @code {
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = null!;
-
+    private string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
     private string Language => CultureInfo.CurrentCulture.Name.Split('-')[0];
 
     protected override void OnInitialized()
