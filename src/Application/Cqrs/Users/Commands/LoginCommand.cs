@@ -92,34 +92,37 @@ internal sealed class LoginCommandHandler(
     private async Task UpdateLoginAsync(User user, TimeZoneInfo? timeZoneInfo, CancellationToken ct)
     {
         var httpContext = httpContextAccessor.HttpContext;
-        var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+        var userAgent = httpContext.Request.Headers.TryGetValue("User-Agent", out var value) ? (string?)value : null;
         var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString();
         var ipInfo = await ipGeoLocator.GetIpInfoAsync(ipAddress, ct);
-        var location = ipInfo is { Country: { } country, City: { } city } 
-            ? $"{country} - {city}" 
+        var location = ipInfo is { Country: { } country, City: { } city }
+            ? $"{country} - {city}"
             : ipAddress;
 
-        var login = await dbContext.Set<UserLogin>()
-            .Where(ul => ul.UserId == user.Id)
-            .WherePdEquals(nameof(UserLogin.UserAgent), userAgent)
-            .FirstOrDefaultAsync(ct);
-
-        if (login is null)
+        if (userAgent is not null)
         {
-            login = new UserLogin(UserLoginId.New())
+            var login = await dbContext.Set<UserLogin>()
+                .Where(ul => ul.UserId == user.Id)
+                .WherePdEquals(nameof(UserLogin.UserAgent), userAgent)
+                .FirstOrDefaultAsync(ct);
+
+            if (login is null)
             {
-                UserId = user.Id,
-                UserAgent = userAgent,
-                Location = location ?? "unknown",
-                IpAddress = ipAddress ?? "unknown",
-                LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc),
-            };
+                login = new UserLogin(UserLoginId.New())
+                {
+                    UserId = user.Id,
+                    UserAgent = userAgent ?? "unknown",
+                    Location = location ?? "unknown",
+                    IpAddress = ipAddress ?? "unknown",
+                    LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc),
+                };
 
-            user.AddLogin(login);
-        }
-        else
-        {
-            login.LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc);
+                user.AddLogin(login);
+            }
+            else
+            {
+                login.LastActive = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo ?? TimeZoneInfo.Utc);
+            }
         }
 
         user.TimeZone = timeZoneInfo ?? TimeZoneInfo.Utc;
