@@ -1,29 +1,31 @@
 ﻿ARG USER_ID=1000
 ARG GROUP_ID=1000
-ARG USERNAME="appuser"
-ARG TARGETARCH
-ARG TAILWIND_VERSION=3.4.17
+ARG USERNAME="shipping"
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 ARG USER_ID
 ARG GROUP_ID
 ARG USERNAME
-ARG TARGETARCH
-ARG TAILWIND_VERSION
-
-ENV TAILWIND_VERSION=${TAILWIND_VERSION}
 
 RUN groupadd -g ${GROUP_ID} ${USERNAME} && \
     useradd -u ${USER_ID} -g ${GROUP_ID} -m -s /bin/bash ${USERNAME} && \
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
-RUN apt update && apt install -y curl && \
-    ARCH_SUFFIX=$([ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "x64") && \
-    curl -sLo /usr/bin/tailwindcss "https://github.com/tailwindlabs/tailwindcss/releases/download/v${TAILWIND_VERSION}/tailwindcss-linux-${ARCH_SUFFIX}" && \
-    chmod +x /usr/bin/tailwindcss
-
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
+
+RUN apt update && \
+    apt install -y ca-certificates curl gnupg && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    NODE_MAJOR=20 && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt update && \
+    apt install -y nodejs && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN dotnet workload install wasm-tools
 
 COPY ["source_generators/StrongIdGenerator/StrongIdGenerator.csproj", "source_generators/StrongIdGenerator/"]
 COPY ["src/Domain/Domain.csproj", "src/Domain/"]
@@ -39,7 +41,8 @@ RUN dotnet restore "src/Infrastructure/Infrastructure.csproj"
 RUN dotnet restore "src/Persistence/Persistence.csproj"
 RUN dotnet restore "src/Presentation/Presentation.csproj"
 
-COPY --from=base /usr/bin/tailwindcss /usr/bin/tailwindcss
+RUN npm install
+
 COPY . .
 
 WORKDIR /app/source_generators
@@ -55,12 +58,8 @@ RUN dotnet build -c Release --no-restore "Presentation/Presentation.csproj"
 FROM build AS publish
 WORKDIR /app
 
-RUN /usr/bin/tailwindcss \
-    --input ./src/Presentation/wwwroot/styles/app.css \
-    --output ./src/Presentation/wwwroot/styles/app.min.css \
-    --config ./src/Presentation/tailwind.config.cjs \
-    --content "./src/Presentation/**/*.{cs,razor,js,css,html}" \
-    --minify
+RUN npm run tw:build
+RUN npm run pack
 
 RUN dotnet publish -c Release -o /app/publish --no-restore --no-build "./src/Presentation/Presentation.csproj"
 
