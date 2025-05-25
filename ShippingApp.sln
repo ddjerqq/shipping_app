@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project_items", "project_it
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{A508EFC4-0EDB-31DF-620D-ECD3B3B4B781}"
 	ProjectSection(SolutionItems) = preProject
-		.github/workflows/build-and-deploy.yaml = .github/workflows/build-and-deploy.yaml
+		.github/workflows/staging.yaml = .github/workflows/staging.yaml
 		.github/workflows/backup-data.yaml = .github/workflows/backup-data.yaml
 	EndProjectSection
 EndProject
