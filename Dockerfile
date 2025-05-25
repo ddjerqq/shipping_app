@@ -41,8 +41,15 @@ RUN dotnet restore "src/Infrastructure/Infrastructure.csproj"
 RUN dotnet restore "src/Persistence/Persistence.csproj"
 RUN dotnet restore "src/Presentation/Presentation.csproj"
 
+COPY ["src/Presentation/package.json", "src/Presentation/package-lock.json*", "./src/Presentation/"]
+COPY ["src/Presentation/tailwind.config.cjs", "./src/Presentation/"]
+COPY ["src/Presentation/webpack.config.js", "./src/Presentation/"]
+COPY ["src/Presentation/tsconfig.json", "./src/Presentation/"]
+
+WORKDIR /app/src/Presentation
 RUN npm install
 
+WORKDIR /app
 COPY . .
 
 WORKDIR /app/source_generators
@@ -56,10 +63,11 @@ RUN dotnet build -c Release --no-restore "Persistence/Persistence.csproj"
 RUN dotnet build -c Release --no-restore "Presentation/Presentation.csproj"
 
 FROM build AS publish
-WORKDIR /app
-
+WORKDIR /app/src/Presentation
 RUN npm run tw:build
 RUN npm run pack
+
+WORKDIR /app
 
 RUN dotnet publish -c Release -o /app/publish --no-restore --no-build "./src/Presentation/Presentation.csproj"
 
