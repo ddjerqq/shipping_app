@@ -1,7 +1,7 @@
 ﻿services:
   api:
     container_name: api
-    image: ddjerqq/shippingapp:latest
+    image: ddjerqq/shipping-staging:latest
     ports:
       - "80:1080"
       - "443:1443"
