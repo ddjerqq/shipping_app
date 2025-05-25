@@ -93,13 +93,17 @@ internal sealed class LoginCommandHandler(
     {
         var httpContext = httpContextAccessor.HttpContext;
         var userAgent = httpContext.Request.Headers.TryGetValue("User-Agent", out var value) ? (string?)value : null;
-        var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString();
+        var ipAddress =
+            (httpContext.Request.Headers.TryGetValue("X-Real-IP", out var realIp) ? (string?)realIp : null) ??
+            (httpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedFor) ? (string?)forwardedFor : null) ??
+            httpContext.Connection.RemoteIpAddress?.ToString();
+
         var ipInfo = await ipGeoLocator.GetIpInfoAsync(ipAddress, ct);
         var location = ipInfo is { Country: { } country, City: { } city }
             ? $"{country} - {city}"
             : ipAddress;
 
-        if (userAgent is not null)
+        if (!string.IsNullOrWhiteSpace(userAgent))
         {
             var login = await dbContext.Set<UserLogin>()
                 .Where(ul => ul.UserId == user.Id)

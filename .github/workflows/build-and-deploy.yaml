@@ -3,8 +3,8 @@ name: Build and deploy
 on:
   workflow_dispatch:
 
-  push:
-    branches: [ "master" ]
+#  push:
+#    branches: [ "master" ]
 
 env:
   NETCORE_VERSION: "9.0.x"
