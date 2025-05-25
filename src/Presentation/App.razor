@@ -2,6 +2,7 @@
 @using Domain.Common
 @using Microsoft.AspNetCore.Localization
 @using Presentation.Components.Layout
+
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentCulture.Name">
 <head>
@@ -24,31 +25,30 @@
 
     <HeadOutlet @rendermode="InteractiveServer"/>
 
-    @*SEO Meta Tags*@
+    @* SEO Meta Tags *@
     <link rel="canonical" href="@NavigationManager.Uri" />
-    <meta name="title" content="SanGoWay. reliable, fast, and affordable services from USA to GEORGIA only">
-    <meta name="keywords" content="shipping, parcel delivery, global shipping, international shipping, logistics, courier, express delivery, affordable shipping">
+    <meta name="title" content="SanGoWay">
+    <meta name="description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to Georgia">
+    <meta name="keywords" content="shipping, parcel delivery, global shipping, international shipping, logistics, courier, express delivery, affordable shipping, georgia">
     <meta name="theme-color" content="#047835">
-    <meta name="description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to GEORGIA only">
     <meta property="author" content="tenxdeveloper"/>
 
-    @*OG Meta Tags*@
+    @* OG Meta Tags *@
     <meta property="og:locale" content="@CultureInfo.CurrentCulture.Name"/>
     <meta property="og:title" content="SanGoWay">
     <meta property="og:site_name" content="SanGoWay">
     <meta property="og:url" content="@NavigationManager.Uri">
-    <meta property="og:image" content="@($"https://{WebAppDomain}/images/sangoway.webp")">
-    <meta property="og:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from from USA to GEORGIA only">
+    <meta property="og:image" content="@($"https://{WebAppDomain}/images/cover.webp")">
+    <meta property="og:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to Georgia">
     <meta property="og:type" content="website">
 
-    @*Twitter Meta Tags*@
+    @* Twitter Meta Tags *@
     <meta name="twitter:creator" content="@@tenxdeveloper">
     <meta name="twitter:title" content="SanGoWay">
     <meta name="twitter:site" content="@@SanGoWayOfficial">
-    <meta name="twitter:image" content="@($"https://{WebAppDomain}/images/sangoway.webp")">
+    <meta name="twitter:image" content="@($"https://{WebAppDomain}/images/cover.webp")">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:description" content="We are a new company in the shipping industry, offering reliable, fast, and affordable services from USA to GEORGIA only">
-
 </head>
 <body class="bg-topo overflow-y-scroll transition-all duration-1000">
 
