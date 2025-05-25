@@ -44,12 +44,12 @@ jobs:
       - name: "[🧪] Run tests"
         run: dotnet test --no-restore --verbosity minimal
 
-  call-backup-data:
-    name: "[⤴️] Backup data"
-    uses: https://github.com/ddjerqq/shipping_app/.github/workflows/backup-data.yaml
-    concurrency: ci-${{ github.ref }}-${{ github.sha }}
-    needs: [ test ]
-    secrets: inherit
+#  call-backup-data:
+#    name: "[⤴️] Backup data"
+#    uses: https://github.com/ddjerqq/shipping_app/.github/workflows/backup-data.yaml@master
+#    concurrency: ci-${{ github.ref }}-${{ github.sha }}
+#    needs: [ test ]
+#    secrets: inherit
 
   build-and-push:
     name: "[🛠️] Build and push image"
