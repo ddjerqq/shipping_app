@@ -7,9 +7,8 @@
       - "443:1443"
     env_file:
       - .env
-    shm_size: 512mb
     environment:
-      - WEB_APP__DOMAIN=shippingapp.nachkebia.dev
+      - WEB_APP__DOMAIN=sangoways.com
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:1080;https://0.0.0.0:1443
       - ASPNETCORE_DATAPROTECTION__PATH=/var/data-protection
