@@ -63,17 +63,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-        {
-            _themeModule = await Js.InvokeAsync<IJSObjectReference>(
-                "import",
-                CancellationToken,
-                "./Components/Shared/ThemeToggle.razor.js");
-
             await Js.InvokeVoidAsync("window.initFlowbite", CancellationToken);
-
-            var theme = await _themeModule.InvokeAsync<string>("getTheme", CancellationToken);
-            await _themeModule.InvokeVoidAsync("setTheme", CancellationToken, theme);
-        }
     }
 
 

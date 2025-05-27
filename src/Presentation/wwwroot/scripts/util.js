@@ -70,3 +70,19 @@ window.getBrowserLocale = () => {
 
   return navigator.language;
 }
+
+window.toggleTheme = () => {
+  const theme = localStorage.theme || "light";
+  localStorage.theme = theme === "light" ? "dark" : "light";
+
+  document.documentElement.classList.toggle("dark", localStorage.theme === "dark");
+  document.documentElement.classList.toggle("light", localStorage.theme === "light");
+}
+
+window.addEventListener("load", () => {
+  document.documentElement.classList.toggle(
+    "dark",
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+  );
+});

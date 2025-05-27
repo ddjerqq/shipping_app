@@ -6,22 +6,12 @@
 @inject IAppDbContext DbContext
 @inject ICurrentUserAccessor CurrentUserAccessor
 
-@ChildContent((Cultures, CurrentCulture))
-
-<div id="culture-dropdown" class="z-30 hidden divide-background-100 rounded-lg shadow w-24 border bg-background">
-    @foreach (var (culture, cultureName) in Cultures)
-    {
-        <Button Variant="ghost" class="shadow-none justify-start w-full rounded-none" @onclick="@(() => SetCultureAsync(culture))">
-            <img class="size-4" src="@($"/images/{culture}.svg")" alt="@cultureName"/>
-            @cultureName
-        </Button>
-    }
-</div>
+<Button Variant="outline" Size="sm" class="relative hidden sm:flex" @onclick="@(() => SetNextCultureAsync())">
+    <img class="size-4" src="@($"/images/{CurrentCulture}.svg")" alt="@Cultures[CurrentCulture.Name]"/>
+    @Cultures[CurrentCulture.Name]
+</Button>
 
 @code {
-    [Parameter, EditorRequired]
-    public RenderFragment<(Dictionary<string, string?> Cultures, CultureInfo CurrentCulture)> ChildContent { get; set; } = null!;
-    
     private CultureInfo CurrentCulture { get; set; } = CultureInfo.CurrentCulture;
     private Dictionary<string, string?> Cultures { get; set; } = new();
 
@@ -31,8 +21,16 @@
         CurrentCulture = CultureInfo.CurrentCulture;
     }
 
-    private async Task SetCultureAsync(string culture)
+    private async Task SetNextCultureAsync()
     {
+        // advance
+        var culture = Cultures
+            .Keys
+            .SkipWhile(c => c != CurrentCulture.Name)
+            .Skip(1)
+            .DefaultIfEmpty(Cultures.Keys.First())
+            .First();
+
         CurrentCulture = CultureInfo.GetCultureInfo(culture);
         CultureInfo.DefaultThreadCurrentCulture = CurrentCulture;
         CultureInfo.DefaultThreadCurrentUICulture = CurrentCulture;

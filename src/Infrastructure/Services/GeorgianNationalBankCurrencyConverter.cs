@@ -14,7 +14,6 @@ internal sealed record ApiCurrency(
     [property: JsonPropertyName("quantity")] int Quantity,
     [property: JsonPropertyName("rate")] float Rate);
 
-// TODO test
 internal sealed class GeorgianNationalBankCurrencyConverter(HttpClient http, IDistributedCache cache) : ICurrencyConverter
 {
     private const string ApiUrl = "https://nbg.gov.ge/gw/api/ct/monetarypolicy/currencies/en/json";
