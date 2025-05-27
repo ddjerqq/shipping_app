@@ -33,6 +33,10 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
 {
     public CreatePersonalPackageValidator(IAppDbContext dbContext)
     {
+
+        RuleFor(command => command.Sender).NotEqual(command => command.Receiver).WithMessage("{PropertyName} must be unique").When(command => command.Sender != null);
+        RuleFor(command => command.Receiver).NotEqual(command => command.Sender).WithMessage("{PropertyName} must be unique").When(command => command.Receiver != null);
+
         When(command => command.CreateSender, () =>
         {
             RuleFor(command => command.SenderId).NotEqual(command => command.ReceiverId).WithMessage("Id must be unique");
