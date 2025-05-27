@@ -874,4 +874,7 @@
     <data name="toggle_theme" xml:space="preserve">
         <value>ფონის შეცვლა</value>
     </data>
+    <data name="please_choose_a_strong_password" xml:space="preserve">
+        <value>გთხოვთ აირჩიოთ ძლიერი პაროლი</value>
+    </data>
 </root>

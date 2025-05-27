@@ -136,8 +136,8 @@
     <data name="your_personal_data_is_protected" xml:space="preserve">
         <value>Your personal data is protected</value>
     </data>
-    <data name="password_must_contain_at_least_12_characters" xml:space="preserve">
-        <value>Password must contain at least 12 characters</value>
+    <data name="please_choose_a_strong_password" xml:space="preserve">
+        <value>please choose a strong password</value>
     </data>
     <data name="already_have_an_account" xml:space="preserve">
         <value>Already have an account?</value>

@@ -1537,15 +1537,6 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password must contain at least 12 characters.
-        /// </summary>
-        public static string password_must_contain_at_least_12_characters {
-            get {
-                return ResourceManager.GetString("password_must_contain_at_least_12_characters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Password reset successfully.
         /// </summary>
         public static string password_reset_successfully {
@@ -1614,6 +1605,15 @@ namespace Presentation.Resources {
         public static string please_check_your_email_and_spam_folder {
             get {
                 return ResourceManager.GetString("please_check_your_email_and_spam_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to please choose a strong password.
+        /// </summary>
+        public static string please_choose_a_strong_password {
+            get {
+                return ResourceManager.GetString("please_choose_a_strong_password", resourceCulture);
             }
         }
         
