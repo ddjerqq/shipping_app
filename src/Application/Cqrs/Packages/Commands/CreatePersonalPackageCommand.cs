@@ -104,9 +104,9 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
             var sender = new User(UserId.New())
             {
                 PersonalId = request.SenderId!,
-                Username = request.SenderUsername!,
-                Email = request.SenderEmail!,
-                PhoneNumber = request.SenderPhone!,
+                Username = request.SenderUsername?.ToLowerInvariant()!,
+                Email = request.SenderEmail?.ToLowerInvariant()!,
+                PhoneNumber = request.SenderPhone?.ToLowerInvariant()!,
             };
 
             var senderPassword = RandomNumberGenerator.GetHexString(12, true);
@@ -126,9 +126,9 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
             var receiver = new User(UserId.New())
             {
                 PersonalId = request.ReceiverId!,
-                Username = request.ReceiverUsername!,
-                Email = request.ReceiverEmail!,
-                PhoneNumber = request.ReceiverPhone!,
+                Username = request.ReceiverUsername?.ToLowerInvariant()!,
+                Email = request.ReceiverEmail?.ToLowerInvariant()!,
+                PhoneNumber = request.ReceiverPhone?.ToLowerInvariant()!,
             };
 
             var receiverPassword = RandomNumberGenerator.GetHexString(12, true);

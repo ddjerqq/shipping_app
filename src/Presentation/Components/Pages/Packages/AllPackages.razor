@@ -41,10 +41,12 @@
                         </Button>
                     </AuthorizeView>
 
-                    <Button Href="/packages/new/personal">
-                        <Blazicon Svg="@Lucide.PackagePlus" class="hidden sm:block"/>
-                        @Locale.add_personal
-                    </Button>
+                    <AuthorizeView Roles="Staff,Admin">
+                        <Button Href="/packages/new/personal">
+                            <Blazicon Svg="@Lucide.PackagePlus" class="hidden sm:block"/>
+                            @Locale.add_personal
+                        </Button>
+                    </AuthorizeView>
 
                     <Button Href="/packages/new/online">
                         <Blazicon Svg="@Lucide.PackagePlus" class="hidden sm:block"/>

@@ -73,10 +73,10 @@ internal sealed class CreateOnlinePackageCommandHandler(IAppDbContext dbContext,
     public async Task<Package> Handle(CreateOnlinePackageCommand request, CancellationToken ct)
     {
         var package = Package.CreateOnline(
-            (TrackingCode)request.TrackingCode,
+            (TrackingCode)request.TrackingCode.ToUpperInvariant(),
             request.Category,
-            request.Description,
-            request.WebsiteAddress,
+            request.Description.ToLowerInvariant(),
+            request.WebsiteAddress.ToLowerInvariant(),
             request.RetailPrice,
             request.ItemCount,
             request.HouseDelivery,
