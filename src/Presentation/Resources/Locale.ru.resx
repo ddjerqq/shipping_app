@@ -863,4 +863,7 @@
     <data name="toggle_theme" xml:space="preserve">
         <value>изменить тему</value>
     </data>
+    <data name="please_choose_a_strong_password" xml:space="preserve">
+        <value>Пожалуйста, выберите сложный пароль</value>
+    </data>
 </root>
