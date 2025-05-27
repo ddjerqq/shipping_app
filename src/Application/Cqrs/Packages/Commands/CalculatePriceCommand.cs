@@ -17,7 +17,7 @@ public sealed class CalculatePriceCommand
 
     public bool VolumetricApplied => PackagePrice.ShouldCalculateVolumetricWeight(Length, Width, Height);
     public Money VolumetricPrice => PackagePrice.GetVolumetricWeightPrice(Length, Width, Height);
-    public Money Price => PackagePrice.GetTotalPrice(Length, Width, Height, (long)(WeightKiloGrams / 1000), IsHouseDelivery, new Money("USD", 800));
+    public Money Price => PackagePrice.GetTotalPrice(Length, Width, Height, (long)(WeightKiloGrams * 1000), IsHouseDelivery, new Money("USD", 800));
 }
 
 public sealed class CalculatePriceValidator : AbstractValidator<CalculatePriceCommand>
