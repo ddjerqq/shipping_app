@@ -33,11 +33,13 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
 {
     public CreatePersonalPackageValidator(IAppDbContext dbContext)
     {
-        RuleFor(command => command.Sender).NotEqual(command => command.Receiver).WithMessage("{PropertyName} must be unique").When(command => command.Sender != null);
-        RuleFor(command => command.Receiver).NotEqual(command => command.Sender).WithMessage("{PropertyName} must be unique").When(command => command.Receiver != null);
-
         When(command => command.CreateSender, () =>
         {
+            RuleFor(command => command.SenderId).NotEqual(command => command.ReceiverId).WithMessage("Id must be unique");
+            RuleFor(command => command.SenderEmail).NotEqual(command => command.ReceiverEmail).WithMessage("Email must be unique");
+            RuleFor(command => command.SenderPhone).NotEqual(command => command.ReceiverPhone).WithMessage("Phone must be unique");
+            RuleFor(command => command.SenderUsername).NotEqual(command => command.ReceiverUsername).WithMessage("Username must be unique");
+
             RuleFor(x => x.SenderUsername).NotEmpty().MinimumLength(5).MaximumLength(32);
             RuleFor(x => x.SenderEmail).NotEmpty().EmailAddress();
             RuleFor(x => x.SenderPhone).NotEmpty().Matches(@"\d{3}\d{9}").WithMessage("Please enter international standard phone number (eg. 995599123123)");
@@ -61,6 +63,11 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
 
         When(command => command.CreateReceiver, () =>
         {
+            RuleFor(command => command.ReceiverId).NotEqual(command => command.SenderId).WithMessage("Id must be unique");
+            RuleFor(command => command.ReceiverEmail).NotEqual(command => command.SenderEmail).WithMessage("Email must be unique");
+            RuleFor(command => command.ReceiverPhone).NotEqual(command => command.SenderPhone).WithMessage("Phone must be unique");
+            RuleFor(command => command.ReceiverUsername).NotEqual(command => command.SenderUsername).WithMessage("Username must be unique");
+
             RuleFor(x => x.ReceiverUsername).NotEmpty().MinimumLength(5).MaximumLength(32);
             RuleFor(x => x.ReceiverEmail).NotEmpty().EmailAddress();
             RuleFor(x => x.ReceiverPhone).NotEmpty().Matches(@"\d{3}\d{9}").WithMessage("Please enter international standard phone number (eg. 995599123123)");
