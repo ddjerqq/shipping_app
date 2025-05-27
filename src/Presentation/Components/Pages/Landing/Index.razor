@@ -1,29 +1,6 @@
 @page "/"
-@using Domain.ValueObjects
-@using Application.Services
-@inject ICurrentUserAccessor CurrentUser
 
 <Hero/>
 <WhyUs/>
 <HowItWorks/>
 <Testimonials/>
-
-@code {
-    protected override Task OnParametersSetAsync()
-    {
-        if (CurrentUser.Role is not null)
-        {
-            var url = CurrentUser.Role switch
-            {
-                Role.User => "/user_dashboard",
-                Role.Staff => "/staff_dashboard",
-                Role.Admin => "/admin_dashboard",
-                _ => throw new ArgumentOutOfRangeException(),
-            };
-
-            NavigationManager.NavigateTo(url, true);
-        }
-
-        return base.OnParametersSetAsync();
-    }
-}
