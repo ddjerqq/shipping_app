@@ -3,8 +3,8 @@ name: Build and deploy
 on:
   workflow_dispatch:
 
-  push:
-    branches: [ "master" ]
+#  push:
+#    branches: [ "master" ]
 
 env:
   NETCORE_VERSION: "9.0.x"
@@ -58,12 +58,12 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-#      - name: Set up SSH key 🔑
-#        run: |
-#          mkdir -v -m 700 $HOME/.ssh
-#          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> $HOME/.ssh/known_hosts
-#          echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
-#          chmod 400 $HOME/.ssh/id_rsa
+      - name: Set up SSH key 🔑
+        run: |
+          mkdir -v -m 700 $HOME/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> $HOME/.ssh/known_hosts
+          echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 400 $HOME/.ssh/id_rsa
 
       - name: Set up QEMU 🐦
         uses: docker/setup-qemu-action@v3
@@ -93,14 +93,14 @@ jobs:
           build-args: |
             USER_ID=1000
             GROUP_ID=1003
-            USERNAME=${{ secrets.SSH_USER }}
+            USERNAME=shipping
 
-#      - name: Upload local dependencies to the server ⬆️
-#        run: |
-#          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/docker-compose.yaml -p ${{ secrets.SSH_PORT }}
-#          scp restart.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/restart.sh -p ${{ secrets.SSH_PORT }}
-#          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "chmod +x ~/shipping/restart.sh"
-#
-#      - name: Restart cluster 🔄
-#        run: |
-#          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "./restart.sh"
+      - name: Upload local dependencies to the server ⬆️
+        run: |
+          scp docker-compose.yaml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/docker-compose.yaml -p ${{ secrets.SSH_PORT }}
+          scp restart.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shipping/restart.sh -p ${{ secrets.SSH_PORT }}
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "chmod +x ~/shipping/restart.sh"
+
+      - name: Restart cluster 🔄
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "./restart.sh"
