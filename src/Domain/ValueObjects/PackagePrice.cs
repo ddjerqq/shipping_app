@@ -26,10 +26,16 @@ public sealed record PackagePrice(float Length, float Width, float Height, long 
         pricePerKg.Currency,
         RoundUp((long)((float)weightGrams / 1000 * pricePerKg.Amount)));
 
-    public static Money GetTotalPrice(float length, float width, float height, long weightGrams, bool isHouseDelivery, Money pricePerKg) =>
-        GetWeightPrice(weightGrams, pricePerKg)
-        + GetVolumetricWeightPrice(length, width, height)
-        + new Money(DefaultCurrency, isHouseDelivery ? 500 : 0);
+    public static Money GetTotalPrice(float length, float width, float height, long weightGrams, bool isHouseDelivery, Money pricePerKg)
+    {
+        var weightPrice = GetWeightPrice(weightGrams, pricePerKg);
+        var volumetricPrice = GetVolumetricWeightPrice(length, width, height);
+        var basePrice = weightPrice > volumetricPrice ? weightPrice : volumetricPrice;
+
+        var deliveryFee = new Money(DefaultCurrency, isHouseDelivery ? 500 : 0);
+
+        return basePrice + deliveryFee;
+    }
 
     #endregion
 
