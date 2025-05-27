@@ -65,6 +65,8 @@ window.getBrowserTimeZone = () => {
  * @returns {string}
  */
 window.getBrowserLocale = () => {
+  return "ka-GE";
+
   if (navigator.languages !== undefined)
     return navigator.languages[0];
 

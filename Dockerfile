@@ -53,7 +53,6 @@ RUN dotnet restore "src/Persistence/Persistence.csproj"
 RUN dotnet restore "src/Presentation/Presentation.csproj"
 
 COPY ["src/Presentation/package.json", "src/Presentation/package-lock.json*", "./src/Presentation/"]
-COPY ["src/Presentation/tailwind.config.cjs", "./src/Presentation/"]
 COPY ["src/Presentation/webpack.config.js", "./src/Presentation/"]
 COPY ["src/Presentation/tsconfig.json", "./src/Presentation/"]
 
