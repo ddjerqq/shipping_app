@@ -10,7 +10,7 @@ public sealed record AddAddressCommand : IRequest
 {
     public User User { get; set; } = null!;
 
-    public string Country { get; set; } = null!;
+    public string Country { get; set; } = "GEO";
     public string State { get; set; } = null!;
     public string City { get; set; } = null!;
     public string ZipCode { get; set; } = null!;

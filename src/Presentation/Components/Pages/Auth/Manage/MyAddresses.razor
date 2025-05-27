@@ -2,7 +2,6 @@
 @using Application.Services
 @using Domain.ValueObjects
 @inject ICurrentUserAccessor CurrentUser
-@inject IAppDbContext DbContext
 
 <AppForm @bind-Model="Command" OnValidSubmit="AddAddress">
     <InlineFormFieldContainer>
@@ -11,10 +10,9 @@
             <FormInputText
                 id="country"
                 @bind-Value="@Command.Country"
-                required
                 placeholder="@Locale.country"
                 autocomplete="address-level2"
-                disabled="@IsLoading"/>
+                disabled/>
             <FormInvalidFeedback For="@(() => Command.Country)"/>
         </FormField>
 
