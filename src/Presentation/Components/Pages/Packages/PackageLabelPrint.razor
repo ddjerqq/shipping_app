@@ -90,7 +90,7 @@
             </div>
 
             <div class="p-6 border border-dashed border-black">
-                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode.Value.ToUpperInvariant()}?dpi=600")"
+                <img src="@($"https://bwipjs-api.metafloor.com/?bcid=code128&text={Package.TrackingCode.Value.ToUpperInvariant()}&scale=7&includetext")"
                      alt="@Package.TrackingCode"/>
             </div>
 
