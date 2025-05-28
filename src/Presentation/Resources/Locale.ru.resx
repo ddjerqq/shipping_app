@@ -866,4 +866,7 @@
     <data name="please_choose_a_strong_password" xml:space="preserve">
         <value>Пожалуйста, выберите сложный пароль</value>
     </data>
+    <data name="home_number" xml:space="preserve">
+        <value>Домашний телефон</value>
+    </data>
 </root>

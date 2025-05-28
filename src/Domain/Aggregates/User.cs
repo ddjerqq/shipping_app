@@ -26,7 +26,10 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     
     [LogMasked]
     public required string PhoneNumber { get; init; }
-    
+
+    [LogMasked]
+    public string? HomeNumber { get; init; }
+
     [LogMasked]
     public AbstractAddress AddressInfo { get; set; } = new NoAddress();
 

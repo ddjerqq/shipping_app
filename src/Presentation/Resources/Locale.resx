@@ -875,4 +875,7 @@
     <data name="toggle_theme" xml:space="preserve">
         <value>Toggle theme</value>
     </data>
+    <data name="home_number" xml:space="preserve">
+        <value>Home number</value>
+    </data>
 </root>
