@@ -889,7 +889,7 @@ namespace Presentation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faq.
+        ///   Looks up a localized string similar to FAQ.
         /// </summary>
         public static string faq {
             get {
@@ -1101,6 +1101,15 @@ namespace Presentation.Resources {
         public static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home number.
+        /// </summary>
+        public static string home_number {
+            get {
+                return ResourceManager.GetString("home_number", resourceCulture);
             }
         }
         

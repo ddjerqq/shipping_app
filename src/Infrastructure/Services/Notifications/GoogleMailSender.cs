@@ -24,7 +24,8 @@ public sealed class GoogleMailSender : IEmailSender
             EnableSsl = true,
             UseDefaultCredentials = false,
             Credentials = new NetworkCredential(_username, password),
-            Timeout = 20_000,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            Timeout = 10_000,
         };
     }
 

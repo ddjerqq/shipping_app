@@ -32,9 +32,16 @@
                             <span class="text-wrap">@Package.Sender.Username.CapitalizeName()</span>
                         </div>
                         <div class="flex gap-1 items-center">
-                            <Blazicon Svg="@Lucide.Phone"/>
+                            <Blazicon Svg="@Lucide.Smartphone"/>
                             <span class="text-wrap">@Package.Sender.PhoneNumber</span>
                         </div>
+                        @if (!string.IsNullOrWhiteSpace(Package.Sender.HomeNumber))
+                        {
+                            <div class="flex gap-1 items-center">
+                                <Blazicon Svg="@Lucide.Phone"/>
+                                <span class="text-wrap">@Package.Sender.HomeNumber</span>
+                            </div>
+                        }
                         <div class="flex gap-1 items-center">
                             <Blazicon Svg="@Lucide.Mail"/>
                             <span class="text-wrap">@Package.Sender.Email</span>
@@ -57,9 +64,16 @@
                         <span class="text-wrap">@Package.Owner.Username.CapitalizeName()</span>
                     </div>
                     <div class="flex gap-1 items-center">
-                        <Blazicon Svg="@Lucide.Phone"/>
+                        <Blazicon Svg="@Lucide.Smartphone"/>
                         <span class="text-wrap">@Package.Owner.PhoneNumber</span>
                     </div>
+                    @if (!string.IsNullOrWhiteSpace(Package.Owner.HomeNumber))
+                    {
+                        <div class="flex gap-1 items-center">
+                            <Blazicon Svg="@Lucide.Phone"/>
+                            <span class="text-wrap">@Package.Owner.HomeNumber</span>
+                        </div>
+                    }
                     <div class="flex gap-1 items-center">
                         <Blazicon Svg="@Lucide.Mail"/>
                         <span class="text-wrap">@Package.Owner.Email</span>
@@ -76,7 +90,8 @@
             </div>
 
             <div class="p-6 border border-dashed border-black">
-                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode.Value.ToUpperInvariant()}?dpi=600")" alt="@Package.TrackingCode"/>
+                <img src="@($"https://barcodeapi.org/api/39/{Package.TrackingCode.Value.ToUpperInvariant()}?dpi=600")"
+                     alt="@Package.TrackingCode"/>
             </div>
 
             <div class="w-full p-6 px-16 border border-dashed border-black">
