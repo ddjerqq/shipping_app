@@ -877,4 +877,7 @@
     <data name="please_choose_a_strong_password" xml:space="preserve">
         <value>გთხოვთ აირჩიოთ ძლიერი პაროლი</value>
     </data>
+    <data name="home_number" xml:space="preserve">
+        <value>სახლის ტელეფონი</value>
+    </data>
 </root>

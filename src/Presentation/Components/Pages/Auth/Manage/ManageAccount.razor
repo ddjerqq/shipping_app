@@ -41,6 +41,15 @@
                        disabled/>
     </FormField>
 
+    <FormField>
+        <FormLabel for="home">@Locale.home_number</FormLabel>
+        <FormInputText id="home"
+                       Value="@User.HomeNumber"
+                       ValueExpression="@(() => User.HomeNumber)"
+                       type="tel"
+                       disabled/>
+    </FormField>
+
     @* <Button type="submit" disabled="@IsLoading"> *@
     @*     @if (IsLoading) *@
     @*     { *@
