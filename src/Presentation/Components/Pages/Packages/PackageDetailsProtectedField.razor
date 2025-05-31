@@ -1,0 +1,12 @@
+@if (CanSeeSensitiveData)
+{
+    @ChildContent
+}
+
+@code {
+    [CascadingParameter(Name = nameof(CanSeeSensitiveData))]
+    public bool CanSeeSensitiveData { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = null!;
+}

@@ -27,12 +27,7 @@ internal sealed class GetPackageByTrackingCodeQueryHandler(ICurrentUserAccessor 
 {
     public async Task<Package?> Handle(GetPackageByTrackingCodeQuery request, CancellationToken ct)
     {
-        var package = await dbContext.Packages
+        return await dbContext.Packages
             .FirstOrDefaultAsync(x => x.TrackingCode.Value == request.TrackingCode, ct);
-
-        if (package is null || package.OwnerId != currentUser.Id)
-            return null;
-
-        return package;
     }
 }
