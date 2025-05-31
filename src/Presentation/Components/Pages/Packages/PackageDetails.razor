@@ -4,6 +4,7 @@
 @using Blazored.Modal.Services
 @using Domain.Aggregates
 @using Domain.Common
+@using Microsoft.AspNetCore.Components.Rendering
 @using Domain.ValueObjects
 @layout HomeLayout
 @inject IAppDbContext DbContext
@@ -144,9 +145,8 @@
             }
         </Header>
         <Content>
-            <AppForm @bind-Model="Package" OnValidSubmit="Update" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                @if (CanSeeSensitiveData)
-                {
+            <CascadingValue Name="@nameof(CanSeeSensitiveData)" Value="@CanSeeSensitiveData" IsFixed="true">
+                <AppForm @bind-Model="Package" OnValidSubmit="Update" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     @if (Package.Sender is not null)
                     {
                         <FormField>
@@ -157,7 +157,6 @@
                                    value="@(Package.Sender.Username.CapitalizeName())"/>
                         </FormField>
                     }
-
                     <FormField>
                         <FormLabel for="receiver-name">@Locale.receiver</FormLabel>
                         <input id="receiver-name"
@@ -165,6 +164,7 @@
                                disabled
                                value="@(Package.Owner.Username.CapitalizeName())"/>
                     </FormField>
+
                     @if (Package.PricePerKg is not null)
                     {
                         <FormField>
@@ -213,16 +213,16 @@
                         <FormInvalidFeedback For="@(() => Package.WebsiteAddress)"/>
                     </FormField>
 
-
-                    <FormField>
-                        <FormLabel for="retail-price">@Locale.retail_price</FormLabel>
-                        <FormInputMoney Id="retail-price"
-                                        disabled="@DisableForm"
-                                        @bind-Value="@Package.RetailPrice"
-                                        required/>
-                        <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
-                    </FormField>
-
+                    <PackageDetailsProtectedField>
+                        <FormField>
+                            <FormLabel for="retail-price">@Locale.retail_price</FormLabel>
+                            <FormInputMoney Id="retail-price"
+                                            disabled="@DisableForm"
+                                            @bind-Value="@Package.RetailPrice"
+                                            required/>
+                            <FormInvalidFeedback For="@(() => Package.RetailPrice)"/>
+                        </FormField>
+                    </PackageDetailsProtectedField>
 
                     <FormField>
                         <FormLabel for="item-count">@Locale.item_count</FormLabel>
@@ -250,17 +250,19 @@
                         }
                     </FormField>
 
-                    @if (Package.PictureFileKey is null)
-                    {
-                        <FormField>
-                            <FormLabel for="picture">@Locale.picture</FormLabel>
-                            <InputFile id="picture"
-                                       disabled="@DisableForm"
-                                       class="@FormInputText.BaseClass"
-                                       accept=".jpg,.jpeg,.png"
-                                       OnChange="UploadPicture"/>
-                        </FormField>
-                    }
+                    <PackageDetailsProtectedField>
+                        @if (Package.PictureFileKey is null)
+                        {
+                            <FormField>
+                                <FormLabel for="picture">@Locale.picture</FormLabel>
+                                <InputFile id="picture"
+                                           disabled="@DisableForm"
+                                           class="@FormInputText.BaseClass"
+                                           accept=".jpg,.jpeg,.png"
+                                           OnChange="UploadPicture"/>
+                            </FormField>
+                        }
+                    </PackageDetailsProtectedField>
 
                     <FormField>
                         <FormLabel for="house-delivery">@Locale.house_delivery</FormLabel>
@@ -269,7 +271,6 @@
                                 @bind-Value="@Package.HouseDelivery"/>
                     </FormField>
 
-
                     @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
                     {
                         var dimensions = Package.Dimensions!.Value;
@@ -319,12 +320,14 @@
                                    value="@Package.Race!.QualifiedName"/>
                         </FormField>
 
-                        <FormField>
-                            <FormLabel for="copy-flight-name">@Locale.copy @Locale.race_name</FormLabel>
-                            <CopyButton Variant="outline" Content="@Package.Race!.QualifiedName">
-                                @Package.Race!.QualifiedName
-                            </CopyButton>
-                        </FormField>
+                        <PackageDetailsProtectedField>
+                            <FormField>
+                                <FormLabel for="copy-flight-name">@Locale.copy @Locale.race_name</FormLabel>
+                                <CopyButton Variant="outline" Content="@Package.Race!.QualifiedName">
+                                    @Package.Race!.QualifiedName
+                                </CopyButton>
+                            </FormField>
+                        </PackageDetailsProtectedField>
 
                         <FormField>
                             <FormLabel for="start">@Locale.takeoff</FormLabel>
@@ -343,168 +346,35 @@
                         </FormField>
                     }
 
-                    @if (Package.CurrentStatus.Status >= PackageStatus.Arrived)
-                    {
-                        <FormField>
-                            <FormLabel for="is-paid">@Locale.is_paid?</FormLabel>
-                            <Switch id="is-paid"
-                                    disabled
-                                    Value="@Package.IsPaid"
-                                    ValueExpression="@(() => Package.IsPaid)"/>
-                        </FormField>
-                    }
-                }
-                else
-                {
-                    @if (Package.PricePerKg is not null)
-                    {
-                        <FormField>
-                            <FormLabel for="price-per-kg">@Locale.price_per KG</FormLabel>
-                            <FormInputMoney Id="price-per-kg"
-                                            disabled
-                                            Value="@Package.PricePerKg!.Value"/>
-                        </FormField>
-                    }
-
-                    <FormField>
-                        <FormLabel for="tracking-code">@Locale.tracking_code</FormLabel>
-                        <input id="tracking-code"
-                               class="@FormInputText.BaseClass"
-                               disabled
-                               value="@Package.TrackingCode.Value"/>
-                    </FormField>
-
-                    <FormField>
-                        <FormLabel for="category">@Locale.category</FormLabel>
-                        <FormInputEnum id="category"
-                                       disabled="@DisableForm"
-                                       Value="Package.Category"
-                                       ValueExpression="@(() => Package.Category)"
-                                       Options="@(Enum.GetValues<Category>())"
-                                       required/>
-                    </FormField>
-
-                    <FormField>
-                        <FormLabel for="description">@Locale.package_description</FormLabel>
-                        <FormInputText id="description"
-                                       disabled="@DisableForm"
-                                       Value="@Package.Description"
-                                       ValueExpression="@(() => Package.Description)"
-                                       placeholder="Enter description"
-                                       required/>
-                        <FormInvalidFeedback For="@(() => Package.Description)"/>
-                    </FormField>
-
-                    <FormField>
-                        <FormLabel for="web-address">@Locale.website_address</FormLabel>
-                        <FormInputText id="web-address"
-                                       disabled="@DisableForm"
-                                       Value="@Package.WebsiteAddress"
-                                       ValueExpression="@(() => Package.WebsiteAddress)"
-                                       placeholder="Enter web address"
-                                       type="url"
-                                       required/>
-                        <FormInvalidFeedback For="@(() => Package.WebsiteAddress)"/>
-                    </FormField>
-
-                    <FormField>
-                        <FormLabel for="item-count">@Locale.item_count</FormLabel>
-                        <InputNumber id="item-count"
-                                     disabled="@DisableForm"
-                                     class="@FormInputText.BaseClass"
-                                     Value="@Package.ItemCount"
-                                     ValueExpression="@(() => Package.ItemCount)"
-                                     required/>
-                        <FormInvalidFeedback For="@(() => Package.ItemCount)"/>
-                    </FormField>
-
-                    @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
-                    {
-                        var dimensions = Package.Dimensions!.Value;
-                        var dimensionsDisplay = $"{dimensions.X} x {dimensions.Y} x {dimensions.Z} cm";
-
-                        <FormField>
-                            <FormLabel for="dimensions">@Locale.dimensions</FormLabel>
-                            <input id="dimensions"
-                                   class="@FormInputText.BaseClass"
-                                   disabled
-                                   value="@(dimensionsDisplay)"/>
-                        </FormField>
-
-                        <FormField>
-                            <FormLabel for="weight">@Locale.weight (Kg)</FormLabel>
-                            <input id="weight"
-                                   class="@FormInputText.BaseClass"
-                                   disabled
-                                   value="@(((float?)Package.Weight / 1000)?.ToString("F1"))"/>
-                        </FormField>
-
-                        <FormField>
-                            <FormLabel for="shipping-price">@Locale.shipping_price</FormLabel>
-                            <FormInputMoney Id="shipping-price"
-                                            disabled
-                                            Value="@(Package.Price!.TotalPrice)"/>
-                        </FormField>
-
-                        if (Package.Price!.IsCalculatingVolumetricWeight)
+                    <PackageDetailsProtectedField>
+                        @if (Package.CurrentStatus.Status >= PackageStatus.Arrived)
                         {
                             <FormField>
-                                <FormLabel for="volumetric-price">@Locale.volumetric_price</FormLabel>
-                                <FormInputMoney Id="volumetric-price"
-                                                disabled
-                                                Value="@(Package.Price.VolumetricWeightPrice)"/>
+                                <FormLabel for="is-paid">@Locale.is_paid?</FormLabel>
+                                <Switch id="is-paid"
+                                        disabled
+                                        Value="@Package.IsPaid"
+                                        ValueExpression="@(() => Package.IsPaid)"/>
                             </FormField>
                         }
-                    }
+                    </PackageDetailsProtectedField>
 
-                    @if (Package.CurrentStatus.Status >= PackageStatus.InTransit)
+                    @if (!DisableForm)
                     {
-                        <FormField>
-                            <FormLabel for="flight-name">@Locale.race_name</FormLabel>
-                            <input id="flight-name"
-                                   class="@FormInputText.BaseClass"
-                                   disabled
-                                   value="@Package.Race!.QualifiedName"/>
-                        </FormField>
-
-                        <FormField>
-                            <FormLabel for="start">@Locale.takeoff</FormLabel>
-                            <input id="start"
-                                   class="@FormInputText.BaseClass"
-                                   disabled
-                                   value="@Package.Race!.Start.ToString("dd, MMM, yyyy")"/>
-                        </FormField>
-
-                        <FormField>
-                            <FormLabel for="arrival">@Locale.landing</FormLabel>
-                            <input id="arrival"
-                                   class="@FormInputText.BaseClass"
-                                   disabled
-                                   value="@Package.Race!.Arrival.ToString("dd MMM, yyyy")"/>
-                        </FormField>
+                        <Button type="submit" class="col-span-1 sm:col-span-2 lg:col-span-4">
+                            @Locale.save
+                        </Button>
                     }
-
-                    @if (Package.CurrentStatus.Status >= PackageStatus.Arrived)
-                    {
-                        <FormField>
-                            <FormLabel for="is-paid">@Locale.is_paid?</FormLabel>
-                            <Switch id="is-paid"
-                                    disabled
-                                    Value="@Package.IsPaid"
-                                    ValueExpression="@(() => Package.IsPaid)"/>
-                        </FormField>
-                    }
-                }
-                @if (!DisableForm)
-                {
-                    <Button type="submit" class="col-span-1 sm:col-span-2 lg:col-span-4">
-                        @Locale.save
-                    </Button>
-                }
-            </AppForm>
+                </AppForm>
+            </CascadingValue>
         </Content>
         <Footer class="text-sm text-muted-foreground">
-            ID: @Id
+            @if (!CanSeeSensitiveData)
+            {
+                <p>To view the full package details: <Link Href="/auth/login" Title="login."/></p>
+            }
+
+            @Id
         </Footer>
     </Card>
 }
@@ -521,9 +391,9 @@
     private IBrowserFile? InvoiceFile { get; set; }
     private IBrowserFile? PictureFile { get; set; }
 
-    private bool CanSeeSensitiveData => CurrentUser is not null &&
-                                        (CurrentUser.Role is Role.Staff or Role.Admin || CurrentUser.Id == Package?.OwnerId);
-
+    private bool CanSeeSensitiveData =>
+        CurrentUser is not null &&
+        (CurrentUser.Role is Role.Staff or Role.Admin || CurrentUser.Id == Package?.OwnerId);
 
     private bool DisableForm => IsLoading || Package?.IsProhibited is true || Package?.CurrentStatus.Status >= PackageStatus.Arrived || !CanSeeSensitiveData;
 
@@ -532,14 +402,10 @@
         Package = await DbContext.Packages
             .FindAsync([PackageId], CancellationToken);
 
-        if (Package is null) //|| Package.OwnerId != CurrentUser.Id
+        if (Package is null)
         {
             NavigationManager.NavigateTo("/404");
             return;
-            // if (CurrentUser.Role is Role.User)
-            // {
-            //
-            // }
         }
 
         if (Package?.InvoiceFileKey is not null)
