@@ -7,21 +7,21 @@
     "stripe:forward": "stripe listen --forward-to https://localhost/webhook --skip-verify"
   },
   "dependencies": {
-    "three": "^0.171.0",
-    "three-globe": "^2.37.5",
-    "three-glow-mesh": "^0.1.2"
+    "three": "~0.177.0",
+    "three-globe": "~2.42.8",
+    "three-glow-mesh": "~0.1.2"
   },
   "devDependencies": {
-    "@types/node": "^22.15.21",
-    "@types/three": "^0.176.0",
-    "typescript": "^5.8.3",
-    "ts-loader": "^9.5.2",
-    "autoprefixer": "^10.4.21",
-    "tailwind-variants": "^0.3.1",
-    "tailwindcss": "^4.1.7",
-    "tailwindcss-animate": "^1.0.7",
-    "webpack": "^5.99.9",
-    "webpack-cli": "^6.0.1",
-    "terser-webpack-plugin": "^5.3.14"
+    "@types/node": "~22.15.29",
+    "@types/three": "~0.176.0",
+    "typescript": "~5.8.3",
+    "ts-loader": "~9.5.2",
+    "autoprefixer": "~10.4.21",
+    "tailwind-variants": "~0.3.1",
+    "tailwindcss": "~4.1.8",
+    "tailwindcss-animate": "~1.0.7",
+    "webpack": "~5.99.9",
+    "webpack-cli": "~6.0.1",
+    "terser-webpack-plugin": "~5.3.14"
   }
 }
