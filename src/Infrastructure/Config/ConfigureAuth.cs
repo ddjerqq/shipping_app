@@ -1,7 +1,11 @@
 #pragma warning disable CS1591
+using System.Security.Claims;
 using Application;
 using Application.Services;
+using Domain.Common;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +24,31 @@ public sealed class ConfigureAuth : ConfigurationBase
         services.AddScoped<IdentityRevalidatingAuthenticationStateProvider>();
         services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<IdentityRevalidatingAuthenticationStateProvider>());
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddGoogle("Google", options =>
+            {
+                options.ClientId = "GOOGLE__SSO_CLIENT_ID".FromEnvRequired();
+                options.ClientSecret = "GOOGLE__SSO_CLIENT_SECRET".FromEnvRequired();
+                options.SaveTokens = true;
+                options.CallbackPath = "/signin-google";
+
+                options.Scope.Add("openid");
+                options.Scope.Add("email");
+                options.Scope.Add("profile");
+
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+            })
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/auth/login";
+                options.AccessDeniedPath = "/auth/denied";
+            })
             .AddJwtBearer(options =>
             {
                 var serviceProvider = services.BuildServiceProvider();

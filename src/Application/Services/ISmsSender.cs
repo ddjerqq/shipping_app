@@ -8,5 +8,5 @@ public interface ISmsSender
     /// <param name="number">phone number in RFC</param>
     /// <param name="content">the content to send</param>
     /// <param name="ct"></param>
-    public Task SendAsync(string number, string content, CancellationToken ct = default);
+    public Task SendAsync(string? number, string content, CancellationToken ct = default);
 }

@@ -46,7 +46,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public Money Balance { get; private set; } = new("USD", 0);
 
     [LogMasked]
-    public string PasswordHash { get; private set; } = null!;
+    public string? PasswordHash { get; private set; }
     public string SecurityStamp { get; private set; } = Guid.NewGuid().ToString();
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
     public DateTime? LockoutEnd { get; set; }
