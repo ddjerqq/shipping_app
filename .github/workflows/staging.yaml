@@ -55,7 +55,7 @@ jobs:
     name: "[🛠️] Build and push image"
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
-    needs: [ test ]
+    needs: [ test, call-backup-data ]
 
     steps:
       - name: "[🛎️] Checkout"

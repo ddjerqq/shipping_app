@@ -1,4 +1,4 @@
-name: "[💾] Perform Data Backup and Offload"
+name: "[💾] Backup Data"
 
 on:
   workflow_dispatch:
@@ -104,6 +104,6 @@ jobs:
           SSH_PORT_SECONDARY: ${{ secrets.SSH_BACKUP_PORT || 22 }}
           LOCAL_BACKUP_FILE: ${{ steps.prepare_file.outputs.local_filename }}
         run: |
-          echo "Uploading $LOCAL_BACKUP_FILE to $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/shipping/backup/"
-          scp -P $SSH_PORT_SECONDARY "$LOCAL_BACKUP_FILE" $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/shipping/backup/
+          echo "Uploading $LOCAL_BACKUP_FILE to $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/backup/"
+          scp -P $SSH_PORT_SECONDARY "$LOCAL_BACKUP_FILE" $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/backup/
           echo "Upload to secondary server complete."
