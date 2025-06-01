@@ -234,21 +234,23 @@
                         <FormInvalidFeedback For="@(() => Package.ItemCount)"/>
                     </FormField>
 
-                    <FormField>
-                        <FormLabel for="invoice">@Locale.invoice</FormLabel>
-                        @if (InvoiceUrl is not null)
-                        {
-                            <Button Href="@InvoiceUrl" type="button" Variant="outline">@Locale.download</Button>
-                        }
-                        else
-                        {
-                            <InputFile id="invoice"
-                                       disabled="@DisableForm"
-                                       class="@FormInputText.BaseClass"
-                                       accept=".pdf,.doc,.docx"
-                                       OnChange="UploadInvoice"/>
-                        }
-                    </FormField>
+                    <PackageDetailsProtectedField>
+                        <FormField>
+                            <FormLabel for="invoice">@Locale.invoice</FormLabel>
+                            @if (InvoiceUrl is not null)
+                            {
+                                <Button Href="@InvoiceUrl" type="button" Variant="outline">@Locale.download</Button>
+                            }
+                            else
+                            {
+                                <InputFile id="invoice"
+                                           disabled="@DisableForm"
+                                           class="@FormInputText.BaseClass"
+                                           accept=".pdf,.doc,.docx"
+                                           OnChange="UploadInvoice"/>
+                            }
+                        </FormField>
+                    </PackageDetailsProtectedField>
 
                     <PackageDetailsProtectedField>
                         @if (Package.PictureFileKey is null)
@@ -264,12 +266,14 @@
                         }
                     </PackageDetailsProtectedField>
 
-                    <FormField>
-                        <FormLabel for="house-delivery">@Locale.house_delivery</FormLabel>
-                        <Switch id="house-delivery"
-                                disabled="@DisableForm"
-                                @bind-Value="@Package.HouseDelivery"/>
-                    </FormField>
+                    <PackageDetailsProtectedField>
+                        <FormField>
+                            <FormLabel for="house-delivery">@Locale.house_delivery</FormLabel>
+                            <Switch id="house-delivery"
+                                    disabled="@DisableForm"
+                                    @bind-Value="@Package.HouseDelivery"/>
+                        </FormField>
+                    </PackageDetailsProtectedField>
 
                     @if (Package.CurrentStatus.Status >= PackageStatus.InWarehouse)
                     {
@@ -371,10 +375,12 @@
         <Footer class="text-sm text-muted-foreground">
             @if (!CanSeeSensitiveData)
             {
-                <p>To view the full package details: <Link Href="/auth/login" Title="login."/></p>
+                <p>To view the full package details:
+                    <Link Href="/auth/login" Title="login."/>
+                </p>
             }
 
-            @Id
+            <p>@Id</p>
         </Footer>
     </Card>
 }
