@@ -11,9 +11,10 @@
     [SupplyParameterFromQuery(Name = "role")]
     public string? Role { get; set; } = "User";
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnParametersSetAsync();
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender) return;
 
         if (string.IsNullOrEmpty(Token))
         {
