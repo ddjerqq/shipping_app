@@ -87,14 +87,14 @@ jobs:
           fi
           echo "File to upload: $DOWNLOADED_FILE"
           echo "filepath=./retrieved_backup/$DOWNLOADED_FILE" >> $GITHUB_OUTPUT
-          mv ./retrieved_backup/$DOWNLOADED_FILE ./$DOWNLOADED_FILE # Move to current dir for easier scp
+          mv ./retrieved_backup/$DOWNLOADED_FILE ./$DOWNLOADED_FILE
           echo "local_filename=$DOWNLOADED_FILE" >> $GITHUB_OUTPUT
 
       - name: "[🔑] Set up SSH key for Secondary Backup Server"
         run: |
           mkdir -v -m 0700 ~/.ssh
           ssh-keyscan -p ${{ secrets.SSH_BACKUP_PORT || 22 }} -H ${{ secrets.SSH_BACKUP_HOST }} >> ~/.ssh/known_hosts
-          echo "${{ secrets.SSH_BACKUP_KEY }}" > ~/.ssh/id_rsa # Use the backup key
+          echo "${{ secrets.SSH_BACKUP_KEY }}" > ~/.ssh/id_rsa
           chmod 0400 ~/.ssh/id_rsa
 
       - name: "[💨] SCP Backup to Secondary Host"
@@ -104,6 +104,6 @@ jobs:
           SSH_PORT_SECONDARY: ${{ secrets.SSH_BACKUP_PORT || 22 }}
           LOCAL_BACKUP_FILE: ${{ steps.prepare_file.outputs.local_filename }}
         run: |
-          echo "Uploading $LOCAL_BACKUP_FILE to $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/backup/"
-          scp -P $SSH_PORT_SECONDARY "$LOCAL_BACKUP_FILE" $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/backup/
+          echo "Uploading $LOCAL_BACKUP_FILE to $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/services/shipping/backup/"
+          scp -P $SSH_PORT_SECONDARY "$LOCAL_BACKUP_FILE" $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/services/shipping/backup/
           echo "Upload to secondary server complete."
