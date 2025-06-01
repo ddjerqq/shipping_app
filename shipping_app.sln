@@ -35,6 +35,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0C88DD14-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "test\UnitTests\UnitTests.csproj", "{7A696FB3-A9E6-7ED7-36A7-6B1464B64C10}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".data", ".data", "{B33F699E-5444-4530-A07A-792C1C798060}"
+	ProjectSection(SolutionItems) = preProject
+		.data\app.db = .data\app.db
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".aspnet", ".aspnet", "{20D65648-4517-42F0-BCB7-603F5244350B}"
+	ProjectSection(SolutionItems) = preProject
+		.aspnet\.aspnet\dp\key-b7c9d471-97c0-44dc-b739-5023434c6cf6.xml = .aspnet\.aspnet\dp\key-b7c9d471-97c0-44dc-b739-5023434c6cf6.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dp", "dp", "{1631F2BA-B981-4D1F-BC94-9A9548EC5B7C}"
+	ProjectSection(SolutionItems) = preProject
+		.aspnet\.aspnet\dp\key-22092bfc-c803-466d-bbef-538d6fa94228.xml = .aspnet\.aspnet\dp\key-22092bfc-c803-466d-bbef-538d6fa94228.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "https", "https", "{3B4B5C4A-9679-417B-9392-CEF757C6F802}"
+	ProjectSection(SolutionItems) = preProject
+		.aspnet\.aspnet\https\ecdsa_cert.pem = .aspnet\.aspnet\https\ecdsa_cert.pem
+		.aspnet\.aspnet\https\ecdsa_key.pem = .aspnet\.aspnet\https\ecdsa_key.pem
+		.aspnet\.aspnet\https\HOW_TO_CREATE_KEYS_FOR_ASPNET.md = .aspnet\.aspnet\https\HOW_TO_CREATE_KEYS_FOR_ASPNET.md
+		.aspnet\.aspnet\https\jwt_encryption_key.pem = .aspnet\.aspnet\https\jwt_encryption_key.pem
+		.aspnet\.aspnet\https\jwt_signing_key.pem = .aspnet\.aspnet\https\jwt_signing_key.pem
+		.aspnet\.aspnet\https\sangoway.com.pfx = .aspnet\.aspnet\https\sangoway.com.pfx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,5 +103,7 @@ Global
 		{C4F00904-8DBE-0709-B376-61AA41535537} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{B2AEB70A-FBFC-D893-C8FA-877D78A598B9} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{7A696FB3-A9E6-7ED7-36A7-6B1464B64C10} = {0C88DD14-F956-CE84-757C-A364CCF449FC}
+		{1631F2BA-B981-4D1F-BC94-9A9548EC5B7C} = {20D65648-4517-42F0-BCB7-603F5244350B}
+		{3B4B5C4A-9679-417B-9392-CEF757C6F802} = {20D65648-4517-42F0-BCB7-603F5244350B}
 	EndGlobalSection
 EndGlobal
