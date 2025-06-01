@@ -17,10 +17,8 @@
     <FormField>
         <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
         <FormInputText id="personal-id"
-                       Value="@User.PersonalId"
-                       ValueExpression="@(() => User.PersonalId)"
-                       type="text"
-                       disabled/>
+                       @bind-Value="@User.PersonalId"
+                       type="text"/>
     </FormField>
 
     <FormField>
@@ -50,13 +48,13 @@
                        disabled/>
     </FormField>
 
-    @* <Button type="submit" disabled="@IsLoading"> *@
-    @*     @if (IsLoading) *@
-    @*     { *@
-    @*         <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/> *@
-    @*     } *@
-    @*     Update your info *@
-    @* </Button> *@
+    <Button type="submit" disabled="@IsLoading">
+        @if (IsLoading)
+        {
+            <Blazicon Svg="Icons.Loader" class="mr-2 size-4 animate-spin"/>
+        }
+        @Locale.save_changes
+    </Button>
 </AppForm>
 
 @code {

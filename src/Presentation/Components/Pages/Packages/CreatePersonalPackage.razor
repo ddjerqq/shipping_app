@@ -28,29 +28,29 @@
 
                     @if (Command.CreateSender)
                     {
-                        <InlineFormFieldContainer>
+                        @* <InlineFormFieldContainer> *@
                             <FormField>
                                 <FormLabel for="sender-name">@Locale.full_name</FormLabel>
                                 <FormInputText id="sender-name" @bind-Value="Command.SenderUsername" placeholder="Enter Name" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderUsername)"/>
                             </FormField>
-                            <FormField>
-                                <FormLabel for="sender-id">@Locale.personal_id</FormLabel>
-                                <FormInputText id="sender-id" @bind-Value="Command.SenderId" placeholder="Enter Id" required/>
-                                <FormInvalidFeedback For="@(() => Command.SenderId)"/>
-                            </FormField>
+                            @* <FormField> *@
+                            @*     <FormLabel for="sender-id">@Locale.personal_id</FormLabel> *@
+                            @*     <FormInputText id="sender-id" @bind-Value="Command.SenderId" placeholder="Enter Id" required/> *@
+                            @*     <FormInvalidFeedback For="@(() => Command.SenderId)"/> *@
+                            @* </FormField> *@
 
                             <FormField>
                                 <FormLabel for="sender-email">@Locale.email</FormLabel>
                                 <FormInputText id="sender-email" @bind-Value="Command.SenderEmail" type="email" placeholder="Enter Email" required/>
                                 <FormInvalidFeedback For="@(() => Command.SenderEmail)"/>
                             </FormField>
-                            <FormField>
-                                <FormLabel for="sender-phone">@Locale.phone_number</FormLabel>
-                                <FormInputText id="sender-phone" @bind-Value="Command.SenderPhone" type="tel" placeholder="Enter Phone" required/>
-                                <FormInvalidFeedback For="@(() => Command.SenderPhone)"/>
-                            </FormField>
-                        </InlineFormFieldContainer>
+                            @* <FormField> *@
+                            @*     <FormLabel for="sender-phone">@Locale.phone_number</FormLabel> *@
+                            @*     <FormInputText id="sender-phone" @bind-Value="Command.SenderPhone" type="tel" placeholder="Enter Phone" required/> *@
+                            @*     <FormInvalidFeedback For="@(() => Command.SenderPhone)"/> *@
+                            @* </FormField> *@
+                        @* </InlineFormFieldContainer> *@
                     }
                     else
                     {
@@ -91,29 +91,29 @@
 
                     @if (Command.CreateReceiver)
                     {
-                        <InlineFormFieldContainer>
+                        @* <InlineFormFieldContainer> *@
                             <FormField>
                                 <FormLabel for="receiver-name">@Locale.full_name</FormLabel>
                                 <FormInputText id="receiver-name" @bind-Value="Command.ReceiverUsername" placeholder="Enter Name" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverUsername)"/>
                             </FormField>
-                            <FormField>
-                                <FormLabel for="receiver-id">@Locale.personal_id</FormLabel>
-                                <FormInputText id="receiver-id" @bind-Value="Command.ReceiverId" placeholder="Enter Id" required/>
-                                <FormInvalidFeedback For="@(() => Command.ReceiverId)"/>
-                            </FormField>
+                            @* <FormField> *@
+                            @*     <FormLabel for="receiver-id">@Locale.personal_id</FormLabel> *@
+                            @*     <FormInputText id="receiver-id" @bind-Value="Command.ReceiverId" placeholder="Enter Id" required/> *@
+                            @*     <FormInvalidFeedback For="@(() => Command.ReceiverId)"/> *@
+                            @* </FormField> *@
 
                             <FormField>
                                 <FormLabel for="receiver-email">@Locale.email</FormLabel>
                                 <FormInputText id="receiver-email" @bind-Value="Command.ReceiverEmail" type="email" placeholder="Enter Email" required/>
                                 <FormInvalidFeedback For="@(() => Command.ReceiverEmail)"/>
                             </FormField>
-                            <FormField>
-                                <FormLabel for="receiver-phone">@Locale.phone_number</FormLabel>
-                                <FormInputText id="receiver-phone" @bind-Value="Command.ReceiverPhone" type="tel" placeholder="Enter Phone" required/>
-                                <FormInvalidFeedback For="@(() => Command.ReceiverPhone)"/>
-                            </FormField>
-                        </InlineFormFieldContainer>
+                            @* <FormField> *@
+                            @*     <FormLabel for="receiver-phone">@Locale.phone_number</FormLabel> *@
+                            @*     <FormInputText id="receiver-phone" @bind-Value="Command.ReceiverPhone" type="tel" placeholder="Enter Phone" required/> *@
+                            @*     <FormInvalidFeedback For="@(() => Command.ReceiverPhone)"/> *@
+                            @* </FormField> *@
+                        @* </InlineFormFieldContainer> *@
                     }
                     else
                     {
@@ -183,8 +183,10 @@
 
     private async Task OnValidSubmit()
     {
-        await SendCommandAsync(Command);
+        var package = await SendCommandAsync(Command);
         ShowSuccess("You successfully declared your package!");
         Command = new CreatePersonalPackageCommand();
+
+        NavigationManager.NavigateTo($"/packages/{package.Id}");
     }
 }

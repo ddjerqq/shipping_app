@@ -17,7 +17,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(5);
 
     [LogMasked]
-    public required string PersonalId { get; init; }
+    public string? PersonalId { get; set; }
     
     public required string Username { get; init; }
     
@@ -25,7 +25,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Email { get; init; }
     
     [LogMasked]
-    public required string PhoneNumber { get; init; }
+    public string? PhoneNumber { get; init; }
 
     [LogMasked]
     public string? HomeNumber { get; init; }

@@ -50,7 +50,7 @@ public static class ClaimsPrincipalExt
     public static IEnumerable<Claim> GetAllClaims(this User user) =>
     [
         new(IdClaimType, user.Id.ToString()),
-        new(PersonalIdClaimType, user.PersonalId),
+        new(PersonalIdClaimType, user.PersonalId ?? "00000000000"),
         new(UsernameClaimType, user.Username),
         new(EmailClaimType, user.Email),
         new(PhoneClaimType, user.PhoneNumber),

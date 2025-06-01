@@ -1,5 +1,6 @@
 ﻿@page "/auth/login"
 @using Application.Cqrs.Users.Commands
+@using Domain.ValueObjects
 @inject CookieService Cookie
 
 <PageTitle>@Locale.login</PageTitle>
@@ -138,10 +139,7 @@
         // }
 
         Command.TimeZoneInfo = BrowserTimeZone;
-
-        IsLoading = true;
         var result = await SendCommandAsync(Command);
-        IsLoading = false;
 
         switch (result)
         {
@@ -153,7 +151,14 @@
                 return;
             default:
                 await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-                NavigationManager.NavigateTo("/", true);
+                var url = result.Value.User?.Role switch
+                {
+                    Role.User => "/user_dashboard",
+                    Role.Staff => "/staff_dashboard",
+                    Role.Admin => "/admin_dashboard",
+                    _ => "/",
+                };
+                NavigationManager.NavigateTo(url, true);
                 break;
         }
     }

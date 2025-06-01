@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250601112223_User_NullablePersonalId")]
+    partial class User_NullablePersonalId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -289,6 +292,7 @@ namespace Persistence.Migrations
                         .HasColumnName("personal_id_shadow_hash");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("TEXT")
                         .HasColumnName("phone_number")
@@ -297,6 +301,7 @@ namespace Persistence.Migrations
                         .HasAnnotation("Klean.EntityFrameworkCore.DataProtection.IsUniqueIndex", true);
 
                     b.Property<string>("PhoneNumberShadowHash")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("phone_number_shadow_hash");
 

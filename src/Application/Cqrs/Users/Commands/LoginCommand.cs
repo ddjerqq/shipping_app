@@ -28,7 +28,7 @@ public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
     public LoginCommandValidator()
     {
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
-        RuleFor(x => x.Password).NotEmpty().MinimumLength(12);
+        RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
     }
 }
 
@@ -75,8 +75,10 @@ internal sealed class LoginCommandHandler(
         // if user logged in
         user.AccessFailedCount = 0;
 
+        // if user was marked as deleted, after logging in, cancel deletion.
         if (user.Deleted is not null)
         {
+            // TODO need to notify the user that they cancelled their account deletion.
             user.Deleted = null;
             user.DeletedBy = null;
         }

@@ -1,70 +1,66 @@
 ﻿@page "/auth/register"
 @using System.Globalization
 @using Application.Cqrs.Users.Commands
+@using Domain.ValueObjects
+@inject CookieService Cookie
 
 <PageTitle>@Locale.signup</PageTitle>
 <PageHeader Title="@Locale.create_an_account"/>
 
 <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser">
-    <InlineFormFieldContainer class="gap-y-4 sm:gap-y-6">
-        <FormField>
-            <FormLabel for="full-name">@Locale.full_name</FormLabel>
-            <FormInputText id="full-name"
-                           @bind-Value="@Command.FullName"
-                           placeholder="@Locale.full_name"
-                           type="text"
-                           required
-                           autocomplete="name"
-                           disabled="@IsLoading"/>
+    <FormField>
+        <FormLabel for="full-name">@Locale.full_name</FormLabel>
+        <FormInputText id="full-name"
+                       @bind-Value="@Command.FullName"
+                       placeholder="@Locale.full_name"
+                       type="text"
+                       required
+                       autocomplete="name"
+                       disabled="@IsLoading"/>
 
-            <FormInvalidFeedback For="@(() => Command.FullName)"/>
-        </FormField>
+        <FormInvalidFeedback For="@(() => Command.FullName)"/>
+    </FormField>
 
-        <FormField>
-            <FormLabel for="email">@Locale.email</FormLabel>
-            <FormInputText id="email"
-                           @bind-Value="@Command.Email"
-                           placeholder="name@example.com"
-                           type="email"
-                           required
-                           autocomplete="email"
-                           disabled="@IsLoading"/>
+    <FormField>
+        <FormLabel for="email">@Locale.email</FormLabel>
+        <FormInputText id="email"
+                       @bind-Value="@Command.Email"
+                       placeholder="name@example.com"
+                       type="email"
+                       required
+                       autocomplete="email"
+                       disabled="@IsLoading"/>
 
-            <FormInvalidFeedback For="@(() => Command.Email)"/>
-        </FormField>
-    </InlineFormFieldContainer>
+        <FormInvalidFeedback For="@(() => Command.Email)"/>
+    </FormField>
 
-    <InlineFormFieldContainer class="gap-y-4 sm:gap-y-6">
-        <FormField>
-            <FormLabel for="phone">@Locale.phone_number</FormLabel>
-            <FormInputText id="phone"
-                           @bind-Value="@Command.PhoneNumber"
-                           placeholder="955599123123"
-                           type="phone"
-                           required
-                           autocomplete="tel mobile"
-                           disabled="@IsLoading"/>
-
-            <FormInvalidFeedback For="@(() => Command.PhoneNumber)"/>
-        </FormField>
-
-        <FormField>
-            <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
-            <FormInputText id="personal-id"
-                           @bind-Value="@Command.PersonalId"
-                           placeholder="@Locale.personal_id"
-                           type="email"
-                           required
-                           autocomplete="personal-id"
-                           disabled="@IsLoading"/>
-
-            <FormInvalidFeedback For="@(() => Command.PersonalId)"/>
-        </FormField>
-    </InlineFormFieldContainer>
-
-    <FormDescription>
-        @Locale.your_personal_data_is_protected. <Link Href="https://https://commission.europa.eu/law/law-topic/data-protection/data-protection-explained_en" Title="@Locale.learn_more"/>
-    </FormDescription>
+    @* <InlineFormFieldContainer class="gap-y-4 sm:gap-y-6"> *@
+    @*     <FormField> *@
+    @*         <FormLabel for="phone">@Locale.phone_number</FormLabel> *@
+    @*         <FormInputText id="phone" *@
+    @*                        @bind-Value="@Command.PhoneNumber" *@
+    @*                        placeholder="955599123123" *@
+    @*                        type="phone" *@
+    @*                        required *@
+    @*                        autocomplete="tel mobile" *@
+    @*                        disabled="@IsLoading"/> *@
+    @* *@
+    @*         <FormInvalidFeedback For="@(() => Command.PhoneNumber)"/> *@
+    @*     </FormField> *@
+    @* *@
+    @*     <FormField> *@
+    @*         <FormLabel for="personal-id">@Locale.personal_id</FormLabel> *@
+    @*         <FormInputText id="personal-id" *@
+    @*                        @bind-Value="@Command.PersonalId" *@
+    @*                        placeholder="@Locale.personal_id" *@
+    @*                        type="email" *@
+    @*                        required *@
+    @*                        autocomplete="personal-id" *@
+    @*                        disabled="@IsLoading"/> *@
+    @* *@
+    @*         <FormInvalidFeedback For="@(() => Command.PersonalId)"/> *@
+    @*     </FormField> *@
+    @* </InlineFormFieldContainer> *@
 
     <FormField>
         <FormLabel for="password">@Locale.password</FormLabel>
@@ -84,13 +80,14 @@
     </FormField>
 
     <FormField>
-        <div class="flex flex-row items-center gap-2">
-            <FormInputCheckbox id="terms" @bind-Value="Command.AgreeToTerms"/>
-            <FormLabel for="terms">
-                <AuthAgreeToTerms/>
-            </FormLabel>
-        </div>
-        <FormInvalidFeedback For="@(() => Command.AgreeToTerms)"/>
+        <AuthAgreeToTerms/>
+        @* <div class="flex flex-row items-center gap-2"> *@
+        @*     <FormInputCheckbox id="terms" @bind-Value="Command.AgreeToTerms"/> *@
+        @*     <FormLabel for="terms"> *@
+        @*         <AuthAgreeToTerms/> *@
+        @*     </FormLabel> *@
+        @* </div> *@
+        @* <FormInvalidFeedback For="@(() => Command.AgreeToTerms)"/> *@
     </FormField>
 
     @* <Recaptcha @ref="@RecaptchaComponent"/> *@
@@ -150,13 +147,13 @@
 
 @code {
     [CascadingParameter]
-    private TimeZoneInfo BrowserTimeZone { get; set; } = null!;
+    private TimeZoneInfo? BrowserTimeZone { get; set; }
 
     [CascadingParameter]
-    private CultureInfo BrowserLocale { get; set; } = null!;
+    private CultureInfo? BrowserLocale { get; set; }
 
     private RegisterCommand Command { get; set; } = new();
-    // private Recaptcha RecaptchaComponent { get; set; } = null!;
+    // private Recaptcha RecaptchaComponent { get; set; }
 
     public async Task RegisterUser(EditContext editContext)
     {
@@ -166,10 +163,38 @@
         //     return;
         // }
 
-        Command.TimeZoneInfo = BrowserTimeZone;
-        Command.CultureInfo = BrowserLocale;
+        Command.TimeZoneInfo = BrowserTimeZone ?? TimeZoneInfo.Utc;
+        Command.CultureInfo = BrowserLocale ?? new CultureInfo("en-US");
 
-        await SendCommandAsync(Command);
-        NavigationManager.NavigateTo("/auth/register_confirmation");
+        var user = await SendCommandAsync(Command);
+
+        var loginCommand = new LoginCommand
+        {
+            Email = user.Email,
+            Password = Command.Password,
+            TimeZoneInfo = Command.TimeZoneInfo,
+        };
+
+        var result = await SendCommandAsync(loginCommand);
+        switch (result)
+        {
+            case null:
+                ShowError("Invalid credentials.");
+                return;
+            case (true, _, _):
+                NavigationManager.NavigateTo("/auth/lockout");
+                return;
+            default:
+                await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
+                var url = user.Role switch
+                {
+                    Role.User => "/user_dashboard",
+                    Role.Staff => "/staff_dashboard",
+                    Role.Admin => "/admin_dashboard",
+                    _ => "/",
+                };
+                NavigationManager.NavigateTo(url, true);
+                break;
+        }
     }
 }

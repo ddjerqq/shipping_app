@@ -90,18 +90,30 @@
 }
 
 @keyframes accordion-down {
-  from { height: 0; }
-  to { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); }
-  to { height: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @keyframes caret-blink {
-  0%, 70%, 100% { opacity: 1; }
-  20%, 50% { opacity: 0; }
+  0%, 70%, 100% {
+    opacity: 1;
+  }
+  20%, 50% {
+    opacity: 0;
+  }
 }
 
 @layer base {
@@ -133,11 +145,15 @@
   }
 
   html[lang=ka], body[lang=ka] {
-    font-family: var(--font-family-archyedt-bold);
+    font-family: var(--font-family-archyedt-bold), sans-serif;
   }
 
   h1:focus {
     outline: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight mb-2;
   }
 }
 

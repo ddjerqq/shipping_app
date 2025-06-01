@@ -52,10 +52,8 @@
                 <FormField>
                     <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
                     <FormInputText id="personal-id"
-                                   Value="@User.PersonalId"
-                                   ValueExpression="@(() => User.PersonalId)"
-                                   type="text"
-                                   disabled/>
+                                   @bind-Value="@User.PersonalId"
+                                   type="text"/>
                 </FormField>
 
                 <FormField>
