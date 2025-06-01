@@ -53,7 +53,7 @@ public static class ClaimsPrincipalExt
         new(PersonalIdClaimType, user.PersonalId ?? "00000000000"),
         new(UsernameClaimType, user.Username),
         new(EmailClaimType, user.Email),
-        new(PhoneClaimType, user.PhoneNumber),
+        new(PhoneClaimType, user.PhoneNumber ?? "no number"),
         new(RoleClaimType, user.Role.ToString()),
         new(SecurityStampClaimType, user.SecurityStamp),
         new(RoomCodeClaimType, user.RoomCode.ToString()),

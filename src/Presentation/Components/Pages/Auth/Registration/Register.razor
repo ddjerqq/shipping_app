@@ -8,6 +8,33 @@
 <PageHeader Title="@Locale.create_an_account"/>
 
 <AppForm @bind-Model="Command" OnValidSubmit="RegisterUser">
+    <div class="grid grid-cols-3 gap-4">
+        <Button Href="/api/v1/auth/sso/microsoft/" Variant="outline" disabled>
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"
+                alt="microsoft" class="h-6 w-6"/>
+            <span class="sr-only">Microsoft</span>
+        </Button>
+
+        <Button Href="/api/v1/auth/sso/google/" Variant="outline">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/24px-Google_%22G%22_logo.svg.png"
+                alt="google" class="h-6 w-6"/>
+            <span class="sr-only">Google</span>
+        </Button>
+
+        <Button Href="/api/v1/auth/sso/github/" Variant="outline" disabled>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                 alt="Github" class="invert h-6 w-6"/>
+            <span class="sr-only">Github</span>
+        </Button>
+    </div>
+
+    <div
+        class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+        <span class="relative z-10 bg-card px-2 text-muted-foreground">Or continue with email</span>
+    </div>
+
     <FormField>
         <FormLabel for="full-name">@Locale.full_name</FormLabel>
         <FormInputText id="full-name"

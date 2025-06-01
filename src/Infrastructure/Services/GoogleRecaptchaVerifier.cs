@@ -8,7 +8,7 @@ namespace Infrastructure.Services;
 public sealed class GoogleRecaptchaVerifier(HttpClient http) : IRecaptchaVerifier
 {
     private const string Url = "https://www.google.com/recaptcha/api/siteverify";
-    private static string RecaptchaSecretKey => "RECAPTCHA__SECRET_KEY".FromEnvRequired();
+    private static string RecaptchaSecretKey => "GOOGLE__RECAPTCHA__SECRET_KEY".FromEnvRequired();
 
     public async Task<RecaptchaResponse> VerifyAsync(string recaptchaResponse, CancellationToken ct = default)
     {

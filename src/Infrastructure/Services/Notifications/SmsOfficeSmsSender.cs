@@ -58,11 +58,16 @@ public sealed class SmsOfficeSmsSender(ILogger<SmsOfficeSmsSender> logger, HttpC
         return int.Parse(balance);
     }
 
-    public async Task SendAsync(string number, string content, CancellationToken ct = default)
+    public async Task SendAsync(string? number, string content, CancellationToken ct = default)
     {
         if (IsDevelopment)
         {
             logger.LogInformation("[DEVELOPMENT] Sending {Recipient} {Content}", number, content);
+        }
+
+        if (string.IsNullOrWhiteSpace(number))
+        {
+            throw new ArgumentNullException(nameof(number));
         }
 
         var balance = await GetRemainingSmsBalance(ct);

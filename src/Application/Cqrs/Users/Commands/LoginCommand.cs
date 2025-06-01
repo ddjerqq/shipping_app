@@ -25,10 +25,24 @@ public sealed record LoginCommand : IRequest<LoginResult>
 
 public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
-    public LoginCommandValidator()
+    public LoginCommandValidator(IAppDbContext dbContext)
     {
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
+
+        RuleSet("async", () =>
+        {
+            RuleFor(x => x.Email)
+                .MustAsync(async (email, ct) =>
+                {
+                    var count = await dbContext.Users
+                        .WherePdEquals(nameof(User.Email), email.ToLowerInvariant())
+                        .CountAsync(x => x.PasswordHash != null, ct);
+
+                    return count == 1;
+                })
+                .WithMessage("You do not have a password, please use the SSO provider you used to register to login. For example: Google or Facebook");
+        });
     }
 }
 
