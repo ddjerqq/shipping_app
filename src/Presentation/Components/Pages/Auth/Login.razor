@@ -30,7 +30,7 @@
 
         <Button Href="/api/v1/auth/sso/github/" Variant="outline" disabled>
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                 alt="Github" class="invert h-6 w-6"/>
+                 alt="Github" class="dark:invert h-6 w-6"/>
             <span class="sr-only">Github</span>
         </Button>
     </div>
@@ -44,7 +44,7 @@
         <div class="flex items-center">
             <FormLabel for="email">@Locale.email</FormLabel>
 
-            <Link Href="/auth/resend_email_confirmation" Title="@Locale.resend_email_confirmation"/>
+            <Link Href="/auth/resend_email_confirmation" Title="@Locale.resend_email_confirmation" class="ml-auto text-sm"/>
         </div>
 
         <FormInputText id="email"
