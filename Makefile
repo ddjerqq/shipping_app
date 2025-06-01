@@ -7,3 +7,6 @@ apply-migrations:
 docker-build:
 	echo "building for $(arch)"
 	docker build -t ddjerqq/shippingapp:latest-$(arch) --progress=plain --build-arg TARGETARCH=$(arch) .
+
+pull-backups:
+	scp -P 41418 -r ddjerqq@raspi:~/services/shipping/backup/ ./.data/
