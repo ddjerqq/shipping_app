@@ -93,7 +93,7 @@
         <FormInvalidFeedback For="@(() => Command.AgreeToTerms)"/>
     </FormField>
 
-    <Recaptcha @ref="@RecaptchaComponent"/>
+    @* <Recaptcha @ref="@RecaptchaComponent"/> *@
 
     <Button type="submit" disabled="@IsLoading">
         @if (IsLoading)
@@ -156,15 +156,15 @@
     private CultureInfo BrowserLocale { get; set; } = null!;
 
     private RegisterCommand Command { get; set; } = new();
-    private Recaptcha RecaptchaComponent { get; set; } = null!;
+    // private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task RegisterUser(EditContext editContext)
     {
-        if (!await RecaptchaComponent.IsValid())
-        {
-            ShowWarning(Locale.please_complete_captcha_before_continuing);
-            return;
-        }
+        // if (!await RecaptchaComponent.IsValid())
+        // {
+        //     ShowWarning(Locale.please_complete_captcha_before_continuing);
+        //     return;
+        // }
 
         Command.TimeZoneInfo = BrowserTimeZone;
         Command.CultureInfo = BrowserLocale;

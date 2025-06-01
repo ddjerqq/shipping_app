@@ -55,7 +55,7 @@
         </div>
     </FormField>
 
-    <Recaptcha @ref="@RecaptchaComponent"/>
+    @* <Recaptcha @ref="@RecaptchaComponent"/> *@
 
     <Button type="submit" disabled="@IsLoading">
         @if (IsLoading)
@@ -127,15 +127,15 @@
     private LoginCommand Command { get; set; } = new();
 
     private bool ShowPassword { get; set; }
-    private Recaptcha RecaptchaComponent { get; set; } = null!;
+    // private Recaptcha RecaptchaComponent { get; set; } = null!;
 
     public async Task LoginUser()
     {
-        if (!await RecaptchaComponent.IsValid())
-        {
-            ShowWarning("Please complete captcha before continuing");
-            return;
-        }
+        // if (!await RecaptchaComponent.IsValid())
+        // {
+        //     ShowWarning("Please complete captcha before continuing");
+        //     return;
+        // }
 
         Command.TimeZoneInfo = BrowserTimeZone;
 
