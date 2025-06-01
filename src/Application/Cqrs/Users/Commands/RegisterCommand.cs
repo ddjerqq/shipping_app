@@ -108,8 +108,8 @@ public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand
             .NotEmpty()
             .MinimumLength(8)
             .MaximumLength(256)
-            .Must(password => CalculatePasswordEntropy(password) > 40)
-            .WithMessage("Please choose a stronger password, try including symbols and uppercase characters");
+            .Must(password => CalculatePasswordEntropy(password) > 60)
+            .WithMessage("Please choose a stronger password, try a combination of symbols, digits and uppercase characters");
 
         // RuleFor(x => x.PhoneNumber).NotEmpty().Matches(@"\d{3}\d{9}").WithMessage("Please enter international standard phone number (eg. 995599123123)");
         // RuleFor(x => x.PersonalId).NotEmpty().Matches(@"(\d{11}|\d{3}\-\d{4}\-\d{3})").WithMessage("Must be 11 digit georgian ID or 3-4-3 digits american SSN");

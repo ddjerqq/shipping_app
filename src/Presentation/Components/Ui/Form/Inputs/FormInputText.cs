@@ -34,7 +34,7 @@ public sealed class FormInputText : InputBase<string?>
         builder.AddAttributeIfNotNullOrWhiteSpace(2, "name", NameAttributeValue);
         builder.AddAttributeIfNotNullOrWhiteSpace(3, "class", Tw.Merge(Class, BaseClass, CssClass));
         builder.AddAttribute(4, "value", CurrentValueAsString);
-        builder.AddAttribute(5, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+        builder.AddAttribute(5, "oninput", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
         builder.AddElementReferenceCapture(6, inputReference => Element = inputReference);
         builder.CloseElement();

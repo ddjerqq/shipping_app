@@ -2,7 +2,7 @@
 @inherits UiComponentBase
 
 <div @attributes="@AdditionalAttributes" class="flex select-none first:border-e-0 first:rounded-r-none last:border-l-0 last:rounded-s-none">
-    <input id="@Id" TValue="decimal" type="number" min="0" step="1" value="@((float)Value.Amount / 100)" @onchange="@SetAmount"
+    <input id="@Id" TValue="decimal" type="number" min="0" step="1" value="@((float)Value.Amount / 100)" @oninput="@SetAmount"
            @attributes="@AdditionalAttributes" class="@_class("w-full rounded-l-md border-l")"/>
 
     <select id="@Id" @onchange="@SetCurrency" @attributes="@AdditionalAttributes" class="@_class("rounded-r-md border-r")">
