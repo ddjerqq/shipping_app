@@ -46,7 +46,7 @@ jobs:
 
   call-backup-data:
     name: "[⤴️] Backup data"
-    uses: https://github.com/ddjerqq/shipping_app/.github/workflows/backup-data.yaml@master
+    uses: ./backup-data.yaml
     concurrency: ci-${{ github.ref }}-${{ github.sha }}
     needs: [ test ]
     secrets: inherit
