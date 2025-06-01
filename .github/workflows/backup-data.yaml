@@ -1,32 +1,109 @@
-name: Backup data
+name: "[💾] Perform Data Backup and Offload"
 
 on:
   workflow_dispatch:
-
   workflow_call:
-
-#  schedule:
-#    - cron: '0 0 * * 0'
+  schedule:
+    # Runs every Sunday at midnight UTC
+    - cron: '0 0 * * 0'
 
 jobs:
-  backup-data:
-    concurrency: ci-${{ github.ref }}
+  create_and_retrieve_backup:
+    name: "[📦] Create and Retrieve Backup from Primary"
+    concurrency: create-backup-${{ github.ref }}
+    runs-on: ubuntu-latest
+    outputs:
+      backup_filename: ${{ steps.set_backup_filename.outputs.filename }}
+
+    steps:
+      - name: "[⌚] Get Current Timestamp"
+        id: getdate
+        run: echo "timestamp=$(date +'%Y-%m-%dT%H-%M')" >> $GITHUB_OUTPUT
+
+      - name: "[🔑] Set up SSH key for Primary Server"
+        run: |
+          mkdir -v -m 0700 ~/.ssh
+          ssh-keyscan -p ${{ secrets.SSH_PORT || 22 }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 0400 ~/.ssh/id_rsa
+
+      - name: "[⚙️] Create Backup on Primary & Download to Runner"
+        id: create_and_download
+        env:
+          TIMESTAMP: ${{ steps.getdate.outputs.timestamp }}
+          SSH_USER_PRIMARY: ${{ secrets.SSH_USER }}
+          SSH_HOST_PRIMARY: ${{ secrets.SSH_HOST }}
+          SSH_PORT_PRIMARY: ${{ secrets.SSH_PORT || 22 }}
+        run: |
+          BACKUP_FILENAME="${TIMESTAMP}.sql.gz"
+          echo "backup_filename_local=${BACKUP_FILENAME}" >> $GITHUB_OUTPUT
+
+          echo "Creating backup file: $BACKUP_FILENAME on primary server..."
+          ssh -p $SSH_PORT_PRIMARY $SSH_USER_PRIMARY@$SSH_HOST_PRIMARY "mkdir -p ~/.data/backup && cd ~/.data && sqlite3 app.db .dump | gzip > backup/$BACKUP_FILENAME"
+          
+          echo "Downloading backup file $BACKUP_FILENAME from primary server to runner..."
+          scp -P $SSH_PORT_PRIMARY $SSH_USER_PRIMARY@$SSH_HOST_PRIMARY:~/.data/backup/$BACKUP_FILENAME ./$BACKUP_FILENAME
+          
+          echo "Verifying downloaded file..."
+          if [ -f "./$BACKUP_FILENAME" ]; then
+            echo "File ./$BACKUP_FILENAME downloaded successfully."
+            ls -lh ./$BACKUP_FILENAME
+          else
+            echo "Error: File ./$BACKUP_FILENAME not found after scp."
+            exit 1
+          fi
+
+      - name: "[🏷️] Set Backup Filename Output"
+        id: set_backup_filename
+        run: echo "filename=${{ steps.create_and_download.outputs.backup_filename_local }}" >> $GITHUB_OUTPUT
+
+      - name: "[📤] Upload Backup as Artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-sql-gz
+          path: ${{ steps.set_backup_filename.outputs.filename }}
+          retention-days: 1
+
+  upload_to_secondary_server:
+    name: "[🚀] Upload Backup to Secondary Server"
+    needs: create_and_retrieve_backup
+    concurrency: upload-backup-${{ github.ref }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get Time ⌚
-        id: getdate
-        run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> $GITHUB_OUTPUT
+      - name: "[📥] Download Backup Artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: backup-sql-gz
+          path: ./retrieved_backup
 
-      - name: Set up SSH key 🔑
+      - name: "[ℹ️] Prepare Backup File for Upload"
+        id: prepare_file
         run: |
-          mkdir -v -m 700 $HOME/.ssh
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
-          echo "${{ secrets.SSH_KEY }}" > $HOME/.ssh/id_rsa
-          chmod 400 $HOME/.ssh/id_rsa
+          DOWNLOADED_FILE=$(find ./retrieved_backup -type f -printf "%f\n" | head -n 1)
+          if [ -z "$DOWNLOADED_FILE" ]; then
+            echo "Error: No backup file found in downloaded artifact."
+            exit 1
+          fi
+          echo "File to upload: $DOWNLOADED_FILE"
+          echo "filepath=./retrieved_backup/$DOWNLOADED_FILE" >> $GITHUB_OUTPUT
+          mv ./retrieved_backup/$DOWNLOADED_FILE ./$DOWNLOADED_FILE # Move to current dir for easier scp
+          echo "local_filename=$DOWNLOADED_FILE" >> $GITHUB_OUTPUT
 
-      - name: Backup data 📦
+      - name: "[🔑] Set up SSH key for Secondary Backup Server"
+        run: |
+          mkdir -v -m 0700 ~/.ssh
+          ssh-keyscan -p ${{ secrets.SSH_BACKUP_PORT || 22 }} -H ${{ secrets.SSH_BACKUP_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_BACKUP_KEY }}" > ~/.ssh/id_rsa # Use the backup key
+          chmod 0400 ~/.ssh/id_rsa
+
+      - name: "[💨] SCP Backup to Secondary Host"
         env:
-          TIMESTAMP: ${{ steps.getdate.outputs.date }}
+          SSH_USER_SECONDARY: ${{ secrets.SSH_BACKUP_USER }}
+          SSH_HOST_SECONDARY: ${{ secrets.SSH_BACKUP_HOST }}
+          SSH_PORT_SECONDARY: ${{ secrets.SSH_BACKUP_PORT || 22 }}
+          LOCAL_BACKUP_FILE: ${{ steps.prepare_file.outputs.local_filename }}
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sqlite3 ~/.data/app.db .dump | gzip > ~/.data/backup/$TIMESTAMP.sql.gz"
+          echo "Uploading $LOCAL_BACKUP_FILE to $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/shipping/backup/"
+          scp -P $SSH_PORT_SECONDARY "$LOCAL_BACKUP_FILE" $SSH_USER_SECONDARY@$SSH_HOST_SECONDARY:~/shipping/backup/
+          echo "Upload to secondary server complete."
