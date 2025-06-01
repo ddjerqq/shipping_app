@@ -25,7 +25,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public required string Email { get; init; }
     
     [LogMasked]
-    public required string PhoneNumber { get; init; }
+    public string? PhoneNumber { get; init; }
 
     [LogMasked]
     public string? HomeNumber { get; init; }
