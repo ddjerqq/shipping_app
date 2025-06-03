@@ -32,7 +32,7 @@
                         @Locale.login_as_this_user
                     </Button>
 
-                    <Button @onclick="DeleteUser" Variant="destructive"
+                    <Button @onclick="DeleteUser" type="button" Variant="destructive"
                             disabled="@IsLoading">
                         <Blazicon Svg="Icons.Trash"/>
                         @Locale.delete
