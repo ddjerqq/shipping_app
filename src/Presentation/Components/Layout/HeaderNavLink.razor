@@ -1,5 +1,9 @@
-<NavLink href="@Href" Match="NavLinkMatch.Prefix" ActiveClass="active"
-         class="text-nowrap hover:text-foreground text-foreground/80 font-semibold [&.active]:text-primary transition-colors">
+@inherits UiComponentBase
+
+<NavLink @attributes="@AdditionalAttributes"
+         href="@Href"
+         Match="NavLinkMatch.Prefix" ActiveClass="active"
+         class="@Merge("text-nowrap hover:text-foreground text-foreground/80 font-semibold [&.active]:text-primary transition-colors")">
     @Title
 </NavLink>
 
