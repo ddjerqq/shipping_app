@@ -38,7 +38,7 @@
             <div class="flex flex-col gap-1 text-start justify-center">
                 <span class="text-xs text-muted-foreground">@Locale.phone_number</span>
                 <span class="font-medium leading-none">
-                    <Link class="text-primary hover:font-semibold" Href="@($"tel:{user.PhoneNumber}")" Title="@user.PhoneNumber"/>
+                    <Link class="text-primary hover:font-semibold" Href="@($"tel:{user.PhoneNumber}")" Title="@(user.PhoneNumber ?? "no number")"/>
                 </span>
             </div>
 

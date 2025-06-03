@@ -17,8 +17,8 @@
     {
         base.OnParametersSet();
 
-        if (ChildContent is null && Title is null)
-            throw new ArgumentException("Either ChildContent or Title must be set");
+        // if (ChildContent is null && Title is null)
+        //     throw new ArgumentException("Either ChildContent or Title must be set");
 
         ChildContent ??= builder => builder.AddContent(0, Title);
     }
