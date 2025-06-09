@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Application.Cqrs.Users.Commands;
 using Domain.Common;
+using Domain.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -68,15 +69,24 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
         try
         {
             var (token, user) = await mediator.Send(request, ct);
+            var expirationDuration = TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired());
 
-            var redirectUrl = $"https://{WebAppDomain}/auth/success";
-            if (!string.IsNullOrWhiteSpace(returnUrl))
-                redirectUrl = QueryHelpers.AddQueryString(redirectUrl, "returnUrl", returnUrl);
+            Response.Cookies.Append("authorization", token, new CookieOptions()
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.Add(expirationDuration)
+            });
 
-            var authSuccessUrl = QueryHelpers.AddQueryString(redirectUrl, "token", token);
-            authSuccessUrl = QueryHelpers.AddQueryString(authSuccessUrl, "role", user.Role.ToString());
-
-            return Redirect(authSuccessUrl);
+            var url = user.Role switch
+            {
+                Role.User => "/user_dashboard",
+                Role.Staff => "/staff_dashboard",
+                Role.Admin => "/admin_dashboard",
+                _ => "/",
+            };
+            return Redirect(url);
         }
         catch (Exception ex)
         {
