@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace Presentation.Controllers.Api.V1;
 
 [ApiController]
-[Route("api/v1/auth/sso")]
+[Route("api/v1/auth")]
 public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediator mediator) : ControllerBase
 {
     private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
@@ -26,7 +26,7 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     /// <exception cref="ArgumentException">When the provider is not known</exception>
     /// <exception cref="InvalidOperationException">SsoCallbackTemplate is not present in the configuration</exception>
     [AllowAnonymous]
-    [HttpGet("{provider}")]
+    [HttpGet("sso/{provider}")]
     public IActionResult SsoChallenge([FromRoute] string provider, [FromQuery] string? returnUrl)
     {
         var schemeName = provider.ToLowerInvariant() switch
@@ -48,7 +48,7 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     /// This endpoint just authorizes with google, and extracts the email and the name that we need from the claims, and passes it down to HandleSso
     /// </summary>
     [AllowAnonymous]
-    [HttpGet("google/callback")]
+    [HttpGet("sso/google/callback")]
     public async Task<IActionResult> GoogleResponse([FromQuery(Name = "returnUrl")] string? returnUrl, CancellationToken ct = default)
     {
         var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -93,5 +93,21 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
             logger.LogError(ex, "Error authenticating user");
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("logout")]
+    public IActionResult LogOut()
+    {
+        Response.Cookies.Append("authorization", "",
+            new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddYears(-1),
+                Path = "/"
+            });
+
+        return Ok();
     }
 }

@@ -3,6 +3,8 @@
 @using Domain.ValueObjects
 @inject CookieService Cookie
 @inject IdentityRevalidatingAuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime Js
+
 
 <AuthorizeView>
     <Authorized>
@@ -72,7 +74,11 @@
 @code {
     private async Task SignOut()
     {
-        await Cookie.DeleteCookieAsync(JwtGenerator.CookieName);
+        await Js.InvokeVoidAsync("fetch", "/api/v1/auth/logout", new
+        {
+            method = "GET",
+            credentials = "include"
+        });
         AuthenticationStateProvider.ForceSignOut();
         NavigationManager.NavigateTo("/auth/login");
     }
