@@ -108,6 +108,6 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
                 Path = "/"
             });
 
-        return Ok();
+        return Redirect("/");
     }
 }
