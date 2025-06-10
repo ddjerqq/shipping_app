@@ -46,7 +46,7 @@
 
             <div class="py-2">
                 <Button Variant="ghost" class="justify-start text-destructive-foreground w-full rounded-none"
-                        @onclick="@SignOut">
+                        Href="/api/v1/auth/logout">
                     <Blazicon Svg="@Icons.LogOut"/>
                     @Locale.sign_out
                 </Button>
@@ -71,15 +71,9 @@
     </NotAuthorized>
 </AuthorizeView>
 
-@code {
-    private async Task SignOut()
-    {
-        await Js.InvokeVoidAsync("fetch", "/api/v1/auth/logout", new
-        {
-            method = "GET",
-            credentials = "include"
-        });
-        AuthenticationStateProvider.ForceSignOut();
-        // NavigationManager.NavigateTo("/auth/login");
-    }
-}
+@* @code { *@
+@*     private void SignOut() *@
+@*     { *@
+@*         AuthenticationStateProvider.ForceSignOut(); *@
+@*     } *@
+@* } *@
