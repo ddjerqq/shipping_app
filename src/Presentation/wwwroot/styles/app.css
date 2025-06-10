@@ -143,6 +143,10 @@
     width: 100%;
     height: 100%;
   }
+  
+  html[lang=en], body[lang=en], html[lang=ru], body[lang=ru] {
+    font-family: var(--font-family-sans);
+  }
 
   html[lang=ka], body[lang=ka] {
     font-family: var(--font-family-archyedt-bold), sans-serif;
