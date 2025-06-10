@@ -1,5 +1,6 @@
 @page "/auth/login"
 @using Application.Cqrs.Users.Commands
+@using Domain.Aggregates
 @using Domain.ValueObjects
 @inject CookieService Cookie
 
@@ -30,7 +31,7 @@
 
         <Button Href="/api/v1/auth/sso/github/" Variant="outline" disabled>
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                 alt="Github" class="invert h-6 w-6"/>
+                 alt="Github" class="dark:invert h-6 w-6"/>
             <span class="sr-only">Github</span>
         </Button>
     </div>
@@ -128,33 +129,37 @@
         // }
 
         Command.TimeZoneInfo = BrowserTimeZone;
+        (bool IsLockedOut, string? Token, User? User)? result;
+
         try
         {
-            var result = await Mediator.Send(Command);
-            switch (result)
-            {
-                case null:
-                    ShowError("Invalid credentials.");
-                    return;
-                case (true, _, _):
-                    NavigationManager.NavigateTo("/auth/lockout");
-                    return;
-                default:
-                    await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
-                    var url = result.Value.User?.Role switch
-                    {
-                        Role.User => "/user_dashboard",
-                        Role.Staff => "/staff_dashboard",
-                        Role.Admin => "/admin_dashboard",
-                        _ => "/",
-                    };
-                    NavigationManager.NavigateTo(url, true);
-                    break;
-            }
+            result = await Mediator.Send(Command);
         }
         catch (InvalidOperationException e)
         {
             ShowError(e.Message);
+            return;
+        }
+
+        switch (result)
+        {
+            case null:
+                ShowError("Invalid credentials.");
+                return;
+            case (true, _, _):
+                NavigationManager.NavigateTo("/auth/lockout");
+                return;
+            default:
+                await Cookie.SetCookieAsync(JwtGenerator.CookieName, result.Value.Token!);
+                var url = result.Value.User?.Role switch
+                {
+                    Role.User => "/user_dashboard",
+                    Role.Staff => "/staff_dashboard",
+                    Role.Admin => "/admin_dashboard",
+                    _ => "/",
+                };
+                NavigationManager.NavigateTo(url, true);
+                break;
         }
     }
 }
