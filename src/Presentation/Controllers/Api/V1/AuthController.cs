@@ -98,16 +98,7 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     [HttpGet("logout")]
     public IActionResult LogOut()
     {
-        Response.Cookies.Append("authorization", "",
-            new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTimeOffset.UtcNow.AddYears(-1),
-                Path = "/"
-            });
-
+        Response.Cookies.Delete("authorization");
         return Redirect("/");
     }
 }
