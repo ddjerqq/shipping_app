@@ -29,20 +29,6 @@ public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.Password).NotEmpty().MinimumLength(8);
-
-        RuleSet("async", () =>
-        {
-            RuleFor(x => x.Email)
-                .MustAsync(async (email, ct) =>
-                {
-                    var count = await dbContext.Users
-                        .WherePdEquals(nameof(User.Email), email.ToLowerInvariant())
-                        .CountAsync(x => x.PasswordHash != null, ct);
-
-                    return count == 1;
-                })
-                .WithMessage("You do not have a password, please use the SSO provider you used to register to login. For example: Google or Facebook");
-        });
     }
 }
 
@@ -68,6 +54,15 @@ internal sealed class LoginCommandHandler(
         {
             user.LockoutEnd = null;
             user.AccessFailedCount = 0;
+        }
+
+        var count = await dbContext.Users
+            .WherePdEquals(nameof(User.Email), request.Email.ToLowerInvariant())
+            .CountAsync(x => x.PasswordHash != null, ct);
+
+        if (count == 0)
+        {
+            throw new InvalidOperationException("Please use SSO to login (google or facebook)");
         }
 
         if (user.AccessFailedCount >= User.MaxAccessFailedCount)

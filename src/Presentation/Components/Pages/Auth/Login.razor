@@ -1,5 +1,6 @@
 @page "/auth/login"
 @using Application.Cqrs.Users.Commands
+@using Domain.Aggregates
 @using Domain.ValueObjects
 @inject CookieService Cookie
 
@@ -128,7 +129,17 @@
         // }
 
         Command.TimeZoneInfo = BrowserTimeZone;
-        var result = await SendCommandAsync(Command);
+        (bool IsLockedOut, string? Token, User? User)? result;
+
+        try
+        {
+            result = await Mediator.Send(Command);
+        }
+        catch (InvalidOperationException e)
+        {
+            ShowError(e.Message);
+            return;
+        }
 
         switch (result)
         {

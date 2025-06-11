@@ -45,7 +45,7 @@
             </nav>
 
             <div class="py-2">
-                <Button Variant="ghost" class="justify-start text-destructive-foreground w-full rounded-none"
+                <Button Variant="ghost" class="justify-start shadow-none w-full rounded-none"
                         Href="/api/v1/auth/logout">
                     <Blazicon Svg="@Icons.LogOut"/>
                     @Locale.sign_out
@@ -70,10 +70,3 @@
         </div>
     </NotAuthorized>
 </AuthorizeView>
-
-@* @code { *@
-@*     private void SignOut() *@
-@*     { *@
-@*         AuthenticationStateProvider.ForceSignOut(); *@
-@*     } *@
-@* } *@
