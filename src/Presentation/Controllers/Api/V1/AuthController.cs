@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Application.Cqrs.Users.Commands;
 using Domain.Common;
+using Domain.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace Presentation.Controllers.Api.V1;
 
 [ApiController]
-[Route("api/v1/auth/sso")]
+[Route("api/v1/auth")]
 public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediator mediator) : ControllerBase
 {
     private static string WebAppDomain => "WEB_APP__DOMAIN".FromEnvRequired();
@@ -25,7 +26,7 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     /// <exception cref="ArgumentException">When the provider is not known</exception>
     /// <exception cref="InvalidOperationException">SsoCallbackTemplate is not present in the configuration</exception>
     [AllowAnonymous]
-    [HttpGet("{provider}")]
+    [HttpGet("sso/{provider}")]
     public IActionResult SsoChallenge([FromRoute] string provider, [FromQuery] string? returnUrl)
     {
         var schemeName = provider.ToLowerInvariant() switch
@@ -47,7 +48,7 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     /// This endpoint just authorizes with google, and extracts the email and the name that we need from the claims, and passes it down to HandleSso
     /// </summary>
     [AllowAnonymous]
-    [HttpGet("google/callback")]
+    [HttpGet("sso/google/callback")]
     public async Task<IActionResult> GoogleResponse([FromQuery(Name = "returnUrl")] string? returnUrl, CancellationToken ct = default)
     {
         var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -68,20 +69,36 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
         try
         {
             var (token, user) = await mediator.Send(request, ct);
+            var expirationDuration = TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired());
 
-            var redirectUrl = $"https://{WebAppDomain}/auth/success";
-            if (!string.IsNullOrWhiteSpace(returnUrl))
-                redirectUrl = QueryHelpers.AddQueryString(redirectUrl, "returnUrl", returnUrl);
+            Response.Cookies.Append("authorization", token, new CookieOptions()
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.Add(expirationDuration)
+            });
 
-            var authSuccessUrl = QueryHelpers.AddQueryString(redirectUrl, "token", token);
-            authSuccessUrl = QueryHelpers.AddQueryString(authSuccessUrl, "role", user.Role.ToString());
-
-            return Redirect(authSuccessUrl);
+            var url = user.Role switch
+            {
+                Role.User => "/user_dashboard",
+                Role.Staff => "/staff_dashboard",
+                Role.Admin => "/admin_dashboard",
+                _ => "/",
+            };
+            return Redirect(url);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error authenticating user");
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("logout")]
+    public IActionResult LogOut()
+    {
+        Response.Cookies.Delete("authorization");
+        return Redirect("/");
     }
 }
