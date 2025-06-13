@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using Application.Services;
 using Domain.Aggregates;
+using Domain.Common;
 using Domain.Events;
 using Domain.ValueObjects;
 using EntityFrameworkCore.DataProtection.Extensions;
@@ -97,6 +98,7 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
                 .When(command => !string.IsNullOrWhiteSpace(command.ReceiverEmail) && !string.IsNullOrWhiteSpace(command.SenderEmail));
         });
 
+
         RuleFor(x => x.SenderUsername).NotEmpty().MinimumLength(5).MaximumLength(32)
             .When(command => command.CreateSender);
         RuleFor(x => x.SenderEmail).NotEmpty().EmailAddress()
@@ -108,13 +110,13 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
             .When(command => !string.IsNullOrWhiteSpace(command.SenderId) && command.CreateSender);
 
         RuleFor(command => command.SenderMobileNumber)
-            .Matches(@"^\d{12}$")
-            .WithMessage("Please enter international standard mobile number (e.g., 995599123123)")
+            .Must(x => x!.TryParsePhoneNumber(out _))
+            .WithMessage("{PropertyName} is invalid")
             .When(command => !string.IsNullOrWhiteSpace(command.SenderMobileNumber) && command.CreateSender);
 
         RuleFor(command => command.SenderHomeNumber)
-            .Matches(@"^\d{12}$")
-            .WithMessage("Please enter international standard home number (e.g., 995599123123)")
+            .Must(x => x!.TryParsePhoneNumber(out _))
+            .WithMessage("{PropertyName} is invalid")
             .When(command => !string.IsNullOrWhiteSpace(command.SenderHomeNumber) && command.CreateSender);
 
         RuleFor(x => x.ReceiverUsername).NotEmpty().MinimumLength(5).MaximumLength(32)
@@ -128,13 +130,13 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
             .When(command => !string.IsNullOrWhiteSpace(command.ReceiverId) && command.CreateReceiver);
 
         RuleFor(command => command.ReceiverMobileNumber)
-            .Matches(@"^\d{12}$")
-            .WithMessage("Please enter international standard mobile number (e.g., 995599123123)")
+            .Must(x => x!.TryParsePhoneNumber(out _))
+            .WithMessage("{PropertyName} is invalid")
             .When(command => !string.IsNullOrWhiteSpace(command.ReceiverMobileNumber) && command.CreateReceiver);
 
         RuleFor(command => command.ReceiverHomeNumber)
-            .Matches(@"^\d{12}$")
-            .WithMessage("Please enter international standard home number (e.g., 995599123123)")
+            .Must(x => x!.TryParsePhoneNumber(out _))
+            .WithMessage("{PropertyName} is invalid")
             .When(command => !string.IsNullOrWhiteSpace(command.ReceiverHomeNumber) && command.CreateReceiver);
 
         // Sender
@@ -187,13 +189,17 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
     {
         if (request.CreateSender)
         {
+            string? sanitizedPhone = null;
+            string? sanitizedHome = null;
+            request.SenderMobileNumber?.TryParsePhoneNumber(out sanitizedPhone);
+            request.SenderHomeNumber?.TryParsePhoneNumber(out sanitizedHome);
             var sender = new User(UserId.New())
             {
                 PersonalId = request.SenderId!,
                 Username = request.SenderUsername?.ToLowerInvariant()!,
                 Email = request.SenderEmail?.ToLowerInvariant()!,
-                PhoneNumber = request.SenderMobileNumber?.ToLowerInvariant()!,
-                HomeNumber = request.SenderHomeNumber?.ToLowerInvariant()!,
+                PhoneNumber = sanitizedPhone!.ToLowerInvariant(),
+                HomeNumber = sanitizedHome!.ToLowerInvariant(),
             };
 
             var senderPassword = RandomNumberGenerator.GetHexString(12, true);
@@ -210,13 +216,17 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
 
         if (request.CreateReceiver)
         {
+            string? sanitizedPhone = null;
+            string? sanitizedHome = null;
+            request.ReceiverMobileNumber?.TryParsePhoneNumber(out sanitizedPhone);
+            request.ReceiverHomeNumber?.TryParsePhoneNumber(out sanitizedHome);
             var receiver = new User(UserId.New())
             {
                 PersonalId = request.ReceiverId!,
                 Username = request.ReceiverUsername?.ToLowerInvariant()!,
                 Email = request.ReceiverEmail?.ToLowerInvariant()!,
-                PhoneNumber = request.ReceiverMobileNumber?.ToLowerInvariant()!,
-                HomeNumber = request.ReceiverHomeNumber?.ToLowerInvariant()!,
+                PhoneNumber = sanitizedPhone!.ToLowerInvariant(),
+                HomeNumber = sanitizedHome!.ToLowerInvariant(),
             };
 
             var receiverPassword = RandomNumberGenerator.GetHexString(12, true);
@@ -233,7 +243,7 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
 
         if (request.Sender == null || request.Receiver == null)
         {
-            throw new InvalidOperationException("you must create both sender and receiver or provide them");
+            throw new InvalidOperationException("you must create both sender and receiver or select them");
         }
 
         var package = Package.CreatePersonal(
