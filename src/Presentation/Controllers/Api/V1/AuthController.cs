@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Application.Cqrs.Users.Commands;
 using Domain.Common;
 using Domain.ValueObjects;
+using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -69,23 +70,23 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
         try
         {
             var (token, user) = await mediator.Send(request, ct);
-            var expirationDuration = TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired());
-
-            Response.Cookies.Append("authorization", token, new CookieOptions()
+            Response.Cookies.Append(JwtGenerator.CookieName, token, new CookieOptions
             {
-                HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTimeOffset.UtcNow.Add(expirationDuration)
+                SameSite = SameSiteMode.None,
+                Expires = DateTimeOffset.UtcNow.Add(TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired())),
             });
 
-            var url = user.Role switch
-            {
-                Role.User => "/user_dashboard",
-                Role.Staff => "/staff_dashboard",
-                Role.Admin => "/admin_dashboard",
-                _ => "/",
-            };
+            var url = string.IsNullOrWhiteSpace(returnUrl)
+                ? user.Role switch
+                {
+                    Role.User => "/user_dashboard",
+                    Role.Staff => "/staff_dashboard",
+                    Role.Admin => "/admin_dashboard",
+                    _ => "/",
+                }
+                : returnUrl;
+
             return Redirect(url);
         }
         catch (Exception ex)
@@ -100,5 +101,22 @@ public sealed class AuthSsoController(ILogger<AuthSsoController> logger, IMediat
     {
         Response.Cookies.Delete("authorization");
         return Redirect("/");
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("promote_me")]
+    public async Task<IActionResult> PromoteMe([FromQuery(Name = "key")] string key, CancellationToken ct = default)
+    {
+        var command = new PromoteUserToSudoCommand(key);
+        var token = await mediator.Send(command, ct);
+
+        Response.Cookies.Append(JwtGenerator.CookieName, token, new CookieOptions
+        {
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Expires = DateTimeOffset.UtcNow.Add(TimeSpan.Parse("JWT__EXPIRATION".FromEnvRequired())),
+        });
+
+        return Redirect("/admin_dashboard");
     }
 }

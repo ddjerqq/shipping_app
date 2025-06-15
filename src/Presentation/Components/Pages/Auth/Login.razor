@@ -1,4 +1,5 @@
 @page "/auth/login"
+@using Application.Common
 @using Application.Cqrs.Users.Commands
 @using Domain.Aggregates
 @using Domain.ValueObjects
@@ -9,32 +10,21 @@
 
 <AuthorizeView>
     <Authorized>
-        <Redirect To="/"/>
+        @{
+            var url = context.User.GetRole() switch
+            {
+                Role.User => "/user_dashboard",
+                Role.Staff => "/staff_dashboard",
+                Role.Admin => "/admin_dashboard",
+                _ => "/",
+            };
+        }
+        <Redirect To="@url"/>
     </Authorized>
 </AuthorizeView>
 
 <AppForm @bind-Model="Command" OnValidSubmit="LoginUser">
-    <div class="grid grid-cols-3 gap-4">
-        <Button Href="/api/v1/auth/sso/microsoft/" Variant="outline" disabled>
-            <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"
-                alt="microsoft" class="h-6 w-6"/>
-            <span class="sr-only">Microsoft</span>
-        </Button>
-
-        <Button Href="/api/v1/auth/sso/google/" Variant="outline">
-            <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/24px-Google_%22G%22_logo.svg.png"
-                alt="google" class="h-6 w-6"/>
-            <span class="sr-only">Google</span>
-        </Button>
-
-        <Button Href="/api/v1/auth/sso/github/" Variant="outline" disabled>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                 alt="Github" class="dark:invert h-6 w-6"/>
-            <span class="sr-only">Github</span>
-        </Button>
-    </div>
+    <SsoContainer/>
 
     <div
         class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -44,7 +34,6 @@
     <FormField>
         <div class="flex items-center">
             <FormLabel for="email">@Locale.email</FormLabel>
-
             <Link Href="/auth/resend_email_confirmation" Title="@Locale.resend_email_confirmation" class="ml-auto text-sm"/>
         </div>
 
@@ -61,10 +50,7 @@
 
     <FormField>
         <div class="flex items-center">
-            <FormLabel for="password">
-                @Locale.password
-            </FormLabel>
-
+            <FormLabel for="password">@Locale.password</FormLabel>
             <Link Href="/auth/forgot_password" Title="@Locale.forgot_password" class="ml-auto text-sm"/>
         </div>
 
@@ -82,9 +68,7 @@
     <FormField>
         <div class="flex flex-row items-center gap-2">
             <Switch id="show" @bind-Value="ShowPassword"/>
-            <FormLabel for="show">
-                @Locale.show_password
-            </FormLabel>
+            <FormLabel for="show">@Locale.show_password</FormLabel>
         </div>
     </FormField>
 

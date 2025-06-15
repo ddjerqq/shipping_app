@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Encodings.Web;
 using Domain.Aggregates;
+using Domain.Entities;
 using Domain.ValueObjects;
 
 namespace Application.Common;
@@ -19,6 +20,7 @@ public static class ClaimsPrincipalExt
     public const string RoomCodeClaimType = "room_code";
     public const string TimeZoneClaimType = "time_zone";
     public const string CultureClaimType = "time_zone";
+    public const string SudoClaimType = "sudo";
 
     public static UserId? GetId(this ClaimsPrincipal principal) => UserId.TryParse(
         principal.Claims.FirstOrDefault(c => c.Type == IdClaimType)?.Value, null, out var id)
@@ -47,6 +49,9 @@ public static class ClaimsPrincipalExt
             ? CultureInfo.GetCultureInfo(id)
             : CultureInfo.InvariantCulture;
 
+    public static bool IsSudo(this ClaimsPrincipal principal) =>
+        principal.Claims.Any(c => c is { Type: SudoClaimType, Value: "true" });
+
     public static IEnumerable<Claim> GetAllClaims(this User user) =>
     [
         new(IdClaimType, user.Id.ToString()),
@@ -58,7 +63,20 @@ public static class ClaimsPrincipalExt
         new(SecurityStampClaimType, user.SecurityStamp),
         new(RoomCodeClaimType, user.RoomCode.ToString()),
         new(TimeZoneClaimType, user.TimeZone.Id),
+        ..user.Claims,
     ];
+
+    public static void PromoteToSudo(this User user)
+    {
+        if (user.Claims.Any(c => c.Type == SudoClaimType)) return;
+
+        user.Claims.Add(new UserClaim(UserClaimId.New())
+        {
+            UserId = user.Id,
+            Type = SudoClaimType,
+            Value = "true",
+        });
+    }
 
     public static string GetDefaultAvatar(string? username = null)
     {

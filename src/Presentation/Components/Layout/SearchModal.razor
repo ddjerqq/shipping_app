@@ -85,10 +85,8 @@
     private async Task ValueChanged(ChangeEventArgs e)
     {
         var value = e.Value?.ToString();
-        if (!string.IsNullOrWhiteSpace(value))
-        {
-            Command = new GenericSearchQuery(value);
-            await FetchData();
-        }
+        if (string.IsNullOrWhiteSpace(value)) return;
+        Command = new GenericSearchQuery(value);
+        await FetchData();
     }
 }

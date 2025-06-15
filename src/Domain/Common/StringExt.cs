@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace Domain.Common;
@@ -42,7 +43,7 @@ public static partial class StringExt
                ?? throw new InvalidOperationException($"Environment variable not found: {key}");
     }
 
-    public static bool TryParsePhoneNumber(this string str, out string sanitized)
+    public static bool TryParsePhoneNumber(this string str, [NotNullWhen(true)] out string? sanitized)
     {
         var number = str.Trim();
 

@@ -26,19 +26,6 @@
         </Header>
         <Content>
             <AppForm @bind-Model="User" OnValidSubmit="OnValidSubmit">
-                <InlineFormFieldContainer>
-                    <Button @onclick="LoginAsUser" Variant="outline" disabled="@IsLoading">
-                        <Blazicon Svg="Icons.LogIn"/>
-                        @Locale.login_as_this_user
-                    </Button>
-
-                    <Button @onclick="DeleteUser" type="button" Variant="destructive"
-                            disabled="@IsLoading">
-                        <Blazicon Svg="Icons.Trash"/>
-                        @Locale.delete
-                    </Button>
-                </InlineFormFieldContainer>
-
                 <FormField>
                     <FormLabel for="full-name">@Locale.full_name</FormLabel>
                     <FormInputText id="full-name"
@@ -53,7 +40,8 @@
                     <FormLabel for="personal-id">@Locale.personal_id</FormLabel>
                     <FormInputText id="personal-id"
                                    @bind-Value="@User.PersonalId"
-                                   type="text"/>
+                                   type="text"
+                                   disabled/>
                 </FormField>
 
                 <FormField>
@@ -80,11 +68,26 @@
                                    Options="@(Enum.GetValues<Role>())" disabled />
                 </FormField>
 
-                <Button type="submit" Variant="default"
-                        disabled title="Updating users is disabled for now, because changing their data is not yet supported">
-                    <Blazicon Svg="Icons.Save"/>
-                    @Locale.save_changes
-                </Button>
+                <AuthorizeView Policy="sudo">
+                    <Button @onclick="LoginAsUser" Variant="outline" disabled="@IsLoading">
+                        <Blazicon Svg="Icons.LogIn"/>
+                        @Locale.login_as_this_user
+                    </Button>
+                </AuthorizeView>
+
+                <InlineFormFieldContainer>
+                    <Button @onclick="DeleteUser" type="button" Variant="destructive"
+                            disabled="@IsLoading">
+                        <Blazicon Svg="Icons.Trash"/>
+                        @Locale.delete
+                    </Button>
+
+                    <Button type="submit" Variant="default"
+                            disabled title="Updating users is disabled for now, because changing their data is not yet supported">
+                        <Blazicon Svg="Icons.Save"/>
+                        @Locale.save_changes
+                    </Button>
+                </InlineFormFieldContainer>
             </AppForm>
         </Content>
         <Footer class="text-sm text-muted-foreground">

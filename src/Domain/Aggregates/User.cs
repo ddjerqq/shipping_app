@@ -51,6 +51,7 @@ public sealed class User(UserId id) : AggregateRoot<UserId>(id)
     public string ConcurrencyStamp { get; private set; } = Guid.NewGuid().ToString();
     public DateTime? LockoutEnd { get; set; }
     public int AccessFailedCount { get; set; }
+    public ICollection<UserClaim> Claims { get; init; } = [];
 
     public ICollection<Package> SentPackages { get; init; } = [];
     public ICollection<Package> ReceivedPackages { get; init; } = [];

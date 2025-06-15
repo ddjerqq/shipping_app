@@ -78,10 +78,8 @@ public static class LoggingExt
             options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000}ms";
             options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
             {
-                diagnosticContext.Set("UserId",
-                    httpContext.User.FindFirstValue(ClaimsPrincipalExt.IdClaimType) ?? "unauthenticated");
-                diagnosticContext.Set("ClientAddress",
-                    httpContext.Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
+                diagnosticContext.Set("UserId", httpContext.User.FindFirstValue(ClaimsPrincipalExt.IdClaimType) ?? "unauthenticated");
+                diagnosticContext.Set("ClientAddress", httpContext.Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
                 diagnosticContext.Set("ClientUserAgent", (string?)httpContext.Request.Headers.UserAgent);
                 diagnosticContext.Set("TraceIdentifier", httpContext.TraceIdentifier);
             };

@@ -1,6 +1,7 @@
 #pragma warning disable CS1591
 using System.Security.Claims;
 using Application;
+using Application.Common;
 using Application.Services;
 using Domain.Common;
 using Infrastructure.Services;
@@ -64,9 +65,11 @@ public sealed class ConfigureAuth : ConfigurationBase
                 options.TokenValidationParameters = jwtGenerator.TokenValidationParameters;
             });
 
-        // services.AddAuthorizationBuilder()
-        //     .AddDefaultPolicy("default", policy => policy.RequireAuthenticatedUser())
-        //     .AddPolicy("is_elon", policy => policy.RequireClaim(ClaimsPrincipalExt.UsernameClaimType, "elon"));
+        services.AddAuthorizationBuilder()
+            .AddDefaultPolicy("default", policy => policy.RequireAuthenticatedUser())
+            .AddPolicy("sudo", policy => policy
+                .RequireAuthenticatedUser()
+                .RequireClaim(ClaimsPrincipalExt.SudoClaimType));
     }
     
     private static readonly JwtBearerEvents Events = new()
