@@ -1,4 +1,5 @@
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
@@ -11,6 +12,7 @@ public sealed record DeliverPackageCommand : IRequest
     /// <summary>
     /// The tracking code of the package
     /// </summary>
+    [LogMasked]
     public string TrackingCode { get; set; } = null!;
 }
 

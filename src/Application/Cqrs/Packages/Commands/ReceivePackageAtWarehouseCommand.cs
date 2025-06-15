@@ -1,5 +1,6 @@
 using System.Numerics;
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
@@ -31,17 +32,20 @@ public sealed record ReceivePackageAtWarehouseCommand : IRequest<ReceivePackageA
     /// <summary>
     /// The tracking code of the package
     /// </summary>
+    [LogMasked]
     public string TrackingCode { get; set; } = null!;
 
     /// <summary>
     /// Address2 as present on the package label, i.e. the user room code
     /// </summary>
+    [LogMasked]
     public string? Address2 { get; set; }
 
     /// <summary>
     /// kilo grams
     /// </summary>
     public float WeightKiloGrams { get; set; }
+
 
     /// <summary>
     /// x centimeters
