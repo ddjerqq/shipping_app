@@ -20,6 +20,7 @@ public sealed record CreatePersonalPackageCommand : IRequest<Package>
     public string? SenderMobileNumber { get; set; }
     public string? SenderHomeNumber { get; set; }
     public string? SenderEmail { get; set; }
+
     public User? Receiver { get; set; }
     public bool CreateReceiver { get; set; }
     public string? ReceiverUsername { get; set; }
@@ -27,6 +28,7 @@ public sealed record CreatePersonalPackageCommand : IRequest<Package>
     public string? ReceiverMobileNumber { get; set; }
     public string? ReceiverHomeNumber { get; set; }
     public string? ReceiverEmail { get; set; }
+
     public Money? PricePerKg { get; set; }
 }
 
@@ -97,7 +99,6 @@ public sealed class CreatePersonalPackageValidator : AbstractValidator<CreatePer
                 .WithMessage("Email must be unique")
                 .When(command => !string.IsNullOrWhiteSpace(command.ReceiverEmail) && !string.IsNullOrWhiteSpace(command.SenderEmail));
         });
-
 
         RuleFor(x => x.SenderUsername).NotEmpty().MinimumLength(5).MaximumLength(32)
             .When(command => command.CreateSender);
@@ -189,17 +190,16 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
     {
         if (request.CreateSender)
         {
-            string? sanitizedPhone = null;
-            string? sanitizedHome = null;
-            request.SenderMobileNumber?.TryParsePhoneNumber(out sanitizedPhone);
-            request.SenderHomeNumber?.TryParsePhoneNumber(out sanitizedHome);
+            var sanitizedPhone = request.SenderMobileNumber?.TryParsePhoneNumber(out var x) is true ? x : null;
+            var sanitizedHome = request.SenderHomeNumber?.TryParsePhoneNumber(out var y) is true ? y : null;
+
             var sender = new User(UserId.New())
             {
                 PersonalId = request.SenderId!,
                 Username = request.SenderUsername?.ToLowerInvariant()!,
                 Email = request.SenderEmail?.ToLowerInvariant()!,
-                PhoneNumber = sanitizedPhone!.ToLowerInvariant(),
-                HomeNumber = sanitizedHome!.ToLowerInvariant(),
+                PhoneNumber = sanitizedPhone,
+                HomeNumber = sanitizedHome,
             };
 
             var senderPassword = RandomNumberGenerator.GetHexString(12, true);
@@ -216,17 +216,16 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
 
         if (request.CreateReceiver)
         {
-            string? sanitizedPhone = null;
-            string? sanitizedHome = null;
-            request.ReceiverMobileNumber?.TryParsePhoneNumber(out sanitizedPhone);
-            request.ReceiverHomeNumber?.TryParsePhoneNumber(out sanitizedHome);
+            var sanitizedPhone = request.ReceiverMobileNumber?.TryParsePhoneNumber(out var x) is true ? x : null;
+            var sanitizedHome = request.ReceiverHomeNumber?.TryParsePhoneNumber(out var y) is true ? y : null;
+
             var receiver = new User(UserId.New())
             {
                 PersonalId = request.ReceiverId!,
                 Username = request.ReceiverUsername?.ToLowerInvariant()!,
                 Email = request.ReceiverEmail?.ToLowerInvariant()!,
-                PhoneNumber = sanitizedPhone!.ToLowerInvariant(),
-                HomeNumber = sanitizedHome!.ToLowerInvariant(),
+                PhoneNumber = sanitizedPhone,
+                HomeNumber = sanitizedHome,
             };
 
             var receiverPassword = RandomNumberGenerator.GetHexString(12, true);
@@ -239,11 +238,6 @@ internal sealed class CreatePersonalPackageCommandHandler(IAppDbContext dbContex
             await dbContext.SaveChangesAsync(ct);
 
             request.Receiver = receiver;
-        }
-
-        if (request.Sender == null || request.Receiver == null)
-        {
-            throw new InvalidOperationException("you must create both sender and receiver or select them");
         }
 
         var package = Package.CreatePersonal(

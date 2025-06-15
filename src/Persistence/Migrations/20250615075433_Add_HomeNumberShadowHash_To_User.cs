@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Persistence.db.migrations
+namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class makehomenumberanencryptedqueryable : Migration
+    public partial class Add_HomeNumberShadowHash_To_User : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

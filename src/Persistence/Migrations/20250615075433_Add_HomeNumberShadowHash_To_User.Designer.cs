@@ -9,11 +9,11 @@ using Persistence;
 
 #nullable disable
 
-namespace Persistence.db.migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250611122934_make home number an encrypted queryable")]
-    partial class makehomenumberanencryptedqueryable
+    [Migration("20250615075433_Add_HomeNumberShadowHash_To_User")]
+    partial class Add_HomeNumberShadowHash_To_User
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
