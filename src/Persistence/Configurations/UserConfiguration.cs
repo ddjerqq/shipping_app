@@ -31,7 +31,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(20);
 
         builder.Property(x => x.HomeNumber)
-            .IsEncrypted()
+            .IsEncryptedQueryable(isUnique: true)
             .HasMaxLength(20);
 
         builder.HasIndex(x => x.RoomCode)

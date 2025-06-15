@@ -1,6 +1,8 @@
+using System.Text.RegularExpressions;
+
 namespace Domain.Common;
 
-public static class StringExt
+public static partial class StringExt
 {
     public static string Capitalize(this string str)
     {
@@ -19,8 +21,9 @@ public static class StringExt
 
     public static string CapitalizeName(this string name)
     {
-        return string.IsNullOrEmpty(name) ? string.Empty :
-            string.Join(" ", name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(part => part.Capitalize()));
+        return string.IsNullOrEmpty(name)
+            ? string.Empty
+            : string.Join(" ", name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(part => part.Capitalize()));
     }
 
     public static string? FromEnv(this string key)
@@ -38,4 +41,21 @@ public static class StringExt
         return Environment.GetEnvironmentVariable(key)
                ?? throw new InvalidOperationException($"Environment variable not found: {key}");
     }
+
+    public static bool TryParsePhoneNumber(this string str, out string sanitized)
+    {
+        var number = str.Trim();
+
+        if (PhoneRegex().IsMatch(number))
+        {
+            sanitized = number.Replace(" ", "").Replace("-", "");
+            return true;
+        }
+
+        sanitized = string.Empty;
+        return false;
+    }
+
+    [GeneratedRegex(@"^(?:\+(995|1))?[\d \-]{7,15}$")]
+    private static partial Regex PhoneRegex();
 }
