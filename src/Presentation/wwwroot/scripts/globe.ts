@@ -1,9 +1,10 @@
 import ThreeGlobe from "three-globe";
 import * as THREE from "three";
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as countryData from "./country_data.json";
 import * as flightData from "./flights.json";
 import * as airportData from "./airports.json";
+
 
 export class GlobeContext {
   private readonly _containerElement: HTMLCanvasElement;
@@ -15,8 +16,8 @@ export class GlobeContext {
 
   // getter for client width and height
   get containerDimensions() {
-    const {width, height} = this._containerElement.getBoundingClientRect();
-    return {width, height}
+    const { width, height } = this._containerElement.getBoundingClientRect();
+    return { width, height };
   }
 
   public constructor(containerElement: HTMLCanvasElement) {
@@ -26,7 +27,7 @@ export class GlobeContext {
     this._renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
-      canvas: containerElement
+      canvas: containerElement,
     });
     this._renderer.setPixelRatio(window.devicePixelRatio);
     this._renderer.setSize(this.containerDimensions.width, this.containerDimensions.height);
@@ -88,9 +89,13 @@ export class GlobeContext {
         .atmosphereColor("#80cfb4")
         .atmosphereAltitude(0.25)
         .hexPolygonColor((e: any) => ["USA", "GEO"].includes(e.properties.ISO_A3) ? "rgba(255,255,255, 1)" : "rgba(255,255,255, 0.5)");
+    
+    const initialGlobe = document.getElementById('initial-globe');
 
-    setTimeout(() => {
-      globe.arcsData(flightData.flights)
+    // Hide initialGlobe when globe is loaded
+    globe.onGlobeReady(() => {
+      globe
+          .arcsData(flightData.flights)
           .arcColor(() => "#ac36d3")
           .arcAltitude(0.05)
           .arcStroke(0.3)
@@ -112,7 +117,12 @@ export class GlobeContext {
           .pointsMerge(true)
           .pointAltitude(0.07)
           .pointRadius(0.05);
-    }, 1000);
+
+      // Hide the initialGlobe
+      if (initialGlobe) {
+        initialGlobe.style.display = 'none';
+      }
+    });
 
     globe.rotateY(-Math.PI * (5 / 9));
     globe.rotateZ(-Math.PI / 6);
@@ -170,7 +180,7 @@ export class GlobeContext {
     let col;
     for (let i = 0; i < 500; i += 1) {
       let p = GlobeContext.randomSpherePoint();
-      const {pos, hue} = p;
+      const { pos, hue } = p;
       positions.push(p);
       col = new THREE.Color().setHSL(hue, 0.2, Math.random());
       verts.push(pos.x, pos.y, pos.z);
@@ -194,7 +204,17 @@ export class GlobeContext {
   }
 }
 
-const el = document.querySelector("#globe")
+const el = document.querySelector("#globe");
 const globe = new GlobeContext(el as HTMLCanvasElement);
 globe.start();
 
+(window as any).startGlobe = () => {
+  const el = document.querySelector("#globe") as HTMLCanvasElement;
+  if (!el) {
+    console.error("No canvas element with id 'globe' found.");
+    return;
+  }
+
+  const globe = new GlobeContext(el);
+  globe.start();
+};

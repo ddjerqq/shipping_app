@@ -16,15 +16,25 @@
         </CtaButton>
     </div>
 
-    <div class="flex pointer-events-none justify-center items-center w-full lg:w-1/2">
-        <canvas id="globe" class="w-[400px] h-[400px] lg:w-[500px] lg:h-[500px]"></canvas>
+    <div class="relative flex justify-center w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] items-center w-full lg:w-1/2 pointer-events-none">
+        <img
+            id="initial-globe"
+            src="images/initial-globe.webp"
+            alt="initial-globe"
+            class="absolute w-[257px] h-[257px] lg:w-[320px] lg:h-[320px] rounded-full"
+        />
+        <canvas
+            id="globe"
+            class="absolute w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] pointer-events-auto"
+        ></canvas>
     </div>
 </div>
 
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-            await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
+        await Js.InvokeAsync<IJSObjectReference>("import", "./scripts/globe.min.js");
+        await Js.InvokeVoidAsync("startGlobe");
     }
 }
+
