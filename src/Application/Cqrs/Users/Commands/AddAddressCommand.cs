@@ -1,4 +1,5 @@
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.Aggregates;
 using Domain.ValueObjects;
 using FluentValidation;
@@ -10,10 +11,19 @@ public sealed record AddAddressCommand : IRequest
 {
     public User User { get; set; } = null!;
 
+    [LogMasked]
     public string Country { get; set; } = "GEO";
+
+    [LogMasked]
     public string State { get; set; } = null!;
+
+    [LogMasked]
     public string City { get; set; } = null!;
+
+    [LogMasked]
     public string ZipCode { get; set; } = null!;
+
+    [LogMasked]
     public string Address { get; set; } = null!;
 }
 

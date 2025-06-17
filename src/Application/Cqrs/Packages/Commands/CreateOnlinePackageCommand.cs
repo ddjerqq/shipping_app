@@ -11,7 +11,6 @@ namespace Application.Cqrs.Packages.Commands;
 public sealed record CreateOnlinePackageCommand : IRequest<Package>
 {
     public const long MaxFileSizeBytes = 1_000_000;
-
     public User Owner { get; set; } = null!;
 
     public string TrackingCode { get; set; } = null!;

@@ -1,4 +1,5 @@
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.Aggregates;
 using Domain.Entities;
 using Domain.ValueObjects;
@@ -9,7 +10,10 @@ namespace Application.Cqrs.Races.Commands;
 
 public sealed record AddPackageToRaceCommand : IRequest
 {
+    [LogMasked]
     public string RaceId { get; set; } = null!;
+
+    [LogMasked]
     public string PackageId { get; set; } = null!;
 }
 

@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using Application.Services;
+using Destructurama.Attributed;
 using Domain.Aggregates;
 using Domain.Common;
 using Domain.Events;
@@ -15,18 +16,38 @@ public sealed record CreatePersonalPackageCommand : IRequest<Package>
 {
     public User? Sender { get; set; }
     public bool CreateSender { get; set; }
+
+    [LogMasked]
     public string? SenderUsername { get; set; }
+
+    [LogMasked]
     public string? SenderId { get; set; }
+
+    [LogMasked]
     public string? SenderMobileNumber { get; set; }
+
+    [LogMasked]
     public string? SenderHomeNumber { get; set; }
+
+    [LogMasked]
     public string? SenderEmail { get; set; }
 
     public User? Receiver { get; set; }
     public bool CreateReceiver { get; set; }
+
+    [LogMasked]
     public string? ReceiverUsername { get; set; }
+
+    [LogMasked]
     public string? ReceiverId { get; set; }
+
+    [LogMasked]
     public string? ReceiverMobileNumber { get; set; }
+
+    [LogMasked]
     public string? ReceiverHomeNumber { get; set; }
+
+    [LogMasked]
     public string? ReceiverEmail { get; set; }
 
     public Money? PricePerKg { get; set; }
